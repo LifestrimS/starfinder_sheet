@@ -45,57 +45,51 @@ class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Center(
-                child: Container(
-                    alignment: Alignment.topCenter,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: AssetImage('assets/images/yantul.png'),
-                          fit: BoxFit.cover,
-                          alignment: Alignment.topCenter),
-                      borderRadius: BorderRadius.circular(15.0),
-                      // color: AppColors.accentGreen,
-                    ),
-                    height: 120.0,
-                    width: 350.0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              const Spacer(),
-                              SvgPicture.asset(
-                                'assets/images/icons/3dots.svg',
-                                width: 30.0,
-                                height: 30.0,
-                                colorFilter: const ColorFilter.mode(
-                                    AppColors.textColorBright, BlendMode.srcIn),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          const Text('Янтюл',
-                              style: TextStyle(
-                                color: AppColors.textColorBright,
-                                fontStyle: FontStyle.italic,
-                                fontSize: 30.0,
-                              )),
-                          const Text(
-                            'Бард 15/Маршал 7',
-                            style: TextStyle(
-                              color: AppColors.textColorBright,
-                            ),
-                          )
-                        ],
-                      ),
-                    )),
+          child: Container(
+              alignment: Alignment.topCenter,
+              decoration: BoxDecoration(
+                image: const DecorationImage(
+                    image: AssetImage('assets/images/yantul.png'),
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter),
+                borderRadius: BorderRadius.circular(15.0),
+                // color: AppColors.accentGreen,
               ),
-            ],
-          ),
+              height: 120.0,
+              width: 350.0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Spacer(),
+                        SvgPicture.asset(
+                          'assets/images/icons/3dots.svg',
+                          width: 30.0,
+                          height: 30.0,
+                          colorFilter: const ColorFilter.mode(
+                              AppColors.textColorBright, BlendMode.srcIn),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    const Text('Янтюл',
+                        style: TextStyle(
+                          color: AppColors.textColorBright,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 30.0,
+                        )),
+                    const Text(
+                      'Бард 15/Маршал 7',
+                      style: TextStyle(
+                        color: AppColors.textColorBright,
+                      ),
+                    )
+                  ],
+                ),
+              )),
         ));
   }
 }
