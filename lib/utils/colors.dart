@@ -34,6 +34,10 @@ class AppColors {
   static Color shadowCard = const Color(0xFF182C61).withOpacity(0.12);
   static Color shadowButton = const Color(0xFF324063).withOpacity(0.1);
 
+  ///Text colors
+  static const Color textColorBright = Color.fromARGB(255, 255, 255, 255);
+  static const Color textColorDark = Color.fromARGB(255, 0, 0, 0);
+
   ///Other colors
   static const Color shadowColor = Color(0x47506926);
   static const Color borderColor = Color.fromRGBO(112, 182, 246, 0.12);
