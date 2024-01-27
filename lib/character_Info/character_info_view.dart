@@ -21,10 +21,10 @@ class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
           child: SvgPicture.asset(
             'assets/images/icons/plus.svg',
             colorFilter: const ColorFilter.mode(
-                AppColors.textColorBright, BlendMode.srcIn),
+                AppColors.textColorLight, BlendMode.srcIn),
           ),
         ),
-        backgroundColor: AppColors.neutral00,
+        backgroundColor: AppColors.white,
         appBar: AppBar(
           centerTitle: true,
           actions: [
@@ -34,12 +34,12 @@ class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
               height: 40.0,
               alignment: Alignment.centerRight,
               colorFilter: const ColorFilter.mode(
-                  AppColors.textColorBright, BlendMode.srcIn),
+                  AppColors.textColorLight, BlendMode.srcIn),
             ),
           ],
           title: const Text(
             'CHARACTERS',
-            style: TextStyle(color: AppColors.textColorBright),
+            style: TextStyle(color: AppColors.textColorLight),
           ),
           backgroundColor: AppColors.accentGreen,
         ),
@@ -70,21 +70,21 @@ class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
                           width: 30.0,
                           height: 30.0,
                           colorFilter: const ColorFilter.mode(
-                              AppColors.textColorBright, BlendMode.srcIn),
+                              AppColors.textColorLight, BlendMode.srcIn),
                         ),
                       ],
                     ),
                     const Spacer(),
                     const Text('Янтюл',
                         style: TextStyle(
-                          color: AppColors.textColorBright,
+                          color: AppColors.textColorLight,
                           fontStyle: FontStyle.italic,
                           fontSize: 30.0,
                         )),
                     const Text(
                       'Бард 15/Маршал 7',
                       style: TextStyle(
-                        color: AppColors.textColorBright,
+                        color: AppColors.textColorLight,
                       ),
                     )
                   ],
