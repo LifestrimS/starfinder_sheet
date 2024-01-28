@@ -5,6 +5,7 @@ class AppColors {
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0x00000000);
+  static const Color mainBackground = Color(0xFFFFFFFF);
 
   ///Accent colors
   static const Color accentGreen = Color(0xFF3CA340);
