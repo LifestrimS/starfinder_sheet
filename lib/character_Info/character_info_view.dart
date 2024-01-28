@@ -13,7 +13,7 @@ class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
           decoration: BoxDecoration(
-            color: AppColors.accentGreen,
+            color: AppColors.appBarColor,
             borderRadius: BorderRadius.circular(18.0),
           ),
           width: 70.0,
@@ -28,13 +28,16 @@ class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
         appBar: AppBar(
           centerTitle: true,
           actions: [
-            SvgPicture.asset(
-              'assets/images/icons/gear.svg',
-              width: 40.0,
-              height: 40.0,
-              alignment: Alignment.centerRight,
-              colorFilter: const ColorFilter.mode(
-                  AppColors.textColorLight, BlendMode.srcIn),
+            GestureDetector(
+              onTap: wm.goSettings,
+              child: SvgPicture.asset(
+                'assets/images/icons/gear.svg',
+                width: 40.0,
+                height: 40.0,
+                alignment: Alignment.centerRight,
+                colorFilter: const ColorFilter.mode(
+                    AppColors.textColorLight, BlendMode.srcIn),
+              ),
             ),
           ],
           title: const Text(
