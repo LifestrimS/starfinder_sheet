@@ -49,19 +49,21 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
           ),
           backgroundColor: AppColors.accentGreen,
         ),
-        body: ValueListenableBuilder(
-            valueListenable: wm.characterListNotifire,
+        body: ValueListenableBuilder<int>(
+            valueListenable: wm.characterLenghtNotifire,
             builder: (context, value, child) {
-              if (value != []) {
+              if (value != 0) {
                 return ListView.builder(
-                  itemCount: value.length,
+                  itemCount: wm.characterList.length,
+                  shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(
                           top: 20.0,
                           right: 20.0,
                           left: 20.0,
-                          bottom: index == value.length - 1 ? 100.0 : 0),
+                          bottom:
+                              index == wm.characterList.length - 1 ? 100.0 : 0),
                       child: Container(
                           alignment: Alignment.topCenter,
                           decoration: BoxDecoration(
@@ -93,14 +95,14 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                   ],
                                 ),
                                 const Spacer(),
-                                Text(value[index].name,
+                                Text(wm.characterList[index].name,
                                     style: const TextStyle(
                                       color: AppColors.textColorLight,
                                       fontStyle: FontStyle.italic,
                                       fontSize: 30.0,
                                     )),
                                 Text(
-                                  value[index].chClass,
+                                  wm.characterList[index].chClass,
                                   style: const TextStyle(
                                     color: AppColors.textColorLight,
                                   ),

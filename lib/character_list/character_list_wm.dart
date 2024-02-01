@@ -17,7 +17,7 @@ class CharacterListWM
   final List<Character> characterList = [];
   int j = 0;
 
-  ValueNotifier<List<Character>> characterListNotifire = ValueNotifier([]);
+  ValueNotifier<int> characterLenghtNotifire = ValueNotifier<int>(0);
 
   @override
   void initWidgetModel() {
@@ -29,7 +29,7 @@ class CharacterListWM
     for (int i = 0; i < 3; i++) {
       Character character = Character(name: 'name_$i', chClass: 'chClass_$i');
       characterList.add(character);
-      characterListNotifire.value = characterList;
+      characterLenghtNotifire.value = characterList.length;
     }
   }
 
@@ -39,9 +39,7 @@ class CharacterListWM
         Character(name: 'add_name_$j', chClass: 'add_chClass_$j');
     j++;
     characterList.add(character);
-    characterListNotifire.value = characterList;
-    characterListNotifire.notifyListeners();
-    log('character list ${characterList.length}, notifire ${characterListNotifire.value.length}');
+    characterLenghtNotifire.value = characterList.length;
   }
 
   void goSettings() {
