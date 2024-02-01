@@ -3,20 +3,10 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  ///Primary colors
-  static const Color primary100 = Color(0xFF2C50E6);
-  static const Color primary20 = Color(0xFFDDE3FC);
-  static const Color primary10 = Color(0xFFECEFFA);
-  static const Color primary5 = Color(0xFFF5F7FF);
-
-  ///Neutral colors
-  static const Color neutral100 = Color(0xFF1B1F3B);
-  static const Color neutral80 = Color(0xFF788090);
-  static const Color neutral60 = Color(0xFF9099AB);
-  static const Color neutral40 = Color(0xFFA5ACBD);
-  static const Color neutral20 = Color(0xFFCED0D4);
-  static const Color neutral10 = Color(0xFFE7E8EA);
-  static const Color neutral00 = Color(0xFFFFFFFF);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color black = Color(0x00000000);
+  static const Color mainBackground = Color(0xFFFFFFFF);
+  static const Color appBarColor = Color(0xFF3CA340);
 
   ///Accent colors
   static const Color accentGreen = Color(0xFF3CA340);
@@ -29,13 +19,8 @@ class AppColors {
   static const Color accentPink = Color(0xFFDC34DF);
   static const Color accentLightBlue = Color(0xFFF0F9FF);
 
-  ///Shadow accent colors
-  static Color shadowBar = const Color(0xFF475069).withOpacity(0.15);
-  static Color shadowCard = const Color(0xFF182C61).withOpacity(0.12);
-  static Color shadowButton = const Color(0xFF324063).withOpacity(0.1);
-
   ///Text colors
-  static const Color textColorBright = Color.fromARGB(255, 255, 255, 255);
+  static const Color textColorLight = Color.fromARGB(255, 255, 255, 255);
   static const Color textColorDark = Color.fromARGB(255, 0, 0, 0);
 
   ///Other colors

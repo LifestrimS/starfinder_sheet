@@ -7,7 +7,7 @@ abstract class AppStyles {
       fontSize: 24.0,
       height: 1.16,
       fontWeight: FontWeight.w600,
-      color: AppColors.neutral100,
+      color: AppColors.white,
     );
   }
 }

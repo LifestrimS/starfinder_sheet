@@ -23,11 +23,11 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
             child: SvgPicture.asset(
               'assets/images/icons/plus.svg',
               colorFilter: const ColorFilter.mode(
-                  AppColors.textColorBright, BlendMode.srcIn),
+                  AppColors.textColorLight, BlendMode.srcIn),
             ),
           ),
         ),
-        backgroundColor: AppColors.neutral00,
+        backgroundColor: AppColors.mainBackground,
         appBar: AppBar(
           centerTitle: true,
           actions: [
@@ -37,12 +37,12 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
               height: 40.0,
               alignment: Alignment.centerRight,
               colorFilter: const ColorFilter.mode(
-                  AppColors.textColorBright, BlendMode.srcIn),
+                  AppColors.textColorLight, BlendMode.srcIn),
             ),
           ],
           title: const Text(
             'CHARACTERS',
-            style: TextStyle(color: AppColors.textColorBright),
+            style: TextStyle(color: AppColors.textColorLight),
           ),
           backgroundColor: AppColors.accentGreen,
         ),
@@ -84,7 +84,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                       width: 30.0,
                                       height: 30.0,
                                       colorFilter: const ColorFilter.mode(
-                                          AppColors.textColorBright,
+                                          AppColors.textColorLight,
                                           BlendMode.srcIn),
                                     ),
                                   ],
@@ -92,14 +92,14 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                 const Spacer(),
                                 Text(value[index].name,
                                     style: const TextStyle(
-                                      color: AppColors.textColorBright,
+                                      color: AppColors.textColorLight,
                                       fontStyle: FontStyle.italic,
                                       fontSize: 30.0,
                                     )),
                                 Text(
                                   value[index].chClass,
                                   style: const TextStyle(
-                                    color: AppColors.textColorBright,
+                                    color: AppColors.textColorLight,
                                   ),
                                 )
                               ],
