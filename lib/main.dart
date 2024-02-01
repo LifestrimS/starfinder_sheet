@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pathfinder_sheet/character_Info/character_info_view.dart';
+import 'package:pathfinder_sheet/character_list/character_list_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const CharacterInfoView(),
+      home: const CharacterListView(),
     );
   }
 }
