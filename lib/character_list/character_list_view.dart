@@ -12,9 +12,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: GestureDetector(
-          onTap: () {
-            wm.addCharacter();
-          },
+          onTap: wm.addCharacter,
           child: Container(
             decoration: BoxDecoration(
               color: AppColors.accentGreen,
@@ -48,62 +46,71 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
           ),
           backgroundColor: AppColors.accentGreen,
         ),
-        body: ListView.builder(
-          itemCount: wm.characterList.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.only(
-                  top: 20.0,
-                  right: 20.0,
-                  left: 20.0,
-                  bottom: index == wm.characterList.length - 1 ? 100.0 : 0),
-              child: Container(
-                  alignment: Alignment.topCenter,
-                  decoration: BoxDecoration(
-                    image: const DecorationImage(
-                        image: AssetImage('assets/images/yantul.png'),
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter),
-                    borderRadius: BorderRadius.circular(15.0),
-                    // color: AppColors.accentGreen,
-                  ),
-                  height: 120.0,
-                  width: 350.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            const Spacer(),
-                            SvgPicture.asset(
-                              'assets/images/icons/3dots.svg',
-                              width: 30.0,
-                              height: 30.0,
-                              colorFilter: const ColorFilter.mode(
-                                  AppColors.textColorBright, BlendMode.srcIn),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        Text(wm.characterList[index].name,
-                            style: const TextStyle(
-                              color: AppColors.textColorBright,
-                              fontStyle: FontStyle.italic,
-                              fontSize: 30.0,
-                            )),
-                        Text(
-                          wm.characterList[index].chClass,
-                          style: const TextStyle(
-                            color: AppColors.textColorBright,
+        body: ValueListenableBuilder(
+            valueListenable: wm.characterListNotifire,
+            builder: (context, value, child) {
+              if (value != []) {
+                return ListView.builder(
+                  itemCount: value.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          top: 20.0,
+                          right: 20.0,
+                          left: 20.0,
+                          bottom: index == value.length - 1 ? 100.0 : 0),
+                      child: Container(
+                          alignment: Alignment.topCenter,
+                          decoration: BoxDecoration(
+                            image: const DecorationImage(
+                                image: AssetImage('assets/images/yantul.png'),
+                                fit: BoxFit.cover,
+                                alignment: Alignment.topCenter),
+                            borderRadius: BorderRadius.circular(15.0),
+                            // color: AppColors.accentGreen,
                           ),
-                        )
-                      ],
-                    ),
-                  )),
-            );
-          },
-        ));
+                          height: 120.0,
+                          width: 350.0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Spacer(),
+                                    SvgPicture.asset(
+                                      'assets/images/icons/3dots.svg',
+                                      width: 30.0,
+                                      height: 30.0,
+                                      colorFilter: const ColorFilter.mode(
+                                          AppColors.textColorBright,
+                                          BlendMode.srcIn),
+                                    ),
+                                  ],
+                                ),
+                                const Spacer(),
+                                Text(value[index].name,
+                                    style: const TextStyle(
+                                      color: AppColors.textColorBright,
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 30.0,
+                                    )),
+                                Text(
+                                  value[index].chClass,
+                                  style: const TextStyle(
+                                    color: AppColors.textColorBright,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )),
+                    );
+                  },
+                );
+              } else {
+                return const SizedBox();
+              }
+            }));
   }
 }
