@@ -12,7 +12,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: GestureDetector(
-          onTap: wm.addCharacter,
+          onTap: wm.goCharacterCreation,
           child: Container(
             decoration: BoxDecoration(
               color: AppColors.accentGreen,
@@ -31,13 +31,16 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
         appBar: AppBar(
           centerTitle: true,
           actions: [
-            SvgPicture.asset(
-              'assets/images/icons/gear.svg',
-              width: 40.0,
-              height: 40.0,
-              alignment: Alignment.centerRight,
-              colorFilter: const ColorFilter.mode(
-                  AppColors.textColorLight, BlendMode.srcIn),
+            GestureDetector(
+              onTap: wm.goSettings,
+              child: SvgPicture.asset(
+                'assets/images/icons/gear.svg',
+                width: 40.0,
+                height: 40.0,
+                alignment: Alignment.centerRight,
+                colorFilter: const ColorFilter.mode(
+                    AppColors.textColorLight, BlendMode.srcIn),
+              ),
             ),
           ],
           title: const Text(

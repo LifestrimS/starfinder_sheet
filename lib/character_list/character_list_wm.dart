@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pathfinder_sheet/character_list/character_list_model.dart';
 import 'package:pathfinder_sheet/character_list/character_list_view.dart';
 
@@ -41,5 +42,13 @@ class CharacterListWM
     characterListNotifire.value = characterList;
     characterListNotifire.notifyListeners();
     log('character list ${characterList.length}, notifire ${characterListNotifire.value.length}');
+  }
+
+  void goSettings() {
+    context.goNamed('settings');
+  }
+
+  void goCharacterCreation() {
+    context.goNamed('characterCreation');
   }
 }
