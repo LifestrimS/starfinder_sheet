@@ -1,19 +1,19 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pathfinder_sheet/character_Info/character_info_wm.dart';
+import 'package:pathfinder_sheet/character_list/character_list_wm.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 
-class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
-  const CharacterInfoView({Key? key}) : super(createCharacterInfoWM, key: key);
+class CharacterListView extends ElementaryWidget<CharacterListWM> {
+  const CharacterListView({Key? key}) : super(createCharacterListWM, key: key);
 
   @override
-  Widget build(CharacterInfoWM wm) {
+  Widget build(CharacterListWM wm) {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
           decoration: BoxDecoration(
-            color: AppColors.appBarColor,
+            color: AppColors.accent_2Light,
             borderRadius: BorderRadius.circular(18.0),
           ),
           width: 70.0,
@@ -21,10 +21,10 @@ class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
           child: SvgPicture.asset(
             'assets/images/icons/plus.svg',
             colorFilter: const ColorFilter.mode(
-                AppColors.textColorLight, BlendMode.srcIn),
+                AppColors.secondaryLight, BlendMode.srcIn),
           ),
         ),
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.backgroundLight,
         appBar: AppBar(
           centerTitle: true,
           actions: [
@@ -36,7 +36,7 @@ class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
                 height: 40.0,
                 alignment: Alignment.centerRight,
                 colorFilter: const ColorFilter.mode(
-                    AppColors.textColorLight, BlendMode.srcIn),
+                    AppColors.secondaryLight, BlendMode.srcIn),
               ),
             ),
           ],
@@ -44,7 +44,7 @@ class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
             'CHARACTERS',
             style: TextStyle(color: AppColors.textColorLight),
           ),
-          backgroundColor: AppColors.accentGreen,
+          backgroundColor: AppColors.accent_1Light,
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -73,21 +73,21 @@ class CharacterInfoView extends ElementaryWidget<CharacterInfoWM> {
                           width: 30.0,
                           height: 30.0,
                           colorFilter: const ColorFilter.mode(
-                              AppColors.textColorLight, BlendMode.srcIn),
+                              AppColors.secondaryLight, BlendMode.srcIn),
                         ),
                       ],
                     ),
                     const Spacer(),
                     const Text('Янтюл',
                         style: TextStyle(
-                          color: AppColors.textColorLight,
+                          color: AppColors.secondaryLight,
                           fontStyle: FontStyle.italic,
                           fontSize: 30.0,
                         )),
                     const Text(
                       'Бард 15/Маршал 7',
                       style: TextStyle(
-                        color: AppColors.textColorLight,
+                        color: AppColors.secondaryLight,
                       ),
                     )
                   ],
