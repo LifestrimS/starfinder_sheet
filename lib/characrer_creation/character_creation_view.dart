@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/characrer_creation/character_creation_wm.dart';
@@ -24,6 +26,29 @@ class CharacterCreationView extends ElementaryWidget<CharacterCreationWM> {
                 color: AppColors.white,
               )),
         ),
-        body: const Text('Character Creation'));
+        body: Column(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 40.0,
+                  child: TextField(
+                    onSubmitted: (text) {
+                      log('Спасибо семпай: $text');
+                    },
+                    decoration: const InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      floatingLabelAlignment: FloatingLabelAlignment.start,
+                      border: OutlineInputBorder(),
+                      labelText: 'Имя',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }

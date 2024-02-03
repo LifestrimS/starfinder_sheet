@@ -67,6 +67,14 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                       child: Container(
                           alignment: Alignment.topCenter,
                           decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color.fromARGB(255, 114, 114, 114)
+                                    .withOpacity(0.25),
+                                blurRadius: 4.0,
+                                offset: const Offset(5.0, 5.0),
+                              ),
+                            ],
                             image: const DecorationImage(
                                 image: AssetImage('assets/images/yantul.png'),
                                 fit: BoxFit.cover,
