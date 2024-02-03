@@ -1,29 +1,18 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pathfinder_sheet/database/database.dart';
 import 'package:pathfinder_sheet/characrer_creation/character_creation_view.dart';
 import 'package:pathfinder_sheet/character_list/character_list_view.dart';
+import 'package:pathfinder_sheet/di_container.dart';
 import 'package:pathfinder_sheet/settings/settings_view.dart';
 import 'package:pathfinder_sheet/splash_screen.dart';
 import 'package:pathfinder_sheet/utils/routes.dart';
 
 void main() async {
-  runApp(const MyApp());
+  await DIContainer.init();
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  final database = AppDb();
-
-  await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
-        title: 'todo: finish drift setup',
-        content: 'We can now write queries and define our own tables.',
-      ));
-
-  List<TodoItem> allItems = await database.select(database.todoItems).get();
-
-  log('Items in database: $allItems');
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -34,7 +23,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Pathfinder',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       routerConfig: _router,

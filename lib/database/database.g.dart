@@ -3,12 +3,12 @@
 part of 'database.dart';
 
 // ignore_for_file: type=lint
-class $TodoItemsTable extends TodoItems
-    with TableInfo<$TodoItemsTable, TodoItem> {
+class $TableCharacterTable extends TableCharacter
+    with TableInfo<$TableCharacterTable, TableCharacterData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $TodoItemsTable(this.attachedDatabase, [this._alias]);
+  $TableCharacterTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -18,56 +18,43 @@ class $TodoItemsTable extends TodoItems
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  static const VerificationMeta _chNameMeta = const VerificationMeta('chName');
   @override
-  late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, false,
-      additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 6, maxTextLength: 32),
-      type: DriftSqlType.string,
-      requiredDuringInsert: true);
-  static const VerificationMeta _contentMeta =
-      const VerificationMeta('content');
-  @override
-  late final GeneratedColumn<String> content = GeneratedColumn<String>(
-      'body', aliasedName, false,
+  late final GeneratedColumn<String> chName = GeneratedColumn<String>(
+      'chName', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _categoryMeta =
-      const VerificationMeta('category');
+  static const VerificationMeta _chClassMeta =
+      const VerificationMeta('chClass');
   @override
-  late final GeneratedColumn<int> category = GeneratedColumn<int>(
-      'category', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+  late final GeneratedColumn<String> chClass = GeneratedColumn<String>(
+      'chClass', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, title, content, category];
+  List<GeneratedColumn> get $columns => [id, chName, chClass];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'todo_items';
+  static const String $name = 'table_character';
   @override
-  VerificationContext validateIntegrity(Insertable<TodoItem> instance,
+  VerificationContext validateIntegrity(Insertable<TableCharacterData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('title')) {
-      context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    if (data.containsKey('chName')) {
+      context.handle(_chNameMeta,
+          chName.isAcceptableOrUnknown(data['chName']!, _chNameMeta));
     } else if (isInserting) {
-      context.missing(_titleMeta);
+      context.missing(_chNameMeta);
     }
-    if (data.containsKey('body')) {
-      context.handle(_contentMeta,
-          content.isAcceptableOrUnknown(data['body']!, _contentMeta));
+    if (data.containsKey('chClass')) {
+      context.handle(_chClassMeta,
+          chClass.isAcceptableOrUnknown(data['chClass']!, _chClassMeta));
     } else if (isInserting) {
-      context.missing(_contentMeta);
-    }
-    if (data.containsKey('category')) {
-      context.handle(_categoryMeta,
-          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+      context.missing(_chClassMeta);
     }
     return context;
   }
@@ -75,67 +62,55 @@ class $TodoItemsTable extends TodoItems
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  TodoItem map(Map<String, dynamic> data, {String? tablePrefix}) {
+  TableCharacterData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TodoItem(
+    return TableCharacterData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      title: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      content: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}body'])!,
-      category: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}category']),
+      chName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}chName'])!,
+      chClass: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}chClass'])!,
     );
   }
 
   @override
-  $TodoItemsTable createAlias(String alias) {
-    return $TodoItemsTable(attachedDatabase, alias);
+  $TableCharacterTable createAlias(String alias) {
+    return $TableCharacterTable(attachedDatabase, alias);
   }
 }
 
-class TodoItem extends DataClass implements Insertable<TodoItem> {
+class TableCharacterData extends DataClass
+    implements Insertable<TableCharacterData> {
   final int id;
-  final String title;
-  final String content;
-  final int? category;
-  const TodoItem(
-      {required this.id,
-      required this.title,
-      required this.content,
-      this.category});
+  final String chName;
+  final String chClass;
+  const TableCharacterData(
+      {required this.id, required this.chName, required this.chClass});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['title'] = Variable<String>(title);
-    map['body'] = Variable<String>(content);
-    if (!nullToAbsent || category != null) {
-      map['category'] = Variable<int>(category);
-    }
+    map['chName'] = Variable<String>(chName);
+    map['chClass'] = Variable<String>(chClass);
     return map;
   }
 
-  TodoItemsCompanion toCompanion(bool nullToAbsent) {
-    return TodoItemsCompanion(
+  TableCharacterCompanion toCompanion(bool nullToAbsent) {
+    return TableCharacterCompanion(
       id: Value(id),
-      title: Value(title),
-      content: Value(content),
-      category: category == null && nullToAbsent
-          ? const Value.absent()
-          : Value(category),
+      chName: Value(chName),
+      chClass: Value(chClass),
     );
   }
 
-  factory TodoItem.fromJson(Map<String, dynamic> json,
+  factory TableCharacterData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TodoItem(
+    return TableCharacterData(
       id: serializer.fromJson<int>(json['id']),
-      title: serializer.fromJson<String>(json['title']),
-      content: serializer.fromJson<String>(json['content']),
-      category: serializer.fromJson<int?>(json['category']),
+      chName: serializer.fromJson<String>(json['chName']),
+      chClass: serializer.fromJson<String>(json['chClass']),
     );
   }
   @override
@@ -143,88 +118,71 @@ class TodoItem extends DataClass implements Insertable<TodoItem> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'title': serializer.toJson<String>(title),
-      'content': serializer.toJson<String>(content),
-      'category': serializer.toJson<int?>(category),
+      'chName': serializer.toJson<String>(chName),
+      'chClass': serializer.toJson<String>(chClass),
     };
   }
 
-  TodoItem copyWith(
-          {int? id,
-          String? title,
-          String? content,
-          Value<int?> category = const Value.absent()}) =>
-      TodoItem(
+  TableCharacterData copyWith({int? id, String? chName, String? chClass}) =>
+      TableCharacterData(
         id: id ?? this.id,
-        title: title ?? this.title,
-        content: content ?? this.content,
-        category: category.present ? category.value : this.category,
+        chName: chName ?? this.chName,
+        chClass: chClass ?? this.chClass,
       );
   @override
   String toString() {
-    return (StringBuffer('TodoItem(')
+    return (StringBuffer('TableCharacterData(')
           ..write('id: $id, ')
-          ..write('title: $title, ')
-          ..write('content: $content, ')
-          ..write('category: $category')
+          ..write('chName: $chName, ')
+          ..write('chClass: $chClass')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, title, content, category);
+  int get hashCode => Object.hash(id, chName, chClass);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is TodoItem &&
+      (other is TableCharacterData &&
           other.id == this.id &&
-          other.title == this.title &&
-          other.content == this.content &&
-          other.category == this.category);
+          other.chName == this.chName &&
+          other.chClass == this.chClass);
 }
 
-class TodoItemsCompanion extends UpdateCompanion<TodoItem> {
+class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   final Value<int> id;
-  final Value<String> title;
-  final Value<String> content;
-  final Value<int?> category;
-  const TodoItemsCompanion({
+  final Value<String> chName;
+  final Value<String> chClass;
+  const TableCharacterCompanion({
     this.id = const Value.absent(),
-    this.title = const Value.absent(),
-    this.content = const Value.absent(),
-    this.category = const Value.absent(),
+    this.chName = const Value.absent(),
+    this.chClass = const Value.absent(),
   });
-  TodoItemsCompanion.insert({
+  TableCharacterCompanion.insert({
     this.id = const Value.absent(),
-    required String title,
-    required String content,
-    this.category = const Value.absent(),
-  })  : title = Value(title),
-        content = Value(content);
-  static Insertable<TodoItem> custom({
+    required String chName,
+    required String chClass,
+  })  : chName = Value(chName),
+        chClass = Value(chClass);
+  static Insertable<TableCharacterData> custom({
     Expression<int>? id,
-    Expression<String>? title,
-    Expression<String>? content,
-    Expression<int>? category,
+    Expression<String>? chName,
+    Expression<String>? chClass,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (title != null) 'title': title,
-      if (content != null) 'body': content,
-      if (category != null) 'category': category,
+      if (chName != null) 'chName': chName,
+      if (chClass != null) 'chClass': chClass,
     });
   }
 
-  TodoItemsCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? title,
-      Value<String>? content,
-      Value<int?>? category}) {
-    return TodoItemsCompanion(
+  TableCharacterCompanion copyWith(
+      {Value<int>? id, Value<String>? chName, Value<String>? chClass}) {
+    return TableCharacterCompanion(
       id: id ?? this.id,
-      title: title ?? this.title,
-      content: content ?? this.content,
-      category: category ?? this.category,
+      chName: chName ?? this.chName,
+      chClass: chClass ?? this.chClass,
     );
   }
 
@@ -234,25 +192,21 @@ class TodoItemsCompanion extends UpdateCompanion<TodoItem> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (title.present) {
-      map['title'] = Variable<String>(title.value);
+    if (chName.present) {
+      map['chName'] = Variable<String>(chName.value);
     }
-    if (content.present) {
-      map['body'] = Variable<String>(content.value);
-    }
-    if (category.present) {
-      map['category'] = Variable<int>(category.value);
+    if (chClass.present) {
+      map['chClass'] = Variable<String>(chClass.value);
     }
     return map;
   }
 
   @override
   String toString() {
-    return (StringBuffer('TodoItemsCompanion(')
+    return (StringBuffer('TableCharacterCompanion(')
           ..write('id: $id, ')
-          ..write('title: $title, ')
-          ..write('content: $content, ')
-          ..write('category: $category')
+          ..write('chName: $chName, ')
+          ..write('chClass: $chClass')
           ..write(')'))
         .toString();
   }
@@ -260,10 +214,10 @@ class TodoItemsCompanion extends UpdateCompanion<TodoItem> {
 
 abstract class _$AppDb extends GeneratedDatabase {
   _$AppDb(QueryExecutor e) : super(e);
-  late final $TodoItemsTable todoItems = $TodoItemsTable(this);
+  late final $TableCharacterTable tableCharacter = $TableCharacterTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [todoItems];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [tableCharacter];
 }

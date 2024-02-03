@@ -10,12 +10,29 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [TodoItems])
+@DriftDatabase(tables: [TableCharacter])
 class AppDb extends _$AppDb {
   AppDb() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
+
+  Future<List<TableCharacterData>> get getAllCharacters =>
+      select(tableCharacter).get();
+
+  Future<List<TableCharacterData>> getCharacterById(int id) =>
+      (select(tableCharacter)..where((a) => a.id.equals(id))).get();
+
+  Future<int> addCharacter(TableCharacterCompanion item) =>
+      into(tableCharacter).insert(item, mode: InsertMode.replace);
+
+  Future<void> updateCharacter(TableCharacterData item) =>
+      (update(tableCharacter)..where((t) => t.id.equals(item.id))).write(item);
+
+  Future deleteCharacterById(int id) =>
+      (delete(tableCharacter)..where((t) => t.id.equals(id))).go();
+
+  Future deleteAllCharacters() => (delete(tableCharacter)).go();
 }
 
 LazyDatabase _openConnection() {
@@ -42,9 +59,8 @@ LazyDatabase _openConnection() {
   });
 }
 
-class TodoItems extends Table {
+class TableCharacter extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get title => text().withLength(min: 6, max: 32)();
-  TextColumn get content => text().named('body')();
-  IntColumn get category => integer().nullable()();
+  TextColumn get chName => text().named('chName')();
+  TextColumn get chClass => text().named('chClass')();
 }
