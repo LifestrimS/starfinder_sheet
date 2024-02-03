@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pathfinder_sheet/characrer_creation/character_creation_view.dart';
 import 'package:pathfinder_sheet/character_list/character_list_view.dart';
 import 'package:pathfinder_sheet/settings/settings_view.dart';
+import 'package:pathfinder_sheet/splash_screen.dart';
 import 'package:pathfinder_sheet/utils/routes.dart';
 
 void main() {
@@ -20,7 +21,6 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      //home: const CharacterListView(),
       routerConfig: _router,
     );
   }
@@ -29,8 +29,13 @@ class MyApp extends StatelessWidget {
 final _router = GoRouter(
   routes: [
     GoRoute(
-      name: Routes.characterList,
+      name: Routes.splashscreen,
       path: '/',
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      name: Routes.characterList,
+      path: '/characterList',
       builder: (context, state) => const CharacterListView(),
     ),
     GoRoute(
