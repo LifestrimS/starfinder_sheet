@@ -37,16 +37,16 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 getRandomText(),
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                    color: AppColors.textDarkLight, fontSize: 56.0),
+                style:
+                    const TextStyle(color: AppColors.textLight, fontSize: 56.0),
               ),
             ),
             const Spacer(),
             SvgPicture.asset(
               'assets/images/icons/dice_vector.svg',
               width: screenWidth, //left + right paddings
-              colorFilter: const ColorFilter.mode(
-                  AppColors.textLightLight, BlendMode.srcIn),
+              colorFilter:
+                  const ColorFilter.mode(AppColors.textLight, BlendMode.srcIn),
             )
           ],
         ),

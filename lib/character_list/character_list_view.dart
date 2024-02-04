@@ -46,7 +46,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                     height: 32.0,
                     alignment: Alignment.centerRight,
                     colorFilter: const ColorFilter.mode(
-                        AppColors.textLightLight, BlendMode.srcIn),
+                        AppColors.textLight, BlendMode.srcIn),
                   ),
                 ),
               ),
@@ -56,7 +56,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
               child: Text(
                 'CHARACTERS',
                 style: TextStyle(
-                    color: AppColors.textLightLight,
+                    color: AppColors.textLight,
                     fontSize: 32.0,
                     fontWeight: FontWeight.w500),
               ),
@@ -108,8 +108,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                       width: 32.0,
                                       height: 32.0,
                                       colorFilter: const ColorFilter.mode(
-                                          AppColors.textLightLight,
-                                          BlendMode.srcIn),
+                                          AppColors.textLight, BlendMode.srcIn),
                                     ),
                                   ],
                                 ),
@@ -117,7 +116,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                 Text(wm.characterList[index].name,
                                     style: TextStyle(
                                       shadows: [AppColors.textShadowLight],
-                                      color: AppColors.textLightLight,
+                                      color: AppColors.textLight,
                                       fontStyle: FontStyle.italic,
                                       fontSize: 32.0,
                                     )),
@@ -125,7 +124,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                   wm.characterList[index].chClass,
                                   style: TextStyle(
                                     shadows: [AppColors.textShadowLight],
-                                    color: AppColors.textLightLight,
+                                    color: AppColors.textLight,
                                     fontSize: 16.0,
                                   ),
                                 )
