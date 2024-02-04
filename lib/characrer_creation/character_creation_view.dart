@@ -18,7 +18,7 @@ class CharacterCreationView extends ElementaryWidget<CharacterCreationWM> {
             'CHARACTER CREATION',
             style: TextStyle(color: AppColors.white),
           ),
-          backgroundColor: AppColors.appBarColor,
+          backgroundColor: AppColors.accent1Light,
           leading: IconButton(
               onPressed: wm.goBack,
               icon: const Icon(
