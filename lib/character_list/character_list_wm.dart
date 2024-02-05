@@ -27,7 +27,8 @@ class CharacterListWM
 
   void generateCharacterList() {
     for (int i = 0; i < 3; i++) {
-      Character character = Character(name: 'name_$i', chClass: 'chClass_$i');
+      Character character =
+          Character(id: 0, name: 'name_$i', chClass: 'chClass_$i');
       characterList.add(character);
       characterLenghtNotifire.value = characterList.length;
     }
@@ -36,7 +37,7 @@ class CharacterListWM
   void addCharacter() {
     log('add_character');
     Character character =
-        Character(name: 'add_name_$j', chClass: 'add_chClass_$j');
+        Character(id: 0, name: 'add_name_$j', chClass: 'add_chClass_$j');
     j++;
     characterList.add(character);
     characterLenghtNotifire.value = characterList.length;
