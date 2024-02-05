@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pathfinder_sheet/character_list/character_list_wm.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
+import 'package:pathfinder_sheet/utils/theme.dart';
 
 class CharacterListView extends ElementaryWidget<CharacterListWM> {
   const CharacterListView({Key? key}) : super(createCharacterListWM, key: key);
 
   @override
   Widget build(CharacterListWM wm) {
+    AppTheme theme = wm.theme;
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: GestureDetector(
@@ -16,7 +18,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
           onTap: wm.addCharacter,
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.accent2Light,
+              color: theme.getAccent2Color(),
               borderRadius: BorderRadius.circular(18.0),
             ),
             width: 60.0,
@@ -25,13 +27,13 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
               padding: const EdgeInsets.all(10.0),
               child: SvgPicture.asset(
                 'assets/images/icons/add_character.svg',
-                colorFilter: const ColorFilter.mode(
-                    AppColors.backgroundLight, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(
+                    theme.getBackgroundColor(), BlendMode.srcIn),
               ),
             ),
           ),
         ),
-        backgroundColor: AppColors.backgroundLight,
+        backgroundColor: theme.getBackgroundColor(),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70.0),
           child: AppBar(
@@ -45,23 +47,23 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                     width: 32.0,
                     height: 32.0,
                     alignment: Alignment.centerRight,
-                    colorFilter: const ColorFilter.mode(
-                        AppColors.textLight, BlendMode.srcIn),
+                    colorFilter:
+                        ColorFilter.mode(theme.getTextColor(), BlendMode.srcIn),
                   ),
                 ),
               ),
             ],
-            title: const Padding(
-              padding: EdgeInsets.only(left: 8.0),
+            title: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
               child: Text(
                 'CHARACTERS',
                 style: TextStyle(
-                    color: AppColors.textLight,
+                    color: theme.getTextColor(),
                     fontSize: 32.0,
                     fontWeight: FontWeight.w500),
               ),
             ),
-            backgroundColor: AppColors.accent1Light,
+            backgroundColor: theme.getAccent1Color(),
           ),
         ),
         body: ValueListenableBuilder<int>(
@@ -91,7 +93,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                             //     fit: BoxFit.cover,
                             //     alignment: Alignment.topCenter),
                             borderRadius: BorderRadius.circular(15.0),
-                            color: AppColors.accent2Light,
+                            color: theme.getAccent2Color(),
                             // color: AppColors.accentGreen,
                           ),
                           height: 120.0,
@@ -107,8 +109,9 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                       'assets/images/icons/threedots2.svg',
                                       width: 32.0,
                                       height: 32.0,
-                                      colorFilter: const ColorFilter.mode(
-                                          AppColors.textLight, BlendMode.srcIn),
+                                      colorFilter: ColorFilter.mode(
+                                          theme.getTextColor(),
+                                          BlendMode.srcIn),
                                     ),
                                   ],
                                 ),
@@ -116,7 +119,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                 Text(wm.characterList[index].name,
                                     style: TextStyle(
                                       shadows: [AppColors.textShadowLight],
-                                      color: AppColors.textLight,
+                                      color: theme.getTextColor(),
                                       fontStyle: FontStyle.italic,
                                       fontSize: 32.0,
                                     )),
@@ -124,7 +127,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                   wm.characterList[index].chClass,
                                   style: TextStyle(
                                     shadows: [AppColors.textShadowLight],
-                                    color: AppColors.textLight,
+                                    color: theme.getTextColor(),
                                     fontSize: 16.0,
                                   ),
                                 )

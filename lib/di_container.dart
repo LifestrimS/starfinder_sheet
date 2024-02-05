@@ -1,13 +1,17 @@
 import 'package:get_it/get_it.dart';
 import 'package:pathfinder_sheet/database/database.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
+import 'package:pathfinder_sheet/utils/theme.dart';
 
 class DIContainer {
   static Future<void> init() async {
     final db = AppDb();
+    final theme = AppTheme();
 
     registerNew<AppDb>(db);
     registerNew<Repository>(Repository(GetIt.I.get()));
+    registerNew<AppTheme>(theme);
+    //await theme.initTheme();
   }
 }
 
