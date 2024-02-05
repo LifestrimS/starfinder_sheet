@@ -12,42 +12,57 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: GestureDetector(
-          onTap: wm.goCharacterCreation,
+          // onTap: wm.goCharacterCreation,
+          onTap: wm.addCharacter,
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.accentGreen,
+              color: AppColors.accent2Light,
               borderRadius: BorderRadius.circular(18.0),
             ),
-            width: 70.0,
-            height: 70.0,
-            child: SvgPicture.asset(
-              'assets/images/icons/plus.svg',
-              colorFilter: const ColorFilter.mode(
-                  AppColors.textColorLight, BlendMode.srcIn),
+            width: 60.0,
+            height: 60.0,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SvgPicture.asset(
+                'assets/images/icons/add_character.svg',
+                colorFilter: const ColorFilter.mode(
+                    AppColors.backgroundLight, BlendMode.srcIn),
+              ),
             ),
           ),
         ),
-        backgroundColor: AppColors.mainBackground,
-        appBar: AppBar(
-          centerTitle: true,
-          actions: [
-            GestureDetector(
-              onTap: wm.goSettings,
-              child: SvgPicture.asset(
-                'assets/images/icons/gear.svg',
-                width: 40.0,
-                height: 40.0,
-                alignment: Alignment.centerRight,
-                colorFilter: const ColorFilter.mode(
-                    AppColors.textColorLight, BlendMode.srcIn),
+        backgroundColor: AppColors.backgroundLight,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(70.0),
+          child: AppBar(
+            actions: [
+              GestureDetector(
+                onTap: wm.goSettings,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: SvgPicture.asset(
+                    'assets/images/icons/settings.svg',
+                    width: 32.0,
+                    height: 32.0,
+                    alignment: Alignment.centerRight,
+                    colorFilter: const ColorFilter.mode(
+                        AppColors.textLight, BlendMode.srcIn),
+                  ),
+                ),
+              ),
+            ],
+            title: const Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Text(
+                'CHARACTERS',
+                style: TextStyle(
+                    color: AppColors.textLight,
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w500),
               ),
             ),
-          ],
-          title: const Text(
-            'CHARACTERS',
-            style: TextStyle(color: AppColors.textColorLight),
+            backgroundColor: AppColors.accent1Light,
           ),
-          backgroundColor: AppColors.accentGreen,
         ),
         body: ValueListenableBuilder<int>(
             valueListenable: wm.characterLenghtNotifire,
@@ -68,22 +83,18 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                           alignment: Alignment.topCenter,
                           decoration: BoxDecoration(
                             boxShadow: [
-                              BoxShadow(
-                                color: const Color.fromARGB(255, 114, 114, 114)
-                                    .withOpacity(0.25),
-                                blurRadius: 4.0,
-                                offset: const Offset(5.0, 5.0),
-                              ),
+                              AppColors.containerShadow,
                             ],
-                            image: const DecorationImage(
-                                image: AssetImage('assets/images/yantul.png'),
-                                fit: BoxFit.cover,
-                                alignment: Alignment.topCenter),
+                            // image: const DecorationImage(
+                            //     image:
+                            //         AssetImage('assets/images/card_img_1.png'),
+                            //     fit: BoxFit.cover,
+                            //     alignment: Alignment.topCenter),
                             borderRadius: BorderRadius.circular(15.0),
+                            color: AppColors.accent2Light,
                             // color: AppColors.accentGreen,
                           ),
                           height: 120.0,
-                          width: 350.0,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -93,26 +104,28 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                   children: [
                                     const Spacer(),
                                     SvgPicture.asset(
-                                      'assets/images/icons/3dots.svg',
-                                      width: 30.0,
-                                      height: 30.0,
+                                      'assets/images/icons/threedots2.svg',
+                                      width: 32.0,
+                                      height: 32.0,
                                       colorFilter: const ColorFilter.mode(
-                                          AppColors.textColorLight,
-                                          BlendMode.srcIn),
+                                          AppColors.textLight, BlendMode.srcIn),
                                     ),
                                   ],
                                 ),
                                 const Spacer(),
                                 Text(wm.characterList[index].name,
-                                    style: const TextStyle(
-                                      color: AppColors.textColorLight,
+                                    style: TextStyle(
+                                      shadows: [AppColors.textShadowLight],
+                                      color: AppColors.textLight,
                                       fontStyle: FontStyle.italic,
-                                      fontSize: 30.0,
+                                      fontSize: 32.0,
                                     )),
                                 Text(
                                   wm.characterList[index].chClass,
-                                  style: const TextStyle(
-                                    color: AppColors.textColorLight,
+                                  style: TextStyle(
+                                    shadows: [AppColors.textShadowLight],
+                                    color: AppColors.textLight,
+                                    fontSize: 16.0,
                                   ),
                                 )
                               ],

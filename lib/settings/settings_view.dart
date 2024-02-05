@@ -13,14 +13,14 @@ class SettingsView extends ElementaryWidget<SettingsWM> {
           centerTitle: true,
           title: const Text(
             'SETTINGS',
-            style: TextStyle(color: AppColors.white),
+            style: TextStyle(color: AppColors.textLight),
           ),
-          backgroundColor: AppColors.appBarColor,
+          backgroundColor: AppColors.accent1Light,
           leading: IconButton(
               onPressed: wm.goBack,
               icon: const Icon(
                 Icons.arrow_back,
-                color: AppColors.white,
+                color: AppColors.textLight,
               )),
         ),
         body: const Text('Settings'));
