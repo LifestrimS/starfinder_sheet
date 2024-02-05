@@ -20,6 +20,8 @@ dependencies:
   path_provider: ^2.1.2
   path: ^1.8.3
   get_it: ^7.6.7
+  shared_preferences: ^2.2.2
+  provider: ^6.1.1
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +29,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   drift_dev: ^2.13.2
   build_runner: ^2.4.8
+  
 
 flutter:
   uses-material-design: true

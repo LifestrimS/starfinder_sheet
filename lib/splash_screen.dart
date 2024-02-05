@@ -3,9 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/routes.dart';
 import 'package:pathfinder_sheet/utils/splash_text.dart';
+import 'package:pathfinder_sheet/utils/theme.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,9 +25,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppTheme theme = context.watch<AppTheme>();
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: theme.getBackgroundColor(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -37,16 +39,16 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 getRandomText(),
                 textAlign: TextAlign.center,
-                style:
-                    const TextStyle(color: AppColors.textLight, fontSize: 56.0),
+                style: TextStyle(
+                    color: theme.getTextContrastColor(), fontSize: 56.0),
               ),
             ),
             const Spacer(),
             SvgPicture.asset(
               'assets/images/icons/dice_vector.svg',
               width: screenWidth, //left + right paddings
-              colorFilter:
-                  const ColorFilter.mode(AppColors.textLight, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                  theme.getTextContrastColor(), BlendMode.srcIn),
             )
           ],
         ),
