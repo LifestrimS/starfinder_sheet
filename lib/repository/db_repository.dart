@@ -1,5 +1,5 @@
-import 'package:pathfinder_sheet/character_list/character_list_model.dart';
 import 'package:pathfinder_sheet/database/database.dart';
+import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/repository/mapper.dart';
 
 class Repository {

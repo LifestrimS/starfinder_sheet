@@ -124,7 +124,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                       fontSize: 32.0,
                                     )),
                                 Text(
-                                  wm.characterList[index].chClass,
+                                  wm.characterList[index].chClass.name,
                                   style: TextStyle(
                                     shadows: [AppColors.textShadowLight],
                                     color: theme.getTextColor(),
