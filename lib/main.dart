@@ -41,6 +41,52 @@ class _MyAppState extends State<MyApp> {
             title: 'Pathfinder',
             theme: ThemeData(
               useMaterial3: true,
+              textTheme: ThemeData.light().textTheme.copyWith(
+                  bodyMedium: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  bodySmall: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  bodyLarge: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  displayLarge: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  displayMedium: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  displaySmall: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  titleLarge: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  titleMedium: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  titleSmall: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  labelLarge: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  labelMedium: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  labelSmall: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  headlineLarge: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  headlineMedium: const TextStyle(
+                    fontFamily: "Overpass",
+                  ),
+                  headlineSmall: const TextStyle(
+                    fontFamily: "Overpass",
+                  )),
             ),
             routerConfig: _router,
           );
