@@ -24,7 +24,7 @@ class Button extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: width,
+        //width: width,
         height: height,
         decoration: BoxDecoration(
             color: theme.getAccent2Color(),
@@ -85,36 +85,44 @@ class _ColorButtonState extends State<ColorButton> {
       },
       child: Row(
         children: [
-          Container(
-            width: widget.colorWidth,
-            height: widget.height,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8.0),
-                  bottomLeft: Radius.circular(8.0)),
-              border: Border.all(color: widget.theme.getTextContrastColor()),
-              color: selectedColor,
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 3.0),
+              child: Container(
+                //width: widget.colorWidth,
+                height: widget.height,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8.0),
+                      bottomLeft: Radius.circular(8.0)),
+                  border:
+                      Border.all(color: widget.theme.getTextContrastColor()),
+                  color: selectedColor,
+                ),
+              ),
             ),
           ),
-          const SizedBox(
-            width: 3.0,
-          ),
-          Container(
-            width: widget.textBWidth,
-            height: widget.height,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(8.0),
-                  bottomRight: Radius.circular(8.0)),
-              border: Border.all(color: widget.theme.getTextContrastColor()),
-              color: widget.theme.getAccent2Color(),
-            ),
-            child: Center(
-              child: Text(
-                widget.title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: widget.theme.getTextContrastColor(), fontSize: 15.0),
+          Expanded(
+            flex: 2,
+            child: Container(
+              //width: widget.textBWidth,
+              height: widget.height,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(8.0),
+                    bottomRight: Radius.circular(8.0)),
+                border: Border.all(color: widget.theme.getTextContrastColor()),
+                color: widget.theme.getAccent2Color(),
+              ),
+              child: Center(
+                child: Text(
+                  widget.title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: widget.theme.getTextContrastColor(),
+                      fontSize: 15.0),
+                ),
               ),
             ),
           )

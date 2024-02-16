@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +68,17 @@ class CharacterCreationWM
     } catch (e) {
       log('Smth going wrong with picking image: $e');
     }
+  }
+
+  double getColumnWidth() {
+    ui.FlutterView view =
+        WidgetsBinding.instance.platformDispatcher.views.first;
+// Dimensions in logical pixels (dp)
+    ui.Size size = view.physicalSize / view.devicePixelRatio;
+    double width = size.width;
+    final quartScreen = (width - 40) / 4;
+
+    return (width - 40 - quartScreen) / 2;
   }
 
   void deleteImage() {
