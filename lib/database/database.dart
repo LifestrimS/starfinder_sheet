@@ -62,5 +62,19 @@ LazyDatabase _openConnection() {
 class TableCharacter extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get chName => text().named('chName')();
-  TextColumn get chClass => text().named('chClass')();
+  IntColumn get chClass => integer().named('chClass')();
+  IntColumn get lvl => integer().named('lvl')();
+  TextColumn get imageColor => text().named('imageColor')();
+  TextColumn get imagePath => text().named('imagePath')();
+  TextColumn get textColor => text().named('textColor')();
+  IntColumn get alignment => integer().named('')();
+  TextColumn get deiterity => text().named('deiterity')();
+  IntColumn get race => integer().named('race')();
+  IntColumn get age => integer().named('age')();
+  IntColumn get gender => integer().named('gender')();
+  IntColumn get size => integer().named('size')();
+  RealColumn get weight => real().named('weight')();
+  RealColumn get height => real().named('height')();
+  TextColumn get hairColor => text().named('hairColor')();
+  TextColumn get eyeColor => text().named('eyeColor')();
 }

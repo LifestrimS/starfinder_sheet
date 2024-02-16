@@ -1,24 +1,25 @@
-import 'dart:developer';
-
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pathfinder_sheet/character_list/character_list_model.dart';
-import 'package:pathfinder_sheet/repository/db_repository.dart';
 import 'package:pathfinder_sheet/settings/settings_model.dart';
 import 'package:pathfinder_sheet/settings/settings_view.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/theme.dart';
 import 'package:provider/provider.dart';
 
-SettingsWM createSettingsWM(BuildContext _) =>
-    SettingsWM(SettingsModel(), GetIt.I.get(), GetIt.I.get());
+SettingsWM createSettingsWM(BuildContext _) => SettingsWM(
+    SettingsModel(),
+    //GetIt.I.get(),
+    GetIt.I.get());
 
 class SettingsWM extends WidgetModel<SettingsView, SettingsModel> {
-  SettingsWM(super.model, this._repository, this._theme);
+  SettingsWM(
+      super.model,
+      //this._repository,
+      this._theme);
 
-  final Repository _repository;
+  //final Repository _repository;
   final AppTheme _theme;
 
   ValueNotifier<AppThemeEnum> selectedTheme =
@@ -61,34 +62,34 @@ class SettingsWM extends WidgetModel<SettingsView, SettingsModel> {
   }
 
 //Временные примеры функций для БД
-  void addCharacter() async {
-    for (int i = 0; i < 4; i++) {
-      final id = await _repository
-          .addCharacter(Character(id: 0, name: 'name_$i', chClass: 'chClass'));
-      log('Insert id: $id');
-    }
-  }
+  // void addCharacter() async {
+  //   for (int i = 0; i < 4; i++) {
+  //     final id =
+  //         await _repository.addCharacter(Character.empty().copyWith(lvl: i));
+  //     log('Insert id: $id');
+  //   }
+  // }
 
-  void getCharacterById() async {
-    Character character = await _repository.getCharacterById(0);
-    log('getCharacterById ${character.toString()}');
-  }
+  // void getCharacterById() async {
+  //   Character character = await _repository.getCharacterById(0);
+  //   log('getCharacterById ${character.toString()}');
+  // }
 
-  void getAllCharacters() async {
-    List<Character> characters = await _repository.getAllCharacter();
-    log('All characters: ${characters.toString()}');
-  }
+  // void getAllCharacters() async {
+  //   List<Character> characters = await _repository.getAllCharacter();
+  //   log('Length: ${characters.length}\nAll characters: ${characters.toString()}');
+  // }
 
-  void updateCharacter() async {
-    _repository.updateCharacter(
-        Character(id: 5, name: 'name_555', chClass: 'chClass'));
-  }
+  // void updateCharacter() async {
+  //   final char = Character.empty().copyWith(id: 1, lvl: 5);
+  //   _repository.updateCharacter(char);
+  // }
 
-  void deleteCharacter() async {
-    _repository.deleteCharacterbyId(0);
-  }
+  // void deleteCharacter() async {
+  //   _repository.deleteCharacterbyId(0);
+  // }
 
-  void deleteAllCharacter() async {
-    _repository.deleteAllCharacters();
-  }
+  // void deleteAllCharacter() async {
+  //   _repository.deleteAllCharacters();
+  // }
 }

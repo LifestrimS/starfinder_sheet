@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pathfinder_sheet/character_list/character_list_model.dart';
 import 'package:pathfinder_sheet/character_list/character_list_view.dart';
+import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -31,8 +32,7 @@ class CharacterListWM
 
   void generateCharacterList() {
     for (int i = 0; i < 3; i++) {
-      Character character =
-          Character(id: 0, name: 'name_$i', chClass: 'chClass_$i');
+      Character character = Character.empty();
       characterList.add(character);
       characterLenghtNotifire.value = characterList.length;
     }
@@ -40,8 +40,7 @@ class CharacterListWM
 
   void addCharacter() {
     log('add_character');
-    Character character =
-        Character(id: 0, name: 'add_name_$j', chClass: 'add_chClass_$j');
+    Character character = Character.empty();
     j++;
     characterList.add(character);
     characterLenghtNotifire.value = characterList.length;

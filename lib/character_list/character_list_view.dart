@@ -14,8 +14,8 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: GestureDetector(
-          // onTap: wm.goCharacterCreation,
-          onTap: wm.addCharacter,
+          onTap: wm.goCharacterCreation,
+          //onTap: wm.addCharacter,
           child: Container(
             decoration: BoxDecoration(
               color: theme.getAccent2Color(),
@@ -124,7 +124,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                                       fontSize: 32.0,
                                     )),
                                 Text(
-                                  wm.characterList[index].chClass,
+                                  wm.characterList[index].chClass.name,
                                   style: TextStyle(
                                     shadows: [AppColors.textShadowLight],
                                     color: theme.getTextColor(),

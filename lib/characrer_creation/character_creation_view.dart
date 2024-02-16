@@ -2,8 +2,12 @@ import 'dart:developer';
 
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pathfinder_sheet/characrer_creation/character_creation_wm.dart';
-import 'package:pathfinder_sheet/utils/colors.dart';
+import 'package:pathfinder_sheet/models.dart/character.dart';
+import 'package:pathfinder_sheet/utils/theme.dart';
+import 'package:pathfinder_sheet/widgets/button.dart';
+import 'package:pathfinder_sheet/widgets/textfield.dart';
 
 class CharacterCreationView extends ElementaryWidget<CharacterCreationWM> {
   const CharacterCreationView({Key? key})
@@ -11,44 +15,483 @@ class CharacterCreationView extends ElementaryWidget<CharacterCreationWM> {
 
   @override
   Widget build(CharacterCreationWM wm) {
+    AppTheme theme = wm.theme;
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'CHARACTER CREATION',
-            style: TextStyle(color: AppColors.white),
-          ),
-          backgroundColor: AppColors.accent1Light,
-          leading: IconButton(
-              onPressed: wm.goBack,
-              icon: const Icon(
-                Icons.arrow_back,
-                color: AppColors.white,
-              )),
-        ),
-        body: Column(
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 40.0,
-                  child: TextField(
-                    onSubmitted: (text) {
-                      log('Спасибо семпай: $text');
-                    },
-                    decoration: const InputDecoration(
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      floatingLabelAlignment: FloatingLabelAlignment.start,
-                      border: OutlineInputBorder(),
-                      labelText: 'Имя',
+      backgroundColor: wm.theme.getBackgroundColor(),
+      body: ValueListenableBuilder(
+          valueListenable: wm.imagePathNotifier,
+          builder: (context, imagePath, child) {
+            return ValueListenableBuilder(
+                valueListenable: wm.textImageColor,
+                builder: (context, textImageColor, child) {
+                  return ValueListenableBuilder(
+                      valueListenable: wm.backgroundColor,
+                      builder: (context, backgroundColor, child) {
+                        return CustomScrollView(slivers: [
+                          SliverAppBar(
+                            expandedHeight: 250.0,
+                            collapsedHeight: 70.0,
+                            scrolledUnderElevation: 0.0,
+                            backgroundColor: imagePath != null
+                                ? Colors.transparent
+                                : backgroundColor,
+                            pinned: false,
+                            leading: IconButton(
+                                onPressed: wm.goBack,
+                                icon: Icon(
+                                  Icons.arrow_back,
+                                  color: theme.getTextColor(),
+                                )),
+                            actions: [
+                              GestureDetector(
+                                onTap: () {},
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: SvgPicture.asset(
+                                    'assets/images/icons/settings.svg',
+                                    width: 32.0,
+                                    height: 32.0,
+                                    alignment: Alignment.centerRight,
+                                    colorFilter: ColorFilter.mode(
+                                        theme.getTextColor(), BlendMode.srcIn),
+                                  ),
+                                ),
+                              ),
+                            ],
+                            flexibleSpace: FlexibleSpaceBar(
+                              background: imagePath == null
+                                  ? null
+                                  : Image.file(
+                                      imagePath,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                              title: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Name',
+                                    style: TextStyle(
+                                        color: textImageColor, fontSize: 32.0),
+                                  ),
+                                  Text(
+                                    'Class',
+                                    style: TextStyle(
+                                        color: textImageColor, fontSize: 20.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              childCount: 1,
+                              (_, int index) {
+                                return Container(
+                                  width: double.infinity,
+                                  color: wm.theme.getBackgroundColor(),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ExpansionBlock(
+                                          theme: theme,
+                                          wm: wm,
+                                          title: deviderTitleBlock(
+                                              title: 'Image', theme: theme),
+                                          body: [imageBlock(wm: wm)],
+                                        ),
+                                        ExpansionBlock(
+                                          theme: theme,
+                                          wm: wm,
+                                          title: deviderTitleBlock(
+                                              title: 'BIO', theme: theme),
+                                          body: [
+                                            ...bioBlock(theme: theme, wm: wm)
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 25.0,
+                                        ),
+                                        Button(
+                                          theme: theme,
+                                          title: 'Save',
+                                          onTap: wm.save,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ]);
+                      });
+                });
+          }),
+    );
+  }
+
+  Widget imageBlock({required CharacterCreationWM wm}) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 130.0,
+          width: wm.getColumnWidth(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Button(
+                  theme: wm.theme,
+                  title: 'Image',
+                  width: 120.0,
+                  height: 45.0,
+                  onTap: wm.pickImage),
+              const SizedBox(
+                height: 10.0,
+              ),
+              ColorButton(
+                  theme: wm.theme,
+                  title: 'Text Color',
+                  textBWidth: 80.0,
+                  colorWidth: 40.0,
+                  height: 45.0,
+                  initialColor: Colors.white,
+                  colorNotifier: wm.textImageColor,
+                  onTap: () {}),
+              const SizedBox(
+                height: 10.0,
+              ),
+              GestureDetector(
+                onTap: wm.deleteImage,
+                child: Container(
+                  height: 20.0,
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 107, 28, 22),
+                      border:
+                          Border.all(color: wm.theme.getTextContrastColor()),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0))),
+                  child: Center(
+                    child: Text(
+                      'Delete image',
+                      style: TextStyle(
+                          color: wm.theme.getTextContrastColor(),
+                          fontSize: 10.0),
                     ),
                   ),
                 ),
               ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text('or',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: wm.theme.getTextContrastColor(), fontSize: 26.0)),
+        ),
+        SizedBox(
+          height: 130.0,
+          width: wm.getColumnWidth(),
+          child: Column(
+            children: [
+              ColorButton(
+                  theme: wm.theme,
+                  title: 'Color image',
+                  textBWidth: 80.0,
+                  colorWidth: 40.0,
+                  height: 45.0,
+                  colorNotifier: wm.backgroundColor,
+                  onTap: () {
+                    log('tapColor');
+                  }),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Text(
+                'Choose color for text on your image',
+                style: TextStyle(
+                    color: wm.theme.getTextContrastColor(), fontSize: 15.0),
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget deviderTitleBlock({required String title, required AppTheme theme}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 1.0,
+          color: theme.getTextContrastColor(),
+        ),
+        Text(
+          title,
+          style: TextStyle(fontSize: 15.0, color: theme.getTextContrastColor()),
+        )
+      ],
+    );
+  }
+
+  List<Widget> bioBlock(
+      {required AppTheme theme, required CharacterCreationWM wm}) {
+    return [
+      const SizedBox(
+        height: 6.0,
+      ),
+      CommonTextField(
+        labelText: 'Name',
+        theme: theme,
+        controller: wm.nameTextController,
+      ),
+      const SizedBox(
+        height: 15.0,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: DropdownField(
+              labelText: 'Alingnment',
+              theme: theme,
+              width: 100.0,
+              listStringItems: CharAlignment.values.map((e) => e.name).toList(),
+              notifier: wm.alignmentNotifier,
             ),
-          ],
-        ));
+          ),
+          const SizedBox(
+            width: 20.0,
+          ),
+          Expanded(
+            flex: 2,
+            child: CommonTextField(
+              labelText: 'Deiterity',
+              theme: theme,
+              width: 200.0,
+              controller: wm.deiterityTextController,
+            ),
+          )
+        ],
+      ),
+      const SizedBox(
+        height: 15.0,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 2,
+            child: DropdownField(
+              labelText: 'Race',
+              theme: theme,
+              width: 200.0,
+              notifier: wm.racetNotifier,
+              listStringItems: Race.values.map((e) => e.name).toList(),
+            ),
+          ),
+          const SizedBox(
+            width: 20.0,
+          ),
+          Expanded(
+            flex: 1,
+            child: CommonTextField(
+              labelText: 'Age',
+              theme: theme,
+              width: 100.0,
+              controller: wm.ageTextController,
+              textInputType: TextInputType.number,
+            ),
+          )
+        ],
+      ),
+      const SizedBox(
+        height: 15.0,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: DropdownField(
+              labelText: 'Gender',
+              theme: theme,
+              width: 150.0,
+              notifier: wm.genderNotifier,
+              listStringItems: Gender.values.map((e) => e.name).toList(),
+            ),
+          ),
+          const SizedBox(
+            width: 20.0,
+          ),
+          Expanded(
+            flex: 1,
+            child: DropdownField(
+              labelText: 'Size',
+              theme: theme,
+              width: 150.0,
+              notifier: wm.sizeNotifier,
+              listStringItems: Size.values.map((e) => e.name).toList(),
+            ),
+          )
+        ],
+      ),
+      const SizedBox(
+        height: 15.0,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: CommonTextField(
+              labelText: 'Weight',
+              theme: theme,
+              width: 150.0,
+              controller: wm.weightTextController,
+              textInputType: TextInputType.number,
+            ),
+          ),
+          const SizedBox(
+            width: 20.0,
+          ),
+          Expanded(
+            flex: 1,
+            child: CommonTextField(
+              labelText: 'Height',
+              theme: theme,
+              width: 150.0,
+              controller: wm.heightTextController,
+              textInputType: TextInputType.number,
+            ),
+          )
+        ],
+      ),
+      const SizedBox(
+        height: 15.0,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: ColorButton(
+              title: 'Eye color',
+              theme: theme,
+              textBWidth: 100.0,
+              colorWidth: 50.0,
+              height: 45.0,
+              onTap: () {},
+              colorNotifier: wm.eyeColor,
+            ),
+          ),
+          const SizedBox(
+            width: 20.0,
+          ),
+          Expanded(
+            flex: 1,
+            child: ColorButton(
+              title: 'Hair color',
+              theme: theme,
+              textBWidth: 100.0,
+              colorWidth: 50.0,
+              height: 45.0,
+              onTap: () {},
+              colorNotifier: wm.hairColor,
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(
+        height: 15.0,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: DropdownField(
+              labelText: 'Class',
+              theme: theme,
+              width: 150.0,
+              notifier: wm.classNotifier,
+              listStringItems: ChClass.values.map((e) => e.name).toList(),
+            ),
+          ),
+          const SizedBox(
+            width: 20.0,
+          ),
+          Expanded(
+            flex: 1,
+            child: CommonTextField(
+              labelText: 'Lvl',
+              theme: theme,
+              width: 150.0,
+              controller: wm.lvlTextController,
+              textInputType: TextInputType.number,
+            ),
+          )
+        ],
+      )
+    ];
+  }
+}
+
+class ExpansionBlock extends StatefulWidget {
+  final AppTheme theme;
+  final CharacterCreationWM wm;
+  final Widget title;
+  final List<Widget> body;
+  const ExpansionBlock(
+      {required this.theme,
+      required this.wm,
+      required this.title,
+      required this.body,
+      super.key});
+
+  @override
+  State<ExpansionBlock> createState() => _ExpansionBlockState();
+}
+
+class _ExpansionBlockState extends State<ExpansionBlock> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      child: ExpansionTile(
+        tilePadding: EdgeInsets.zero,
+        onExpansionChanged: (value) {
+          setState(() {
+            _isExpanded = value;
+          });
+        },
+        trailing: AnimatedRotation(
+          turns: _isExpanded ? 0 : .5,
+          alignment: FractionalOffset.center,
+          duration: const Duration(milliseconds: 250),
+          child: SvgPicture.asset(
+            'assets/images/icons/shevron.svg',
+            width: 20.0,
+            height: 20.0,
+            colorFilter: ColorFilter.mode(
+                widget.theme.getTextContrastColor(), BlendMode.srcIn),
+          ),
+        ),
+        title: widget.title,
+        children: widget.body,
+      ),
+    );
   }
 }
