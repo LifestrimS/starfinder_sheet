@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pathfinder_sheet/characrer_creation/character_creation_wm.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/utils/theme.dart';
@@ -35,6 +36,28 @@ class CharacterCreationView extends ElementaryWidget<CharacterCreationWM> {
                                 ? Colors.transparent
                                 : backgroundColor,
                             pinned: false,
+                            leading: IconButton(
+                                onPressed: wm.goBack,
+                                icon: Icon(
+                                  Icons.arrow_back,
+                                  color: theme.getTextColor(),
+                                )),
+                            actions: [
+                              GestureDetector(
+                                onTap: () {},
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: SvgPicture.asset(
+                                    'assets/images/icons/settings.svg',
+                                    width: 32.0,
+                                    height: 32.0,
+                                    alignment: Alignment.centerRight,
+                                    colorFilter: ColorFilter.mode(
+                                        theme.getTextColor(), BlendMode.srcIn),
+                                  ),
+                                ),
+                              ),
+                            ],
                             flexibleSpace: FlexibleSpaceBar(
                               background: imagePath == null
                                   ? null
@@ -73,21 +96,22 @@ class CharacterCreationView extends ElementaryWidget<CharacterCreationWM> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        deviderTitleBlock(
-                                            title: 'Image', theme: theme),
-                                        const SizedBox(
-                                          height: 25.0,
+                                        ExpansionBlock(
+                                          theme: theme,
+                                          wm: wm,
+                                          title: deviderTitleBlock(
+                                              title: 'Image', theme: theme),
+                                          body: [imageBlock(wm: wm)],
                                         ),
-                                        imageBlock(wm: wm),
-                                        const SizedBox(
-                                          height: 20.0,
+                                        ExpansionBlock(
+                                          theme: theme,
+                                          wm: wm,
+                                          title: deviderTitleBlock(
+                                              title: 'BIO', theme: theme),
+                                          body: [
+                                            ...bioBlock(theme: theme, wm: wm)
+                                          ],
                                         ),
-                                        deviderTitleBlock(
-                                            title: 'BIO', theme: theme),
-                                        const SizedBox(
-                                          height: 25.0,
-                                        ),
-                                        ...bioBlock(theme: theme, wm: wm),
                                         const SizedBox(
                                           height: 25.0,
                                         ),
@@ -222,6 +246,9 @@ class CharacterCreationView extends ElementaryWidget<CharacterCreationWM> {
   List<Widget> bioBlock(
       {required AppTheme theme, required CharacterCreationWM wm}) {
     return [
+      const SizedBox(
+        height: 6.0,
+      ),
       CommonTextField(
         labelText: 'Name',
         theme: theme,
@@ -420,5 +447,51 @@ class CharacterCreationView extends ElementaryWidget<CharacterCreationWM> {
   }
 }
 
-//TODO: chevrons with collapsing parts
-//TODO: Flexible containers
+class ExpansionBlock extends StatefulWidget {
+  final AppTheme theme;
+  final CharacterCreationWM wm;
+  final Widget title;
+  final List<Widget> body;
+  const ExpansionBlock(
+      {required this.theme,
+      required this.wm,
+      required this.title,
+      required this.body,
+      super.key});
+
+  @override
+  State<ExpansionBlock> createState() => _ExpansionBlockState();
+}
+
+class _ExpansionBlockState extends State<ExpansionBlock> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      child: ExpansionTile(
+        tilePadding: EdgeInsets.zero,
+        onExpansionChanged: (value) {
+          setState(() {
+            _isExpanded = value;
+          });
+        },
+        trailing: AnimatedRotation(
+          turns: _isExpanded ? 0 : .5,
+          alignment: FractionalOffset.center,
+          duration: const Duration(milliseconds: 250),
+          child: SvgPicture.asset(
+            'assets/images/icons/shevron.svg',
+            width: 20.0,
+            height: 20.0,
+            colorFilter: ColorFilter.mode(
+                widget.theme.getTextContrastColor(), BlendMode.srcIn),
+          ),
+        ),
+        title: widget.title,
+        children: widget.body,
+      ),
+    );
+  }
+}
