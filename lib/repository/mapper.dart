@@ -23,6 +23,8 @@ class Mapper {
         chClass: ChClass.values[element.chClass],
         lvl: element.lvl,
         textColor: getColorFromString(element.textColor),
+        imageColor: getColorFromString(element.imageColor),
+        imagePath: element.imagePath,
         bio: tmpBio);
   }
 
