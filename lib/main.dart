@@ -6,6 +6,7 @@ import 'package:pathfinder_sheet/character_list/character_list_view.dart';
 import 'package:pathfinder_sheet/di_container.dart';
 import 'package:pathfinder_sheet/settings/settings_view.dart';
 import 'package:pathfinder_sheet/splash_screen.dart';
+import 'package:pathfinder_sheet/utils/debug_screen.dart';
 import 'package:pathfinder_sheet/utils/routes.dart';
 import 'package:pathfinder_sheet/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -121,6 +122,11 @@ final _router = GoRouter(
             name: Routes.settings,
             path: 'settings',
             builder: (context, state) => const SettingsView(),
+          ),
+          GoRoute(
+            name: Routes.debug,
+            path: 'debug',
+            builder: (context, state) => const DebugScreen(),
           ),
         ]),
   ],

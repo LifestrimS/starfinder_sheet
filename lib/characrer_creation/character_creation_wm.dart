@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -55,8 +56,29 @@ class CharacterCreationWM
   ValueNotifier<String> classNotifier =
       ValueNotifier<String>(ChClass.class0.chClassName);
 
+  @override
+  void dispose() {
+    backgroundColor.dispose();
+    textImageColor.dispose();
+    hairColor.dispose();
+    eyeColor.dispose();
+    imagePathNotifier.dispose();
+    nameTextController.dispose();
+    deiterityTextController.dispose();
+    ageTextController.dispose();
+    weightTextController.dispose();
+    heightTextController.dispose();
+    lvlTextController.dispose();
+    alignmentNotifier.dispose();
+    racetNotifier.dispose();
+    genderNotifier.dispose();
+    sizeNotifier.dispose();
+    classNotifier.dispose();
+    super.dispose();
+  }
+
   goBack() {
-    context.goNamed('characterList');
+    context.pop(true);
   }
 
   void pickImage() async {
@@ -108,6 +130,8 @@ class CharacterCreationWM
         hairColor: hairColor.value,
         eyeColor: eyeColor.value);
 
+    log('ImageColor: ${backgroundColor.value}');
+
     Character character = Character(
         id: 0,
         name: nameTextController.text,
@@ -116,12 +140,22 @@ class CharacterCreationWM
         lvl: int.parse(
             lvlTextController.text == '' ? '0' : lvlTextController.text),
         textColor: textImageColor.value,
+        imageColor: backgroundColor.value,
+        imagePath: imagePathNotifier.value?.path,
         bio: bio);
 
-    log('Save\nCharacter: ${character.toString()}');
+    //log('Save\nCharacter: ${character.toString()}');
 
     try {
       await _repository.addCharacter(character);
+      Fluttertoast.showToast(
+        msg: 'Saved',
+        toastLength: Toast.LENGTH_SHORT,
+      );
+
+      //TODO:Look's bad...
+      await Future.delayed(const Duration(milliseconds: 500));
+      goBack();
     } catch (e) {
       log('Smth get wrond on add character to db: $e');
     }
