@@ -128,7 +128,7 @@ class _DropdownField extends State<DropdownField> {
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 9.0)),
         dropdownColor: widget.theme.getSecondaryColor(),
-        value: selectedValue,
+        initialValue: selectedValue,
         onChanged: (String? newValue) {
           setState(() {
             selectedValue = newValue!;

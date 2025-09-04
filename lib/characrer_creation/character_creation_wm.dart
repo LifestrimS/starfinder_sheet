@@ -153,7 +153,6 @@ class CharacterCreationWM
         toastLength: Toast.LENGTH_SHORT,
       );
 
-      //TODO:Look's bad...
       await Future.delayed(const Duration(milliseconds: 500));
       goBack();
     } catch (e) {

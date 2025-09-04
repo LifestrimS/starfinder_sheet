@@ -24,17 +24,17 @@ class AppColors {
 
   //Shadows
   static BoxShadow containerShadow = BoxShadow(
-    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.25),
+    color: const Color.fromARGB(255, 0, 0, 0).withValues(alpha: 0.25),
     blurRadius: 4.0,
     offset: const Offset(5.0, 5.0),
   );
   static Shadow textShadowLight = Shadow(
-    color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+    color: const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.5),
     blurRadius: 0.0,
     offset: const Offset(0.3, 0.3),
   );
   static Shadow textShadowDark = Shadow(
-    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
+    color: const Color.fromARGB(255, 0, 0, 0).withValues(alpha: 0.5),
     blurRadius: 0.0,
     offset: const Offset(0.3, 0.3),
   );
