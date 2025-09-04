@@ -50,8 +50,6 @@ class SettingsWM extends WidgetModel<SettingsView, SettingsModel> {
         return AppColors.backgroundLight;
       case AppThemeEnum.darkTheme:
         return AppColors.backgroundDark;
-      default:
-        return Colors.red;
     }
   }
 

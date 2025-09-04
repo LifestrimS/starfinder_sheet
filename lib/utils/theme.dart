@@ -22,8 +22,6 @@ class AppTheme extends ChangeNotifier {
         return AppColors.backgroundLight;
       case AppThemeEnum.darkTheme:
         return AppColors.backgroundDark;
-      default:
-        return Colors.red;
     }
   }
 
@@ -33,8 +31,6 @@ class AppTheme extends ChangeNotifier {
         return AppColors.accent1Light;
       case AppThemeEnum.darkTheme:
         return AppColors.accent1Dark;
-      default:
-        return Colors.red;
     }
   }
 
@@ -44,8 +40,6 @@ class AppTheme extends ChangeNotifier {
         return AppColors.accent2Light;
       case AppThemeEnum.darkTheme:
         return AppColors.accent2Dark;
-      default:
-        return Colors.red;
     }
   }
 
@@ -55,8 +49,6 @@ class AppTheme extends ChangeNotifier {
         return AppColors.textLight;
       case AppThemeEnum.darkTheme:
         return AppColors.textDark;
-      default:
-        return Colors.red;
     }
   }
 
@@ -66,8 +58,6 @@ class AppTheme extends ChangeNotifier {
         return AppColors.textContrastLight;
       case AppThemeEnum.darkTheme:
         return AppColors.textContrastDark;
-      default:
-        return Colors.red;
     }
   }
 
@@ -77,8 +67,6 @@ class AppTheme extends ChangeNotifier {
         return AppColors.secondaryLight;
       case AppThemeEnum.darkTheme:
         return AppColors.secondaryDark;
-      default:
-        return Colors.red;
     }
   }
 
