@@ -141,7 +141,7 @@ class _ColorButtonState extends State<ColorButton> {
           content: SingleChildScrollView(
             child: MaterialPicker(
               pickerColor: selectedColor,
-              enableLabel: true,
+              enableLabel: false,
               onColorChanged: (Color color) {
                 selectedColor = color;
                 if (widget.colorNotifier != null) {
