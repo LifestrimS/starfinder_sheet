@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 // ignore: depend_on_referenced_packages
 import 'package:sqlite3/sqlite3.dart';
+// ignore: depend_on_referenced_packages
 import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'database.g.dart';

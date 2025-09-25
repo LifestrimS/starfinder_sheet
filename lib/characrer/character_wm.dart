@@ -2,25 +2,23 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pathfinder_sheet/characrer_creation/character_creation_model.dart';
-import 'package:pathfinder_sheet/characrer_creation/character_creation_view.dart';
-import 'package:pathfinder_sheet/characrer_creation/widgets/ability_block.dart';
+import 'package:pathfinder_sheet/characrer/character_model.dart';
+import 'package:pathfinder_sheet/characrer/character_view.dart';
+import 'package:pathfinder_sheet/characrer/widgets/ability_block.dart';
 
-abstract interface class ICharacterCreationWM implements IWidgetModel {
+abstract interface class ICharacterWM implements IWidgetModel {
   Ability getAbility();
 
   void goBack();
 }
 
-CharacterCreationWM createCharacterCreationWM(BuildContext _) =>
-    CharacterCreationWM(
-      CharacterCreationModel(GetIt.I.get()),
+CharacterWM createCharacterWM(BuildContext _) => CharacterWM(
+      CharacterModel(GetIt.I.get()),
     );
 
-class CharacterCreationWM
-    extends WidgetModel<CharacterCreationView, CharacterCreationModel>
-    implements ICharacterCreationWM {
-  CharacterCreationWM(CharacterCreationModel model) : super(model);
+class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
+    implements ICharacterWM {
+  CharacterWM(CharacterModel model) : super(model);
 
   @override
   void dispose() {

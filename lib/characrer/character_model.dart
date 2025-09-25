@@ -1,11 +1,12 @@
 import 'package:elementary/elementary.dart';
-import 'package:pathfinder_sheet/characrer_creation/widgets/ability_block.dart';
+import 'package:pathfinder_sheet/characrer/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
 
-class CharacterCreationModel extends ElementaryModel {
+class CharacterModel extends ElementaryModel {
+  // ignore: unused_field
   final Repository _repository;
 
-  CharacterCreationModel(this._repository);
+  CharacterModel(this._repository);
 
   Ability getAbility() {
     return const Ability(

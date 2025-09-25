@@ -27,8 +27,7 @@ class AvatarBorderPainter extends CustomPainter {
     Path path = Path();
 
     path.lineTo(0.0, 0.0);
-    path.lineTo(size.width * 0.85, 0.0);
-    path.lineTo(size.width, size.height * 0.15);
+    path.lineTo(size.width, 0.0);
     path.lineTo(size.width, size.height);
     path.lineTo(size.width * 0.15, size.height);
     path.lineTo(0.0, size.height * 0.85);

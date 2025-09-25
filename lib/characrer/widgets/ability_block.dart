@@ -10,7 +10,7 @@ class AbilityBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AbilityCell(
             statName: 'STR',
@@ -30,7 +30,7 @@ class AbilityBlock extends StatelessWidget {
         height: 12.0,
       ),
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AbilityCell(
             statName: 'INT',

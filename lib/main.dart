@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pathfinder_sheet/characrer_creation/character_creation_view.dart';
+import 'package:pathfinder_sheet/characrer/character_view.dart';
 import 'package:pathfinder_sheet/character_list/character_list_view.dart';
 import 'package:pathfinder_sheet/di_container.dart';
 import 'package:pathfinder_sheet/settings/settings_view.dart';
@@ -116,7 +116,7 @@ final _router = GoRouter(
           GoRoute(
             name: Routes.characterCreation,
             path: 'character_creation',
-            builder: (context, state) => const CharacterCreationView(),
+            builder: (context, state) => const CharacterView(),
           ),
           GoRoute(
             name: Routes.settings,
