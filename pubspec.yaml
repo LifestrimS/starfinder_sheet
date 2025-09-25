@@ -49,4 +49,7 @@ flutter:
   - family: OverpassMono
     fonts:
       - asset: assets/fonts/OverpassMono-Regular.ttf
+  - family: DigitalPixelV18
+    fonts:
+      - asset: assets/fonts/DigitalPixelV18-Regular.otf
 

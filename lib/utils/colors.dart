@@ -22,6 +22,13 @@ class AppColors {
   static const Color textContrastDark = Color(0xFFDFDFDF);
   static const Color secondaryDark = Color(0xFF717484);
 
+  //Cyberpunk theme
+  static const Color darkBlue = Color(0xFF025373);
+  static const Color darkGreenBlue = Color(0xFF012326);
+  static const Color teal = Color(0xFF05F2DB);
+  static const Color darkPink = Color(0xFFD9048E);
+  static const Color pink = Color(0xFFF205CB);
+
   //Shadows
   static BoxShadow containerShadow = BoxShadow(
     color: const Color.fromARGB(255, 0, 0, 0).withValues(alpha: 0.25),

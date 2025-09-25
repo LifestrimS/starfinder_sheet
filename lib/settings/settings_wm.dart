@@ -23,7 +23,7 @@ class SettingsWM extends WidgetModel<SettingsView, SettingsModel> {
   final AppTheme _theme;
 
   ValueNotifier<AppThemeEnum> selectedTheme =
-      ValueNotifier<AppThemeEnum>(AppThemeEnum.lightTheme);
+      ValueNotifier<AppThemeEnum>(AppThemeEnum.darkTheme);
 
   get selectedThemeValue => selectedTheme.value;
 

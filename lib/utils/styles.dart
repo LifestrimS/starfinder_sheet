@@ -10,4 +10,14 @@ abstract class AppStyles {
       color: AppColors.white,
     );
   }
+
+  static TextStyle commonPixel() {
+    return const TextStyle(
+      fontFamily: 'DigitalPixelV18',
+      fontSize: 10.0,
+      height: 1.8,
+      fontWeight: FontWeight.w600,
+      color: AppColors.textDark,
+    );
+  }
 }
