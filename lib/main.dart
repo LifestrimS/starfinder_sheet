@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       child: Consumer<AppTheme>(
         builder: (context, value, child) {
           return MaterialApp.router(
-            title: 'Pathfinder',
+            title: 'Starfinder sheet',
             theme: ThemeData(
               useMaterial3: true,
               textTheme: ThemeData.light().textTheme.copyWith(
