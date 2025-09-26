@@ -4,6 +4,7 @@ import 'package:pathfinder_sheet/characrer/character_wm.dart';
 import 'package:pathfinder_sheet/characrer/widgets/avatar.dart';
 import 'package:pathfinder_sheet/characrer/widgets/contet_block.dart';
 import 'package:pathfinder_sheet/characrer/widgets/ability_block.dart';
+import 'package:pathfinder_sheet/characrer/widgets/hp_block.dart';
 import 'package:pathfinder_sheet/characrer/widgets/short_bio_block.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
@@ -21,6 +22,15 @@ class CharacterView extends ElementaryWidget<ICharacterWM> {
       appBar: AppBar(
         backgroundColor: AppColors.darkBlue,
         toolbarHeight: 45.0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Text(
+              'Save',
+              style: AppStyles.commonPixel(),
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -49,10 +59,17 @@ class CharacterView extends ElementaryWidget<ICharacterWM> {
                 ]),
               ),
               const SizedBox(
-                height: 21.0,
+                height: 12.0,
               ),
               AbilityBlock(
                 stats: wm.getAbility(),
+              ),
+              const SizedBox(
+                height: 12.0,
+              ),
+              const LiveBlock(),
+              const SizedBox(
+                height: 12.0,
               ),
               const ContentBlock(),
             ],

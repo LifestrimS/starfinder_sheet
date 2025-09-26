@@ -9,7 +9,6 @@ class ContentBlock extends StatelessWidget {
     return Container(
       height: 250.0,
       //width: 550.0,
-      margin: const EdgeInsets.only(top: 21.0),
       child: CustomPaint(
         painter: ContentBorderPainter(),
         child: Container(),

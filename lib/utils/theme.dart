@@ -76,7 +76,7 @@ class AppTheme extends ChangeNotifier {
 
   _loadprefs() async {
     await _initiateprefs();
-    themeEnum = getThemeByInt(_prefs?.getInt(key) ?? 0);
+    themeEnum = getThemeByInt(_prefs?.getInt(key) ?? 1);
     notifyListeners();
   }
 
