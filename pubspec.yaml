@@ -25,8 +25,9 @@ dependencies:
   flutter_colorpicker: ^1.1.0
   image_picker: ^1.0.7
   fluttertoast: ^8.2.4
-  lottie: ^2.6.0
+  lottie: ^3.3.2
   custom_refresh_indicator: ^3.0.0
+  flutter_native_splash: ^2.4.6
 
 dev_dependencies:
   flutter_test:

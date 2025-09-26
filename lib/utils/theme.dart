@@ -3,7 +3,7 @@ import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppTheme extends ChangeNotifier {
-  AppThemeEnum themeEnum = AppThemeEnum.lightTheme;
+  AppThemeEnum themeEnum = AppThemeEnum.darkTheme;
   final String key = "theme";
   SharedPreferences? _prefs;
 
