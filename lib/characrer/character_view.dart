@@ -67,7 +67,7 @@ class CharacterView extends ElementaryWidget<ICharacterWM> {
               const SizedBox(
                 height: 12.0,
               ),
-              const LiveBlock(),
+              LiveBlock(wm: wm,),
               const SizedBox(
                 height: 12.0,
               ),

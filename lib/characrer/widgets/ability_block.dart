@@ -70,6 +70,12 @@ class _AbilityCellState extends State<AbilityCell> {
   }
 
   @override
+  void dispose() {
+    statValue.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 90.0,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -9,7 +11,29 @@ import 'package:pathfinder_sheet/characrer/widgets/ability_block.dart';
 abstract interface class ICharacterWM implements IWidgetModel {
   Ability getAbility();
 
+  int get totalHp;
+
+  int get totalStam;
+
   void goBack();
+
+  void getDamage();
+
+  void clearDamageLog();
+
+  void healHP(int value);
+
+  void healStam(int value);
+
+  ValueNotifier<int> currentHpNotifier();
+
+  ValueNotifier<int> currentStamNotifier();
+
+  ValueNotifier<String> damageLogNotifier();
+
+  ValueNotifier<int> totalDamageNotifier();
+
+  TextEditingController get damageTextController;
 }
 
 CharacterWM createCharacterWM(BuildContext _) => CharacterWM(
@@ -18,10 +42,45 @@ CharacterWM createCharacterWM(BuildContext _) => CharacterWM(
 
 class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
     implements ICharacterWM {
+  final ValueNotifier<int> _currentHpNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _currentStampNotifier = ValueNotifier(0);
+  final ValueNotifier<String> _damageLogNotifier = ValueNotifier('');
+  final ValueNotifier<int> _totalDamageNotifier = ValueNotifier(0);
+
+  final TextEditingController _damageTextController = TextEditingController();
+
+  @override
+  ValueNotifier<int> currentHpNotifier() => _currentHpNotifier;
+
+  @override
+  ValueNotifier<int> currentStamNotifier() => _currentStampNotifier;
+
+  @override
+  ValueNotifier<String> damageLogNotifier() => _damageLogNotifier;
+
+  @override
+  ValueNotifier<int> totalDamageNotifier() => _totalDamageNotifier;
+
+  @override
+  TextEditingController get damageTextController => _damageTextController;
+
   CharacterWM(CharacterModel model) : super(model);
 
   @override
+  void initWidgetModel() {
+    _currentHpNotifier.value = model.getCurrentHp();
+    _currentStampNotifier.value = model.getCurrentStam();
+    _damageLogNotifier.value = model.damageLog;
+    _totalDamageNotifier.value = model.totalDamage;
+    super.initWidgetModel();
+  }
+
+  @override
   void dispose() {
+    _currentHpNotifier.dispose();
+    _currentStampNotifier.dispose();
+    _damageLogNotifier.dispose();
+    _totalDamageNotifier.dispose();
     super.dispose();
   }
 
@@ -33,6 +92,70 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
   @override
   Ability getAbility() {
     return model.getAbility();
+  }
+
+  @override
+  int get totalHp => model.getTotalHp();
+
+  @override
+  int get totalStam => model.getTotalStam();
+
+  @override
+  void getDamage() {
+    //always positive
+    int damage = int.parse(damageTextController.text != ''
+        ? damageTextController.text.startsWith('-')
+            ? damageTextController.text.substring(1)
+            : damageTextController.text
+        : '0');
+
+    if (damage < model.currentStam) {
+      model.addStam(-damage);
+    } else {
+      final tmpDamage = damage - model.currentStam;
+      model.currentStam = 0;
+      if (tmpDamage < model.currentHp) {
+        model.addHp(-tmpDamage);
+      } else {
+        model.currentHp = 0;
+      }
+    }
+
+    model.addDamage('$damage');
+    _currentStampNotifier.value = model.currentStam;
+    _currentHpNotifier.value = model.currentHp;
+    _totalDamageNotifier.value = model.totalDamage;
+    _damageLogNotifier.value = model.damageLog;
+    _damageTextController.clear();
+  }
+
+  @override
+  void clearDamageLog() {
+    model.clearDamageLog();
+    _damageLogNotifier.value = model.damageLog;
+    _totalDamageNotifier.value = model.totalDamage;
+    _damageTextController.clear();
+  }
+
+  @override
+  void healHP(int value) {
+    if (model.totalHp <= (value + model.currentHp)) {
+      model.currentHp = model.totalHp;
+    } else {
+      model.addHp(value);
+    }
+
+    _currentHpNotifier.value = model.currentHp;
+  }
+
+  @override
+  void healStam(int value) {
+    if (model.totalStam <= (value + model.currentStam)) {
+      model.currentStam = model.totalStam;
+    } else {
+      model.addStam(value);
+    }
+    _currentStampNotifier.value = model.currentStam;
   }
 
   // void pickImage() async {

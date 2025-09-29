@@ -1,59 +1,133 @@
 import 'package:flutter/material.dart';
+import 'package:pathfinder_sheet/characrer/character_wm.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class LiveBlock extends StatelessWidget {
-  const LiveBlock({super.key});
+  final ICharacterWM wm;
+
+  const LiveBlock({required this.wm, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'HP',
-              style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
-            ),
-            Text(
-              '?/70',
-              style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 20.0,
-          width: double.infinity,
-          child: CustomPaint(
-            painter: LiveCounterPainer(currentHp: 0.7),
-          ),
+        ValueListenableBuilder(
+          valueListenable: wm.currentHpNotifier(),
+          builder: (context, value, child) {
+            return Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'HP',
+                      style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 32.0),
+                      child: Text(
+                        '$value/${wm.totalHp}',
+                        style: AppStyles.commonPixel().copyWith(
+                          fontSize: 8.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 4.0,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 20.0,
+                        width: double.infinity,
+                        child: CustomPaint(
+                          painter: LiveCounterPainer(
+                              current: value, total: wm.totalHp),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => addHPDiolog(context),
+                        );
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Icon(
+                          Icons.add_box_outlined,
+                          color: AppColors.teal,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            );
+          },
         ),
         const SizedBox(
           height: 8.0,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'STAM',
-              style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
-            ),
-            Text(
-              '?/70',
-              style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 20.0,
-          width: double.infinity,
-          child: CustomPaint(
-            painter: LiveCounterPainer(currentHp: 0.3),
-          ),
+        ValueListenableBuilder(
+          valueListenable: wm.currentStamNotifier(),
+          builder: (context, value, child) {
+            return Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'STAM',
+                      style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 32.0),
+                      child: Text(
+                        '$value/${wm.totalStam}',
+                        style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 20.0,
+                        width: double.infinity,
+                        child: CustomPaint(
+                          painter: LiveCounterPainer(
+                              current: value, total: wm.totalStam),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => addStamDiolog(context),
+                        );
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Icon(
+                          Icons.add_box_outlined,
+                          color: AppColors.teal,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            );
+          },
         ),
         const SizedBox(
           height: 12.0,
@@ -69,7 +143,7 @@ class LiveBlock extends StatelessWidget {
                 painter: DamageCounterPainter(),
                 child: Center(
                   child: TextFormField(
-                    controller: controller,
+                    controller: wm.damageTextController,
                     //initialValue: '23',
                     expands: true,
                     maxLines: null,
@@ -87,11 +161,9 @@ class LiveBlock extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                controller.clear();
-              },
+              onTap: wm.getDamage,
               child: Text(
-                'Add',
+                'Hit',
                 style: AppStyles.commonPixel(),
               ),
             )
@@ -107,20 +179,34 @@ class LiveBlock extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Some damage text 2 + 2 + 2 + 2 + 2',
-                    style: AppStyles.commonPixel(),
+                  ValueListenableBuilder(
+                    valueListenable: wm.damageLogNotifier(),
+                    builder: (context, value, child) => Text(
+                      value,
+                      style: AppStyles.commonPixel(),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Total: 123',
-                        style: AppStyles.commonPixel(),
+                      ValueListenableBuilder(
+                        valueListenable: wm.totalDamageNotifier(),
+                        builder: (context, value, child) => Text(
+                          'Total: $value',
+                          style: AppStyles.commonPixel(),
+                        ),
                       ),
-                      Text(
-                        'Clear',
-                        style: AppStyles.commonPixel(),
+                      GestureDetector(
+                        onTap: () {
+                          wm.clearDamageLog();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 4.0, top: 4.0),
+                          child: Text(
+                            'Clear',
+                            style: AppStyles.commonPixel(),
+                          ),
+                        ),
                       )
                     ],
                   )
@@ -128,10 +214,154 @@ class LiveBlock extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
+
+  Widget addHPDiolog(BuildContext context) {
+    TextEditingController controller = TextEditingController();
+
+    return AlertDialog(
+      title: Text(
+        "Heal Hp",
+        style: AppStyles.commonPixel(),
+      ),
+      backgroundColor: AppColors.darkBlue,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.all(Radius.zero)),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 30.0,
+            child: CustomPaint(
+              painter: HealPainter(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: TextFormField(
+                  controller: controller,
+                  //initialValue: '23',
+                  expands: true,
+                  maxLines: null,
+                  style: AppStyles.commonPixel(),
+                  textAlign: TextAlign.left,
+                  textAlignVertical: TextAlignVertical.center,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 8.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  wm.healHP(int.parse(controller.text));
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Heal",
+                  style: AppStyles.commonPixel(),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget addStamDiolog(BuildContext context) {
+    TextEditingController controller = TextEditingController();
+
+    return AlertDialog(
+      title: Text(
+        "Heal Stam",
+        style: AppStyles.commonPixel(),
+      ),
+      backgroundColor: AppColors.darkBlue,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.all(Radius.zero)),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 30.0,
+            child: CustomPaint(
+              painter: HealPainter(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: TextFormField(
+                  controller: controller,
+                  //initialValue: '23',
+                  expands: true,
+                  maxLines: null,
+                  style: AppStyles.commonPixel(),
+                  textAlign: TextAlign.left,
+                  textAlignVertical: TextAlignVertical.center,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 8.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  wm.healStam(int.parse(controller.text));
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Heal",
+                  style: AppStyles.commonPixel(),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HealPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    const cut = 0.02;
+    final widthCut = size.width * cut;
+
+    Paint paintFrame = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3.0
+      ..color = AppColors.teal;
+    Path pathFrame = Path();
+
+    pathFrame.moveTo(0.0, 0.0);
+    pathFrame.lineTo(size.width - widthCut, 0.0);
+    pathFrame.lineTo(size.width, 0.0 + widthCut);
+    pathFrame.lineTo(size.width, size.height);
+    pathFrame.lineTo(0.0 + widthCut, size.height);
+    pathFrame.lineTo(0.0, size.height - widthCut);
+    pathFrame.close();
+    canvas.drawPath(pathFrame, paintFrame);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
 class DamagePainter extends CustomPainter {
@@ -186,14 +416,18 @@ class DamageCounterPainter extends CustomPainter {
 
 class LiveCounterPainer extends CustomPainter {
   //Part hp from full (part of 1)
-  final double currentHp;
+  final int current;
+  final int total;
 
-  const LiveCounterPainer({required this.currentHp, Listenable? repaint});
+  const LiveCounterPainer(
+      {required this.current, required this.total, Listenable? repaint});
 
   @override
   void paint(Canvas canvas, Size size) {
     const cut = 0.02;
     final widthCut = size.width * cut;
+
+    final double partOf = current / total;
 
     const delta = 0.06;
 
@@ -203,7 +437,7 @@ class LiveCounterPainer extends CustomPainter {
       ..color = AppColors.darkBlue;
     Path pathFill = Path();
 
-    if (currentHp == 1) {
+    if (partOf == 1) {
       pathFill.moveTo(0.0, 0.0);
       pathFill.lineTo(size.width - widthCut, 0.0);
       pathFill.lineTo(size.width, 0.0 + widthCut);
@@ -214,8 +448,8 @@ class LiveCounterPainer extends CustomPainter {
       canvas.drawPath(pathFill, paintFill);
     } else {
       pathFill.moveTo(0.0, 0.0);
-      pathFill.lineTo(size.width * currentHp, 0.0);
-      pathFill.lineTo(size.width * currentHp, size.height);
+      pathFill.lineTo(size.width * partOf, 0.0);
+      pathFill.lineTo(size.width * partOf, size.height);
       pathFill.lineTo(0.0 + widthCut, size.height);
       pathFill.lineTo(0.0, size.height - widthCut);
       pathFill.close();
