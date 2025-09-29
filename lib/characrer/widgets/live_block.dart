@@ -415,7 +415,6 @@ class DamageCounterPainter extends CustomPainter {
 }
 
 class LiveCounterPainer extends CustomPainter {
-  //Part hp from full (part of 1)
   final int current;
   final int total;
 
@@ -437,7 +436,7 @@ class LiveCounterPainer extends CustomPainter {
       ..color = AppColors.darkBlue;
     Path pathFill = Path();
 
-    if (partOf == 1) {
+    if (partOf >= 1) {
       pathFill.moveTo(0.0, 0.0);
       pathFill.lineTo(size.width - widthCut, 0.0);
       pathFill.lineTo(size.width, 0.0 + widthCut);
