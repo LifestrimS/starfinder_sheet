@@ -5,11 +5,11 @@ import 'package:pathfinder_sheet/repository/db_repository.dart';
 class CharacterModel extends ElementaryModel {
   // ignore: unused_field
   final Repository _repository;
-  int totalHp = 100;
-  int totalStam = 110;
+  int _totalHp = 100;
+  int _totalStam = 110;
 
-  int currentHp = 50;
-  int currentStam = 60;
+  int _currentHp = 50;
+  int _currentStam = 60;
 
   String _damageLog = '';
   int _totalDamage = 0;
@@ -21,28 +21,28 @@ class CharacterModel extends ElementaryModel {
         str: 12, dex: 22, con: 16, intel: 12, wis: 14, cha: 17);
   }
 
-  int getTotalHp() {
-    return totalHp;
+  int get totalHp => _totalHp;
+
+  int get totalStam => _totalStam;
+
+  int get currentHp => _currentHp;
+
+  int get currentStam => _currentStam;
+
+  void setCurrentHp(int value) {
+    _currentHp = value;
   }
 
-  int getTotalStam() {
-    return totalStam;
-  }
-
-  int getCurrentHp() {
-    return currentHp;
-  }
-
-  int getCurrentStam() {
-    return currentStam;
+  void setCurrentStam(int value) {
+    _currentStam = value;
   }
 
   void addHp(int value) {
-    currentHp += value;
+    _currentHp += value;
   }
 
   void addStam(int value) {
-    currentStam += value;
+    _currentStam += value;
   }
 
   String get damageLog => _damageLog;

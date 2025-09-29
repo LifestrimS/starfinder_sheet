@@ -66,8 +66,8 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
 
   @override
   void initWidgetModel() {
-    _currentHpNotifier.value = model.getCurrentHp();
-    _currentStampNotifier.value = model.getCurrentStam();
+    _currentHpNotifier.value = model.currentHp;
+    _currentStampNotifier.value = model.currentStam;
     _damageLogNotifier.value = model.damageLog;
     _totalDamageNotifier.value = model.totalDamage;
     super.initWidgetModel();
@@ -93,10 +93,10 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
   }
 
   @override
-  int get totalHp => model.getTotalHp();
+  int get totalHp => model.totalHp;
 
   @override
-  int get totalStam => model.getTotalStam();
+  int get totalStam => model.totalStam;
 
   @override
   void getDamage() {
@@ -111,11 +111,11 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
       model.addStam(-damage);
     } else {
       final tmpDamage = damage - model.currentStam;
-      model.currentStam = 0;
+      model.setCurrentStam(0);
       if (tmpDamage < model.currentHp) {
         model.addHp(-tmpDamage);
       } else {
-        model.currentHp = 0;
+        model.setCurrentHp(0);
       }
     }
 
@@ -138,7 +138,7 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
   @override
   void healHP(int value) {
     if (model.totalHp <= (value + model.currentHp)) {
-      model.currentHp = model.totalHp;
+      model.setCurrentHp(model.totalHp);
     } else {
       model.addHp(value);
     }
@@ -149,7 +149,7 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
   @override
   void healStam(int value) {
     if (model.totalStam <= (value + model.currentStam)) {
-      model.currentStam = model.totalStam;
+      model.setCurrentStam(model.totalStam);
     } else {
       model.addStam(value);
     }
