@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pathfinder_sheet/character_list/character_list_wm.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
-import 'package:pathfinder_sheet/utils/theme.dart';
 import 'package:pathfinder_sheet/widgets/loading_indicator.dart';
 import 'package:pathfinder_sheet/widgets/pull_to_refresh.dart';
 
@@ -14,14 +13,13 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
 
   @override
   Widget build(CharacterListWM wm) {
-    AppTheme theme = wm.theme;
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: GestureDetector(
-          onTap: wm.goCharacterCreation,
+          //onTap: wm.goCharacterCreation,
           child: Container(
             decoration: BoxDecoration(
-                color: theme.getAccent2Color(),
+                color: AppColors.accent2Dark,
                 borderRadius: BorderRadius.circular(18.0),
                 boxShadow: [AppColors.containerShadow]),
             width: 60.0,
@@ -30,40 +28,30 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
               padding: const EdgeInsets.all(10.0),
               child: SvgPicture.asset(
                 'assets/images/icons/add_character.svg',
-                colorFilter: ColorFilter.mode(
-                    theme.getBackgroundColor(), BlendMode.srcIn),
+                colorFilter: const ColorFilter.mode(
+                    AppColors.backgroundDark, BlendMode.srcIn),
               ),
             ),
           ),
         ),
-        backgroundColor: theme.getBackgroundColor(),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(70.0),
-          child: AppBar(
-            title: GestureDetector(
-              onLongPress: wm.goDebug,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  'CHARACTERS',
-                  style: TextStyle(
-                    color: theme.getTextColor(),
-                    fontSize: 32.0,
-                  ),
-                ),
-              ),
+        backgroundColor: AppColors.backgroundDark,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Padding(
+            padding: EdgeInsets.only(left: 8.0),
+            child: Text(
+              'CHARACTERS',
             ),
-            backgroundColor: theme.getAccent1Color(),
           ),
+          backgroundColor: AppColors.accent1Light,
         ),
         body: AppRefreshWidget(
-          theme: theme,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: ValueListenableBuilder(
               valueListenable: wm.characterLenghtNotifire,
               builder: (context, value, child) {
-                return builderBody(theme: theme, wm: wm, value: value);
+                return builderBody(wm: wm, value: value);
               },
             ),
           ),
@@ -74,14 +62,10 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
         ));
   }
 
-  Widget builderBody(
-      {required AppTheme theme,
-      required CharacterListWM wm,
-      required int value}) {
+  Widget builderBody({required CharacterListWM wm, required int value}) {
     if (value == -1) {
       return Center(
           child: LoadingIndicatorWidget(
-        theme: theme,
         dimension: 250.0,
       ));
     } else if (value != 0) {
@@ -110,7 +94,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                         ),
                   borderRadius: BorderRadius.circular(15.0),
                   color: wm.characterList[index].imageColor ??
-                      theme.getAccent2Color(),
+                      AppColors.accent2Dark,
                 ),
                 height: 120.0,
                 child: Padding(
@@ -125,8 +109,8 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                             'assets/images/icons/threedots2.svg',
                             width: 32.0,
                             height: 32.0,
-                            colorFilter: ColorFilter.mode(
-                                theme.getTextColor(), BlendMode.srcIn),
+                            colorFilter: const ColorFilter.mode(
+                                AppColors.textContrastDark, BlendMode.srcIn),
                           ),
                         ],
                       ),
@@ -134,7 +118,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                       Text(wm.characterList[index].name,
                           style: TextStyle(
                             shadows: [AppColors.textShadowLight],
-                            color: theme.getTextColor(),
+                            color: AppColors.textContrastDark,
                             fontStyle: FontStyle.italic,
                             fontSize: 32.0,
                           )),
@@ -142,7 +126,7 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
                         wm.characterList[index].chClass.name,
                         style: TextStyle(
                           shadows: [AppColors.textShadowLight],
-                          color: theme.getTextColor(),
+                          color: AppColors.textContrastDark,
                           fontSize: 16.0,
                         ),
                       )
@@ -157,11 +141,11 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
         physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.only(top: wm.screenHeight()),
-          child: Center(
+          child: const Center(
             child: Text(
               'You don\'t have characters :(',
-              style: TextStyle(
-                  color: theme.getTextContrastColor(), fontSize: 20.0),
+              style:
+                  TextStyle(color: AppColors.textContrastDark, fontSize: 20.0),
             ),
           ),
         ),

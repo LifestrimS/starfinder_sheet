@@ -4,20 +4,15 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pathfinder_sheet/utils/theme.dart';
+import 'package:pathfinder_sheet/utils/colors.dart';
 
 class AppRefreshWidget extends StatelessWidget {
   final Widget child;
   final AsyncCallback onRefresh;
-  final AppTheme theme;
 
   final ValueNotifier<int> animationNumber = ValueNotifier<int>(0);
 
-  AppRefreshWidget(
-      {required this.child,
-      required this.onRefresh,
-      required this.theme,
-      super.key});
+  AppRefreshWidget({required this.child, required this.onRefresh, super.key});
 
   static Widget _defaultBuilder(
           BuildContext context, Widget child, IndicatorController controller) =>
@@ -58,8 +53,8 @@ class AppRefreshWidget extends StatelessWidget {
                                 valueListenable: animationNumber,
                                 builder: (context, value, child) {
                                   return ColorFiltered(
-                                    colorFilter: ColorFilter.mode(
-                                        theme.getTextContrastColor(),
+                                    colorFilter: const ColorFilter.mode(
+                                        AppColors.textContrastDark,
                                         BlendMode.srcIn),
                                     child: getLottie(value),
                                   );

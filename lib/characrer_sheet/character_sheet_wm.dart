@@ -1,7 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pathfinder_sheet/characrer_sheet/character_sheet_model.dart';
 import 'package:pathfinder_sheet/characrer_sheet/character_sheet_view.dart';
 import 'package:pathfinder_sheet/characrer_sheet/widgets/ability_block.dart';
@@ -100,7 +99,7 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
 
   @override
   goBack() {
-    context.pop(true);
+    //context.pop(true);
   }
 
   @override

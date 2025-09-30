@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pathfinder_sheet/utils/theme.dart';
+import 'package:pathfinder_sheet/utils/colors.dart';
 
 class CommonTextField extends StatefulWidget {
   final String labelText;
-  final AppTheme theme;
   final double? height;
   final double? width;
   final TextEditingController? controller;
@@ -11,7 +10,6 @@ class CommonTextField extends StatefulWidget {
 
   const CommonTextField(
       {required this.labelText,
-      required this.theme,
       this.height,
       this.width,
       this.controller,
@@ -36,30 +34,30 @@ class _CustomTextField extends State<CommonTextField> {
       child: TextField(
         controller: widget.controller,
         keyboardType: widget.textInputType,
-        cursorColor: widget.theme.getTextContrastColor(),
-        style: TextStyle(
-            fontSize: 20.0, color: widget.theme.getTextContrastColor()),
+        cursorColor: AppColors.textContrastDark,
+        style:
+            const TextStyle(fontSize: 20.0, color: AppColors.textContrastDark),
         decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: widget.theme.getTextContrastColor(), width: 1.0),
+            border: const OutlineInputBorder(
+              borderSide:
+                  BorderSide(color: AppColors.textContrastDark, width: 1.0),
               borderRadius: const BorderRadius.all(Radius.circular(8.0)),
             ),
             labelText: widget.labelText,
-            labelStyle: TextStyle(color: widget.theme.getTextContrastColor()),
+            labelStyle: const TextStyle(color: AppColors.textContrastDark),
             floatingLabelStyle:
-                TextStyle(color: widget.theme.getTextContrastColor()),
+                const TextStyle(color: AppColors.textContrastDark),
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: widget.theme.getTextContrastColor(), width: 1.0),
+            enabledBorder: const OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: AppColors.textContrastDark, width: 1.0),
                 borderRadius: const BorderRadius.all(Radius.circular(8.0))),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: widget.theme.getTextContrastColor(), width: 1.0),
-                borderRadius: const BorderRadius.all(Radius.circular(8.0))),
+            focusedBorder: const OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: AppColors.textContrastDark, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
             filled: true,
-            fillColor: widget.theme.getSecondaryColor(),
+            fillColor: AppColors.secondaryDark,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 9.0)),
       ),
@@ -69,7 +67,6 @@ class _CustomTextField extends State<CommonTextField> {
 
 class DropdownField extends StatefulWidget {
   final String labelText;
-  final AppTheme theme;
   final double? height;
   final double? width;
   final ValueNotifier<String> notifier;
@@ -77,7 +74,6 @@ class DropdownField extends StatefulWidget {
 
   const DropdownField(
       {required this.labelText,
-      required this.theme,
       this.height,
       this.width,
       required this.notifier,
@@ -102,32 +98,30 @@ class _DropdownField extends State<DropdownField> {
       height: widget.height ?? 50.0,
       width: widget.width,
       child: DropdownButtonFormField(
-        style: TextStyle(
-            fontSize: 20.0, color: widget.theme.getTextContrastColor()),
+        style: TextStyle(fontSize: 20.0, color: AppColors.textContrastDark),
         decoration: InputDecoration(
             border: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: widget.theme.getTextContrastColor(), width: 1.0),
+              borderSide:
+                  BorderSide(color: AppColors.textContrastDark, width: 1.0),
               borderRadius: const BorderRadius.all(Radius.circular(8.0)),
             ),
             labelText: widget.labelText,
-            labelStyle: TextStyle(color: widget.theme.getTextContrastColor()),
-            floatingLabelStyle:
-                TextStyle(color: widget.theme.getTextContrastColor()),
+            labelStyle: TextStyle(color: AppColors.textContrastDark),
+            floatingLabelStyle: TextStyle(color: AppColors.textContrastDark),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: widget.theme.getTextContrastColor(), width: 1.0),
+                borderSide:
+                    BorderSide(color: AppColors.textContrastDark, width: 1.0),
                 borderRadius: const BorderRadius.all(Radius.circular(8.0))),
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: widget.theme.getTextContrastColor(), width: 1.0),
+                borderSide:
+                    BorderSide(color: AppColors.textContrastDark, width: 1.0),
                 borderRadius: const BorderRadius.all(Radius.circular(8.0))),
             filled: true,
-            fillColor: widget.theme.getSecondaryColor(),
+            fillColor: AppColors.secondaryDark,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 9.0)),
-        dropdownColor: widget.theme.getSecondaryColor(),
+        dropdownColor: AppColors.secondaryDark,
         initialValue: selectedValue,
         onChanged: (String? newValue) {
           setState(() {

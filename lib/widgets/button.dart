@@ -2,18 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:pathfinder_sheet/utils/theme.dart';
+import 'package:pathfinder_sheet/utils/colors.dart';
 
 class Button extends StatelessWidget {
-  final AppTheme theme;
   final String title;
   final VoidCallback onTap;
   final double? width;
   final double? height;
 
   const Button(
-      {required this.theme,
-      required this.title,
+      {required this.title,
       required this.onTap,
       this.width,
       this.height,
@@ -27,16 +25,16 @@ class Button extends StatelessWidget {
         //width: width,
         height: height,
         decoration: BoxDecoration(
-            color: theme.getAccent2Color(),
-            border: Border.all(color: theme.getTextContrastColor()),
+            color: AppColors.accent2Dark,
+            border: Border.all(color: AppColors.textContrastDark),
             borderRadius: const BorderRadius.all(Radius.circular(8.0))),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 6.0),
             child: Text(
               title,
-              style: TextStyle(
-                  color: theme.getTextContrastColor(), fontSize: 20.0),
+              style:
+                  TextStyle(color: AppColors.textContrastDark, fontSize: 20.0),
             ),
           ),
         ),
@@ -46,7 +44,6 @@ class Button extends StatelessWidget {
 }
 
 class ColorButton extends StatefulWidget {
-  final AppTheme theme;
   final String title;
   final VoidCallback onTap;
   final double? colorWidth;
@@ -56,8 +53,7 @@ class ColorButton extends StatefulWidget {
   final Color? initialColor;
 
   const ColorButton(
-      {required this.theme,
-      required this.title,
+      {required this.title,
       required this.onTap,
       this.colorWidth,
       this.textBWidth,
@@ -96,8 +92,7 @@ class _ColorButtonState extends State<ColorButton> {
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(8.0),
                       bottomLeft: Radius.circular(8.0)),
-                  border:
-                      Border.all(color: widget.theme.getTextContrastColor()),
+                  border: Border.all(color: AppColors.textContrastDark),
                   color: selectedColor,
                 ),
               ),
@@ -112,16 +107,15 @@ class _ColorButtonState extends State<ColorButton> {
                 borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(8.0),
                     bottomRight: Radius.circular(8.0)),
-                border: Border.all(color: widget.theme.getTextContrastColor()),
-                color: widget.theme.getAccent2Color(),
+                border: Border.all(color: AppColors.textContrastDark),
+                color: AppColors.accent2Dark,
               ),
               child: Center(
                 child: Text(
                   widget.title,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: widget.theme.getTextContrastColor(),
-                      fontSize: 15.0),
+                      color: AppColors.textContrastDark, fontSize: 15.0),
                 ),
               ),
             ),

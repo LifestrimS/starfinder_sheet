@@ -2,9 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
-import 'package:pathfinder_sheet/utils/theme.dart';
+import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/widgets/button.dart';
 
 class DebugScreen extends StatelessWidget {
@@ -12,7 +11,6 @@ class DebugScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppTheme theme = GetIt.I.get<AppTheme>();
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -20,30 +18,27 @@ class DebugScreen extends StatelessWidget {
           child: Text(
             'Debug',
             style: TextStyle(
-              color: theme.getTextColor(),
+              color: AppColors.textContrastDark,
               fontSize: 32.0,
             ),
           ),
         ),
-        backgroundColor: theme.getAccent1Color(),
+        backgroundColor: AppColors.textContrastDark,
         leading: IconButton(
             onPressed: () {
-              context.pop(true);
+              //context.pop(true);
             },
             icon: Icon(
               Icons.arrow_back,
-              color: theme.getTextColor(),
+              color: AppColors.textContrastDark,
             )),
       ),
-      backgroundColor: theme.getBackgroundColor(),
+      backgroundColor: AppColors.backgroundDark,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Button(
-                theme: theme,
-                title: 'Delete all characters',
-                onTap: deleteAllCharaters),
+            Button(title: 'Delete all characters', onTap: deleteAllCharaters),
           ],
         ),
       ),

@@ -2,11 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:pathfinder_sheet/utils/routes.dart';
+import 'package:pathfinder_sheet/character_list/character_list_view.dart';
+import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/splash_text.dart';
-import 'package:pathfinder_sheet/utils/theme.dart';
-import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,17 +16,17 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3))
-        .then((value) => context.goNamed(Routes.characterList));
+    Future.delayed(const Duration(seconds: 3)).then((value) => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const CharacterListView())));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    AppTheme theme = context.watch<AppTheme>();
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: theme.getBackgroundColor(),
+      backgroundColor: AppColors.backgroundDark,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -39,16 +37,16 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 getRandomText(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: theme.getTextContrastColor(), fontSize: 56.0),
+                style: const TextStyle(
+                    color: AppColors.textContrastDark, fontSize: 56.0),
               ),
             ),
             const Spacer(),
             SvgPicture.asset(
               'assets/images/icons/dice_vector.svg',
               width: screenWidth, //left + right paddings
-              colorFilter: ColorFilter.mode(
-                  theme.getTextContrastColor(), BlendMode.srcIn),
+              colorFilter: const ColorFilter.mode(
+                  AppColors.textContrastDark, BlendMode.srcIn),
             )
           ],
         ),
