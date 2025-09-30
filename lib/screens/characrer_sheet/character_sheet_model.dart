@@ -1,5 +1,5 @@
 import 'package:elementary/elementary.dart';
-import 'package:pathfinder_sheet/characrer_sheet/widgets/ability_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
 
 class CharacterModel extends ElementaryModel {

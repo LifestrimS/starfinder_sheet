@@ -1,9 +1,9 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pathfinder_sheet/characrer_sheet/character_sheet_model.dart';
-import 'package:pathfinder_sheet/characrer_sheet/character_sheet_view.dart';
-import 'package:pathfinder_sheet/characrer_sheet/widgets/ability_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 
 abstract interface class ICharacterWM implements IWidgetModel {
   Ability getAbility();

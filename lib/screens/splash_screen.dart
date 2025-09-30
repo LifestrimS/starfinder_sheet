@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pathfinder_sheet/character_list/character_list_view.dart';
+import 'package:pathfinder_sheet/screens/character_list/character_list_view.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/splash_text.dart';
 

@@ -3,8 +3,8 @@ import 'dart:ui' as ui;
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pathfinder_sheet/character_list/character_list_model.dart';
-import 'package:pathfinder_sheet/character_list/character_list_view.dart';
+import 'package:pathfinder_sheet/screens/character_list/character_list_model.dart';
+import 'package:pathfinder_sheet/screens/character_list/character_list_view.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
 

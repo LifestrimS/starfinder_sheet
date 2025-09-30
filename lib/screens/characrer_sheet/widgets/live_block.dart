@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pathfinder_sheet/characrer_sheet/character_sheet_wm.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
