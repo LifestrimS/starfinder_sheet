@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pathfinder_sheet/di_container.dart';
-import 'package:pathfinder_sheet/splash_screen.dart';
+import 'package:pathfinder_sheet/utils/di_container.dart';
+import 'package:pathfinder_sheet/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

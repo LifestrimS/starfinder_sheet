@@ -5,7 +5,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.d
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 
-abstract interface class ICharacterWM implements IWidgetModel {
+abstract interface class ICharacterSheetWM implements IWidgetModel {
   Ability getAbility();
 
   int get totalHp;
@@ -43,12 +43,13 @@ abstract interface class ICharacterWM implements IWidgetModel {
   TextEditingController get damageTextController;
 }
 
-CharacterWM createCharacterWM(BuildContext _) => CharacterWM(
-      CharacterModel(GetIt.I.get()),
+CharacterSheetWM createCharacterSheetWM(BuildContext _) => CharacterSheetWM(
+      CharacterSheetModel(GetIt.I.get()),
     );
 
-class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
-    implements ICharacterWM {
+class CharacterSheetWM
+    extends WidgetModel<CharacterSheetView, CharacterSheetModel>
+    implements ICharacterSheetWM {
   final ValueNotifier<int> _currentHpNotifier = ValueNotifier(0);
   final ValueNotifier<int> _currentStampNotifier = ValueNotifier(0);
   final ValueNotifier<String> _damageLogNotifier = ValueNotifier('');
@@ -75,7 +76,7 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
   @override
   TextEditingController get damageTextController => _damageTextController;
 
-  CharacterWM(CharacterModel model) : super(model);
+  CharacterSheetWM(CharacterSheetModel model) : super(model);
 
   @override
   void initWidgetModel() {

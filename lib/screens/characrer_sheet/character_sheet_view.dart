@@ -10,29 +10,16 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/short_bio_block
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
-class CharacterView extends ElementaryWidget<ICharacterWM> {
-  const CharacterView({
+class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
+  const CharacterSheetView({
     Key? key,
-    WidgetModelFactory<CharacterWM> wmFactory = createCharacterWM,
+    WidgetModelFactory<CharacterSheetWM> wmFactory = createCharacterSheetWM,
   }) : super(wmFactory, key: key);
 
   @override
-  Widget build(ICharacterWM wm) {
+  Widget build(ICharacterSheetWM wm) {
     return Scaffold(
       backgroundColor: AppColors.backgroundDark,
-      appBar: AppBar(
-        backgroundColor: AppColors.darkBlue,
-        toolbarHeight: 45.0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Text(
-              'Save',
-              style: AppStyles.commonPixel(),
-            ),
-          )
-        ],
-      ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(16.0),

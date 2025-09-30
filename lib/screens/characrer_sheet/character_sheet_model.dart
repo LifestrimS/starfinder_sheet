@@ -2,7 +2,7 @@ import 'package:elementary/elementary.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
 
-class CharacterModel extends ElementaryModel {
+class CharacterSheetModel extends ElementaryModel {
   // ignore: unused_field
   final Repository _repository;
   int _totalHp = 100;
@@ -16,7 +16,7 @@ class CharacterModel extends ElementaryModel {
   String _damageLog = '';
   int _totalDamage = 0;
 
-  CharacterModel(this._repository);
+  CharacterSheetModel(this._repository);
 
   Ability getAbility() {
     return const Ability(

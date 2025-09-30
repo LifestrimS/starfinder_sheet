@@ -4,7 +4,7 @@ import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class ResolveBlock extends StatelessWidget {
-  final ICharacterWM wm;
+  final ICharacterSheetWM wm;
   const ResolveBlock({required this.wm, super.key});
 
   @override
