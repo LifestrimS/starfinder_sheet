@@ -40,22 +40,6 @@ class CharacterListView extends ElementaryWidget<CharacterListWM> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70.0),
           child: AppBar(
-            actions: [
-              GestureDetector(
-                onTap: wm.goSettings,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: SvgPicture.asset(
-                    'assets/images/icons/settings.svg',
-                    width: 32.0,
-                    height: 32.0,
-                    alignment: Alignment.centerRight,
-                    colorFilter:
-                        ColorFilter.mode(theme.getTextColor(), BlendMode.srcIn),
-                  ),
-                ),
-              ),
-            ],
             title: GestureDetector(
               onLongPress: wm.goDebug,
               child: Padding(

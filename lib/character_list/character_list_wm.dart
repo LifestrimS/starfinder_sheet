@@ -47,10 +47,6 @@ class CharacterListWM
     characterLenghtNotifire.value = characterList.length;
   }
 
-  void goSettings() {
-    context.goNamed(Routes.settings);
-  }
-
   void goCharacterCreation() async {
     bool result = await context.pushNamed(Routes.characterCreation) as bool;
     if (result) {
