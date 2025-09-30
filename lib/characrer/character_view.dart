@@ -5,6 +5,7 @@ import 'package:pathfinder_sheet/characrer/widgets/avatar.dart';
 import 'package:pathfinder_sheet/characrer/widgets/contet_block.dart';
 import 'package:pathfinder_sheet/characrer/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/characrer/widgets/live_block.dart';
+import 'package:pathfinder_sheet/characrer/widgets/resolve_block.dart';
 import 'package:pathfinder_sheet/characrer/widgets/short_bio_block.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
@@ -67,7 +68,13 @@ class CharacterView extends ElementaryWidget<ICharacterWM> {
               const SizedBox(
                 height: 12.0,
               ),
-              LiveBlock(wm: wm,),
+              ResolveBlock(wm: wm),
+              SizedBox(
+                height: 8.0,
+              ),
+              LiveBlock(
+                wm: wm,
+              ),
               const SizedBox(
                 height: 12.0,
               ),

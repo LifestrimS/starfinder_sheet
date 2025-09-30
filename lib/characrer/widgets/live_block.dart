@@ -144,7 +144,6 @@ class LiveBlock extends StatelessWidget {
                 child: Center(
                   child: TextFormField(
                     controller: wm.damageTextController,
-                    //initialValue: '23',
                     expands: true,
                     maxLines: null,
                     style: AppStyles.commonPixel(),
@@ -155,7 +154,6 @@ class LiveBlock extends StatelessWidget {
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.zero,
                     ),
-                    //onChanged: (value) => statValue.value = int.parse(value),
                   ),
                 ),
               ),
@@ -181,9 +179,13 @@ class LiveBlock extends StatelessWidget {
                 children: [
                   ValueListenableBuilder(
                     valueListenable: wm.damageLogNotifier(),
-                    builder: (context, value, child) => Text(
-                      value,
-                      style: AppStyles.commonPixel(),
+                    builder: (context, value, child) => Expanded(
+                      child: Text(
+                        value,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 4,
+                        style: AppStyles.commonPixel(),
+                      ),
                     ),
                   ),
                   Row(
@@ -236,7 +238,7 @@ class LiveBlock extends StatelessWidget {
           SizedBox(
             height: 30.0,
             child: CustomPaint(
-              painter: HealPainter(),
+              painter: DialogFramePainter(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: TextFormField(
@@ -295,7 +297,7 @@ class LiveBlock extends StatelessWidget {
           SizedBox(
             height: 30.0,
             child: CustomPaint(
-              painter: HealPainter(),
+              painter: DialogFramePainter(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: TextFormField(
@@ -338,7 +340,7 @@ class LiveBlock extends StatelessWidget {
   }
 }
 
-class HealPainter extends CustomPainter {
+class DialogFramePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     const cut = 0.02;

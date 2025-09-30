@@ -13,6 +13,10 @@ abstract interface class ICharacterWM implements IWidgetModel {
 
   int get totalStam;
 
+  int get totalResolve;
+
+  int get currentResolve;
+
   void goBack();
 
   void getDamage();
@@ -23,6 +27,10 @@ abstract interface class ICharacterWM implements IWidgetModel {
 
   void healStam(int value);
 
+  void addResolve();
+
+  void removeResolve();
+
   ValueNotifier<int> currentHpNotifier();
 
   ValueNotifier<int> currentStamNotifier();
@@ -30,6 +38,8 @@ abstract interface class ICharacterWM implements IWidgetModel {
   ValueNotifier<String> damageLogNotifier();
 
   ValueNotifier<int> totalDamageNotifier();
+
+  ValueNotifier<int> currentResolveNotifier();
 
   TextEditingController get damageTextController;
 }
@@ -44,6 +54,7 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
   final ValueNotifier<int> _currentStampNotifier = ValueNotifier(0);
   final ValueNotifier<String> _damageLogNotifier = ValueNotifier('');
   final ValueNotifier<int> _totalDamageNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _currentResolveNotifier = ValueNotifier(0);
 
   final TextEditingController _damageTextController = TextEditingController();
 
@@ -60,6 +71,9 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
   ValueNotifier<int> totalDamageNotifier() => _totalDamageNotifier;
 
   @override
+  ValueNotifier<int> currentResolveNotifier() => _currentResolveNotifier;
+
+  @override
   TextEditingController get damageTextController => _damageTextController;
 
   CharacterWM(CharacterModel model) : super(model);
@@ -70,6 +84,7 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
     _currentStampNotifier.value = model.currentStam;
     _damageLogNotifier.value = model.damageLog;
     _totalDamageNotifier.value = model.totalDamage;
+    _currentResolveNotifier.value = model.currentResolve;
     super.initWidgetModel();
   }
 
@@ -79,6 +94,7 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
     _currentStampNotifier.dispose();
     _damageLogNotifier.dispose();
     _totalDamageNotifier.dispose();
+    _currentResolveNotifier.dispose();
     super.dispose();
   }
 
@@ -97,6 +113,12 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
 
   @override
   int get totalStam => model.totalStam;
+
+  @override
+  int get totalResolve => model.totalResolve;
+
+  @override
+  int get currentResolve => model.currentResolve;
 
   @override
   void getDamage() {
@@ -154,6 +176,18 @@ class CharacterWM extends WidgetModel<CharacterView, CharacterModel>
       model.addStam(value);
     }
     _currentStampNotifier.value = model.currentStam;
+  }
+
+  @override
+  void addResolve() {
+    model.addResolve();
+    _currentResolveNotifier.value = model.currentResolve;
+  }
+
+  @override
+  void removeResolve() {
+    model.removeResolve();
+    _currentResolveNotifier.value = model.currentResolve;
   }
 
   // void pickImage() async {

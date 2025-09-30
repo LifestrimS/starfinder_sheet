@@ -7,9 +7,11 @@ class CharacterModel extends ElementaryModel {
   final Repository _repository;
   int _totalHp = 100;
   int _totalStam = 110;
+  int _totalResolve = 11;
 
   int _currentHp = 50;
   int _currentStam = 60;
+  int _currentResolve = 9;
 
   String _damageLog = '';
   int _totalDamage = 0;
@@ -29,6 +31,10 @@ class CharacterModel extends ElementaryModel {
 
   int get currentStam => _currentStam;
 
+  int get totalResolve => _totalResolve;
+
+  int get currentResolve => _currentResolve;
+
   void setCurrentHp(int value) {
     _currentHp = value;
   }
@@ -43,6 +49,20 @@ class CharacterModel extends ElementaryModel {
 
   void addStam(int value) {
     _currentStam += value;
+  }
+
+  void addResolve() {
+    if (_totalResolve - _currentResolve > 1) {
+      _currentResolve += 1;
+    } else {
+      _currentResolve = _totalResolve;
+    }
+  }
+
+  void removeResolve() {
+    if (_currentResolve != 0) {
+      _currentResolve -= 1;
+    }
   }
 
   String get damageLog => _damageLog;
