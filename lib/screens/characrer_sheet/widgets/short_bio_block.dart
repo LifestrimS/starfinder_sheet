@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class ShortBioBlock extends StatefulWidget {
-  const ShortBioBlock({super.key});
+  final Character character;
+
+  const ShortBioBlock({required this.character, super.key});
 
   @override
   State<ShortBioBlock> createState() => _ShortBioBlockState();
@@ -16,33 +19,41 @@ class _ShortBioBlockState extends State<ShortBioBlock> {
       height: 130.0,
       child: CustomPaint(
           painter: ShortBioBlockPainter(),
-          child: const Padding(
+          child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
-                    child: const ShortBioRow(name: 'Name:', content: 'Chiara')),
+                    child: ShortBioRow(
+                        name: 'Name:', content: widget.character.charName)),
                 const SizedBox(
                   height: 4.0,
                 ),
                 Expanded(
-                    child: const ShortBioRow(
-                        name: 'Class:', content: 'Operative')),
+                    child: ShortBioRow(
+                        name: 'Class:', content: widget.character.charClass)),
                 const SizedBox(
                   height: 4.0,
                 ),
                 Expanded(
-                    child: const ShortBioRow(name: 'Race:', content: 'Elf')),
+                    child: ShortBioRow(
+                        name: 'Race:', content: widget.character.race)),
                 const SizedBox(
                   height: 4.0,
                 ),
-                Expanded(child: const ShortBioAlignment()),
+                Expanded(
+                    child: ShortBioAlignment(
+                  initialValue: widget.character.alignment,
+                )),
                 const SizedBox(
                   height: 4.0,
                 ),
-                Expanded(child: const ShortBioSize()),
+                Expanded(
+                    child: ShortBioSize(
+                  initialValue: widget.character.size,
+                )),
               ],
             ),
           )),
@@ -110,7 +121,8 @@ class ShortBioRow extends StatelessWidget {
 }
 
 class ShortBioAlignment extends StatefulWidget {
-  const ShortBioAlignment({super.key});
+  final String initialValue;
+  const ShortBioAlignment({required this.initialValue, super.key});
 
   @override
   State<ShortBioAlignment> createState() => _ShortBioAlignmentState();
@@ -128,7 +140,8 @@ class _ShortBioAlignmentState extends State<ShortBioAlignment> {
     'NE',
     'CE'
   ];
-  String alignment = 'LG';
+  String alignment = '';
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -146,11 +159,11 @@ class _ShortBioAlignmentState extends State<ShortBioAlignment> {
             style: const ButtonStyle(alignment: Alignment.centerRight),
             color: AppColors.darkBlue,
             icon: Text(
-              alignment,
+              alignment == '' ? widget.initialValue : alignment,
               textAlign: TextAlign.end,
               style: AppStyles.commonPixel(),
             ),
-            initialValue: alignment,
+            initialValue: widget.initialValue,
             itemBuilder: (BuildContext context) => alignments
                 .map<PopupMenuItem<String>>(
                   (String alignments) => PopupMenuItem<String>(
@@ -174,7 +187,9 @@ class _ShortBioAlignmentState extends State<ShortBioAlignment> {
 }
 
 class ShortBioSize extends StatefulWidget {
-  const ShortBioSize({super.key});
+  final String initialValue;
+
+  const ShortBioSize({required this.initialValue, super.key});
 
   @override
   State<ShortBioSize> createState() => _ShortBioSizeState();
@@ -190,7 +205,7 @@ class _ShortBioSizeState extends State<ShortBioSize> {
     'G',
     'C',
   ];
-  String size = 'M';
+  String size = '';
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -207,11 +222,11 @@ class _ShortBioSizeState extends State<ShortBioSize> {
             style: const ButtonStyle(alignment: Alignment.centerRight),
             color: AppColors.darkBlue,
             icon: Text(
-              size,
+              size == '' ? widget.initialValue : size,
               textAlign: TextAlign.end,
               style: AppStyles.commonPixel(),
             ),
-            initialValue: size,
+            initialValue: widget.initialValue,
             itemBuilder: (BuildContext context) => sizes
                 .map<PopupMenuItem<String>>(
                   (String sizes) => PopupMenuItem<String>(

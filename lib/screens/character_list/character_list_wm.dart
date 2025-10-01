@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
 import 'package:pathfinder_sheet/screens/character_list/character_list_model.dart';
 import 'package:pathfinder_sheet/screens/character_list/character_list_view.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
@@ -11,11 +12,15 @@ import 'package:pathfinder_sheet/repository/db_repository.dart';
 abstract interface class ICharacterListWM implements IWidgetModel {
   void onRefresh();
 
+  Widget goToCharacter({int? charId});
+
   double screenHeight();
 
   ValueNotifier<int> characterLenghtNotifire();
 
   int get characterLength;
+
+  List<Character> get characterList;
 }
 
 CharacterListWM createCharacterListWM(BuildContext _) => CharacterListWM(
@@ -30,12 +35,15 @@ class CharacterListWM extends WidgetModel<CharacterListView, CharacterListModel>
 
   final Repository _repository;
 
-  final List<Character> characterList = [];
+  final List<Character> _characterList = [];
   int j = 0;
 
   //-1 -> loading state
   @override
   ValueNotifier<int> characterLenghtNotifire() => _characterLenghtNotifire;
+
+  @override
+  List<Character> get characterList => _characterList;
 
   CharacterListWM(
     super.model,
@@ -49,13 +57,13 @@ class CharacterListWM extends WidgetModel<CharacterListView, CharacterListModel>
   }
 
   @override
-  int get characterLength => 7; //characterList.length;
+  int get characterLength => characterList.length;
 
   void addCharacter() {
     Character character = Character.empty();
     j++;
-    characterList.add(character);
-    _characterLenghtNotifire.value = characterList.length;
+    _characterList.add(character);
+    _characterLenghtNotifire.value = _characterList.length;
   }
 
   // void goCharacterCreation() async {
@@ -69,9 +77,18 @@ class CharacterListWM extends WidgetModel<CharacterListView, CharacterListModel>
   Future<void> loadData() async {
     await Future.delayed(const Duration(seconds: 2));
     List<Character> characters = await _repository.getAllCharacter();
-    characterList.clear();
-    characterList.addAll(characters);
-    _characterLenghtNotifire.value = characterList.length;
+    _characterList.clear();
+    _characterList.addAll(characters);
+    _characterLenghtNotifire.value = _characterList.length;
+  }
+
+  @override
+  Widget goToCharacter({int? charId}) {
+    if (charId == null) {
+      return CharacterSheetView(charIndex: _characterList.first.id);
+    } else {
+      return CharacterSheetView(charIndex: charId);
+    }
   }
 
   @override

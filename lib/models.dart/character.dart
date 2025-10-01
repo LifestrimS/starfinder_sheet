@@ -22,8 +22,8 @@ class Character {
       this.charClass = 'Class',
       this.lvl = 0,
       this.race = 'Race',
-      this.alignment = 'Alignment',
-      this.size = 'Size'});
+      this.alignment = 'NN',
+      this.size = 'M'});
 
   Character copyWith(
       {int? id,

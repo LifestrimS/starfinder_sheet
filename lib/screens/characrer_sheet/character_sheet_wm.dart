@@ -1,12 +1,17 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 
 abstract interface class ICharacterSheetWM implements IWidgetModel {
   Ability getAbility();
+
+  void onRefresh();
+
+  Character get character;
 
   int get totalHp;
 
@@ -15,8 +20,6 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   int get totalResolve;
 
   int get currentResolve;
-
-  void goBack();
 
   void getDamage();
 
@@ -29,6 +32,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   void addResolve();
 
   void removeResolve();
+
+  ValueNotifier<Character?> characterLoadNotifier();
 
   ValueNotifier<int> currentHpNotifier();
 
@@ -43,13 +48,18 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   TextEditingController get damageTextController;
 }
 
-CharacterSheetWM createCharacterSheetWM(BuildContext _) => CharacterSheetWM(
-      CharacterSheetModel(GetIt.I.get()),
+CharacterSheetWM createCharacterSheetWM(
+  BuildContext _,
+  int charIndex,
+) =>
+    CharacterSheetWM(
+      CharacterSheetModel(charIndex: charIndex, repository: GetIt.I.get()),
     );
 
 class CharacterSheetWM
     extends WidgetModel<CharacterSheetView, CharacterSheetModel>
     implements ICharacterSheetWM {
+  final ValueNotifier<Character?> _characterLoadNotifier = ValueNotifier(null);
   final ValueNotifier<int> _currentHpNotifier = ValueNotifier(0);
   final ValueNotifier<int> _currentStampNotifier = ValueNotifier(0);
   final ValueNotifier<String> _damageLogNotifier = ValueNotifier('');
@@ -57,6 +67,11 @@ class CharacterSheetWM
   final ValueNotifier<int> _currentResolveNotifier = ValueNotifier(0);
 
   final TextEditingController _damageTextController = TextEditingController();
+
+  late final Character? _character;
+
+  @override
+  ValueNotifier<Character?> characterLoadNotifier() => _characterLoadNotifier;
 
   @override
   ValueNotifier<int> currentHpNotifier() => _currentHpNotifier;
@@ -76,7 +91,22 @@ class CharacterSheetWM
   @override
   TextEditingController get damageTextController => _damageTextController;
 
-  CharacterSheetWM(CharacterSheetModel model) : super(model);
+  @override
+  Character get character => _character ?? Character.empty();
+
+  @override
+  int get totalHp => model.totalHp;
+
+  @override
+  int get totalStam => model.totalStam;
+
+  @override
+  int get totalResolve => model.totalResolve;
+
+  @override
+  int get currentResolve => model.currentResolve;
+
+  CharacterSheetWM(super._model);
 
   @override
   void initWidgetModel() {
@@ -85,6 +115,7 @@ class CharacterSheetWM
     _damageLogNotifier.value = model.damageLog;
     _totalDamageNotifier.value = model.totalDamage;
     _currentResolveNotifier.value = model.currentResolve;
+    loadData();
     super.initWidgetModel();
   }
 
@@ -99,26 +130,20 @@ class CharacterSheetWM
   }
 
   @override
-  goBack() {
-    //context.pop(true);
-  }
-
-  @override
   Ability getAbility() {
     return model.getAbility();
   }
 
-  @override
-  int get totalHp => model.totalHp;
+  Future<void> loadData() async {
+    await Future.delayed(const Duration(seconds: 2));
+    _character = await model.getCharacter();
+    _characterLoadNotifier.value = _character;
+  }
 
   @override
-  int get totalStam => model.totalStam;
-
-  @override
-  int get totalResolve => model.totalResolve;
-
-  @override
-  int get currentResolve => model.currentResolve;
+  void onRefresh() async {
+    loadData();
+  }
 
   @override
   void getDamage() {
@@ -189,21 +214,6 @@ class CharacterSheetWM
     model.removeResolve();
     _currentResolveNotifier.value = model.currentResolve;
   }
-
-  // void pickImage() async {
-  //   try {
-  //     XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //     if (image?.path != null) {
-  //       imagePathNotifier.value = File(image?.path ?? '');
-  //     }
-  //   } catch (e) {
-  //     log('Smth going wrong with picking image: $e');
-  //   }
-  // }
-
-  // void deleteImage() {
-  //   imagePathNotifier.value = null;
-  // }
 
   // void save() async {
   //   CharacterBio bio = CharacterBio(

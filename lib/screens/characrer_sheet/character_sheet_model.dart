@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:elementary/elementary.dart';
+import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
 
 class CharacterSheetModel extends ElementaryModel {
   // ignore: unused_field
-  final Repository _repository;
+  final Repository repository;
+  final int charIndex;
+
   int _totalHp = 100;
   int _totalStam = 110;
   int _totalResolve = 11;
@@ -16,11 +21,21 @@ class CharacterSheetModel extends ElementaryModel {
   String _damageLog = '';
   int _totalDamage = 0;
 
-  CharacterSheetModel(this._repository);
+  CharacterSheetModel({required this.charIndex, required this.repository});
 
   Ability getAbility() {
     return const Ability(
         str: 12, dex: 22, con: 16, intel: 12, wis: 14, cha: 17);
+  }
+
+  Future<Character?> getCharacter() async {
+    try {
+      Character character = await repository.getCharacterById(charIndex);
+      return character;
+    } catch (e) {
+      log('Smth went wrong on getCharacter: $e');
+      return null;
+    }
   }
 
   int get totalHp => _totalHp;

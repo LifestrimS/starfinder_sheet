@@ -1,6 +1,5 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
 import 'package:pathfinder_sheet/screens/character_list/character_list_wm.dart';
 import 'package:pathfinder_sheet/screens/side_bar.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
@@ -48,13 +47,7 @@ class CharacterListView extends ElementaryWidget<ICharacterListWM> {
             ],
           ),
           backgroundColor: AppColors.backgroundDark,
-          body: AppRefreshWidget(
-            child: builderBody(wm: wm, value: value),
-            onRefresh: () async {
-              await Future.delayed(const Duration(seconds: 2));
-              wm.onRefresh();
-            },
-          ),
+          body: builderBody(wm: wm, value: value),
         );
       },
     );
@@ -67,17 +60,23 @@ class CharacterListView extends ElementaryWidget<ICharacterListWM> {
         dimension: 250.0,
       ));
     } else if (value != 0) {
-      return const CharacterSheetView();
+      return wm.goToCharacter();
     } else {
-      return SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.only(top: wm.screenHeight()),
-          child: const Center(
-            child: Text(
-              'You don\'t have characters :(',
-              style:
-                  TextStyle(color: AppColors.textContrastDark, fontSize: 20.0),
+      return AppRefreshWidget(
+        onRefresh: () async {
+          await Future.delayed(const Duration(seconds: 2));
+          wm.onRefresh();
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Padding(
+            padding: EdgeInsets.only(top: wm.screenHeight()),
+            child: const Center(
+              child: Text(
+                'You don\'t have characters :(',
+                style: TextStyle(
+                    color: AppColors.textContrastDark, fontSize: 20.0),
+              ),
             ),
           ),
         ),

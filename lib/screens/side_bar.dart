@@ -31,18 +31,24 @@ class SideBar extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Index: $index',
-                            style: AppStyles.commonPixel(),
-                          ),
-                          const Icon(
-                            Icons.keyboard_arrow_right_outlined,
-                            size: 32.0,
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          wm.goToCharacter(charId: wm.characterList[index].id);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Name: ${wm.characterList[index].charName}',
+                              style: AppStyles.commonPixel(),
+                            ),
+                            const Icon(
+                              Icons.keyboard_arrow_right_outlined,
+                              size: 32.0,
+                            )
+                          ],
+                        ),
                       ),
                       Container(
                         height: 2,
