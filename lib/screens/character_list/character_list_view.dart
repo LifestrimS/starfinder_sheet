@@ -4,6 +4,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.da
 import 'package:pathfinder_sheet/screens/character_list/character_list_wm.dart';
 import 'package:pathfinder_sheet/screens/side_bar.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
+import 'package:pathfinder_sheet/utils/debug_screen.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/screens/widgets/loading_indicator.dart';
 import 'package:pathfinder_sheet/screens/widgets/pull_to_refresh.dart';
@@ -23,6 +24,19 @@ class CharacterListView extends ElementaryWidget<ICharacterListWM> {
           appBar: AppBar(
             backgroundColor: AppColors.darkBlue,
             actions: [
+              GestureDetector(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DebugScreen())),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(
+                    'Debug',
+                    style: AppStyles.commonPixel(),
+                  ),
+                ),
+              ),
               if (value != -1 && value != 0)
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
