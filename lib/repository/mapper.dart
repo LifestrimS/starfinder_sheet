@@ -20,8 +20,9 @@ class Mapper {
         charClass: element.charClass,
         lvl: element.lvl,
         race: element.race,
-        alignment: element.alignment,
-        size: element.size);
+        alignment: CharAlignment.values
+            .firstWhere((e) => e.alignName == element.alignment),
+        size: CharSize.values.firstWhere((e) => e.sizeName == element.size));
   }
 
   TableCharacterData toTableCharacterData(Character character) {
@@ -31,8 +32,8 @@ class Mapper {
       charClass: character.charClass,
       lvl: character.lvl,
       race: character.race,
-      alignment: character.alignment,
-      size: character.size,
+      alignment: character.alignment.alignName,
+      size: character.size.sizeName,
     );
   }
 
@@ -43,8 +44,8 @@ class Mapper {
       charClass: Value(character.charClass),
       lvl: Value(character.lvl),
       race: Value(character.race),
-      alignment: Value(character.alignment),
-      size: Value(character.size),
+      alignment: Value(character.alignment.alignName),
+      size: Value(character.size.sizeName),
     );
   }
 }

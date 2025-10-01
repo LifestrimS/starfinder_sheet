@@ -45,14 +45,14 @@ class _ShortBioBlockState extends State<ShortBioBlock> {
                 ),
                 Expanded(
                     child: ShortBioAlignment(
-                  initialValue: widget.character.alignment,
+                  initialValue: widget.character.alignment.alignName,
                 )),
                 const SizedBox(
                   height: 4.0,
                 ),
                 Expanded(
                     child: ShortBioSize(
-                  initialValue: widget.character.size,
+                  initialValue: widget.character.size.sizeName,
                 )),
               ],
             ),
@@ -129,17 +129,6 @@ class ShortBioAlignment extends StatefulWidget {
 }
 
 class _ShortBioAlignmentState extends State<ShortBioAlignment> {
-  final List<String> alignments = [
-    'LG',
-    'NG',
-    'CG',
-    'LN',
-    'NN',
-    'CN',
-    'LE',
-    'NE',
-    'CE'
-  ];
   String alignment = '';
 
   @override
@@ -164,12 +153,12 @@ class _ShortBioAlignmentState extends State<ShortBioAlignment> {
               style: AppStyles.commonPixel(),
             ),
             initialValue: widget.initialValue,
-            itemBuilder: (BuildContext context) => alignments
+            itemBuilder: (BuildContext context) => CharAlignment.values
                 .map<PopupMenuItem<String>>(
-                  (String alignments) => PopupMenuItem<String>(
-                    value: alignments,
+                  (CharAlignment alignment) => PopupMenuItem<String>(
+                    value: alignment.alignName,
                     child: Text(
-                      alignments,
+                      alignment.alignName,
                       textAlign: TextAlign.end,
                       style: AppStyles.commonPixel(),
                     ),
@@ -196,15 +185,6 @@ class ShortBioSize extends StatefulWidget {
 }
 
 class _ShortBioSizeState extends State<ShortBioSize> {
-  final List<String> sizes = [
-    'T',
-    'S',
-    'M',
-    'L',
-    'H',
-    'G',
-    'C',
-  ];
   String size = '';
   @override
   Widget build(BuildContext context) {
@@ -227,12 +207,12 @@ class _ShortBioSizeState extends State<ShortBioSize> {
               style: AppStyles.commonPixel(),
             ),
             initialValue: widget.initialValue,
-            itemBuilder: (BuildContext context) => sizes
+            itemBuilder: (BuildContext context) => CharSize.values
                 .map<PopupMenuItem<String>>(
-                  (String sizes) => PopupMenuItem<String>(
-                    value: sizes,
+                  (CharSize size) => PopupMenuItem<String>(
+                    value: size.sizeName,
                     child: Text(
-                      sizes,
+                      size.sizeName,
                       textAlign: TextAlign.end,
                       style: AppStyles.commonPixel(),
                     ),

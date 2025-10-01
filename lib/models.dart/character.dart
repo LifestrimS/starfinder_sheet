@@ -4,8 +4,8 @@ class Character {
   final String charClass;
   final int lvl;
   final String race;
-  final String alignment;
-  final String size;
+  final CharAlignment alignment;
+  final CharSize size;
 
   Character(
       {required this.id,
@@ -22,8 +22,8 @@ class Character {
       this.charClass = 'Class',
       this.lvl = 0,
       this.race = 'Race',
-      this.alignment = 'NN',
-      this.size = 'M'});
+      this.alignment = CharAlignment.nn,
+      this.size = CharSize.m});
 
   Character copyWith(
       {int? id,
@@ -31,8 +31,8 @@ class Character {
       String? charClass,
       int? lvl,
       String? race,
-      String? alignment,
-      String? size}) {
+      CharAlignment? alignment,
+      CharSize? size}) {
     return Character(
         id: id ?? this.id,
         charName: charName ?? this.charName,
@@ -46,7 +46,7 @@ class Character {
   @override
   String toString() {
     return 'id: $id\nName: $charName\nClass: $charClass\nLvl: $lvl'
-        '\nRace: $race\nAlignment: $alignment\nSize: $size';
+        '\nRace: $race\nAlignment: ${alignment.alignName}\nSize: ${size.sizeName}';
   }
 
   String shortString() {
@@ -54,29 +54,29 @@ class Character {
   }
 }
 
-// enum CharAlignment {
-//   lg,
-//   ng,
-//   cg,
-//   ln,
-//   nn,
-//   cn,
-//   le,
-//   ne,
-//   ce;
+enum CharAlignment {
+  lg,
+  ng,
+  cg,
+  ln,
+  nn,
+  cn,
+  le,
+  ne,
+  ce;
 
-//   String get alignName => name;
-// }
+  String get alignName => name;
+}
 
-// enum Size {
-//   d,
-//   t,
-//   s,
-//   m,
-//   l,
-//   h,
-//   g,
-//   c;
+enum CharSize {
+  d,
+  t,
+  s,
+  m,
+  l,
+  h,
+  g,
+  c;
 
-//   String get sizeName => name;
-// }
+  String get sizeName => name;
+}
