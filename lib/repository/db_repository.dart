@@ -3,7 +3,7 @@ import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/repository/mapper.dart';
 
 class Repository {
-  final AppDb _db;
+  final AppDatabase _db;
 
   Repository(this._db);
 

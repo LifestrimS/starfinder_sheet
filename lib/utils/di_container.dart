@@ -4,9 +4,9 @@ import 'package:pathfinder_sheet/repository/db_repository.dart';
 
 class DIContainer {
   static Future<void> init() async {
-    final db = AppDb();
+    final db = AppDatabase();
 
-    registerNew<AppDb>(db);
+    registerNew<AppDatabase>(db);
     registerNew<Repository>(Repository(GetIt.I.get()));
     //await theme.initTheme();
   }

@@ -18,114 +18,42 @@ class $TableCharacterTable extends TableCharacter
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _chNameMeta = const VerificationMeta('chName');
+  static const VerificationMeta _charNameMeta =
+      const VerificationMeta('charName');
   @override
-  late final GeneratedColumn<String> chName = GeneratedColumn<String>(
-      'chName', aliasedName, false,
+  late final GeneratedColumn<String> charName = GeneratedColumn<String>(
+      'char_name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _chClassMeta =
-      const VerificationMeta('chClass');
+  static const VerificationMeta _charClassMeta =
+      const VerificationMeta('charClass');
   @override
-  late final GeneratedColumn<int> chClass = GeneratedColumn<int>(
-      'chClass', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+  late final GeneratedColumn<String> charClass = GeneratedColumn<String>(
+      'char_class', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _lvlMeta = const VerificationMeta('lvl');
   @override
   late final GeneratedColumn<int> lvl = GeneratedColumn<int>(
       'lvl', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _imageColorMeta =
-      const VerificationMeta('imageColor');
+  static const VerificationMeta _raceMeta = const VerificationMeta('race');
   @override
-  late final GeneratedColumn<String> imageColor = GeneratedColumn<String>(
-      'imageColor', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _imagePathMeta =
-      const VerificationMeta('imagePath');
-  @override
-  late final GeneratedColumn<String> imagePath = GeneratedColumn<String>(
-      'imagePath', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _textColorMeta =
-      const VerificationMeta('textColor');
-  @override
-  late final GeneratedColumn<String> textColor = GeneratedColumn<String>(
-      'textColor', aliasedName, false,
+  late final GeneratedColumn<String> race = GeneratedColumn<String>(
+      'race', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _alignmentMeta =
       const VerificationMeta('alignment');
   @override
-  late final GeneratedColumn<int> alignment = GeneratedColumn<int>(
-      '', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _deiterityMeta =
-      const VerificationMeta('deiterity');
-  @override
-  late final GeneratedColumn<String> deiterity = GeneratedColumn<String>(
-      'deiterity', aliasedName, false,
+  late final GeneratedColumn<String> alignment = GeneratedColumn<String>(
+      'alignment', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _raceMeta = const VerificationMeta('race');
-  @override
-  late final GeneratedColumn<int> race = GeneratedColumn<int>(
-      'race', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _ageMeta = const VerificationMeta('age');
-  @override
-  late final GeneratedColumn<int> age = GeneratedColumn<int>(
-      'age', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _genderMeta = const VerificationMeta('gender');
-  @override
-  late final GeneratedColumn<int> gender = GeneratedColumn<int>(
-      'gender', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _sizeMeta = const VerificationMeta('size');
   @override
-  late final GeneratedColumn<int> size = GeneratedColumn<int>(
+  late final GeneratedColumn<String> size = GeneratedColumn<String>(
       'size', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _weightMeta = const VerificationMeta('weight');
-  @override
-  late final GeneratedColumn<double> weight = GeneratedColumn<double>(
-      'weight', aliasedName, false,
-      type: DriftSqlType.double, requiredDuringInsert: true);
-  static const VerificationMeta _heightMeta = const VerificationMeta('height');
-  @override
-  late final GeneratedColumn<double> height = GeneratedColumn<double>(
-      'height', aliasedName, false,
-      type: DriftSqlType.double, requiredDuringInsert: true);
-  static const VerificationMeta _hairColorMeta =
-      const VerificationMeta('hairColor');
-  @override
-  late final GeneratedColumn<String> hairColor = GeneratedColumn<String>(
-      'hairColor', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _eyeColorMeta =
-      const VerificationMeta('eyeColor');
-  @override
-  late final GeneratedColumn<String> eyeColor = GeneratedColumn<String>(
-      'eyeColor', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        chName,
-        chClass,
-        lvl,
-        imageColor,
-        imagePath,
-        textColor,
-        alignment,
-        deiterity,
-        race,
-        age,
-        gender,
-        size,
-        weight,
-        height,
-        hairColor,
-        eyeColor
-      ];
+  List<GeneratedColumn> get $columns =>
+      [id, charName, charClass, lvl, race, alignment, size];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -139,17 +67,17 @@ class $TableCharacterTable extends TableCharacter
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('chName')) {
-      context.handle(_chNameMeta,
-          chName.isAcceptableOrUnknown(data['chName']!, _chNameMeta));
+    if (data.containsKey('char_name')) {
+      context.handle(_charNameMeta,
+          charName.isAcceptableOrUnknown(data['char_name']!, _charNameMeta));
     } else if (isInserting) {
-      context.missing(_chNameMeta);
+      context.missing(_charNameMeta);
     }
-    if (data.containsKey('chClass')) {
-      context.handle(_chClassMeta,
-          chClass.isAcceptableOrUnknown(data['chClass']!, _chClassMeta));
+    if (data.containsKey('char_class')) {
+      context.handle(_charClassMeta,
+          charClass.isAcceptableOrUnknown(data['char_class']!, _charClassMeta));
     } else if (isInserting) {
-      context.missing(_chClassMeta);
+      context.missing(_charClassMeta);
     }
     if (data.containsKey('lvl')) {
       context.handle(
@@ -157,85 +85,23 @@ class $TableCharacterTable extends TableCharacter
     } else if (isInserting) {
       context.missing(_lvlMeta);
     }
-    if (data.containsKey('imageColor')) {
-      context.handle(
-          _imageColorMeta,
-          imageColor.isAcceptableOrUnknown(
-              data['imageColor']!, _imageColorMeta));
-    } else if (isInserting) {
-      context.missing(_imageColorMeta);
-    }
-    if (data.containsKey('imagePath')) {
-      context.handle(_imagePathMeta,
-          imagePath.isAcceptableOrUnknown(data['imagePath']!, _imagePathMeta));
-    } else if (isInserting) {
-      context.missing(_imagePathMeta);
-    }
-    if (data.containsKey('textColor')) {
-      context.handle(_textColorMeta,
-          textColor.isAcceptableOrUnknown(data['textColor']!, _textColorMeta));
-    } else if (isInserting) {
-      context.missing(_textColorMeta);
-    }
-    if (data.containsKey('')) {
-      context.handle(_alignmentMeta,
-          alignment.isAcceptableOrUnknown(data['']!, _alignmentMeta));
-    } else if (isInserting) {
-      context.missing(_alignmentMeta);
-    }
-    if (data.containsKey('deiterity')) {
-      context.handle(_deiterityMeta,
-          deiterity.isAcceptableOrUnknown(data['deiterity']!, _deiterityMeta));
-    } else if (isInserting) {
-      context.missing(_deiterityMeta);
-    }
     if (data.containsKey('race')) {
       context.handle(
           _raceMeta, race.isAcceptableOrUnknown(data['race']!, _raceMeta));
     } else if (isInserting) {
       context.missing(_raceMeta);
     }
-    if (data.containsKey('age')) {
-      context.handle(
-          _ageMeta, age.isAcceptableOrUnknown(data['age']!, _ageMeta));
+    if (data.containsKey('alignment')) {
+      context.handle(_alignmentMeta,
+          alignment.isAcceptableOrUnknown(data['alignment']!, _alignmentMeta));
     } else if (isInserting) {
-      context.missing(_ageMeta);
-    }
-    if (data.containsKey('gender')) {
-      context.handle(_genderMeta,
-          gender.isAcceptableOrUnknown(data['gender']!, _genderMeta));
-    } else if (isInserting) {
-      context.missing(_genderMeta);
+      context.missing(_alignmentMeta);
     }
     if (data.containsKey('size')) {
       context.handle(
           _sizeMeta, size.isAcceptableOrUnknown(data['size']!, _sizeMeta));
     } else if (isInserting) {
       context.missing(_sizeMeta);
-    }
-    if (data.containsKey('weight')) {
-      context.handle(_weightMeta,
-          weight.isAcceptableOrUnknown(data['weight']!, _weightMeta));
-    } else if (isInserting) {
-      context.missing(_weightMeta);
-    }
-    if (data.containsKey('height')) {
-      context.handle(_heightMeta,
-          height.isAcceptableOrUnknown(data['height']!, _heightMeta));
-    } else if (isInserting) {
-      context.missing(_heightMeta);
-    }
-    if (data.containsKey('hairColor')) {
-      context.handle(_hairColorMeta,
-          hairColor.isAcceptableOrUnknown(data['hairColor']!, _hairColorMeta));
-    } else if (isInserting) {
-      context.missing(_hairColorMeta);
-    }
-    if (data.containsKey('eyeColor')) {
-      context.handle(_eyeColorMeta,
-          eyeColor.isAcceptableOrUnknown(data['eyeColor']!, _eyeColorMeta));
-    } else if (isInserting) {
-      context.missing(_eyeColorMeta);
     }
     return context;
   }
@@ -248,38 +114,18 @@ class $TableCharacterTable extends TableCharacter
     return TableCharacterData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      chName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}chName'])!,
-      chClass: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}chClass'])!,
+      charName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}char_name'])!,
+      charClass: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}char_class'])!,
       lvl: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}lvl'])!,
-      imageColor: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}imageColor'])!,
-      imagePath: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}imagePath'])!,
-      textColor: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}textColor'])!,
-      alignment: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}'])!,
-      deiterity: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}deiterity'])!,
       race: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}race'])!,
-      age: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}age'])!,
-      gender: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}gender'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}race'])!,
+      alignment: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}alignment'])!,
       size: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}size'])!,
-      weight: attachedDatabase.typeMapping
-          .read(DriftSqlType.double, data['${effectivePrefix}weight'])!,
-      height: attachedDatabase.typeMapping
-          .read(DriftSqlType.double, data['${effectivePrefix}height'])!,
-      hairColor: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}hairColor'])!,
-      eyeColor: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}eyeColor'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}size'])!,
     );
   }
 
@@ -292,82 +138,42 @@ class $TableCharacterTable extends TableCharacter
 class TableCharacterData extends DataClass
     implements Insertable<TableCharacterData> {
   final int id;
-  final String chName;
-  final int chClass;
+  final String charName;
+  final String charClass;
   final int lvl;
-  final String imageColor;
-  final String imagePath;
-  final String textColor;
-  final int alignment;
-  final String deiterity;
-  final int race;
-  final int age;
-  final int gender;
-  final int size;
-  final double weight;
-  final double height;
-  final String hairColor;
-  final String eyeColor;
+  final String race;
+  final String alignment;
+  final String size;
   const TableCharacterData(
       {required this.id,
-      required this.chName,
-      required this.chClass,
+      required this.charName,
+      required this.charClass,
       required this.lvl,
-      required this.imageColor,
-      required this.imagePath,
-      required this.textColor,
-      required this.alignment,
-      required this.deiterity,
       required this.race,
-      required this.age,
-      required this.gender,
-      required this.size,
-      required this.weight,
-      required this.height,
-      required this.hairColor,
-      required this.eyeColor});
+      required this.alignment,
+      required this.size});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['chName'] = Variable<String>(chName);
-    map['chClass'] = Variable<int>(chClass);
+    map['char_name'] = Variable<String>(charName);
+    map['char_class'] = Variable<String>(charClass);
     map['lvl'] = Variable<int>(lvl);
-    map['imageColor'] = Variable<String>(imageColor);
-    map['imagePath'] = Variable<String>(imagePath);
-    map['textColor'] = Variable<String>(textColor);
-    map[''] = Variable<int>(alignment);
-    map['deiterity'] = Variable<String>(deiterity);
-    map['race'] = Variable<int>(race);
-    map['age'] = Variable<int>(age);
-    map['gender'] = Variable<int>(gender);
-    map['size'] = Variable<int>(size);
-    map['weight'] = Variable<double>(weight);
-    map['height'] = Variable<double>(height);
-    map['hairColor'] = Variable<String>(hairColor);
-    map['eyeColor'] = Variable<String>(eyeColor);
+    map['race'] = Variable<String>(race);
+    map['alignment'] = Variable<String>(alignment);
+    map['size'] = Variable<String>(size);
     return map;
   }
 
   TableCharacterCompanion toCompanion(bool nullToAbsent) {
     return TableCharacterCompanion(
       id: Value(id),
-      chName: Value(chName),
-      chClass: Value(chClass),
+      charName: Value(charName),
+      charClass: Value(charClass),
       lvl: Value(lvl),
-      imageColor: Value(imageColor),
-      imagePath: Value(imagePath),
-      textColor: Value(textColor),
-      alignment: Value(alignment),
-      deiterity: Value(deiterity),
       race: Value(race),
-      age: Value(age),
-      gender: Value(gender),
+      alignment: Value(alignment),
       size: Value(size),
-      weight: Value(weight),
-      height: Value(height),
-      hairColor: Value(hairColor),
-      eyeColor: Value(eyeColor),
     );
   }
 
@@ -376,22 +182,12 @@ class TableCharacterData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return TableCharacterData(
       id: serializer.fromJson<int>(json['id']),
-      chName: serializer.fromJson<String>(json['chName']),
-      chClass: serializer.fromJson<int>(json['chClass']),
+      charName: serializer.fromJson<String>(json['charName']),
+      charClass: serializer.fromJson<String>(json['charClass']),
       lvl: serializer.fromJson<int>(json['lvl']),
-      imageColor: serializer.fromJson<String>(json['imageColor']),
-      imagePath: serializer.fromJson<String>(json['imagePath']),
-      textColor: serializer.fromJson<String>(json['textColor']),
-      alignment: serializer.fromJson<int>(json['alignment']),
-      deiterity: serializer.fromJson<String>(json['deiterity']),
-      race: serializer.fromJson<int>(json['race']),
-      age: serializer.fromJson<int>(json['age']),
-      gender: serializer.fromJson<int>(json['gender']),
-      size: serializer.fromJson<int>(json['size']),
-      weight: serializer.fromJson<double>(json['weight']),
-      height: serializer.fromJson<double>(json['height']),
-      hairColor: serializer.fromJson<String>(json['hairColor']),
-      eyeColor: serializer.fromJson<String>(json['eyeColor']),
+      race: serializer.fromJson<String>(json['race']),
+      alignment: serializer.fromJson<String>(json['alignment']),
+      size: serializer.fromJson<String>(json['size']),
     );
   }
   @override
@@ -399,275 +195,141 @@ class TableCharacterData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'chName': serializer.toJson<String>(chName),
-      'chClass': serializer.toJson<int>(chClass),
+      'charName': serializer.toJson<String>(charName),
+      'charClass': serializer.toJson<String>(charClass),
       'lvl': serializer.toJson<int>(lvl),
-      'imageColor': serializer.toJson<String>(imageColor),
-      'imagePath': serializer.toJson<String>(imagePath),
-      'textColor': serializer.toJson<String>(textColor),
-      'alignment': serializer.toJson<int>(alignment),
-      'deiterity': serializer.toJson<String>(deiterity),
-      'race': serializer.toJson<int>(race),
-      'age': serializer.toJson<int>(age),
-      'gender': serializer.toJson<int>(gender),
-      'size': serializer.toJson<int>(size),
-      'weight': serializer.toJson<double>(weight),
-      'height': serializer.toJson<double>(height),
-      'hairColor': serializer.toJson<String>(hairColor),
-      'eyeColor': serializer.toJson<String>(eyeColor),
+      'race': serializer.toJson<String>(race),
+      'alignment': serializer.toJson<String>(alignment),
+      'size': serializer.toJson<String>(size),
     };
   }
 
   TableCharacterData copyWith(
           {int? id,
-          String? chName,
-          int? chClass,
+          String? charName,
+          String? charClass,
           int? lvl,
-          String? imageColor,
-          String? imagePath,
-          String? textColor,
-          int? alignment,
-          String? deiterity,
-          int? race,
-          int? age,
-          int? gender,
-          int? size,
-          double? weight,
-          double? height,
-          String? hairColor,
-          String? eyeColor}) =>
+          String? race,
+          String? alignment,
+          String? size}) =>
       TableCharacterData(
         id: id ?? this.id,
-        chName: chName ?? this.chName,
-        chClass: chClass ?? this.chClass,
+        charName: charName ?? this.charName,
+        charClass: charClass ?? this.charClass,
         lvl: lvl ?? this.lvl,
-        imageColor: imageColor ?? this.imageColor,
-        imagePath: imagePath ?? this.imagePath,
-        textColor: textColor ?? this.textColor,
-        alignment: alignment ?? this.alignment,
-        deiterity: deiterity ?? this.deiterity,
         race: race ?? this.race,
-        age: age ?? this.age,
-        gender: gender ?? this.gender,
+        alignment: alignment ?? this.alignment,
         size: size ?? this.size,
-        weight: weight ?? this.weight,
-        height: height ?? this.height,
-        hairColor: hairColor ?? this.hairColor,
-        eyeColor: eyeColor ?? this.eyeColor,
       );
+  TableCharacterData copyWithCompanion(TableCharacterCompanion data) {
+    return TableCharacterData(
+      id: data.id.present ? data.id.value : this.id,
+      charName: data.charName.present ? data.charName.value : this.charName,
+      charClass: data.charClass.present ? data.charClass.value : this.charClass,
+      lvl: data.lvl.present ? data.lvl.value : this.lvl,
+      race: data.race.present ? data.race.value : this.race,
+      alignment: data.alignment.present ? data.alignment.value : this.alignment,
+      size: data.size.present ? data.size.value : this.size,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('TableCharacterData(')
           ..write('id: $id, ')
-          ..write('chName: $chName, ')
-          ..write('chClass: $chClass, ')
+          ..write('charName: $charName, ')
+          ..write('charClass: $charClass, ')
           ..write('lvl: $lvl, ')
-          ..write('imageColor: $imageColor, ')
-          ..write('imagePath: $imagePath, ')
-          ..write('textColor: $textColor, ')
-          ..write('alignment: $alignment, ')
-          ..write('deiterity: $deiterity, ')
           ..write('race: $race, ')
-          ..write('age: $age, ')
-          ..write('gender: $gender, ')
-          ..write('size: $size, ')
-          ..write('weight: $weight, ')
-          ..write('height: $height, ')
-          ..write('hairColor: $hairColor, ')
-          ..write('eyeColor: $eyeColor')
+          ..write('alignment: $alignment, ')
+          ..write('size: $size')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      id,
-      chName,
-      chClass,
-      lvl,
-      imageColor,
-      imagePath,
-      textColor,
-      alignment,
-      deiterity,
-      race,
-      age,
-      gender,
-      size,
-      weight,
-      height,
-      hairColor,
-      eyeColor);
+  int get hashCode =>
+      Object.hash(id, charName, charClass, lvl, race, alignment, size);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is TableCharacterData &&
           other.id == this.id &&
-          other.chName == this.chName &&
-          other.chClass == this.chClass &&
+          other.charName == this.charName &&
+          other.charClass == this.charClass &&
           other.lvl == this.lvl &&
-          other.imageColor == this.imageColor &&
-          other.imagePath == this.imagePath &&
-          other.textColor == this.textColor &&
-          other.alignment == this.alignment &&
-          other.deiterity == this.deiterity &&
           other.race == this.race &&
-          other.age == this.age &&
-          other.gender == this.gender &&
-          other.size == this.size &&
-          other.weight == this.weight &&
-          other.height == this.height &&
-          other.hairColor == this.hairColor &&
-          other.eyeColor == this.eyeColor);
+          other.alignment == this.alignment &&
+          other.size == this.size);
 }
 
 class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   final Value<int> id;
-  final Value<String> chName;
-  final Value<int> chClass;
+  final Value<String> charName;
+  final Value<String> charClass;
   final Value<int> lvl;
-  final Value<String> imageColor;
-  final Value<String> imagePath;
-  final Value<String> textColor;
-  final Value<int> alignment;
-  final Value<String> deiterity;
-  final Value<int> race;
-  final Value<int> age;
-  final Value<int> gender;
-  final Value<int> size;
-  final Value<double> weight;
-  final Value<double> height;
-  final Value<String> hairColor;
-  final Value<String> eyeColor;
+  final Value<String> race;
+  final Value<String> alignment;
+  final Value<String> size;
   const TableCharacterCompanion({
     this.id = const Value.absent(),
-    this.chName = const Value.absent(),
-    this.chClass = const Value.absent(),
+    this.charName = const Value.absent(),
+    this.charClass = const Value.absent(),
     this.lvl = const Value.absent(),
-    this.imageColor = const Value.absent(),
-    this.imagePath = const Value.absent(),
-    this.textColor = const Value.absent(),
-    this.alignment = const Value.absent(),
-    this.deiterity = const Value.absent(),
     this.race = const Value.absent(),
-    this.age = const Value.absent(),
-    this.gender = const Value.absent(),
+    this.alignment = const Value.absent(),
     this.size = const Value.absent(),
-    this.weight = const Value.absent(),
-    this.height = const Value.absent(),
-    this.hairColor = const Value.absent(),
-    this.eyeColor = const Value.absent(),
   });
   TableCharacterCompanion.insert({
     this.id = const Value.absent(),
-    required String chName,
-    required int chClass,
+    required String charName,
+    required String charClass,
     required int lvl,
-    required String imageColor,
-    required String imagePath,
-    required String textColor,
-    required int alignment,
-    required String deiterity,
-    required int race,
-    required int age,
-    required int gender,
-    required int size,
-    required double weight,
-    required double height,
-    required String hairColor,
-    required String eyeColor,
-  })  : chName = Value(chName),
-        chClass = Value(chClass),
+    required String race,
+    required String alignment,
+    required String size,
+  })  : charName = Value(charName),
+        charClass = Value(charClass),
         lvl = Value(lvl),
-        imageColor = Value(imageColor),
-        imagePath = Value(imagePath),
-        textColor = Value(textColor),
-        alignment = Value(alignment),
-        deiterity = Value(deiterity),
         race = Value(race),
-        age = Value(age),
-        gender = Value(gender),
-        size = Value(size),
-        weight = Value(weight),
-        height = Value(height),
-        hairColor = Value(hairColor),
-        eyeColor = Value(eyeColor);
+        alignment = Value(alignment),
+        size = Value(size);
   static Insertable<TableCharacterData> custom({
     Expression<int>? id,
-    Expression<String>? chName,
-    Expression<int>? chClass,
+    Expression<String>? charName,
+    Expression<String>? charClass,
     Expression<int>? lvl,
-    Expression<String>? imageColor,
-    Expression<String>? imagePath,
-    Expression<String>? textColor,
-    Expression<int>? alignment,
-    Expression<String>? deiterity,
-    Expression<int>? race,
-    Expression<int>? age,
-    Expression<int>? gender,
-    Expression<int>? size,
-    Expression<double>? weight,
-    Expression<double>? height,
-    Expression<String>? hairColor,
-    Expression<String>? eyeColor,
+    Expression<String>? race,
+    Expression<String>? alignment,
+    Expression<String>? size,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (chName != null) 'chName': chName,
-      if (chClass != null) 'chClass': chClass,
+      if (charName != null) 'char_name': charName,
+      if (charClass != null) 'char_class': charClass,
       if (lvl != null) 'lvl': lvl,
-      if (imageColor != null) 'imageColor': imageColor,
-      if (imagePath != null) 'imagePath': imagePath,
-      if (textColor != null) 'textColor': textColor,
-      if (alignment != null) '': alignment,
-      if (deiterity != null) 'deiterity': deiterity,
       if (race != null) 'race': race,
-      if (age != null) 'age': age,
-      if (gender != null) 'gender': gender,
+      if (alignment != null) 'alignment': alignment,
       if (size != null) 'size': size,
-      if (weight != null) 'weight': weight,
-      if (height != null) 'height': height,
-      if (hairColor != null) 'hairColor': hairColor,
-      if (eyeColor != null) 'eyeColor': eyeColor,
     });
   }
 
   TableCharacterCompanion copyWith(
       {Value<int>? id,
-      Value<String>? chName,
-      Value<int>? chClass,
+      Value<String>? charName,
+      Value<String>? charClass,
       Value<int>? lvl,
-      Value<String>? imageColor,
-      Value<String>? imagePath,
-      Value<String>? textColor,
-      Value<int>? alignment,
-      Value<String>? deiterity,
-      Value<int>? race,
-      Value<int>? age,
-      Value<int>? gender,
-      Value<int>? size,
-      Value<double>? weight,
-      Value<double>? height,
-      Value<String>? hairColor,
-      Value<String>? eyeColor}) {
+      Value<String>? race,
+      Value<String>? alignment,
+      Value<String>? size}) {
     return TableCharacterCompanion(
       id: id ?? this.id,
-      chName: chName ?? this.chName,
-      chClass: chClass ?? this.chClass,
+      charName: charName ?? this.charName,
+      charClass: charClass ?? this.charClass,
       lvl: lvl ?? this.lvl,
-      imageColor: imageColor ?? this.imageColor,
-      imagePath: imagePath ?? this.imagePath,
-      textColor: textColor ?? this.textColor,
-      alignment: alignment ?? this.alignment,
-      deiterity: deiterity ?? this.deiterity,
       race: race ?? this.race,
-      age: age ?? this.age,
-      gender: gender ?? this.gender,
+      alignment: alignment ?? this.alignment,
       size: size ?? this.size,
-      weight: weight ?? this.weight,
-      height: height ?? this.height,
-      hairColor: hairColor ?? this.hairColor,
-      eyeColor: eyeColor ?? this.eyeColor,
     );
   }
 
@@ -677,53 +339,23 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (chName.present) {
-      map['chName'] = Variable<String>(chName.value);
+    if (charName.present) {
+      map['char_name'] = Variable<String>(charName.value);
     }
-    if (chClass.present) {
-      map['chClass'] = Variable<int>(chClass.value);
+    if (charClass.present) {
+      map['char_class'] = Variable<String>(charClass.value);
     }
     if (lvl.present) {
       map['lvl'] = Variable<int>(lvl.value);
     }
-    if (imageColor.present) {
-      map['imageColor'] = Variable<String>(imageColor.value);
-    }
-    if (imagePath.present) {
-      map['imagePath'] = Variable<String>(imagePath.value);
-    }
-    if (textColor.present) {
-      map['textColor'] = Variable<String>(textColor.value);
+    if (race.present) {
+      map['race'] = Variable<String>(race.value);
     }
     if (alignment.present) {
-      map[''] = Variable<int>(alignment.value);
-    }
-    if (deiterity.present) {
-      map['deiterity'] = Variable<String>(deiterity.value);
-    }
-    if (race.present) {
-      map['race'] = Variable<int>(race.value);
-    }
-    if (age.present) {
-      map['age'] = Variable<int>(age.value);
-    }
-    if (gender.present) {
-      map['gender'] = Variable<int>(gender.value);
+      map['alignment'] = Variable<String>(alignment.value);
     }
     if (size.present) {
-      map['size'] = Variable<int>(size.value);
-    }
-    if (weight.present) {
-      map['weight'] = Variable<double>(weight.value);
-    }
-    if (height.present) {
-      map['height'] = Variable<double>(height.value);
-    }
-    if (hairColor.present) {
-      map['hairColor'] = Variable<String>(hairColor.value);
-    }
-    if (eyeColor.present) {
-      map['eyeColor'] = Variable<String>(eyeColor.value);
+      map['size'] = Variable<String>(size.value);
     }
     return map;
   }
@@ -732,33 +364,230 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   String toString() {
     return (StringBuffer('TableCharacterCompanion(')
           ..write('id: $id, ')
-          ..write('chName: $chName, ')
-          ..write('chClass: $chClass, ')
+          ..write('charName: $charName, ')
+          ..write('charClass: $charClass, ')
           ..write('lvl: $lvl, ')
-          ..write('imageColor: $imageColor, ')
-          ..write('imagePath: $imagePath, ')
-          ..write('textColor: $textColor, ')
-          ..write('alignment: $alignment, ')
-          ..write('deiterity: $deiterity, ')
           ..write('race: $race, ')
-          ..write('age: $age, ')
-          ..write('gender: $gender, ')
-          ..write('size: $size, ')
-          ..write('weight: $weight, ')
-          ..write('height: $height, ')
-          ..write('hairColor: $hairColor, ')
-          ..write('eyeColor: $eyeColor')
+          ..write('alignment: $alignment, ')
+          ..write('size: $size')
           ..write(')'))
         .toString();
   }
 }
 
-abstract class _$AppDb extends GeneratedDatabase {
-  _$AppDb(QueryExecutor e) : super(e);
+abstract class _$AppDatabase extends GeneratedDatabase {
+  _$AppDatabase(QueryExecutor e) : super(e);
+  $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $TableCharacterTable tableCharacter = $TableCharacterTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [tableCharacter];
+}
+
+typedef $$TableCharacterTableCreateCompanionBuilder = TableCharacterCompanion
+    Function({
+  Value<int> id,
+  required String charName,
+  required String charClass,
+  required int lvl,
+  required String race,
+  required String alignment,
+  required String size,
+});
+typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
+    Function({
+  Value<int> id,
+  Value<String> charName,
+  Value<String> charClass,
+  Value<int> lvl,
+  Value<String> race,
+  Value<String> alignment,
+  Value<String> size,
+});
+
+class $$TableCharacterTableFilterComposer
+    extends Composer<_$AppDatabase, $TableCharacterTable> {
+  $$TableCharacterTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get charName => $composableBuilder(
+      column: $table.charName, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get charClass => $composableBuilder(
+      column: $table.charClass, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get lvl => $composableBuilder(
+      column: $table.lvl, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get race => $composableBuilder(
+      column: $table.race, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get alignment => $composableBuilder(
+      column: $table.alignment, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get size => $composableBuilder(
+      column: $table.size, builder: (column) => ColumnFilters(column));
+}
+
+class $$TableCharacterTableOrderingComposer
+    extends Composer<_$AppDatabase, $TableCharacterTable> {
+  $$TableCharacterTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get charName => $composableBuilder(
+      column: $table.charName, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get charClass => $composableBuilder(
+      column: $table.charClass, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get lvl => $composableBuilder(
+      column: $table.lvl, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get race => $composableBuilder(
+      column: $table.race, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get alignment => $composableBuilder(
+      column: $table.alignment, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get size => $composableBuilder(
+      column: $table.size, builder: (column) => ColumnOrderings(column));
+}
+
+class $$TableCharacterTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TableCharacterTable> {
+  $$TableCharacterTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get charName =>
+      $composableBuilder(column: $table.charName, builder: (column) => column);
+
+  GeneratedColumn<String> get charClass =>
+      $composableBuilder(column: $table.charClass, builder: (column) => column);
+
+  GeneratedColumn<int> get lvl =>
+      $composableBuilder(column: $table.lvl, builder: (column) => column);
+
+  GeneratedColumn<String> get race =>
+      $composableBuilder(column: $table.race, builder: (column) => column);
+
+  GeneratedColumn<String> get alignment =>
+      $composableBuilder(column: $table.alignment, builder: (column) => column);
+
+  GeneratedColumn<String> get size =>
+      $composableBuilder(column: $table.size, builder: (column) => column);
+}
+
+class $$TableCharacterTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $TableCharacterTable,
+    TableCharacterData,
+    $$TableCharacterTableFilterComposer,
+    $$TableCharacterTableOrderingComposer,
+    $$TableCharacterTableAnnotationComposer,
+    $$TableCharacterTableCreateCompanionBuilder,
+    $$TableCharacterTableUpdateCompanionBuilder,
+    (
+      TableCharacterData,
+      BaseReferences<_$AppDatabase, $TableCharacterTable, TableCharacterData>
+    ),
+    TableCharacterData,
+    PrefetchHooks Function()> {
+  $$TableCharacterTableTableManager(
+      _$AppDatabase db, $TableCharacterTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TableCharacterTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TableCharacterTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TableCharacterTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> charName = const Value.absent(),
+            Value<String> charClass = const Value.absent(),
+            Value<int> lvl = const Value.absent(),
+            Value<String> race = const Value.absent(),
+            Value<String> alignment = const Value.absent(),
+            Value<String> size = const Value.absent(),
+          }) =>
+              TableCharacterCompanion(
+            id: id,
+            charName: charName,
+            charClass: charClass,
+            lvl: lvl,
+            race: race,
+            alignment: alignment,
+            size: size,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String charName,
+            required String charClass,
+            required int lvl,
+            required String race,
+            required String alignment,
+            required String size,
+          }) =>
+              TableCharacterCompanion.insert(
+            id: id,
+            charName: charName,
+            charClass: charClass,
+            lvl: lvl,
+            race: race,
+            alignment: alignment,
+            size: size,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$TableCharacterTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $TableCharacterTable,
+    TableCharacterData,
+    $$TableCharacterTableFilterComposer,
+    $$TableCharacterTableOrderingComposer,
+    $$TableCharacterTableAnnotationComposer,
+    $$TableCharacterTableCreateCompanionBuilder,
+    $$TableCharacterTableUpdateCompanionBuilder,
+    (
+      TableCharacterData,
+      BaseReferences<_$AppDatabase, $TableCharacterTable, TableCharacterData>
+    ),
+    TableCharacterData,
+    PrefetchHooks Function()>;
+
+class $AppDatabaseManager {
+  final _$AppDatabase _db;
+  $AppDatabaseManager(this._db);
+  $$TableCharacterTableTableManager get tableCharacter =>
+      $$TableCharacterTableTableManager(_db, _db.tableCharacter);
 }

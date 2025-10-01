@@ -5,8 +5,8 @@ import 'package:pathfinder_sheet/screens/character_list/character_list_wm.dart';
 import 'package:pathfinder_sheet/screens/side_bar.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
-import 'package:pathfinder_sheet/widgets/loading_indicator.dart';
-import 'package:pathfinder_sheet/widgets/pull_to_refresh.dart';
+import 'package:pathfinder_sheet/screens/widgets/loading_indicator.dart';
+import 'package:pathfinder_sheet/screens/widgets/pull_to_refresh.dart';
 
 class CharacterListView extends ElementaryWidget<ICharacterListWM> {
   const CharacterListView({Key? key}) : super(createCharacterListWM, key: key);

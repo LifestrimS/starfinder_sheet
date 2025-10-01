@@ -56,7 +56,7 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
                 height: 12.0,
               ),
               ResolveBlock(wm: wm),
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
               LiveBlock(

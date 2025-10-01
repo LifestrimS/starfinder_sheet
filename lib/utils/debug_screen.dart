@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
-import 'package:pathfinder_sheet/widgets/button.dart';
+import 'package:pathfinder_sheet/screens/widgets/button.dart';
 
 class DebugScreen extends StatelessWidget {
   const DebugScreen({super.key});
@@ -13,8 +13,8 @@ class DebugScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+        title: const Padding(
+          padding: EdgeInsets.only(left: 8.0),
           child: Text(
             'Debug',
             style: TextStyle(
@@ -26,9 +26,9 @@ class DebugScreen extends StatelessWidget {
         backgroundColor: AppColors.textContrastDark,
         leading: IconButton(
             onPressed: () {
-              //context.pop(true);
+              Navigator.pop(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: AppColors.textContrastDark,
             )),
