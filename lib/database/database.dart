@@ -52,4 +52,21 @@ class TableCharacter extends Table {
   TextColumn get race => text()();
   TextColumn get alignment => text()();
   TextColumn get size => text()();
+
+//ability
+  IntColumn get strength => integer()();
+  IntColumn get dexterity => integer()();
+  IntColumn get constitution => integer()();
+  IntColumn get intelligence => integer()();
+  IntColumn get wisdom => integer()();
+  IntColumn get charisma => integer()();
+
+//liveBlock
+  IntColumn get maxHp => integer()();
+  IntColumn get currentHp => integer()();
+  IntColumn get maxStam => integer()();
+  IntColumn get currentStam => integer()();
+  IntColumn get maxResolve => integer()();
+  IntColumn get currentResolve => integer()();
+  TextColumn get damageLog => text()();
 }

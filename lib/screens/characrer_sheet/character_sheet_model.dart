@@ -2,17 +2,18 @@ import 'dart:developer';
 
 import 'package:elementary/elementary.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
 
 class CharacterSheetModel extends ElementaryModel {
-  // ignore: unused_field
   final Repository repository;
   final int charIndex;
+  final bool isNew;
 
-  int _totalHp = 100;
-  int _totalStam = 110;
-  int _totalResolve = 11;
+  Character character = Character.empty();
+
+  int _maxHp = 100;
+  int _maxStam = 110;
+  int _maxResolve = 11;
 
   int _currentHp = 50;
   int _currentStam = 60;
@@ -21,16 +22,34 @@ class CharacterSheetModel extends ElementaryModel {
   String _damageLog = '';
   int _totalDamage = 0;
 
-  CharacterSheetModel({required this.charIndex, required this.repository});
+  CharacterSheetModel(
+      {required this.charIndex, required this.repository, required this.isNew});
 
-  Ability getAbility() {
-    return const Ability(
-        str: 12, dex: 22, con: 16, intel: 12, wis: 14, cha: 17);
+  CharacterAbility getAbility() {
+    return character.ability;
   }
 
   Future<Character?> getCharacter() async {
     try {
-      Character character = await repository.getCharacterById(charIndex);
+      character = await repository.getCharacterById(charIndex);
+
+      _maxHp = character.liveBlock.maxHp;
+      _currentHp = character.liveBlock.currentHp;
+      _maxStam = character.liveBlock.maxStam;
+      _currentStam = character.liveBlock.currentStam;
+      _maxResolve = character.liveBlock.maxResolve;
+      _currentResolve = character.liveBlock.currentResolve;
+      _damageLog = character.liveBlock.damageLog;
+
+      if (_damageLog.isEmpty) {
+        _totalDamage = 0;
+      } else {
+        final List<String> damageList = _damageLog.trim().split('+');
+        for (String damage in damageList) {
+          _totalDamage += int.parse(damage);
+        }
+      }
+
       return character;
     } catch (e) {
       log('Smth went wrong on getCharacter: $e');
@@ -38,15 +57,15 @@ class CharacterSheetModel extends ElementaryModel {
     }
   }
 
-  int get totalHp => _totalHp;
+  int get maxHp => _maxHp;
 
-  int get totalStam => _totalStam;
+  int get maxStam => _maxStam;
 
   int get currentHp => _currentHp;
 
   int get currentStam => _currentStam;
 
-  int get totalResolve => _totalResolve;
+  int get maxResolve => _maxResolve;
 
   int get currentResolve => _currentResolve;
 
@@ -67,10 +86,10 @@ class CharacterSheetModel extends ElementaryModel {
   }
 
   void addResolve() {
-    if (_totalResolve - _currentResolve > 1) {
+    if (_maxResolve - _currentResolve > 1) {
       _currentResolve += 1;
     } else {
-      _currentResolve = _totalResolve;
+      _currentResolve = _maxResolve;
     }
   }
 

@@ -4,10 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 
 abstract interface class ICharacterSheetWM implements IWidgetModel {
-  Ability getAbility();
+  CharacterAbility getAbility();
 
   void onRefresh();
 
@@ -49,11 +48,10 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
 }
 
 CharacterSheetWM createCharacterSheetWM(
-  BuildContext _,
-  int charIndex,
-) =>
+        BuildContext _, int charIndex, bool isNew) =>
     CharacterSheetWM(
-      CharacterSheetModel(charIndex: charIndex, repository: GetIt.I.get()),
+      CharacterSheetModel(
+          charIndex: charIndex, repository: GetIt.I.get(), isNew: isNew),
     );
 
 class CharacterSheetWM
@@ -95,13 +93,13 @@ class CharacterSheetWM
   Character get character => _character ?? Character.empty();
 
   @override
-  int get totalHp => model.totalHp;
+  int get totalHp => model.maxHp;
 
   @override
-  int get totalStam => model.totalStam;
+  int get totalStam => model.maxStam;
 
   @override
-  int get totalResolve => model.totalResolve;
+  int get totalResolve => model.maxResolve;
 
   @override
   int get currentResolve => model.currentResolve;
@@ -110,12 +108,8 @@ class CharacterSheetWM
 
   @override
   void initWidgetModel() {
-    _currentHpNotifier.value = model.currentHp;
-    _currentStampNotifier.value = model.currentStam;
-    _damageLogNotifier.value = model.damageLog;
-    _totalDamageNotifier.value = model.totalDamage;
-    _currentResolveNotifier.value = model.currentResolve;
     loadData();
+
     super.initWidgetModel();
   }
 
@@ -130,13 +124,18 @@ class CharacterSheetWM
   }
 
   @override
-  Ability getAbility() {
+  CharacterAbility getAbility() {
     return model.getAbility();
   }
 
   Future<void> loadData() async {
     await Future.delayed(const Duration(seconds: 2));
     _character = await model.getCharacter();
+    _currentHpNotifier.value = model.currentHp;
+    _currentStampNotifier.value = model.currentStam;
+    _damageLogNotifier.value = model.damageLog;
+    _totalDamageNotifier.value = model.totalDamage;
+    _currentResolveNotifier.value = model.currentResolve;
     _characterLoadNotifier.value = _character;
   }
 
@@ -184,8 +183,8 @@ class CharacterSheetWM
 
   @override
   void healHP(int value) {
-    if (model.totalHp <= (value + model.currentHp)) {
-      model.setCurrentHp(model.totalHp);
+    if (model.maxHp <= (value + model.currentHp)) {
+      model.setCurrentHp(model.maxHp);
     } else {
       model.addHp(value);
     }
@@ -195,8 +194,8 @@ class CharacterSheetWM
 
   @override
   void healStam(int value) {
-    if (model.totalStam <= (value + model.currentStam)) {
-      model.setCurrentStam(model.totalStam);
+    if (model.maxStam <= (value + model.currentStam)) {
+      model.setCurrentStam(model.maxStam);
     } else {
       model.addStam(value);
     }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class AbilityBlock extends StatelessWidget {
-  final Ability stats;
-  const AbilityBlock({required this.stats, super.key});
+  final CharacterAbility ability;
+  const AbilityBlock({required this.ability, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +15,15 @@ class AbilityBlock extends StatelessWidget {
         children: [
           AbilityCell(
             statName: 'STR',
-            statValue: stats.str,
+            statValue: ability.strength,
           ),
           AbilityCell(
             statName: 'DEX',
-            statValue: stats.dex,
+            statValue: ability.dexterity,
           ),
           AbilityCell(
             statName: 'CON',
-            statValue: stats.con,
+            statValue: ability.constitution,
           ),
         ],
       ),
@@ -34,15 +35,15 @@ class AbilityBlock extends StatelessWidget {
         children: [
           AbilityCell(
             statName: 'INT',
-            statValue: stats.intel,
+            statValue: ability.intelligence,
           ),
           AbilityCell(
             statName: 'WIS',
-            statValue: stats.wis,
+            statValue: ability.wisdom,
           ),
           AbilityCell(
             statName: 'CHA',
-            statValue: stats.cha,
+            statValue: ability.charisma,
           ),
         ],
       ),
@@ -102,7 +103,7 @@ class _AbilityCellState extends State<AbilityCell> {
                               padding:
                                   const EdgeInsets.only(top: 10.0, left: 3.0),
                               child: Text(
-                                getModifier(value),
+                                CharacterAbility.getModifier(value).toString(),
                                 style: AppStyles.commonPixel()
                                     .copyWith(fontSize: 20.0),
                               ),
@@ -151,15 +152,15 @@ class _AbilityCellState extends State<AbilityCell> {
     );
   }
 
-  String getModifier(int value) {
-    int modifier = 0;
-    if (value > 0) {
-      modifier = -5 + (value ~/ 2);
-      return modifier > 0 ? '+$modifier' : '$modifier';
-    } else {
-      return '0';
-    }
-  }
+  // String getModifier(int value) {
+  //   int modifier = 0;
+  //   if (value > 0) {
+  //     modifier = -5 + (value ~/ 2);
+  //     return modifier > 0 ? '+$modifier' : '$modifier';
+  //   } else {
+  //     return '0';
+  //   }
+  // }
 }
 
 class StatBorderPainter extends CustomPainter {
@@ -188,21 +189,4 @@ class StatBorderPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
-}
-
-class Ability {
-  final int str;
-  final int dex;
-  final int con;
-  final int intel;
-  final int wis;
-  final int cha;
-
-  const Ability(
-      {required this.str,
-      required this.dex,
-      required this.con,
-      required this.intel,
-      required this.wis,
-      required this.cha});
 }

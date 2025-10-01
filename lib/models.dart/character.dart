@@ -6,6 +6,8 @@ class Character {
   final String race;
   final CharAlignment alignment;
   final CharSize size;
+  final CharacterAbility ability;
+  final CharacterLiveBlock liveBlock;
 
   Character(
       {required this.id,
@@ -14,7 +16,9 @@ class Character {
       required this.lvl,
       required this.race,
       required this.alignment,
-      required this.size});
+      required this.size,
+      required this.ability,
+      required this.liveBlock});
 
   Character.empty(
       {this.id = 0,
@@ -23,7 +27,9 @@ class Character {
       this.lvl = 0,
       this.race = 'Race',
       this.alignment = CharAlignment.nn,
-      this.size = CharSize.m});
+      this.size = CharSize.m,
+      this.ability = const CharacterAbility.empty(),
+      this.liveBlock = const CharacterLiveBlock.empty()});
 
   Character copyWith(
       {int? id,
@@ -32,7 +38,9 @@ class Character {
       int? lvl,
       String? race,
       CharAlignment? alignment,
-      CharSize? size}) {
+      CharSize? size,
+      CharacterAbility? ability,
+      CharacterLiveBlock? liveBlock}) {
     return Character(
         id: id ?? this.id,
         charName: charName ?? this.charName,
@@ -40,7 +48,9 @@ class Character {
         lvl: lvl ?? this.lvl,
         race: race ?? this.race,
         alignment: alignment ?? this.alignment,
-        size: size ?? this.size);
+        size: size ?? this.size,
+        ability: ability ?? this.ability,
+        liveBlock: liveBlock ?? this.liveBlock);
   }
 
   @override
@@ -79,4 +89,67 @@ enum CharSize {
   c;
 
   String get sizeName => name;
+}
+
+class CharacterAbility {
+  final int strength;
+  final int dexterity;
+  final int constitution;
+  final int intelligence;
+  final int wisdom;
+  final int charisma;
+
+  const CharacterAbility(
+      {required this.strength,
+      required this.dexterity,
+      required this.constitution,
+      required this.intelligence,
+      required this.wisdom,
+      required this.charisma});
+
+  const CharacterAbility.empty(
+      {this.strength = 10,
+      this.dexterity = 10,
+      this.constitution = 10,
+      this.intelligence = 10,
+      this.wisdom = 10,
+      this.charisma = 10});
+
+  static int getModifier(int value) {
+    int modifier = 0;
+    if (value > 0) {
+      modifier = -5 + (value ~/ 2);
+      return modifier > 0 ? modifier : -modifier;
+    } else {
+      return 0;
+    }
+  }
+}
+
+class CharacterLiveBlock {
+  final int maxHp;
+  final int currentHp;
+  final int maxStam;
+  final int currentStam;
+  final int maxResolve;
+  final int currentResolve;
+  final String damageLog;
+
+  const CharacterLiveBlock(
+      {required this.maxHp,
+      required this.currentHp,
+      required this.maxStam,
+      required this.currentStam,
+      required this.maxResolve,
+      required this.currentResolve,
+      required this.damageLog});
+
+  const CharacterLiveBlock.empty(
+      {this.maxHp = 0,
+      this.currentHp = 0,
+      this.maxStam = 0,
+      this.currentStam = 0,
+      this.maxResolve = 0,
+      this.currentResolve = 0,
+      this.damageLog = ''});
 }

@@ -12,7 +12,7 @@ import 'package:pathfinder_sheet/repository/db_repository.dart';
 abstract interface class ICharacterListWM implements IWidgetModel {
   void onRefresh();
 
-  Widget goToCharacter({int? charId});
+  Widget goToCharacter({int? charId, bool isNew});
 
   double screenHeight();
 
@@ -83,7 +83,8 @@ class CharacterListWM extends WidgetModel<CharacterListView, CharacterListModel>
   }
 
   @override
-  Widget goToCharacter({int? charId}) {
+  Widget goToCharacter({int? charId, bool isNew = false}) {
+    if (isNew) {}
     if (charId == null) {
       return CharacterSheetView(charIndex: _characterList.first.id);
     } else {

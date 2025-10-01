@@ -13,14 +13,16 @@ import 'package:pathfinder_sheet/utils/styles.dart';
 
 class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
   final int charIndex;
+  final bool isNew;
 
   CharacterSheetView({
     required this.charIndex,
+    this.isNew = false,
     Key? key,
     WidgetModelFactory<CharacterSheetWM>? wmFactory,
   }) : super(
             wmFactory ??
-                (context) => createCharacterSheetWM(context, charIndex),
+                (context) => createCharacterSheetWM(context, charIndex, isNew),
             key: key);
 
   @override
@@ -79,7 +81,7 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
                         height: 12.0,
                       ),
                       AbilityBlock(
-                        stats: wm.getAbility(),
+                        ability: wm.getAbility(),
                       ),
                       const SizedBox(
                         height: 12.0,

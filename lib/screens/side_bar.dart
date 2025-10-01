@@ -62,6 +62,19 @@ class SideBar extends StatelessWidget {
                 );
               },
             ),
+            const Spacer(),
+            GestureDetector(
+              onTap: () {
+                wm.goToCharacter(isNew: true);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Create new',
+                  style: AppStyles.commonPixel(),
+                ),
+              ),
+            )
           ],
         ),
       ),
