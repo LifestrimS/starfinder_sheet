@@ -3,13 +3,13 @@ import 'dart:ui' as ui;
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
-import 'package:pathfinder_sheet/screens/character_list/character_list_model.dart';
 import 'package:pathfinder_sheet/screens/character_list/character_list_view.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
 
-abstract interface class ICharacterListWM implements IWidgetModel {
+abstract interface class IMainScreenWM implements IWidgetModel {
   void onRefresh();
 
   Widget goToCharacter({int? charId, bool isNew});
@@ -23,13 +23,14 @@ abstract interface class ICharacterListWM implements IWidgetModel {
   List<Character> get characterList;
 }
 
-CharacterListWM createCharacterListWM(BuildContext _) => CharacterListWM(
-      CharacterListModel(),
+MainScreenWM createMainScreenWM(BuildContext _) => MainScreenWM(
+      CharacterSheetModel(
+          charIndex: -1, repository: GetIt.I.get(), isNew: false),
       GetIt.I.get(),
     );
 
-class CharacterListWM extends WidgetModel<CharacterListView, CharacterListModel>
-    implements ICharacterListWM {
+class MainScreenWM extends WidgetModel<MainScreenView, CharacterSheetModel>
+    implements IMainScreenWM {
   //-1 -> loading state
   final ValueNotifier<int> _characterLenghtNotifire = ValueNotifier<int>(-1);
 
@@ -45,7 +46,7 @@ class CharacterListWM extends WidgetModel<CharacterListView, CharacterListModel>
   @override
   List<Character> get characterList => _characterList;
 
-  CharacterListWM(
+  MainScreenWM(
     super.model,
     this._repository,
   );
@@ -65,14 +66,6 @@ class CharacterListWM extends WidgetModel<CharacterListView, CharacterListModel>
     _characterList.add(character);
     _characterLenghtNotifire.value = _characterList.length;
   }
-
-  // void goCharacterCreation() async {
-  //   bool result = await context.pushNamed(Routes.characterCreation) as bool;
-  //   if (result) {
-  //     characterLenghtNotifire.value = -1;
-  //     await loadData();
-  //   }
-  // }
 
   Future<void> loadData() async {
     await Future.delayed(const Duration(seconds: 2));

@@ -4,7 +4,7 @@ import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class SideBar extends StatelessWidget {
-  final ICharacterListWM wm;
+  final IMainScreenWM wm;
 
   const SideBar({required this.wm, super.key});
 

@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
 
 abstract interface class ICharacterSheetWM implements IWidgetModel {
   CharacterAbility getAbility();
@@ -12,11 +16,11 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
 
   Character get character;
 
-  int get totalHp;
+  int get maxHp;
 
-  int get totalStam;
+  int get maxStam;
 
-  int get totalResolve;
+  int get maxResolve;
 
   int get currentResolve;
 
@@ -32,6 +36,12 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
 
   void removeResolve();
 
+  void setAlignment(String alignment);
+
+  void setSize(String size);
+
+  void saveCharacter();
+
   ValueNotifier<Character?> characterLoadNotifier();
 
   ValueNotifier<int> currentHpNotifier();
@@ -45,6 +55,18 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   ValueNotifier<int> currentResolveNotifier();
 
   TextEditingController get damageTextController;
+
+  TextEditingController get nameTextController;
+
+  TextEditingController get classTextController;
+
+  TextEditingController get raceTextController;
+
+  TextEditingController get lvlTextController;
+
+  AbilityTextControllers get abilityTextControllers;
+
+  LiveBlockTextControllers get liveBlockTextControllers;
 }
 
 CharacterSheetWM createCharacterSheetWM(
@@ -65,6 +87,24 @@ class CharacterSheetWM
   final ValueNotifier<int> _currentResolveNotifier = ValueNotifier(0);
 
   final TextEditingController _damageTextController = TextEditingController();
+  final TextEditingController _nameTextController = TextEditingController();
+  final TextEditingController _classTextController = TextEditingController();
+  final TextEditingController _raceTextController = TextEditingController();
+  final TextEditingController _lvlTextController = TextEditingController();
+
+  final AbilityTextControllers _abilityTextControllers = AbilityTextControllers(
+      strController: TextEditingController(),
+      dexController: TextEditingController(),
+      conController: TextEditingController(),
+      intController: TextEditingController(),
+      wisController: TextEditingController(),
+      chaController: TextEditingController());
+
+  final LiveBlockTextControllers _liveBlockTextControllers =
+      LiveBlockTextControllers(
+          maxHpController: TextEditingController(),
+          maxStamController: TextEditingController(),
+          maxResolveController: TextEditingController());
 
   late final Character? _character;
 
@@ -88,18 +128,31 @@ class CharacterSheetWM
 
   @override
   TextEditingController get damageTextController => _damageTextController;
+  @override
+  TextEditingController get nameTextController => _nameTextController;
+  @override
+  TextEditingController get classTextController => _classTextController;
+  @override
+  TextEditingController get raceTextController => _raceTextController;
+  @override
+  TextEditingController get lvlTextController => _lvlTextController;
+  @override
+  AbilityTextControllers get abilityTextControllers => _abilityTextControllers;
+  @override
+  LiveBlockTextControllers get liveBlockTextControllers =>
+      _liveBlockTextControllers;
 
   @override
   Character get character => _character ?? Character.empty();
 
   @override
-  int get totalHp => model.maxHp;
+  int get maxHp => model.maxHp;
 
   @override
-  int get totalStam => model.maxStam;
+  int get maxStam => model.maxStam;
 
   @override
-  int get totalResolve => model.maxResolve;
+  int get maxResolve => model.maxResolve;
 
   @override
   int get currentResolve => model.currentResolve;
@@ -137,11 +190,34 @@ class CharacterSheetWM
     _totalDamageNotifier.value = model.totalDamage;
     _currentResolveNotifier.value = model.currentResolve;
     _characterLoadNotifier.value = _character;
+
+    _nameTextController.text = model.name;
+    _classTextController.text = model.charClass;
+    _raceTextController.text = model.race;
+    _lvlTextController.text = model.lvl.toString();
+
+    _abilityTextControllers.strController.text =
+        model.getAbility().strength.toString();
+    _abilityTextControllers.dexController.text =
+        model.getAbility().dexterity.toString();
+    _abilityTextControllers.conController.text =
+        model.getAbility().constitution.toString();
+    _abilityTextControllers.intController.text =
+        model.getAbility().intelligence.toString();
+    _abilityTextControllers.wisController.text =
+        model.getAbility().wisdom.toString();
+    _abilityTextControllers.chaController.text =
+        model.getAbility().charisma.toString();
+
+    _liveBlockTextControllers.maxHpController.text = model.maxHp.toString();
+    _liveBlockTextControllers.maxStamController.text = model.maxStam.toString();
+    _liveBlockTextControllers.maxResolveController.text =
+        model.maxResolve.toString();
   }
 
   @override
   void onRefresh() async {
-    loadData();
+    await loadData();
   }
 
   @override
@@ -212,6 +288,55 @@ class CharacterSheetWM
   void removeResolve() {
     model.removeResolve();
     _currentResolveNotifier.value = model.currentResolve;
+  }
+
+  @override
+  void setAlignment(String alignment) {
+    model.setAlignment(alignment);
+  }
+
+  @override
+  void setSize(String size) {
+    model.setSize(size);
+  }
+
+  @override
+  void saveCharacter() async {
+    try {
+      final Character newCharacter = Character(
+        id: model.charIndex,
+        charName: _nameTextController.text,
+        charClass: _classTextController.text,
+        lvl: int.parse(_lvlTextController.text),
+        race: _raceTextController.text,
+        alignment: CharAlignment.values
+            .firstWhere((e) => e.alignName == model.alignment),
+        size: CharSize.values.firstWhere((e) => e.sizeName == model.size),
+        ability: CharacterAbility(
+            strength: int.parse(_abilityTextControllers.strController.text),
+            dexterity: int.parse(_abilityTextControllers.dexController.text),
+            constitution: int.parse(_abilityTextControllers.conController.text),
+            intelligence: int.parse(_abilityTextControllers.intController.text),
+            wisdom: int.parse(_abilityTextControllers.wisController.text),
+            charisma: int.parse(_abilityTextControllers.chaController.text)),
+        liveBlock: CharacterLiveBlock(
+            maxHp: int.parse(_liveBlockTextControllers.maxHpController.text),
+            currentHp: model.currentHp,
+            maxStam:
+                int.parse(_liveBlockTextControllers.maxStamController.text),
+            currentStam: model.currentStam,
+            maxResolve:
+                int.parse(_liveBlockTextControllers.maxResolveController.text),
+            currentResolve: model.currentResolve,
+            damageLog: model.damageLog),
+      );
+
+      model.saveCharacter(newCharacter: newCharacter);
+
+      log('Save:\n $newCharacter');
+    } catch (e) {
+      log('Smth went wrong during save: $e');
+    }
   }
 
   // void save() async {

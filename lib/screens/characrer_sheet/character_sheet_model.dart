@@ -11,6 +11,13 @@ class CharacterSheetModel extends ElementaryModel {
 
   Character character = Character.empty();
 
+  String _name = '';
+  String _class = '';
+  String _race = '';
+  int _lvl = 0;
+  String _alignment = 'nn';
+  String _size = 'm';
+
   int _maxHp = 100;
   int _maxStam = 110;
   int _maxResolve = 11;
@@ -24,38 +31,17 @@ class CharacterSheetModel extends ElementaryModel {
 
   CharacterSheetModel(
       {required this.charIndex, required this.repository, required this.isNew});
+  int get lvl => _lvl;
 
-  CharacterAbility getAbility() {
-    return character.ability;
-  }
+  String get name => _name;
 
-  Future<Character?> getCharacter() async {
-    try {
-      character = await repository.getCharacterById(charIndex);
+  String get charClass => _class;
 
-      _maxHp = character.liveBlock.maxHp;
-      _currentHp = character.liveBlock.currentHp;
-      _maxStam = character.liveBlock.maxStam;
-      _currentStam = character.liveBlock.currentStam;
-      _maxResolve = character.liveBlock.maxResolve;
-      _currentResolve = character.liveBlock.currentResolve;
-      _damageLog = character.liveBlock.damageLog;
+  String get race => _race;
 
-      if (_damageLog.isEmpty) {
-        _totalDamage = 0;
-      } else {
-        final List<String> damageList = _damageLog.trim().split('+');
-        for (String damage in damageList) {
-          _totalDamage += int.parse(damage);
-        }
-      }
+  String get alignment => _alignment;
 
-      return character;
-    } catch (e) {
-      log('Smth went wrong on getCharacter: $e');
-      return null;
-    }
-  }
+  String get size => _size;
 
   int get maxHp => _maxHp;
 
@@ -68,6 +54,71 @@ class CharacterSheetModel extends ElementaryModel {
   int get maxResolve => _maxResolve;
 
   int get currentResolve => _currentResolve;
+
+  String get damageLog => _damageLog;
+
+  int get totalDamage => _totalDamage;
+
+  CharacterAbility getAbility() {
+    return character.ability;
+  }
+
+  Future<void> forTestDb() async {
+    log('charIndex: $charIndex');
+  }
+
+  Future<Character?> getCharacter() async {
+    try {
+      // await forTestDb();
+
+      if (isNew) {
+        character = Character.empty();
+      } else {
+        character = await repository.getCharacterById(charIndex);
+      }
+
+      _maxHp = character.liveBlock.maxHp;
+      _currentHp = character.liveBlock.currentHp == -1
+          ? character.liveBlock.maxHp
+          : character.liveBlock.currentHp;
+      _maxStam = character.liveBlock.maxStam;
+      _currentStam = character.liveBlock.currentStam == -1
+          ? character.liveBlock.maxStam
+          : character.liveBlock.currentStam;
+      _maxResolve = character.liveBlock.maxResolve;
+      _currentResolve = character.liveBlock.currentResolve == -1
+          ? character.liveBlock.maxResolve
+          : character.liveBlock.currentResolve;
+      _damageLog = character.liveBlock.damageLog;
+      _lvl = character.lvl;
+
+      if (_damageLog.isEmpty) {
+        _totalDamage = 0;
+      } else {
+        final List<String> damageList = _damageLog.trim().split('-');
+        for (int i = 1; i <= damageList.length - 1; i++) {
+          _totalDamage += int.parse(damageList[i]);
+        }
+      }
+
+      return character;
+    } catch (e) {
+      log('Smth went wrong on getCharacter: $e');
+      return null;
+    }
+  }
+
+  Future<void> saveCharacter({Character? newCharacter}) async {
+    try {
+      if (isNew && newCharacter != null) {
+        await repository.addCharacter(newCharacter);
+      } else if (newCharacter != null) {
+        await repository.updateCharacter(newCharacter);
+      }
+    } catch (e) {
+      log('Smthing went wrong during ${isNew ? 'adding' : 'updating'} character: $e');
+    }
+  }
 
   void setCurrentHp(int value) {
     _currentHp = value;
@@ -99,8 +150,6 @@ class CharacterSheetModel extends ElementaryModel {
     }
   }
 
-  String get damageLog => _damageLog;
-
   void addDamage(String damage) {
     final tmpDamage = damage.startsWith('-') ? damage.substring(1) : damage;
     _totalDamage += int.parse(tmpDamage);
@@ -113,5 +162,27 @@ class CharacterSheetModel extends ElementaryModel {
     _totalDamage = 0;
   }
 
-  int get totalDamage => _totalDamage;
+  void setAlignment(String value) {
+    _alignment = value;
+  }
+
+  void setSize(String value) {
+    _size = value;
+  }
+
+  void setLvl(int value) {
+    _lvl = value;
+  }
+
+  void setName(String value) {
+    _name = value;
+  }
+
+  void setClass(String value) {
+    _class = value;
+  }
+
+  void setRace(String value) {
+    _race = value;
+  }
 }

@@ -42,10 +42,24 @@ class DebugScreen extends StatelessWidget {
               height: 12.0,
             ),
             Button(title: 'Add empty character', onTap: addEmptyCharacter),
+            const SizedBox(
+              height: 12.0,
+            ),
+            Button(title: 'Get all', onTap: getAllCharaters),
           ],
         ),
       ),
     );
+  }
+
+  void getAllCharaters() async {
+    try {
+      List<Character> characters =
+          await GetIt.I.get<Repository>().getAllCharacter();
+      log('All characters lenght: ${characters.length}:\n$characters');
+    } catch (e) {
+      log('Smthing get worng on delete all characters: $e');
+    }
   }
 
   void deleteAllCharaters() {

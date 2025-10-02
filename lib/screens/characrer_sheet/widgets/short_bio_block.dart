@@ -5,8 +5,20 @@ import 'package:pathfinder_sheet/utils/styles.dart';
 
 class ShortBioBlock extends StatefulWidget {
   final Character character;
+  final TextEditingController nameController;
+  final TextEditingController classController;
+  final TextEditingController raceController;
+  final void Function(String alignment) setAlignment;
+  final void Function(String alignment) setSize;
 
-  const ShortBioBlock({required this.character, super.key});
+  const ShortBioBlock(
+      {required this.character,
+      required this.nameController,
+      required this.classController,
+      required this.raceController,
+      required this.setAlignment,
+      required this.setSize,
+      super.key});
 
   @override
   State<ShortBioBlock> createState() => _ShortBioBlockState();
@@ -20,32 +32,42 @@ class _ShortBioBlockState extends State<ShortBioBlock> {
       child: CustomPaint(
           painter: ShortBioBlockPainter(),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 14.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
                     child: ShortBioRow(
-                        name: 'Name:', content: widget.character.charName)),
+                  name: 'Name:',
+                  content: widget.character.charName,
+                  controller: widget.nameController,
+                )),
                 const SizedBox(
                   height: 4.0,
                 ),
                 Expanded(
                     child: ShortBioRow(
-                        name: 'Class:', content: widget.character.charClass)),
+                  name: 'Class:',
+                  content: widget.character.charClass,
+                  controller: widget.classController,
+                )),
                 const SizedBox(
                   height: 4.0,
                 ),
                 Expanded(
                     child: ShortBioRow(
-                        name: 'Race:', content: widget.character.race)),
+                  name: 'Race:',
+                  content: widget.character.race,
+                  controller: widget.raceController,
+                )),
                 const SizedBox(
                   height: 4.0,
                 ),
                 Expanded(
                     child: ShortBioAlignment(
                   initialValue: widget.character.alignment.alignName,
+                  setAlignment: widget.setAlignment,
                 )),
                 const SizedBox(
                   height: 4.0,
@@ -53,6 +75,7 @@ class _ShortBioBlockState extends State<ShortBioBlock> {
                 Expanded(
                     child: ShortBioSize(
                   initialValue: widget.character.size.sizeName,
+                  setSize: widget.setSize,
                 )),
               ],
             ),
@@ -88,12 +111,16 @@ class ShortBioBlockPainter extends CustomPainter {
 class ShortBioRow extends StatelessWidget {
   final String name;
   final String content;
+  final TextEditingController controller;
 
-  const ShortBioRow({required this.name, required this.content, super.key});
+  const ShortBioRow(
+      {required this.name,
+      required this.content,
+      required this.controller,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController();
     controller.text = content;
 
     return Row(
@@ -103,7 +130,7 @@ class ShortBioRow extends StatelessWidget {
         Text(name, style: AppStyles.commonPixel().copyWith(fontSize: 8.0)),
         Expanded(
           child: TextFormField(
-            initialValue: content,
+            controller: controller,
             expands: true,
             maxLines: null,
             style: AppStyles.commonPixel(),
@@ -122,7 +149,10 @@ class ShortBioRow extends StatelessWidget {
 
 class ShortBioAlignment extends StatefulWidget {
   final String initialValue;
-  const ShortBioAlignment({required this.initialValue, super.key});
+  final void Function(String alignment) setAlignment;
+
+  const ShortBioAlignment(
+      {required this.initialValue, required this.setAlignment, super.key});
 
   @override
   State<ShortBioAlignment> createState() => _ShortBioAlignmentState();
@@ -167,6 +197,7 @@ class _ShortBioAlignmentState extends State<ShortBioAlignment> {
                 .toList(),
             onSelected: (value) => setState(() {
               alignment = value;
+              widget.setAlignment(value);
             }),
           ),
         )
@@ -177,8 +208,10 @@ class _ShortBioAlignmentState extends State<ShortBioAlignment> {
 
 class ShortBioSize extends StatefulWidget {
   final String initialValue;
+  final void Function(String size) setSize;
 
-  const ShortBioSize({required this.initialValue, super.key});
+  const ShortBioSize(
+      {required this.initialValue, required this.setSize, super.key});
 
   @override
   State<ShortBioSize> createState() => _ShortBioSizeState();
@@ -221,6 +254,7 @@ class _ShortBioSizeState extends State<ShortBioSize> {
                 .toList(),
             onSelected: (value) => setState(() {
               size = value;
+              widget.setSize(value);
             }),
           ),
         )

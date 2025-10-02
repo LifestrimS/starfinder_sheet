@@ -119,7 +119,7 @@ class CharacterAbility {
     int modifier = 0;
     if (value > 0) {
       modifier = -5 + (value ~/ 2);
-      return modifier > 0 ? modifier : -modifier;
+      return modifier > 0 ? modifier : modifier;
     } else {
       return 0;
     }
@@ -146,10 +146,10 @@ class CharacterLiveBlock {
 
   const CharacterLiveBlock.empty(
       {this.maxHp = 0,
-      this.currentHp = 0,
+      this.currentHp = -1,
       this.maxStam = 0,
-      this.currentStam = 0,
+      this.currentStam = -1,
       this.maxResolve = 0,
-      this.currentResolve = 0,
+      this.currentResolve = -1,
       this.damageLog = ''});
 }

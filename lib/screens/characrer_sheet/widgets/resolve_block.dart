@@ -5,7 +5,8 @@ import 'package:pathfinder_sheet/utils/styles.dart';
 
 class ResolveBlock extends StatelessWidget {
   final ICharacterSheetWM wm;
-  const ResolveBlock({required this.wm, super.key});
+  final TextEditingController controller;
+  const ResolveBlock({required this.wm, required this.controller, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +22,29 @@ class ResolveBlock extends StatelessWidget {
                   'Resolve',
                   style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 32.0),
-                  child: Text(
-                    '$currentResolve/${wm.totalResolve}',
+                const Spacer(),
+                Text(
+                  '$currentResolve/',
+                  style: AppStyles.commonPixel().copyWith(
+                    fontSize: 8.0,
+                  ),
+                ),
+                SizedBox(
+                  width: 35.0,
+                  height: 15.0,
+                  child: TextFormField(
+                    controller: controller,
+                    expands: true,
+                    maxLines: null,
                     style: AppStyles.commonPixel().copyWith(
                       fontSize: 8.0,
+                    ),
+                    textAlign: TextAlign.left,
+                    textAlignVertical: TextAlignVertical.center,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.zero,
                     ),
                   ),
                 ),
@@ -39,7 +57,7 @@ class ResolveBlock extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(child: resolveGrid(currentResolve)),
-                wm.totalResolve > 8
+                wm.maxResolve > 8
                     ? Column(
                         children: buttons(context),
                       )
@@ -94,7 +112,7 @@ class ResolveBlock extends StatelessWidget {
 
   Widget resolveGrid(int currentResolve) {
     return GridView.builder(
-      itemCount: wm.totalResolve,
+      itemCount: wm.maxResolve,
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 10,

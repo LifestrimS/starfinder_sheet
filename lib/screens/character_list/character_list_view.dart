@@ -8,11 +8,11 @@ import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/screens/widgets/loading_indicator.dart';
 import 'package:pathfinder_sheet/screens/widgets/pull_to_refresh.dart';
 
-class CharacterListView extends ElementaryWidget<ICharacterListWM> {
-  const CharacterListView({Key? key}) : super(createCharacterListWM, key: key);
+class MainScreenView extends ElementaryWidget<IMainScreenWM> {
+  const MainScreenView({Key? key}) : super(createMainScreenWM, key: key);
 
   @override
-  Widget build(ICharacterListWM wm) {
+  Widget build(IMainScreenWM wm) {
     return ValueListenableBuilder(
       valueListenable: wm.characterLenghtNotifire(),
       builder: (context, value, child) {
@@ -36,14 +36,17 @@ class CharacterListView extends ElementaryWidget<ICharacterListWM> {
                   ),
                 ),
               ),
-              if (value != -1 && value != 0)
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Text(
-                    'Save',
-                    style: AppStyles.commonPixel(),
-                  ),
-                )
+              // if (value != -1 && value != 0)
+              //   GestureDetector(
+              //     onTap: () => wm.saveCharacter,
+              //     child: Padding(
+              //       padding: const EdgeInsets.only(right: 8.0),
+              //       child: Text(
+              //         'Save',
+              //         style: AppStyles.commonPixel(),
+              //       ),
+              //     ),
+              //   )
             ],
           ),
           backgroundColor: AppColors.backgroundDark,
@@ -53,7 +56,7 @@ class CharacterListView extends ElementaryWidget<ICharacterListWM> {
     );
   }
 
-  Widget builderBody({required ICharacterListWM wm, required int value}) {
+  Widget builderBody({required IMainScreenWM wm, required int value}) {
     if (value == -1) {
       return Center(
           child: LoadingIndicatorWidget(

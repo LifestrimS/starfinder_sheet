@@ -5,8 +5,9 @@ import 'package:pathfinder_sheet/utils/styles.dart';
 
 class LiveBlock extends StatelessWidget {
   final ICharacterSheetWM wm;
+  final LiveBlockTextControllers controllers;
 
-  const LiveBlock({required this.wm, super.key});
+  const LiveBlock({required this.wm, required this.controllers, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +26,30 @@ class LiveBlock extends StatelessWidget {
                       'HP',
                       style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 32.0),
-                      child: Text(
-                        '$value/${wm.totalHp}',
+                    const Spacer(),
+                    Text(
+                      '$value/',
+                      style: AppStyles.commonPixel().copyWith(
+                        fontSize: 8.0,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 35.0,
+                      height: 15.0,
+                      child: TextFormField(
+                        controller: controllers.maxHpController,
+                        //initialValue: wm.maxHp.toString(),
+                        expands: true,
+                        maxLines: null,
                         style: AppStyles.commonPixel().copyWith(
                           fontSize: 8.0,
+                        ),
+                        textAlign: TextAlign.left,
+                        textAlignVertical: TextAlignVertical.center,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.zero,
                         ),
                       ),
                     ),
@@ -47,7 +66,7 @@ class LiveBlock extends StatelessWidget {
                         width: double.infinity,
                         child: CustomPaint(
                           painter: LiveCounterPainer(
-                              current: value, total: wm.totalHp),
+                              current: value, total: wm.maxHp),
                         ),
                       ),
                     ),
@@ -87,13 +106,31 @@ class LiveBlock extends StatelessWidget {
                       'STAM',
                       style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 32.0),
-                      child: Text(
-                        '$value/${wm.totalStam}',
-                        style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+                    const Spacer(),
+                    Text(
+                      '$value/',
+                      style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+                    ),
+                    SizedBox(
+                      width: 35.0,
+                      height: 15.0,
+                      child: TextFormField(
+                        controller: controllers.maxStamController,
+                        //initialValue: wm.maxStam.toString(),
+                        expands: true,
+                        maxLines: null,
+                        style: AppStyles.commonPixel().copyWith(
+                          fontSize: 8.0,
+                        ),
+                        textAlign: TextAlign.left,
+                        textAlignVertical: TextAlignVertical.center,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.zero,
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 Row(
@@ -104,7 +141,7 @@ class LiveBlock extends StatelessWidget {
                         width: double.infinity,
                         child: CustomPaint(
                           painter: LiveCounterPainer(
-                              current: value, total: wm.totalStam),
+                              current: value, total: wm.maxStam),
                         ),
                       ),
                     ),
@@ -493,4 +530,15 @@ class LiveCounterPainer extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
+}
+
+class LiveBlockTextControllers {
+  final TextEditingController maxHpController;
+  final TextEditingController maxStamController;
+  final TextEditingController maxResolveController;
+
+  const LiveBlockTextControllers(
+      {required this.maxHpController,
+      required this.maxStamController,
+      required this.maxResolveController});
 }

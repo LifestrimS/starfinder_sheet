@@ -5,7 +5,9 @@ import 'package:pathfinder_sheet/utils/styles.dart';
 
 class AbilityBlock extends StatelessWidget {
   final CharacterAbility ability;
-  const AbilityBlock({required this.ability, super.key});
+  final AbilityTextControllers controllers;
+  const AbilityBlock(
+      {required this.ability, required this.controllers, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +18,17 @@ class AbilityBlock extends StatelessWidget {
           AbilityCell(
             statName: 'STR',
             statValue: ability.strength,
+            controller: controllers.strController,
           ),
           AbilityCell(
             statName: 'DEX',
             statValue: ability.dexterity,
+            controller: controllers.dexController,
           ),
           AbilityCell(
             statName: 'CON',
             statValue: ability.constitution,
+            controller: controllers.conController,
           ),
         ],
       ),
@@ -36,14 +41,17 @@ class AbilityBlock extends StatelessWidget {
           AbilityCell(
             statName: 'INT',
             statValue: ability.intelligence,
+            controller: controllers.intController,
           ),
           AbilityCell(
             statName: 'WIS',
             statValue: ability.wisdom,
+            controller: controllers.wisController,
           ),
           AbilityCell(
             statName: 'CHA',
             statValue: ability.charisma,
+            controller: controllers.chaController,
           ),
         ],
       ),
@@ -54,8 +62,12 @@ class AbilityBlock extends StatelessWidget {
 class AbilityCell extends StatefulWidget {
   final String statName;
   final int statValue;
+  final TextEditingController controller;
   const AbilityCell(
-      {required this.statName, required this.statValue, super.key});
+      {required this.statName,
+      required this.statValue,
+      required this.controller,
+      super.key});
 
   @override
   State<AbilityCell> createState() => _AbilityCellState();
@@ -78,6 +90,8 @@ class _AbilityCellState extends State<AbilityCell> {
 
   @override
   Widget build(BuildContext context) {
+    widget.controller.text = widget.statValue.toString();
+
     return SizedBox(
       height: 90.0,
       width: 90.0,
@@ -122,7 +136,7 @@ class _AbilityCellState extends State<AbilityCell> {
             child: SizedBox(
               height: 20.0,
               child: TextFormField(
-                initialValue: widget.statValue.toString(),
+                controller: widget.controller,
                 expands: true,
                 maxLines: null,
                 style: AppStyles.commonPixel().copyWith(
@@ -151,16 +165,6 @@ class _AbilityCellState extends State<AbilityCell> {
       ),
     );
   }
-
-  // String getModifier(int value) {
-  //   int modifier = 0;
-  //   if (value > 0) {
-  //     modifier = -5 + (value ~/ 2);
-  //     return modifier > 0 ? '+$modifier' : '$modifier';
-  //   } else {
-  //     return '0';
-  //   }
-  // }
 }
 
 class StatBorderPainter extends CustomPainter {
@@ -189,4 +193,21 @@ class StatBorderPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
+}
+
+class AbilityTextControllers {
+  final TextEditingController strController;
+  final TextEditingController dexController;
+  final TextEditingController conController;
+  final TextEditingController intController;
+  final TextEditingController wisController;
+  final TextEditingController chaController;
+
+  const AbilityTextControllers(
+      {required this.strController,
+      required this.dexController,
+      required this.conController,
+      required this.intController,
+      required this.wisController,
+      required this.chaController});
 }
