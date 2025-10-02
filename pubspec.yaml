@@ -13,6 +13,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   elementary: ^3.0.0
+  elementary_helper: ^1.0.3
   flutter_svg: ^2.0.9
   drift: ^2.28.2
   drift_flutter: ^0.2.7

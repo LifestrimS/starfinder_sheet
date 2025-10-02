@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pathfinder_sheet/screens/character_list/character_list_view.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/splash_text.dart';
 
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(const Duration(seconds: 3)).then((value) => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const MainScreenView())));
+        MaterialPageRoute(builder: (context) => CharacterSheetView())));
     super.initState();
   }
 

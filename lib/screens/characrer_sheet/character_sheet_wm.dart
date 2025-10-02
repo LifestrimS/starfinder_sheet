@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:ui' as ui;
 
 import 'package:elementary/elementary.dart';
+import 'package:elementary_helper/elementary_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
@@ -8,6 +10,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.d
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
+import 'package:pathfinder_sheet/utils/debug_screen.dart';
 
 abstract interface class ICharacterSheetWM implements IWidgetModel {
   CharacterAbility getAbility();
@@ -23,6 +26,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   int get maxResolve;
 
   int get currentResolve;
+
+  void goDebug();
 
   void getDamage();
 
@@ -42,7 +47,13 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
 
   void saveCharacter();
 
-  ValueNotifier<Character?> characterLoadNotifier();
+  void goToCharacter(int charId);
+
+  double screenHeight();
+
+  EntityStateNotifier<Character?> characterLoadNotifier();
+
+  EntityStateNotifier<List<Character?>> listCharactersNotifier();
 
   ValueNotifier<int> currentHpNotifier();
 
@@ -70,16 +81,22 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
 }
 
 CharacterSheetWM createCharacterSheetWM(
-        BuildContext _, int charIndex, bool isNew) =>
+  BuildContext _,
+) =>
     CharacterSheetWM(
       CharacterSheetModel(
-          charIndex: charIndex, repository: GetIt.I.get(), isNew: isNew),
+        repository: GetIt.I.get(),
+      ),
     );
 
 class CharacterSheetWM
     extends WidgetModel<CharacterSheetView, CharacterSheetModel>
     implements ICharacterSheetWM {
-  final ValueNotifier<Character?> _characterLoadNotifier = ValueNotifier(null);
+  final EntityStateNotifier<Character?> _characterLoadNotifier =
+      EntityStateNotifier(EntityState.loading());
+  final EntityStateNotifier<List<Character?>> _listCharactersNotifier =
+      EntityStateNotifier(EntityState.loading());
+
   final ValueNotifier<int> _currentHpNotifier = ValueNotifier(0);
   final ValueNotifier<int> _currentStampNotifier = ValueNotifier(0);
   final ValueNotifier<String> _damageLogNotifier = ValueNotifier('');
@@ -106,10 +123,16 @@ class CharacterSheetWM
           maxStamController: TextEditingController(),
           maxResolveController: TextEditingController());
 
-  late final Character? _character;
+  Character? _character;
+  List<Character?> characterList = [];
 
   @override
-  ValueNotifier<Character?> characterLoadNotifier() => _characterLoadNotifier;
+  EntityStateNotifier<Character?> characterLoadNotifier() =>
+      _characterLoadNotifier;
+
+  @override
+  EntityStateNotifier<List<Character?>> listCharactersNotifier() =>
+      _listCharactersNotifier;
 
   @override
   ValueNotifier<int> currentHpNotifier() => _currentHpNotifier;
@@ -162,6 +185,7 @@ class CharacterSheetWM
   @override
   void initWidgetModel() {
     loadData();
+    log('CharacterSheetWM init');
 
     super.initWidgetModel();
   }
@@ -181,38 +205,55 @@ class CharacterSheetWM
     return model.getAbility();
   }
 
-  Future<void> loadData() async {
-    await Future.delayed(const Duration(seconds: 2));
-    _character = await model.getCharacter();
-    _currentHpNotifier.value = model.currentHp;
-    _currentStampNotifier.value = model.currentStam;
-    _damageLogNotifier.value = model.damageLog;
-    _totalDamageNotifier.value = model.totalDamage;
-    _currentResolveNotifier.value = model.currentResolve;
-    _characterLoadNotifier.value = _character;
+  Future<void> loadData({int? charId}) async {
+    try {
+      _listCharactersNotifier.loading();
+      _characterLoadNotifier.loading();
 
-    _nameTextController.text = model.name;
-    _classTextController.text = model.charClass;
-    _raceTextController.text = model.race;
-    _lvlTextController.text = model.lvl.toString();
+      characterList = await model.getCharacterList();
 
-    _abilityTextControllers.strController.text =
-        model.getAbility().strength.toString();
-    _abilityTextControllers.dexController.text =
-        model.getAbility().dexterity.toString();
-    _abilityTextControllers.conController.text =
-        model.getAbility().constitution.toString();
-    _abilityTextControllers.intController.text =
-        model.getAbility().intelligence.toString();
-    _abilityTextControllers.wisController.text =
-        model.getAbility().wisdom.toString();
-    _abilityTextControllers.chaController.text =
-        model.getAbility().charisma.toString();
+      if (characterList.isNotEmpty) {
+        _listCharactersNotifier.content(characterList);
+      } else {
+        _listCharactersNotifier.error();
+      }
 
-    _liveBlockTextControllers.maxHpController.text = model.maxHp.toString();
-    _liveBlockTextControllers.maxStamController.text = model.maxStam.toString();
-    _liveBlockTextControllers.maxResolveController.text =
-        model.maxResolve.toString();
+      await Future.delayed(const Duration(milliseconds: 300));
+      _character = await model.getCharacter(charId ?? characterList.first!.id);
+      _currentHpNotifier.value = model.currentHp;
+      _currentStampNotifier.value = model.currentStam;
+      _damageLogNotifier.value = model.damageLog;
+      _totalDamageNotifier.value = model.totalDamage;
+      _currentResolveNotifier.value = model.currentResolve;
+
+      _nameTextController.text = model.name;
+      _classTextController.text = model.charClass;
+      _raceTextController.text = model.race;
+      _lvlTextController.text = model.lvl.toString();
+
+      _abilityTextControllers.strController.text =
+          model.getAbility().strength.toString();
+      _abilityTextControllers.dexController.text =
+          model.getAbility().dexterity.toString();
+      _abilityTextControllers.conController.text =
+          model.getAbility().constitution.toString();
+      _abilityTextControllers.intController.text =
+          model.getAbility().intelligence.toString();
+      _abilityTextControllers.wisController.text =
+          model.getAbility().wisdom.toString();
+      _abilityTextControllers.chaController.text =
+          model.getAbility().charisma.toString();
+
+      _liveBlockTextControllers.maxHpController.text = model.maxHp.toString();
+      _liveBlockTextControllers.maxStamController.text =
+          model.maxStam.toString();
+      _liveBlockTextControllers.maxResolveController.text =
+          model.maxResolve.toString();
+
+      _characterLoadNotifier.content(_character);
+    } catch (e) {
+      log('Smth went wrong in init CharacterSheet: $e');
+    }
   }
 
   @override
@@ -301,10 +342,15 @@ class CharacterSheetWM
   }
 
   @override
+  void goToCharacter(int charId) {
+    loadData(charId: charId);
+  }
+
+  @override
   void saveCharacter() async {
     try {
       final Character newCharacter = Character(
-        id: model.charIndex,
+        id: 0, //model.charIndex,
         charName: _nameTextController.text,
         charClass: _classTextController.text,
         lvl: int.parse(_lvlTextController.text),
@@ -331,12 +377,30 @@ class CharacterSheetWM
             damageLog: model.damageLog),
       );
 
-      model.saveCharacter(newCharacter: newCharacter);
+      //model.saveCharacter(newCharacter: newCharacter);
 
       log('Save:\n $newCharacter');
     } catch (e) {
       log('Smth went wrong during save: $e');
     }
+  }
+
+  @override
+  void goDebug() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const DebugScreen()));
+  }
+
+  @override
+  double screenHeight() {
+    ui.FlutterView view =
+        WidgetsBinding.instance.platformDispatcher.views.first;
+    // Dimensions in logical pixels (dp)
+    ui.Size size = view.physicalSize / view.devicePixelRatio;
+    double height = size.height;
+
+    //hald of screen - appbar size
+    return height / 2 - 70;
   }
 
   // void save() async {
