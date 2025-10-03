@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
-import 'package:pathfinder_sheet/screens/widgets/button.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class DebugScreen extends StatelessWidget {
@@ -37,15 +36,42 @@ class DebugScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Button(title: 'Delete all characters', onTap: deleteAllCharaters),
-            const SizedBox(
-              height: 12.0,
+            GestureDetector(
+              onTap: deleteAllCharaters,
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  'Delete all characters',
+                  style: AppStyles.commonPixel(),
+                ),
+              ),
             ),
-            Button(title: 'Add empty character', onTap: addEmptyCharacter),
             const SizedBox(
-              height: 12.0,
+              height: 16.0,
             ),
-            Button(title: 'Get all', onTap: getAllCharaters),
+            GestureDetector(
+              onTap: addEmptyCharacter,
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  'Add empty character',
+                  style: AppStyles.commonPixel(),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            GestureDetector(
+              onTap: getAllCharaters,
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  'Get all',
+                  style: AppStyles.commonPixel(),
+                ),
+              ),
+            ),
           ],
         ),
       ),
