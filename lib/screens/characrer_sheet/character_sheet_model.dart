@@ -6,8 +6,6 @@ import 'package:pathfinder_sheet/repository/db_repository.dart';
 
 class CharacterSheetModel extends ElementaryModel {
   final Repository repository;
-  // final int charIndex;
-  // final bool isNew;
 
   Character character = Character.empty();
 
@@ -65,10 +63,6 @@ class CharacterSheetModel extends ElementaryModel {
     return character.ability;
   }
 
-  // Future<void> forTestDb() async {
-  //   log('charIndex: $charIndex');
-  // }
-
   Future<List<Character?>> getCharacterList() async {
     try {
       List<Character> characterList = await repository.getAllCharacter();
@@ -82,13 +76,6 @@ class CharacterSheetModel extends ElementaryModel {
 
   Future<Character?> getCharacter(int charId) async {
     try {
-      // await forTestDb();
-
-      // if (isNew) {
-      //   character = Character.empty();
-      // } else {
-      //   character = await repository.getCharacterById(0);
-      // }
       character = await repository.getCharacterById(charId);
 
       _maxHp = character.liveBlock.maxHp;
@@ -122,17 +109,18 @@ class CharacterSheetModel extends ElementaryModel {
     }
   }
 
-  // Future<void> saveCharacter({Character? newCharacter}) async {
-  //   try {
-  //     if (isNew && newCharacter != null) {
-  //       await repository.addCharacter(newCharacter);
-  //     } else if (newCharacter != null) {
-  //       await repository.updateCharacter(newCharacter);
-  //     }
-  //   } catch (e) {
-  //     //log('Smthing went wrong during ${isNew ? 'adding' : 'updating'} character: $e');
-  //   }
-  // }
+  Future<void> saveCharacter(Character newCharacter) async {
+    try {
+      await repository.updateCharacter(newCharacter);
+      // if (newCharacter != null) {
+      //   await repository.addCharacter(newCharacter);
+      // } else if (newCharacter != null) {
+      //   await repository.updateCharacter(newCharacter);
+      // }
+    } catch (e) {
+      log('Smthing went wrong during save character: $e');
+    }
+  }
 
   void setCurrentHp(int value) {
     _currentHp = value;

@@ -350,7 +350,7 @@ class CharacterSheetWM
   void saveCharacter() async {
     try {
       final Character newCharacter = Character(
-        id: 0, //model.charIndex,
+        id: character.id,
         charName: _nameTextController.text,
         charClass: _classTextController.text,
         lvl: int.parse(_lvlTextController.text),
@@ -377,7 +377,7 @@ class CharacterSheetWM
             damageLog: model.damageLog),
       );
 
-      //model.saveCharacter(newCharacter: newCharacter);
+      model.saveCharacter(newCharacter);
 
       log('Save:\n $newCharacter');
     } catch (e) {
@@ -402,57 +402,4 @@ class CharacterSheetWM
     //hald of screen - appbar size
     return height / 2 - 70;
   }
-
-  // void save() async {
-  //   CharacterBio bio = CharacterBio(
-  //       id: 0,
-  //       alignment: CharAlignment.values.firstWhere(
-  //           (e) => e.toString() == 'CharAlignment.${alignmentNotifier.value}'),
-  //       deiterity: deiterityTextController.text,
-  //       race: Race.values
-  //           .firstWhere((e) => e.toString() == 'Race.${racetNotifier.value}'),
-  //       age: int.parse(
-  //           ageTextController.text == '' ? '0' : ageTextController.text),
-  //       gender: Gender.values.firstWhere(
-  //           (e) => e.toString() == 'Gender.${genderNotifier.value}'),
-  //       size: Size.values
-  //           .firstWhere((e) => e.toString() == 'Size.${sizeNotifier.value}'),
-  //       weight: double.parse(weightTextController.text == ''
-  //           ? '0.0'
-  //           : weightTextController.text),
-  //       height: double.parse(heightTextController.text == ''
-  //           ? '0.0'
-  //           : heightTextController.text),
-  //       hairColor: hairColor.value,
-  //       eyeColor: eyeColor.value);
-
-  //   log('ImageColor: ${backgroundColor.value}');
-
-  //   Character character = Character(
-  //       id: 0,
-  //       name: nameTextController.text,
-  //       chClass: ChClass.values.firstWhere(
-  //           (e) => e.toString() == 'ChClass.${classNotifier.value}'),
-  //       lvl: int.parse(
-  //           lvlTextController.text == '' ? '0' : lvlTextController.text),
-  //       textColor: textImageColor.value,
-  //       imageColor: backgroundColor.value,
-  //       imagePath: imagePathNotifier.value?.path,
-  //       bio: bio);
-
-  //   //log('Save\nCharacter: ${character.toString()}');
-
-  //   try {
-  //     await _repository.addCharacter(character);
-  //     Fluttertoast.showToast(
-  //       msg: 'Saved',
-  //       toastLength: Toast.LENGTH_SHORT,
-  //     );
-
-  //     await Future.delayed(const Duration(milliseconds: 500));
-  //     goBack();
-  //   } catch (e) {
-  //     log('Smth get wrond on add character to db: $e');
-  //   }
-  // }
 }
