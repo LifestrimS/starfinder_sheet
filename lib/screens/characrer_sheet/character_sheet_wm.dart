@@ -11,6 +11,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.da
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
 import 'package:pathfinder_sheet/utils/debug_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract interface class ICharacterSheetWM implements IWidgetModel {
   CharacterAbility getAbility();
@@ -205,12 +206,25 @@ class CharacterSheetWM
     return model.getAbility();
   }
 
-  Future<void> loadData({int? charId}) async {
+  Future<int?> getSavedId() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? charId = prefs.getInt('lastCharacterId');
+    return charId;
+  }
+
+  Future<void> saveId(int charId) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('lastCharacterId', charId);
+  }
+
+  Future<void> loadData({int? charId, bool isGoToCharacter = false}) async {
     try {
       _listCharactersNotifier.loading();
       _characterLoadNotifier.loading();
 
       characterList = await model.getCharacterList();
+
+      final int? savedCharId = await getSavedId();
 
       if (characterList.isNotEmpty) {
         _listCharactersNotifier.content(characterList);
@@ -219,7 +233,17 @@ class CharacterSheetWM
       }
 
       await Future.delayed(const Duration(milliseconds: 300));
-      _character = await model.getCharacter(charId ?? characterList.first!.id);
+
+      if (isGoToCharacter) {
+        _character =
+            await model.getCharacter(charId ?? characterList.first!.id);
+        await saveId(charId ?? characterList.first!.id);
+      } else if (savedCharId != null) {
+        _character = await model.getCharacter(savedCharId);
+      } else {
+        _character = await model.getCharacter(characterList.first!.id);
+      }
+
       _currentHpNotifier.value = model.currentHp;
       _currentStampNotifier.value = model.currentStam;
       _damageLogNotifier.value = model.damageLog;
@@ -343,7 +367,7 @@ class CharacterSheetWM
 
   @override
   void goToCharacter(int charId) {
-    loadData(charId: charId);
+    loadData(charId: charId, isGoToCharacter: true);
   }
 
   @override
