@@ -114,6 +114,7 @@ class ResolveBlock extends StatelessWidget {
     return GridView.builder(
       itemCount: wm.maxResolve,
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 10,
         mainAxisSpacing: 4.0,
