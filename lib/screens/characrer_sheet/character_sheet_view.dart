@@ -2,6 +2,7 @@ import 'package:elementary/elementary.dart';
 import 'package:elementary_helper/elementary_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/avatar.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/contet_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
@@ -15,12 +16,7 @@ import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
-  // final int charIndex;
-  // final bool isNew;
-
   CharacterSheetView({
-    // required this.charIndex,
-    // this.isNew = false,
     Key? key,
     WidgetModelFactory<CharacterSheetWM>? wmFactory,
   }) : super(wmFactory ?? (context) => createCharacterSheetWM(context),
@@ -180,7 +176,15 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
                                   .maxResolveController,
                             ),
                             const SizedBox(
-                              height: 8.0,
+                              height: 12.0,
+                            ),
+                            ACBlock(
+                              eacControllers: wm.eacControllers,
+                              kacControllers: wm.kacControllers,
+                              dexModificator: wm.dexModificator,
+                            ),
+                            const SizedBox(
+                              height: 12.0,
                             ),
                             LiveBlock(
                               wm: wm,

@@ -266,7 +266,7 @@ class LiveBlock extends StatelessWidget {
         "Heal Hp",
         style: AppStyles.commonPixel(),
       ),
-      backgroundColor: AppColors.darkBlue,
+      backgroundColor: AppColors.backgroundDark,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.all(Radius.zero)),
       content: Column(
@@ -325,7 +325,7 @@ class LiveBlock extends StatelessWidget {
         "Heal Stam",
         style: AppStyles.commonPixel(),
       ),
-      backgroundColor: AppColors.darkBlue,
+      backgroundColor: AppColors.backgroundDark,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.all(Radius.zero)),
       content: Column(

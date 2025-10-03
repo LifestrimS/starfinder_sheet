@@ -9,6 +9,7 @@ import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
 import 'package:pathfinder_sheet/utils/debug_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,6 +28,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   int get maxResolve;
 
   int get currentResolve;
+
+  int get dexModificator;
 
   void goDebug();
 
@@ -79,6 +82,10 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   AbilityTextControllers get abilityTextControllers;
 
   LiveBlockTextControllers get liveBlockTextControllers;
+
+  AcControllers get eacControllers;
+
+  AcControllers get kacControllers;
 }
 
 CharacterSheetWM createCharacterSheetWM(
@@ -124,6 +131,22 @@ class CharacterSheetWM
           maxStamController: TextEditingController(),
           maxResolveController: TextEditingController());
 
+  final AcControllers _eacControllers = AcControllers(
+      armorController: TextEditingController(),
+      dexController: TextEditingController(),
+      dodgeController: TextEditingController(),
+      naturalController: TextEditingController(),
+      deflectController: TextEditingController(),
+      miscController: TextEditingController());
+
+  final AcControllers _kacControllers = AcControllers(
+      armorController: TextEditingController(),
+      dexController: TextEditingController(),
+      dodgeController: TextEditingController(),
+      naturalController: TextEditingController(),
+      deflectController: TextEditingController(),
+      miscController: TextEditingController());
+
   Character? _character;
   List<Character?> characterList = [];
 
@@ -165,6 +188,10 @@ class CharacterSheetWM
   @override
   LiveBlockTextControllers get liveBlockTextControllers =>
       _liveBlockTextControllers;
+  @override
+  AcControllers get eacControllers => _eacControllers;
+  @override
+  AcControllers get kacControllers => _kacControllers;
 
   @override
   Character get character => _character ?? Character.empty();
@@ -180,6 +207,10 @@ class CharacterSheetWM
 
   @override
   int get currentResolve => model.currentResolve;
+
+  @override
+  int get dexModificator =>
+      CharacterAbility.getModifier(model.getAbility().dexterity);
 
   CharacterSheetWM(super._model);
 
@@ -273,6 +304,22 @@ class CharacterSheetWM
           model.maxStam.toString();
       _liveBlockTextControllers.maxResolveController.text =
           model.maxResolve.toString();
+
+      _eacControllers.armorController.text = '0';
+      _eacControllers.dexController.text =
+          CharacterAbility.getModifier(model.getAbility().dexterity).toString();
+      _eacControllers.dodgeController.text = '0';
+      _eacControllers.naturalController.text = '0';
+      _eacControllers.deflectController.text = '0';
+      _eacControllers.miscController.text = '0';
+
+      _kacControllers.armorController.text = '0';
+      _kacControllers.dexController.text =
+          CharacterAbility.getModifier(model.getAbility().dexterity).toString();
+      _kacControllers.dodgeController.text = '0';
+      _kacControllers.naturalController.text = '0';
+      _kacControllers.deflectController.text = '0';
+      _kacControllers.miscController.text = '0';
 
       _characterLoadNotifier.content(_character);
     } catch (e) {
