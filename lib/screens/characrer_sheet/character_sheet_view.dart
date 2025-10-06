@@ -313,15 +313,23 @@ class BuildMainPage extends StatelessWidget {
               controllers: wm.abilityTextControllers,
             ),
             const SizedBox(
-              height: 12.0,
+              height: 16.0,
             ),
             Move(controllers: wm.moveControllers),
             const SizedBox(
-              height: 12.0,
+              height: 16.0,
             ),
             Initiative(
               controller: wm.initMiscController,
               dexModificatorNotifier: wm.dexModificatorNotifier(),
+            ),
+            const SizedBox(
+              height: 12.0,
+            ),
+            Text(
+              'Feats, features, abilities',
+              textAlign: TextAlign.center,
+              style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
             ),
           ],
         ),

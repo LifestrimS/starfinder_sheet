@@ -170,7 +170,6 @@ class LiveBlock extends StatelessWidget {
           height: 12.0,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
               height: 30.0,
@@ -195,6 +194,18 @@ class LiveBlock extends StatelessWidget {
                 ),
               ),
             ),
+            ValueListenableBuilder(
+              valueListenable: wm.totalDamageNotifier(),
+              builder: (context, value, child) => Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  '= $value',
+                  style: AppStyles.commonPixel()
+                      .copyWith(color: AppColors.darkPink),
+                ),
+              ),
+            ),
+            const Spacer(),
             GestureDetector(
               onTap: wm.getDamage,
               child: Text(
@@ -226,15 +237,8 @@ class LiveBlock extends StatelessWidget {
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      ValueListenableBuilder(
-                        valueListenable: wm.totalDamageNotifier(),
-                        builder: (context, value, child) => Text(
-                          'Total: $value',
-                          style: AppStyles.commonPixel(),
-                        ),
-                      ),
                       GestureDetector(
                         onTap: () {
                           wm.clearDamageLog();
@@ -246,7 +250,7 @@ class LiveBlock extends StatelessWidget {
                             style: AppStyles.commonPixel(),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   )
                 ],
