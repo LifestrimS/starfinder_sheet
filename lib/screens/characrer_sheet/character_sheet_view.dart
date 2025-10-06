@@ -1,10 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:elementary/elementary.dart';
 import 'package:elementary_helper/elementary_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/avatar.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/contet_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/resolve_block.dart';
@@ -50,6 +50,16 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
             appBar: AppBar(
               backgroundColor: AppColors.darkBlue,
               actions: [
+                GestureDetector(
+                  onTap: () => wm.saveCharacter(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Text(
+                      'Save',
+                      style: AppStyles.commonPixel(),
+                    ),
+                  ),
+                ),
                 GestureDetector(
                   onTap: () => wm.goDebug(),
                   child: Padding(
@@ -104,122 +114,7 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
                       await Future.delayed(const Duration(seconds: 1));
                       wm.onRefresh();
                     },
-                    child: SingleChildScrollView(
-                      child: Container(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 140.0,
-                              child: Stack(children: [
-                                Align(
-                                  alignment: AlignmentGeometry.topRight,
-                                  child: SizedBox(
-                                    width: 40.0,
-                                    height: 25.0,
-                                    child: TextFormField(
-                                      controller: wm.lvlTextController,
-                                      expands: true,
-                                      maxLines: null,
-                                      keyboardType: TextInputType.number,
-                                      style: AppStyles.commonPixel()
-                                          .copyWith(color: AppColors.darkPink),
-                                      textAlign: TextAlign.right,
-                                      decoration: const InputDecoration(
-                                        border: InputBorder.none,
-                                        contentPadding: EdgeInsets.zero,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Container(
-                                    height: 130.0,
-                                    margin: const EdgeInsets.only(
-                                      right: 5.0,
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Avatar(),
-                                        Expanded(
-                                            child: ShortBioBlock(
-                                          character: wm.character,
-                                          nameController: wm.nameTextController,
-                                          classController:
-                                              wm.classTextController,
-                                          raceController: wm.raceTextController,
-                                          setAlignment: wm.setAlignment,
-                                          setSize: wm.setSize,
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ),
-                            const SizedBox(
-                              height: 12.0,
-                            ),
-                            AbilityBlock(
-                              ability: wm.getAbility(),
-                              controllers: wm.abilityTextControllers,
-                            ),
-                            const SizedBox(
-                              height: 12.0,
-                            ),
-                            ResolveBlock(
-                              wm: wm,
-                              controller: wm.liveBlockTextControllers
-                                  .maxResolveController,
-                            ),
-                            const SizedBox(
-                              height: 12.0,
-                            ),
-                            ACBlock(
-                              eacControllers: wm.eacControllers,
-                              kacControllers: wm.kacControllers,
-                              dexModificator: wm.dexModificator,
-                            ),
-                            const SizedBox(
-                              height: 12.0,
-                            ),
-                            LiveBlock(
-                              wm: wm,
-                              controllers: wm.liveBlockTextControllers,
-                            ),
-                            const SizedBox(
-                              height: 12.0,
-                            ),
-                            const ContentBlock(),
-                            const SizedBox(
-                              height: 12.0,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                wm.saveCharacter();
-                              },
-                              child: SizedBox(
-                                height: 40.0,
-                                width: double.infinity,
-                                child: CustomPaint(
-                                  painter: SaveButtonPainter(),
-                                  child: Center(
-                                    child: Text(
-                                      'Save',
-                                      style: AppStyles.commonPixel()
-                                          .copyWith(color: AppColors.darkPink),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    child: CarouselBody(wm: wm),
                   );
                 }
               },
@@ -273,14 +168,184 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
   }
 }
 
-class SaveButtonPainter extends CustomPainter {
+class CarouselBody extends StatefulWidget {
+  final ICharacterSheetWM wm;
+  const CarouselBody({required this.wm, super.key});
+
+  @override
+  State<CarouselBody> createState() => _CarouselBodyState();
+}
+
+class _CarouselBodyState extends State<CarouselBody> {
+  int _current = 0;
+  final CarouselSliderController _controller = CarouselSliderController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: CarouselSlider(
+            options: CarouselOptions(
+                scrollDirection: Axis.horizontal,
+                enableInfiniteScroll: false,
+                viewportFraction: 1.0,
+                height: double.infinity,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _current = index;
+                  });
+                }),
+            items: [
+              buildMainPage(wm: widget.wm),
+              buildBattlePage(wm: widget.wm)
+            ],
+          ),
+        ),
+        Container(
+          color: AppColors.darkBlue,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: list.asMap().entries.map((entry) {
+              return GestureDetector(
+                onTap: () => _controller.animateToPage(entry.key),
+                child: Container(
+                  width: 12.0,
+                  height: 12.0,
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 4.0),
+                  child: CustomPaint(
+                    painter: IndicatorPainter(isFilled: _current == entry.key),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  List<int> list = [1, 2];
+
+  Widget buildMainPage({required ICharacterSheetWM wm}) {
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 140.0,
+              child: Stack(children: [
+                Align(
+                  alignment: AlignmentGeometry.topRight,
+                  child: SizedBox(
+                    width: 40.0,
+                    height: 25.0,
+                    child: TextFormField(
+                      controller: wm.lvlTextController,
+                      expands: true,
+                      maxLines: null,
+                      keyboardType: TextInputType.number,
+                      style: AppStyles.commonPixel()
+                          .copyWith(color: AppColors.darkPink),
+                      textAlign: TextAlign.right,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 130.0,
+                    margin: const EdgeInsets.only(
+                      right: 5.0,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Avatar(),
+                        Expanded(
+                            child: ShortBioBlock(
+                          character: wm.character,
+                          nameController: wm.nameTextController,
+                          classController: wm.classTextController,
+                          raceController: wm.raceTextController,
+                          setAlignment: wm.setAlignment,
+                          setSize: wm.setSize,
+                        ))
+                      ],
+                    ),
+                  ),
+                ),
+              ]),
+            ),
+            const SizedBox(
+              height: 12.0,
+            ),
+            AbilityBlock(
+              ability: wm.getAbility(),
+              controllers: wm.abilityTextControllers,
+            ),
+            const SizedBox(
+              height: 12.0,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildBattlePage({required ICharacterSheetWM wm}) {
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            ResolveBlock(
+              wm: wm,
+              controller: wm.liveBlockTextControllers.maxResolveController,
+            ),
+            const SizedBox(
+              height: 12.0,
+            ),
+            ACBlock(
+              eacControllers: wm.eacControllers,
+              kacControllers: wm.kacControllers,
+              dexModificator: wm.dexModificator,
+            ),
+            const SizedBox(
+              height: 12.0,
+            ),
+            LiveBlock(
+              wm: wm,
+              controllers: wm.liveBlockTextControllers,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class IndicatorPainter extends CustomPainter {
+  final bool isFilled;
+
+  const IndicatorPainter({
+    required this.isFilled,
+    Listenable? repaint,
+  });
+
   @override
   void paint(Canvas canvas, Size size) {
-    const cut = 0.02;
+    const cut = 0.2;
     final widthCut = size.width * cut;
 
     Paint paintFrame = Paint()
-      ..style = PaintingStyle.stroke
+      ..style = isFilled ? PaintingStyle.fill : PaintingStyle.stroke
       ..strokeWidth = 2.0
       ..color = AppColors.teal;
     Path pathFrame = Path();

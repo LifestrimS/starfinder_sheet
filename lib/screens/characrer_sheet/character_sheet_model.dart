@@ -112,6 +112,11 @@ class CharacterSheetModel extends ElementaryModel {
     }
   }
 
+  Future<int> createNewCharacter() async {
+    Character newCharacter = Character.empty();
+    return await repository.addCharacter(newCharacter);
+  }
+
   Future<void> saveCharacter(Character newCharacter) async {
     try {
       await repository.updateCharacter(newCharacter);

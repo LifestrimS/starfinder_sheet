@@ -53,6 +53,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
 
   void goToCharacter(int charId);
 
+  void createNewCharacter();
+
   double screenHeight();
 
   EntityStateNotifier<Character?> characterLoadNotifier();
@@ -425,6 +427,12 @@ class CharacterSheetWM
   @override
   void goToCharacter(int charId) {
     loadData(charId: charId, isGoToCharacter: true);
+  }
+
+  @override
+  void createNewCharacter() async {
+    int id = await model.createNewCharacter();
+    goToCharacter(id);
   }
 
   @override

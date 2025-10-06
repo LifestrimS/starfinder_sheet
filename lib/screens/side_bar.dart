@@ -70,7 +70,8 @@ class SideBar extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // wm.goToCharacter(isNew: true);
+                      Navigator.pop(context);
+                      wm.createNewCharacter();
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
