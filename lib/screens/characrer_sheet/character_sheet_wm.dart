@@ -91,6 +91,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   AcControllers get kacControllers;
 
   MoveControllers get moveControllers;
+
+  TextEditingController get initMiscController;
 }
 
 CharacterSheetWM createCharacterSheetWM(
@@ -157,6 +159,8 @@ class CharacterSheetWM
       flyController: TextEditingController(),
       swimController: TextEditingController());
 
+  final TextEditingController _initMiscController = TextEditingController();
+
   Character? _character;
   List<Character?> characterList = [];
 
@@ -204,6 +208,8 @@ class CharacterSheetWM
   AcControllers get kacControllers => _kacControllers;
   @override
   MoveControllers get moveControllers => _moveControllers;
+  @override
+  TextEditingController get initMiscController => _initMiscController;
 
   @override
   Character get character => _character ?? Character.empty();
@@ -342,9 +348,11 @@ class CharacterSheetWM
           model.getKacBlock().deflect.toString();
       _kacControllers.miscController.text = model.getKacBlock().misc.toString();
 
-      moveControllers.moveController.text = model.moveSpeed.toString();
-      moveControllers.flyController.text = model.flySpeed.toString();
-      moveControllers.swimController.text = model.swimSpeed.toString();
+      _moveControllers.moveController.text = model.moveSpeed.toString();
+      _moveControllers.flyController.text = model.flySpeed.toString();
+      _moveControllers.swimController.text = model.swimSpeed.toString();
+
+      _initMiscController.text = model.iniMisc.toString();
 
       _characterLoadNotifier.content(_character);
     } catch (e) {
@@ -453,47 +461,49 @@ class CharacterSheetWM
   void saveCharacter() async {
     try {
       final Character newCharacter = Character(
-        id: character.id,
-        charName: _nameTextController.text,
-        charClass: _classTextController.text,
-        lvl: int.parse(_lvlTextController.text),
-        race: _raceTextController.text,
-        alignment: CharAlignment.values
-            .firstWhere((e) => e.alignName == model.alignment),
-        size: CharSize.values.firstWhere((e) => e.sizeName == model.size),
-        ability: CharacterAbility(
-            strength: int.parse(_abilityTextControllers.strController.text),
-            dexterity: int.parse(_abilityTextControllers.dexController.text),
-            constitution: int.parse(_abilityTextControllers.conController.text),
-            intelligence: int.parse(_abilityTextControllers.intController.text),
-            wisdom: int.parse(_abilityTextControllers.wisController.text),
-            charisma: int.parse(_abilityTextControllers.chaController.text)),
-        liveBlock: CharacterLiveBlock(
-            maxHp: int.parse(_liveBlockTextControllers.maxHpController.text),
-            currentHp: model.currentHp,
-            maxStam:
-                int.parse(_liveBlockTextControllers.maxStamController.text),
-            currentStam: model.currentStam,
-            maxResolve:
-                int.parse(_liveBlockTextControllers.maxResolveController.text),
-            currentResolve: model.currentResolve,
-            damageLog: model.damageLog),
-        eacBlock: ACBLock(
-            amror: int.parse(_eacControllers.armorController.text),
-            dodge: int.parse(_eacControllers.dodgeController.text),
-            natural: int.parse(_eacControllers.naturalController.text),
-            deflect: int.parse(_eacControllers.deflectController.text),
-            misc: int.parse(_eacControllers.miscController.text)),
-        kacBlock: ACBLock(
-            amror: int.parse(_kacControllers.armorController.text),
-            dodge: int.parse(_kacControllers.dodgeController.text),
-            natural: int.parse(_kacControllers.naturalController.text),
-            deflect: int.parse(_kacControllers.deflectController.text),
-            misc: int.parse(_kacControllers.miscController.text)),
-        moveSpeed: int.parse(_moveControllers.moveController.text),
-        flySpeed: int.parse(_moveControllers.flyController.text),
-        swimSpeed: int.parse(_moveControllers.swimController.text),
-      );
+          id: character.id,
+          charName: _nameTextController.text,
+          charClass: _classTextController.text,
+          lvl: int.parse(_lvlTextController.text),
+          race: _raceTextController.text,
+          alignment: CharAlignment.values
+              .firstWhere((e) => e.alignName == model.alignment),
+          size: CharSize.values.firstWhere((e) => e.sizeName == model.size),
+          ability: CharacterAbility(
+              strength: int.parse(_abilityTextControllers.strController.text),
+              dexterity: int.parse(_abilityTextControllers.dexController.text),
+              constitution:
+                  int.parse(_abilityTextControllers.conController.text),
+              intelligence:
+                  int.parse(_abilityTextControllers.intController.text),
+              wisdom: int.parse(_abilityTextControllers.wisController.text),
+              charisma: int.parse(_abilityTextControllers.chaController.text)),
+          liveBlock: CharacterLiveBlock(
+              maxHp: int.parse(_liveBlockTextControllers.maxHpController.text),
+              currentHp: model.currentHp,
+              maxStam:
+                  int.parse(_liveBlockTextControllers.maxStamController.text),
+              currentStam: model.currentStam,
+              maxResolve: int.parse(
+                  _liveBlockTextControllers.maxResolveController.text),
+              currentResolve: model.currentResolve,
+              damageLog: model.damageLog),
+          eacBlock: ACBLock(
+              amror: int.parse(_eacControllers.armorController.text),
+              dodge: int.parse(_eacControllers.dodgeController.text),
+              natural: int.parse(_eacControllers.naturalController.text),
+              deflect: int.parse(_eacControllers.deflectController.text),
+              misc: int.parse(_eacControllers.miscController.text)),
+          kacBlock: ACBLock(
+              amror: int.parse(_kacControllers.armorController.text),
+              dodge: int.parse(_kacControllers.dodgeController.text),
+              natural: int.parse(_kacControllers.naturalController.text),
+              deflect: int.parse(_kacControllers.deflectController.text),
+              misc: int.parse(_kacControllers.miscController.text)),
+          moveSpeed: int.parse(_moveControllers.moveController.text),
+          flySpeed: int.parse(_moveControllers.flyController.text),
+          swimSpeed: int.parse(_moveControllers.swimController.text),
+          initMisc: int.parse(_initMiscController.text));
 
       model.saveCharacter(newCharacter);
 

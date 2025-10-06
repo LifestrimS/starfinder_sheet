@@ -13,6 +13,7 @@ class Character {
   final int moveSpeed;
   final int flySpeed;
   final int swimSpeed;
+  final int initMisc;
 
   Character(
       {required this.id,
@@ -28,7 +29,8 @@ class Character {
       required this.kacBlock,
       required this.moveSpeed,
       required this.flySpeed,
-      required this.swimSpeed});
+      required this.swimSpeed,
+      required this.initMisc});
 
   Character.empty(
       {this.id = 0,
@@ -44,7 +46,8 @@ class Character {
       this.kacBlock = const ACBLock.empty(),
       this.moveSpeed = 0,
       this.flySpeed = 0,
-      this.swimSpeed = 0});
+      this.swimSpeed = 0,
+      this.initMisc = 0});
 
   Character copyWith({
     int? id,
@@ -61,22 +64,25 @@ class Character {
     int? moveSpeed,
     int? flySpeed,
     int? swimSpeed,
+    int? initMisc,
   }) {
     return Character(
-        id: id ?? this.id,
-        charName: charName ?? this.charName,
-        charClass: charClass ?? this.charClass,
-        lvl: lvl ?? this.lvl,
-        race: race ?? this.race,
-        alignment: alignment ?? this.alignment,
-        size: size ?? this.size,
-        ability: ability ?? this.ability,
-        liveBlock: liveBlock ?? this.liveBlock,
-        eacBlock: eacBlock ?? this.eacBlock,
-        kacBlock: kacBlock ?? this.kacBlock,
-        moveSpeed: moveSpeed ?? this.moveSpeed,
-        flySpeed: flySpeed ?? this.flySpeed,
-        swimSpeed: swimSpeed ?? this.swimSpeed);
+      id: id ?? this.id,
+      charName: charName ?? this.charName,
+      charClass: charClass ?? this.charClass,
+      lvl: lvl ?? this.lvl,
+      race: race ?? this.race,
+      alignment: alignment ?? this.alignment,
+      size: size ?? this.size,
+      ability: ability ?? this.ability,
+      liveBlock: liveBlock ?? this.liveBlock,
+      eacBlock: eacBlock ?? this.eacBlock,
+      kacBlock: kacBlock ?? this.kacBlock,
+      moveSpeed: moveSpeed ?? this.moveSpeed,
+      flySpeed: flySpeed ?? this.flySpeed,
+      swimSpeed: swimSpeed ?? this.swimSpeed,
+      initMisc: initMisc ?? this.initMisc,
+    );
   }
 
   @override

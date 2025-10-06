@@ -86,4 +86,7 @@ class TableCharacter extends Table {
   IntColumn get moveSpeed => integer()();
   IntColumn get flySpeed => integer()();
   IntColumn get swimSpeed => integer()();
+
+  //Init
+  IntColumn get initMisc => integer()();
 }

@@ -65,6 +65,8 @@ class CharacterSheetModel extends ElementaryModel {
 
   int get swimSpeed => character.swimSpeed;
 
+  int get iniMisc => character.initMisc;
+
   CharacterAbility getAbility() {
     return character.ability;
   }
@@ -75,7 +77,6 @@ class CharacterSheetModel extends ElementaryModel {
   Future<List<Character?>> getCharacterList() async {
     try {
       List<Character> characterList = await repository.getAllCharacter();
-      log('Characters in DB:\n $characterList');
       return characterList;
     } catch (e) {
       log('Smth went wrond during getAllCharacter: $e');

@@ -6,6 +6,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/avatar.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/initiative.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/move.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/resolve_block.dart';
@@ -25,6 +26,32 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
 
   @override
   Widget build(ICharacterSheetWM wm) {
+    AppBar appbar = AppBar(
+      backgroundColor: AppColors.darkBlue,
+      actions: [
+        GestureDetector(
+          onTap: () => wm.saveCharacter(),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Text(
+              'Save',
+              style: AppStyles.commonPixel(),
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () => wm.goDebug(),
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Text(
+              'Debug',
+              style: AppStyles.commonPixel(),
+            ),
+          ),
+        ),
+      ],
+    );
+
     return EntityStateNotifierBuilder(
       listenableEntityState: wm.listCharactersNotifier(),
       errorBuilder: (context, e, data) => Scaffold(
@@ -48,31 +75,7 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
               listOfCharacters: listOfCharacters,
             ),
             backgroundColor: AppColors.backgroundDark,
-            appBar: AppBar(
-              backgroundColor: AppColors.darkBlue,
-              actions: [
-                GestureDetector(
-                  onTap: () => wm.saveCharacter(),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Text(
-                      'Save',
-                      style: AppStyles.commonPixel(),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => wm.goDebug(),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Text(
-                      'Debug',
-                      style: AppStyles.commonPixel(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            appBar: appbar,
             body: EntityStateNotifierBuilder(
               listenableEntityState: wm.characterLoadNotifier(),
               errorBuilder: (context, e, data) {
@@ -110,12 +113,9 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
                     ),
                   );
                 } else {
-                  return AppRefreshWidget(
-                    onRefresh: () async {
-                      await Future.delayed(const Duration(seconds: 1));
-                      wm.onRefresh();
-                    },
-                    child: CarouselBody(wm: wm),
+                  return CarouselBody(
+                    wm: wm,
+                    appBarHeight: appbar.preferredSize.height,
                   );
                 }
               },
@@ -171,7 +171,8 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
 
 class CarouselBody extends StatefulWidget {
   final ICharacterSheetWM wm;
-  const CarouselBody({required this.wm, super.key});
+  final double appBarHeight;
+  const CarouselBody({required this.wm, required this.appBarHeight, super.key});
 
   @override
   State<CarouselBody> createState() => _CarouselBodyState();
@@ -183,47 +184,56 @@ class _CarouselBodyState extends State<CarouselBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: CarouselSlider(
-            options: CarouselOptions(
-                scrollDirection: Axis.horizontal,
-                enableInfiniteScroll: false,
-                viewportFraction: 1.0,
-                height: double.infinity,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                }),
-            items: [
-              buildMainPage(wm: widget.wm),
-              buildBattlePage(wm: widget.wm)
-            ],
-          ),
-        ),
-        Container(
-          color: AppColors.darkBlue,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: list.asMap().entries.map((entry) {
-              return GestureDetector(
-                onTap: () => _controller.animateToPage(entry.key),
-                child: Container(
-                  width: 12.0,
-                  height: 12.0,
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 4.0),
-                  child: CustomPaint(
-                    painter: IndicatorPainter(isFilled: _current == entry.key),
+    return AppRefreshWidget(
+      onRefresh: () async {
+        await Future.delayed(const Duration(seconds: 1));
+        widget.wm.onRefresh();
+      },
+      child: Column(
+        children: [
+          ListView(shrinkWrap: true, children: [
+            CarouselSlider(
+              options: CarouselOptions(
+                  enableInfiniteScroll: false,
+                  viewportFraction: 1.0,
+                  height: MediaQuery.sizeOf(context).height -
+                      64.0 -
+                      widget.appBarHeight,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                    });
+                  }),
+              items: [
+                buildMainPage(wm: widget.wm),
+                buildBattlePage(wm: widget.wm)
+              ],
+            ),
+          ]),
+          Container(
+            height: 24.0,
+            color: AppColors.darkBlue,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: list.asMap().entries.map((entry) {
+                return GestureDetector(
+                  onTap: () => _controller.animateToPage(entry.key),
+                  child: Container(
+                    width: 12.0,
+                    height: 12.0,
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 2.0, horizontal: 4.0),
+                    child: CustomPaint(
+                      painter:
+                          IndicatorPainter(isFilled: _current == entry.key),
+                    ),
                   ),
-                ),
-              );
-            }).toList(),
+                );
+              }).toList(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -294,7 +304,14 @@ class _CarouselBodyState extends State<CarouselBody> {
             const SizedBox(
               height: 12.0,
             ),
-            Move(controllers: wm.moveControllers)
+            Move(controllers: wm.moveControllers),
+            const SizedBox(
+              height: 12.0,
+            ),
+            Initiative(
+              controller: wm.initMiscController,
+              dexModificator: wm.dexModificator,
+            ),
           ],
         ),
       ),

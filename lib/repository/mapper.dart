@@ -50,7 +50,8 @@ class Mapper {
         kacBlock: kacBlock,
         moveSpeed: element.moveSpeed,
         flySpeed: element.flySpeed,
-        swimSpeed: element.swimSpeed);
+        swimSpeed: element.swimSpeed,
+        initMisc: element.initMisc);
   }
 
   TableCharacterData toTableCharacterData(Character character) {
@@ -87,7 +88,8 @@ class Mapper {
         kacMisc: character.kacBlock.misc,
         moveSpeed: character.moveSpeed,
         flySpeed: character.flySpeed,
-        swimSpeed: character.swimSpeed);
+        swimSpeed: character.swimSpeed,
+        initMisc: character.initMisc);
   }
 
   TableCharacterCompanion toTableCharacterCompanion(Character character) {
@@ -124,6 +126,7 @@ class Mapper {
         kacMisc: Value(character.kacBlock.misc),
         moveSpeed: Value(character.moveSpeed),
         flySpeed: Value(character.flySpeed),
-        swimSpeed: Value(character.swimSpeed));
+        swimSpeed: Value(character.swimSpeed),
+        initMisc: Value(character.initMisc));
   }
 }

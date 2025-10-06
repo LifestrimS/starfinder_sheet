@@ -205,6 +205,12 @@ class $TableCharacterTable extends TableCharacter
   late final GeneratedColumn<int> swimSpeed = GeneratedColumn<int>(
       'swim_speed', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _initMiscMeta =
+      const VerificationMeta('initMisc');
+  @override
+  late final GeneratedColumn<int> initMisc = GeneratedColumn<int>(
+      'init_misc', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -239,7 +245,8 @@ class $TableCharacterTable extends TableCharacter
         kacMisc,
         moveSpeed,
         flySpeed,
-        swimSpeed
+        swimSpeed,
+        initMisc
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -464,6 +471,12 @@ class $TableCharacterTable extends TableCharacter
     } else if (isInserting) {
       context.missing(_swimSpeedMeta);
     }
+    if (data.containsKey('init_misc')) {
+      context.handle(_initMiscMeta,
+          initMisc.isAcceptableOrUnknown(data['init_misc']!, _initMiscMeta));
+    } else if (isInserting) {
+      context.missing(_initMiscMeta);
+    }
     return context;
   }
 
@@ -539,6 +552,8 @@ class $TableCharacterTable extends TableCharacter
           .read(DriftSqlType.int, data['${effectivePrefix}fly_speed'])!,
       swimSpeed: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}swim_speed'])!,
+      initMisc: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}init_misc'])!,
     );
   }
 
@@ -583,6 +598,7 @@ class TableCharacterData extends DataClass
   final int moveSpeed;
   final int flySpeed;
   final int swimSpeed;
+  final int initMisc;
   const TableCharacterData(
       {required this.id,
       required this.charName,
@@ -616,7 +632,8 @@ class TableCharacterData extends DataClass
       required this.kacMisc,
       required this.moveSpeed,
       required this.flySpeed,
-      required this.swimSpeed});
+      required this.swimSpeed,
+      required this.initMisc});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -653,6 +670,7 @@ class TableCharacterData extends DataClass
     map['move_speed'] = Variable<int>(moveSpeed);
     map['fly_speed'] = Variable<int>(flySpeed);
     map['swim_speed'] = Variable<int>(swimSpeed);
+    map['init_misc'] = Variable<int>(initMisc);
     return map;
   }
 
@@ -691,6 +709,7 @@ class TableCharacterData extends DataClass
       moveSpeed: Value(moveSpeed),
       flySpeed: Value(flySpeed),
       swimSpeed: Value(swimSpeed),
+      initMisc: Value(initMisc),
     );
   }
 
@@ -731,6 +750,7 @@ class TableCharacterData extends DataClass
       moveSpeed: serializer.fromJson<int>(json['moveSpeed']),
       flySpeed: serializer.fromJson<int>(json['flySpeed']),
       swimSpeed: serializer.fromJson<int>(json['swimSpeed']),
+      initMisc: serializer.fromJson<int>(json['initMisc']),
     );
   }
   @override
@@ -770,6 +790,7 @@ class TableCharacterData extends DataClass
       'moveSpeed': serializer.toJson<int>(moveSpeed),
       'flySpeed': serializer.toJson<int>(flySpeed),
       'swimSpeed': serializer.toJson<int>(swimSpeed),
+      'initMisc': serializer.toJson<int>(initMisc),
     };
   }
 
@@ -806,7 +827,8 @@ class TableCharacterData extends DataClass
           int? kacMisc,
           int? moveSpeed,
           int? flySpeed,
-          int? swimSpeed}) =>
+          int? swimSpeed,
+          int? initMisc}) =>
       TableCharacterData(
         id: id ?? this.id,
         charName: charName ?? this.charName,
@@ -841,6 +863,7 @@ class TableCharacterData extends DataClass
         moveSpeed: moveSpeed ?? this.moveSpeed,
         flySpeed: flySpeed ?? this.flySpeed,
         swimSpeed: swimSpeed ?? this.swimSpeed,
+        initMisc: initMisc ?? this.initMisc,
       );
   TableCharacterData copyWithCompanion(TableCharacterCompanion data) {
     return TableCharacterData(
@@ -889,6 +912,7 @@ class TableCharacterData extends DataClass
       moveSpeed: data.moveSpeed.present ? data.moveSpeed.value : this.moveSpeed,
       flySpeed: data.flySpeed.present ? data.flySpeed.value : this.flySpeed,
       swimSpeed: data.swimSpeed.present ? data.swimSpeed.value : this.swimSpeed,
+      initMisc: data.initMisc.present ? data.initMisc.value : this.initMisc,
     );
   }
 
@@ -927,7 +951,8 @@ class TableCharacterData extends DataClass
           ..write('kacMisc: $kacMisc, ')
           ..write('moveSpeed: $moveSpeed, ')
           ..write('flySpeed: $flySpeed, ')
-          ..write('swimSpeed: $swimSpeed')
+          ..write('swimSpeed: $swimSpeed, ')
+          ..write('initMisc: $initMisc')
           ..write(')'))
         .toString();
   }
@@ -966,7 +991,8 @@ class TableCharacterData extends DataClass
         kacMisc,
         moveSpeed,
         flySpeed,
-        swimSpeed
+        swimSpeed,
+        initMisc
       ]);
   @override
   bool operator ==(Object other) =>
@@ -1004,7 +1030,8 @@ class TableCharacterData extends DataClass
           other.kacMisc == this.kacMisc &&
           other.moveSpeed == this.moveSpeed &&
           other.flySpeed == this.flySpeed &&
-          other.swimSpeed == this.swimSpeed);
+          other.swimSpeed == this.swimSpeed &&
+          other.initMisc == this.initMisc);
 }
 
 class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
@@ -1041,6 +1068,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   final Value<int> moveSpeed;
   final Value<int> flySpeed;
   final Value<int> swimSpeed;
+  final Value<int> initMisc;
   const TableCharacterCompanion({
     this.id = const Value.absent(),
     this.charName = const Value.absent(),
@@ -1075,6 +1103,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     this.moveSpeed = const Value.absent(),
     this.flySpeed = const Value.absent(),
     this.swimSpeed = const Value.absent(),
+    this.initMisc = const Value.absent(),
   });
   TableCharacterCompanion.insert({
     this.id = const Value.absent(),
@@ -1110,6 +1139,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     required int moveSpeed,
     required int flySpeed,
     required int swimSpeed,
+    required int initMisc,
   })  : charName = Value(charName),
         charClass = Value(charClass),
         lvl = Value(lvl),
@@ -1141,7 +1171,8 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
         kacMisc = Value(kacMisc),
         moveSpeed = Value(moveSpeed),
         flySpeed = Value(flySpeed),
-        swimSpeed = Value(swimSpeed);
+        swimSpeed = Value(swimSpeed),
+        initMisc = Value(initMisc);
   static Insertable<TableCharacterData> custom({
     Expression<int>? id,
     Expression<String>? charName,
@@ -1176,6 +1207,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     Expression<int>? moveSpeed,
     Expression<int>? flySpeed,
     Expression<int>? swimSpeed,
+    Expression<int>? initMisc,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1211,6 +1243,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       if (moveSpeed != null) 'move_speed': moveSpeed,
       if (flySpeed != null) 'fly_speed': flySpeed,
       if (swimSpeed != null) 'swim_speed': swimSpeed,
+      if (initMisc != null) 'init_misc': initMisc,
     });
   }
 
@@ -1247,7 +1280,8 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       Value<int>? kacMisc,
       Value<int>? moveSpeed,
       Value<int>? flySpeed,
-      Value<int>? swimSpeed}) {
+      Value<int>? swimSpeed,
+      Value<int>? initMisc}) {
     return TableCharacterCompanion(
       id: id ?? this.id,
       charName: charName ?? this.charName,
@@ -1282,6 +1316,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       moveSpeed: moveSpeed ?? this.moveSpeed,
       flySpeed: flySpeed ?? this.flySpeed,
       swimSpeed: swimSpeed ?? this.swimSpeed,
+      initMisc: initMisc ?? this.initMisc,
     );
   }
 
@@ -1387,6 +1422,9 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     if (swimSpeed.present) {
       map['swim_speed'] = Variable<int>(swimSpeed.value);
     }
+    if (initMisc.present) {
+      map['init_misc'] = Variable<int>(initMisc.value);
+    }
     return map;
   }
 
@@ -1425,7 +1463,8 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
           ..write('kacMisc: $kacMisc, ')
           ..write('moveSpeed: $moveSpeed, ')
           ..write('flySpeed: $flySpeed, ')
-          ..write('swimSpeed: $swimSpeed')
+          ..write('swimSpeed: $swimSpeed, ')
+          ..write('initMisc: $initMisc')
           ..write(')'))
         .toString();
   }
@@ -1477,6 +1516,7 @@ typedef $$TableCharacterTableCreateCompanionBuilder = TableCharacterCompanion
   required int moveSpeed,
   required int flySpeed,
   required int swimSpeed,
+  required int initMisc,
 });
 typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
     Function({
@@ -1513,6 +1553,7 @@ typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
   Value<int> moveSpeed,
   Value<int> flySpeed,
   Value<int> swimSpeed,
+  Value<int> initMisc,
 });
 
 class $$TableCharacterTableFilterComposer
@@ -1623,6 +1664,9 @@ class $$TableCharacterTableFilterComposer
 
   ColumnFilters<int> get swimSpeed => $composableBuilder(
       column: $table.swimSpeed, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get initMisc => $composableBuilder(
+      column: $table.initMisc, builder: (column) => ColumnFilters(column));
 }
 
 class $$TableCharacterTableOrderingComposer
@@ -1735,6 +1779,9 @@ class $$TableCharacterTableOrderingComposer
 
   ColumnOrderings<int> get swimSpeed => $composableBuilder(
       column: $table.swimSpeed, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get initMisc => $composableBuilder(
+      column: $table.initMisc, builder: (column) => ColumnOrderings(column));
 }
 
 class $$TableCharacterTableAnnotationComposer
@@ -1844,6 +1891,9 @@ class $$TableCharacterTableAnnotationComposer
 
   GeneratedColumn<int> get swimSpeed =>
       $composableBuilder(column: $table.swimSpeed, builder: (column) => column);
+
+  GeneratedColumn<int> get initMisc =>
+      $composableBuilder(column: $table.initMisc, builder: (column) => column);
 }
 
 class $$TableCharacterTableTableManager extends RootTableManager<
@@ -1906,6 +1956,7 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             Value<int> moveSpeed = const Value.absent(),
             Value<int> flySpeed = const Value.absent(),
             Value<int> swimSpeed = const Value.absent(),
+            Value<int> initMisc = const Value.absent(),
           }) =>
               TableCharacterCompanion(
             id: id,
@@ -1941,6 +1992,7 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             moveSpeed: moveSpeed,
             flySpeed: flySpeed,
             swimSpeed: swimSpeed,
+            initMisc: initMisc,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -1976,6 +2028,7 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             required int moveSpeed,
             required int flySpeed,
             required int swimSpeed,
+            required int initMisc,
           }) =>
               TableCharacterCompanion.insert(
             id: id,
@@ -2011,6 +2064,7 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             moveSpeed: moveSpeed,
             flySpeed: flySpeed,
             swimSpeed: swimSpeed,
+            initMisc: initMisc,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
