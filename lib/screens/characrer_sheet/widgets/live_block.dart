@@ -141,7 +141,7 @@ class LiveBlock extends StatelessWidget {
                         width: double.infinity,
                         child: CustomPaint(
                           painter: LiveCounterPainer(
-                              current: value, total: wm.maxStam),
+                              current: value, total: wm.maxStam, isHP: false),
                         ),
                       ),
                     ),
@@ -456,9 +456,13 @@ class DamageCounterPainter extends CustomPainter {
 class LiveCounterPainer extends CustomPainter {
   final int current;
   final int total;
+  final bool isHP;
 
   const LiveCounterPainer(
-      {required this.current, required this.total, Listenable? repaint});
+      {required this.current,
+      required this.total,
+      Listenable? repaint,
+      this.isHP = true});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -472,7 +476,7 @@ class LiveCounterPainer extends CustomPainter {
     Paint paintFill = Paint()
       ..style = PaintingStyle.fill
       ..strokeWidth = 2.0
-      ..color = AppColors.darkBlue;
+      ..color = isHP ? AppColors.hp : AppColors.stamina;
     Path pathFill = Path();
 
     if (partOf >= 1) {

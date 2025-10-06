@@ -29,6 +29,8 @@ class AppColors {
   static const Color teal = Color(0xFF05F2DB);
   static const Color darkPink = Color(0xFFD9048E);
   static const Color pink = Color(0xFFF205CB);
+  static const Color hp = Color(0xFFBD0927);
+  static const Color stamina = Color(0xFF055CCC);
 
   //Shadows
   static BoxShadow containerShadow = BoxShadow(
