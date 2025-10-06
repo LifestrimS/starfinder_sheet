@@ -179,8 +179,8 @@ class CarouselBody extends StatefulWidget {
 }
 
 class _CarouselBodyState extends State<CarouselBody> {
-  int _current = 0;
   final CarouselSliderController _controller = CarouselSliderController();
+  final ValueNotifier pageNotifier = ValueNotifier(0);
 
   @override
   Widget build(BuildContext context) {
@@ -200,46 +200,54 @@ class _CarouselBodyState extends State<CarouselBody> {
                       64.0 -
                       widget.appBarHeight,
                   onPageChanged: (index, reason) {
-                    setState(() {
-                      _current = index;
-                    });
+                    pageNotifier.value = index;
                   }),
               items: [
-                buildMainPage(wm: widget.wm),
-                buildBattlePage(wm: widget.wm)
+                BuildMainPage(wm: widget.wm),
+                BuildBattlePage(wm: widget.wm)
               ],
             ),
           ]),
-          Container(
-            height: 24.0,
-            color: AppColors.darkBlue,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: list.asMap().entries.map((entry) {
-                return GestureDetector(
-                  onTap: () => _controller.animateToPage(entry.key),
-                  child: Container(
-                    width: 12.0,
-                    height: 12.0,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 2.0, horizontal: 4.0),
-                    child: CustomPaint(
-                      painter:
-                          IndicatorPainter(isFilled: _current == entry.key),
-                    ),
+          ValueListenableBuilder(
+              valueListenable: pageNotifier,
+              builder: (context, value, child) {
+                return Container(
+                  height: 24.0,
+                  color: AppColors.darkBlue,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: list.asMap().entries.map((entry) {
+                      return GestureDetector(
+                        onTap: () => _controller.animateToPage(entry.key),
+                        child: Container(
+                          width: 12.0,
+                          height: 12.0,
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 2.0, horizontal: 4.0),
+                          child: CustomPaint(
+                            painter:
+                                IndicatorPainter(isFilled: value == entry.key),
+                          ),
+                        ),
+                      );
+                    }).toList(),
                   ),
                 );
-              }).toList(),
-            ),
-          ),
+              }),
         ],
       ),
     );
   }
 
   List<int> list = [1, 2];
+}
 
-  Widget buildMainPage({required ICharacterSheetWM wm}) {
+class BuildMainPage extends StatelessWidget {
+  final ICharacterSheetWM wm;
+  const BuildMainPage({required this.wm, super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(16.0),
@@ -310,15 +318,21 @@ class _CarouselBodyState extends State<CarouselBody> {
             ),
             Initiative(
               controller: wm.initMiscController,
-              dexModificator: wm.dexModificator,
+              dexModificatorNotifier: wm.dexModificatorNotifier(),
             ),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget buildBattlePage({required ICharacterSheetWM wm}) {
+class BuildBattlePage extends StatelessWidget {
+  final ICharacterSheetWM wm;
+  const BuildBattlePage({required this.wm, super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(16.0),
@@ -334,7 +348,7 @@ class _CarouselBodyState extends State<CarouselBody> {
             ACBlock(
               eacControllers: wm.eacControllers,
               kacControllers: wm.kacControllers,
-              dexModificator: wm.dexModificator,
+              dexModificatorNotifier: wm.dexModificatorNotifier(),
             ),
             const SizedBox(
               height: 12.0,

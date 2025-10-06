@@ -72,6 +72,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
 
   ValueNotifier<int> currentResolveNotifier();
 
+  ValueNotifier<int> dexModificatorNotifier();
+
   TextEditingController get damageTextController;
 
   TextEditingController get nameTextController;
@@ -117,6 +119,7 @@ class CharacterSheetWM
   final ValueNotifier<String> _damageLogNotifier = ValueNotifier('');
   final ValueNotifier<int> _totalDamageNotifier = ValueNotifier(0);
   final ValueNotifier<int> _currentResolveNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _dexModificatorNotifier = ValueNotifier(0);
 
   final TextEditingController _damageTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
@@ -188,6 +191,9 @@ class CharacterSheetWM
   ValueNotifier<int> currentResolveNotifier() => _currentResolveNotifier;
 
   @override
+  ValueNotifier<int> dexModificatorNotifier() => _dexModificatorNotifier;
+
+  @override
   TextEditingController get damageTextController => _damageTextController;
   @override
   TextEditingController get nameTextController => _nameTextController;
@@ -247,6 +253,7 @@ class CharacterSheetWM
     _damageLogNotifier.dispose();
     _totalDamageNotifier.dispose();
     _currentResolveNotifier.dispose();
+    _abilityTextControllers.dexController.removeListener(dexListener);
     super.dispose();
   }
 
@@ -304,6 +311,8 @@ class CharacterSheetWM
       _classTextController.text = model.charClass;
       _raceTextController.text = model.race;
       _lvlTextController.text = model.lvl.toString();
+
+      _abilityTextControllers.dexController.addListener(dexListener);
 
       _abilityTextControllers.strController.text =
           model.getAbility().strength.toString();
@@ -364,6 +373,12 @@ class CharacterSheetWM
   @override
   void onRefresh() async {
     await loadData();
+  }
+
+  void dexListener() {
+    _dexModificatorNotifier.value = CharacterAbility.getModifier(
+        int.parse(_abilityTextControllers.dexController.text));
+    log('TTest: ${_dexModificatorNotifier.value}');
   }
 
   @override

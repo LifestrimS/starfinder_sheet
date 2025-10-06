@@ -5,12 +5,12 @@ import 'package:pathfinder_sheet/utils/styles.dart';
 class ACBlock extends StatefulWidget {
   final AcControllers eacControllers;
   final AcControllers kacControllers;
-  final int dexModificator;
+  final ValueNotifier<int> dexModificatorNotifier;
 
   const ACBlock(
       {required this.eacControllers,
       required this.kacControllers,
-      required this.dexModificator,
+      required this.dexModificatorNotifier,
       super.key});
 
   @override
@@ -31,109 +31,113 @@ class _ACBlockState extends State<ACBlock> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        GestureDetector(
-          onTap: () async {
-            await showDialog(
-              context: context,
-              builder: (context) => aCDialog(context,
-                  isEAC: true, controllers: widget.eacControllers),
-            );
-            update(isEac: true);
-          },
-          child: SizedBox(
-            height: 57.0,
-            width: 75.0,
-            child: Stack(children: [
-              ValueListenableBuilder(
-                valueListenable: eacNotifier,
-                builder: (context, value, child) {
-                  return Align(
-                    alignment: Alignment.bottomRight,
-                    child: SizedBox(
-                      height: 50.0,
-                      width: 70.0,
-                      child: CustomPaint(
-                        painter: ACBorderPainter(),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Center(
-                            child: Text(
-                              value.toString(),
-                              style: AppStyles.commonPixel()
-                                  .copyWith(fontSize: 14.0),
+    return ValueListenableBuilder(
+        valueListenable: widget.dexModificatorNotifier,
+        builder: (context, value, child) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  await showDialog(
+                    context: context,
+                    builder: (context) => aCDialog(context,
+                        isEAC: true, controllers: widget.eacControllers),
+                  );
+                  update(isEac: true);
+                },
+                child: SizedBox(
+                  height: 57.0,
+                  width: 75.0,
+                  child: Stack(children: [
+                    ValueListenableBuilder(
+                      valueListenable: eacNotifier,
+                      builder: (context, value, child) {
+                        return Align(
+                          alignment: Alignment.bottomRight,
+                          child: SizedBox(
+                            height: 50.0,
+                            width: 70.0,
+                            child: CustomPaint(
+                              painter: ACBorderPainter(),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 4.0),
+                                child: Center(
+                                  child: Text(
+                                    value.toString(),
+                                    style: AppStyles.commonPixel()
+                                        .copyWith(fontSize: 14.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'EAC',
+                        style: AppStyles.commonPixel()
+                            .copyWith(color: AppColors.darkPink, fontSize: 6.0),
+                      ),
+                    )
+                  ]),
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  await showDialog(
+                    context: context,
+                    builder: (context) => aCDialog(context,
+                        isEAC: false, controllers: widget.kacControllers),
+                  );
+                  update(isEac: false);
+                },
+                child: SizedBox(
+                  height: 55.0,
+                  width: 75.0,
+                  child: Stack(children: [
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: SizedBox(
+                        height: 50.0,
+                        width: 70.0,
+                        child: CustomPaint(
+                          painter: ACBorderPainter(),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: Center(
+                              child: Text(
+                                countAC(widget.kacControllers).toString(),
+                                style: AppStyles.commonPixel()
+                                    .copyWith(fontSize: 14.0),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  );
-                },
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'EAC',
-                  style: AppStyles.commonPixel()
-                      .copyWith(color: AppColors.darkPink, fontSize: 6.0),
-                ),
-              )
-            ]),
-          ),
-        ),
-        GestureDetector(
-          onTap: () async {
-            await showDialog(
-              context: context,
-              builder: (context) => aCDialog(context,
-                  isEAC: false, controllers: widget.kacControllers),
-            );
-            update(isEac: false);
-          },
-          child: SizedBox(
-            height: 55.0,
-            width: 75.0,
-            child: Stack(children: [
-              Align(
-                alignment: Alignment.bottomRight,
-                child: SizedBox(
-                  height: 50.0,
-                  width: 70.0,
-                  child: CustomPaint(
-                    painter: ACBorderPainter(),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: Center(
-                        child: Text(
-                          countAC(widget.kacControllers).toString(),
-                          style:
-                              AppStyles.commonPixel().copyWith(fontSize: 14.0),
-                        ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'KAC',
+                        style: AppStyles.commonPixel()
+                            .copyWith(color: AppColors.darkPink, fontSize: 6.0),
                       ),
-                    ),
-                  ),
+                    )
+                  ]),
                 ),
               ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'KAC',
-                  style: AppStyles.commonPixel()
-                      .copyWith(color: AppColors.darkPink, fontSize: 6.0),
-                ),
-              )
-            ]),
-          ),
-        ),
-      ],
-    );
+            ],
+          );
+        });
   }
 
   int countAC(AcControllers controllers) {
     return 10 +
-        widget.dexModificator +
+        widget.dexModificatorNotifier.value +
         int.parse(controllers.armorController.text) +
         int.parse(controllers.dodgeController.text) +
         int.parse(controllers.naturalController.text) +

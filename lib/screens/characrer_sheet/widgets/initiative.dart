@@ -4,118 +4,125 @@ import 'package:pathfinder_sheet/utils/styles.dart';
 
 class Initiative extends StatelessWidget {
   final TextEditingController controller;
-  final int dexModificator;
+
+  final ValueNotifier dexModificatorNotifier;
 
   const Initiative(
-      {required this.controller, required this.dexModificator, super.key});
+      {required this.controller,
+      required this.dexModificatorNotifier,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Column(
-          children: [
-            Text(
-              'Init',
-              style: AppStyles.commonPixel(),
-            ),
-            const SizedBox(
-              height: 4.0,
-            ),
-            SizedBox(
-              height: 30.0,
-              width: 50.0,
-              child: CustomPaint(
-                painter: InitiativePainter(),
-                child: Center(
-                  child: Text(
-                    countInit(),
+    return ValueListenableBuilder(
+        valueListenable: dexModificatorNotifier,
+        builder: (context, value, child) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  Text(
+                    'Init',
                     style: AppStyles.commonPixel(),
                   ),
-                ),
+                  const SizedBox(
+                    height: 4.0,
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                    width: 50.0,
+                    child: CustomPaint(
+                      painter: InitiativePainter(),
+                      child: Center(
+                        child: Text(
+                          countInit(value),
+                          style: AppStyles.commonPixel(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 22.0,
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(
-              height: 22.0,
-            ),
-          ],
-        ),
-        Text(
-          '=',
-          style: AppStyles.commonPixel(),
-        ),
-        Column(
-          children: [
-            Text(
-              'Dex',
-              style: AppStyles.commonPixel(),
-            ),
-            const SizedBox(
-              height: 4.0,
-            ),
-            SizedBox(
-              height: 30.0,
-              width: 50.0,
-              child: CustomPaint(
-                painter: InitiativePainter(),
-                child: Center(
-                  child: Text(
-                    dexModificator.toString(),
+              Text(
+                '=',
+                style: AppStyles.commonPixel(),
+              ),
+              Column(
+                children: [
+                  Text(
+                    'Dex',
                     style: AppStyles.commonPixel(),
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 22.0,
-            ),
-          ],
-        ),
-        Text(
-          '+',
-          style: AppStyles.commonPixel(),
-        ),
-        Column(
-          children: [
-            Text(
-              'Misc',
-              style: AppStyles.commonPixel(),
-            ),
-            const SizedBox(
-              height: 4.0,
-            ),
-            SizedBox(
-              height: 30.0,
-              width: 50.0,
-              child: CustomPaint(
-                painter: InitiativePainter(),
-                child: TextFormField(
-                  controller: controller,
-                  expands: true,
-                  maxLines: null,
-                  style: AppStyles.commonPixel(),
-                  textAlign: TextAlign.center,
-                  textAlignVertical: TextAlignVertical.center,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
+                  const SizedBox(
+                    height: 4.0,
                   ),
-                ),
+                  SizedBox(
+                    height: 30.0,
+                    width: 50.0,
+                    child: CustomPaint(
+                      painter: InitiativePainter(),
+                      child: Center(
+                        child: Text(
+                          value.toString(),
+                          style: AppStyles.commonPixel(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 22.0,
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(
-              height: 22.0,
-            ),
-          ],
-        )
-      ],
-    );
+              Text(
+                '+',
+                style: AppStyles.commonPixel(),
+              ),
+              Column(
+                children: [
+                  Text(
+                    'Misc',
+                    style: AppStyles.commonPixel(),
+                  ),
+                  const SizedBox(
+                    height: 4.0,
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                    width: 50.0,
+                    child: CustomPaint(
+                      painter: InitiativePainter(),
+                      child: TextFormField(
+                        controller: controller,
+                        expands: true,
+                        maxLines: null,
+                        style: AppStyles.commonPixel(),
+                        textAlign: TextAlign.center,
+                        textAlignVertical: TextAlignVertical.center,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 22.0,
+                  ),
+                ],
+              )
+            ],
+          );
+        });
   }
 
-  String countInit() {
-    return (dexModificator + int.parse(controller.text)).toString();
+  String countInit(int modificator) {
+    return (modificator + int.parse(controller.text)).toString();
   }
 }
 
