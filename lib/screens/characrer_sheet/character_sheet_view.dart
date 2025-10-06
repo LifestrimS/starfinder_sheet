@@ -206,7 +206,8 @@ class _CarouselBodyState extends State<CarouselBody> {
                 BuildMainPage(wm: widget.wm),
                 BuildBattlePage(wm: widget.wm),
                 BuildSkillsPage(wm: widget.wm),
-                BuildEquipmentPage(wm: widget.wm)
+                BuildEquipmentPage(wm: widget.wm),
+                BuildBioPage(wm: widget.wm)
               ],
             ),
           ]),
@@ -241,7 +242,7 @@ class _CarouselBodyState extends State<CarouselBody> {
     );
   }
 
-  List<int> list = [0, 1, 2, 3];
+  List<int> list = [0, 1, 2, 3, 4];
 }
 
 class BuildMainPage extends StatelessWidget {
@@ -390,6 +391,22 @@ class BuildEquipmentPage extends StatelessWidget {
     return Center(
       child: Text(
         'Equipment\nweapon, armor, equip',
+        textAlign: TextAlign.center,
+        style: AppStyles.commonPixel(),
+      ),
+    );
+  }
+}
+
+class BuildBioPage extends StatelessWidget {
+  final ICharacterSheetWM wm;
+  const BuildBioPage({required this.wm, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Bio',
         textAlign: TextAlign.center,
         style: AppStyles.commonPixel(),
       ),
