@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
-class ACBlock extends StatelessWidget {
+class ACBlock extends StatefulWidget {
   final AcControllers eacControllers;
   final AcControllers kacControllers;
   final int dexModificator;
@@ -14,41 +14,63 @@ class ACBlock extends StatelessWidget {
       super.key});
 
   @override
+  State<ACBlock> createState() => _ACBlockState();
+}
+
+class _ACBlockState extends State<ACBlock> {
+  final ValueNotifier<int> eacNotifier = ValueNotifier(0);
+
+  final ValueNotifier kacNotifier = ValueNotifier(0);
+
+  @override
+  void initState() {
+    update(isEac: true);
+    update(isEac: false);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
-          onTap: () {
-            showDialog(
+          onTap: () async {
+            await showDialog(
               context: context,
-              builder: (context) =>
-                  aCDialog(context, isEAC: true, controllers: eacControllers),
+              builder: (context) => aCDialog(context,
+                  isEAC: true, controllers: widget.eacControllers),
             );
+            update(isEac: true);
           },
           child: SizedBox(
             height: 57.0,
             width: 75.0,
             child: Stack(children: [
-              Align(
-                alignment: Alignment.bottomRight,
-                child: SizedBox(
-                  height: 50.0,
-                  width: 70.0,
-                  child: CustomPaint(
-                    painter: ACBorderPainter(),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: Center(
-                        child: Text(
-                          countAC(eacControllers).toString(),
-                          style:
-                              AppStyles.commonPixel().copyWith(fontSize: 14.0),
+              ValueListenableBuilder(
+                valueListenable: eacNotifier,
+                builder: (context, value, child) {
+                  return Align(
+                    alignment: Alignment.bottomRight,
+                    child: SizedBox(
+                      height: 50.0,
+                      width: 70.0,
+                      child: CustomPaint(
+                        painter: ACBorderPainter(),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Center(
+                            child: Text(
+                              value.toString(),
+                              style: AppStyles.commonPixel()
+                                  .copyWith(fontSize: 14.0),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
               Align(
                 alignment: Alignment.topLeft,
@@ -62,12 +84,13 @@ class ACBlock extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {
-            showDialog(
+          onTap: () async {
+            await showDialog(
               context: context,
-              builder: (context) =>
-                  aCDialog(context, isEAC: false, controllers: kacControllers),
+              builder: (context) => aCDialog(context,
+                  isEAC: false, controllers: widget.kacControllers),
             );
+            update(isEac: false);
           },
           child: SizedBox(
             height: 55.0,
@@ -84,7 +107,7 @@ class ACBlock extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 4.0),
                       child: Center(
                         child: Text(
-                          countAC(kacControllers).toString(),
+                          countAC(widget.kacControllers).toString(),
                           style:
                               AppStyles.commonPixel().copyWith(fontSize: 14.0),
                         ),
@@ -110,17 +133,28 @@ class ACBlock extends StatelessWidget {
 
   int countAC(AcControllers controllers) {
     return 10 +
-        dexModificator +
+        widget.dexModificator +
         int.parse(controllers.armorController.text) +
         int.parse(controllers.dodgeController.text) +
         int.parse(controllers.naturalController.text) +
         int.parse(controllers.deflectController.text) +
         int.parse(controllers.miscController.text);
   }
+
+  void update({required bool isEac}) {
+    if (isEac) {
+      eacNotifier.value = countAC(widget.eacControllers);
+    } else {
+      kacNotifier.value = countAC(widget.kacControllers);
+    }
+  }
 }
 
-Widget aCDialog(BuildContext context,
-    {required bool isEAC, required AcControllers controllers}) {
+Widget aCDialog(
+  BuildContext context, {
+  required bool isEAC,
+  required AcControllers controllers,
+}) {
   return AlertDialog(
     insetPadding: EdgeInsets.zero,
     title: Text(

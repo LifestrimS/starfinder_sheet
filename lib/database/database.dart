@@ -69,4 +69,16 @@ class TableCharacter extends Table {
   IntColumn get maxResolve => integer()();
   IntColumn get currentResolve => integer()();
   TextColumn get damageLog => text()();
+
+  //acBlock
+  IntColumn get eacArmor => integer()();
+  IntColumn get eacDodger => integer()();
+  IntColumn get eacNatural => integer()();
+  IntColumn get eacDeflect => integer()();
+  IntColumn get eacMisc => integer()();
+  IntColumn get kacArmor => integer()();
+  IntColumn get kacDodger => integer()();
+  IntColumn get kacNatural => integer()();
+  IntColumn get kacDeflect => integer()();
+  IntColumn get kacMisc => integer()();
 }

@@ -8,6 +8,8 @@ class Character {
   final CharSize size;
   final CharacterAbility ability;
   final CharacterLiveBlock liveBlock;
+  final ACBLock eacBlock;
+  final ACBLock kacBlock;
 
   Character(
       {required this.id,
@@ -18,7 +20,9 @@ class Character {
       required this.alignment,
       required this.size,
       required this.ability,
-      required this.liveBlock});
+      required this.liveBlock,
+      required this.eacBlock,
+      required this.kacBlock});
 
   Character.empty(
       {this.id = 0,
@@ -29,7 +33,9 @@ class Character {
       this.alignment = CharAlignment.nn,
       this.size = CharSize.m,
       this.ability = const CharacterAbility.empty(),
-      this.liveBlock = const CharacterLiveBlock.empty()});
+      this.liveBlock = const CharacterLiveBlock.empty(),
+      this.eacBlock = const ACBLock.empty(),
+      this.kacBlock = const ACBLock.empty()});
 
   Character copyWith(
       {int? id,
@@ -40,7 +46,9 @@ class Character {
       CharAlignment? alignment,
       CharSize? size,
       CharacterAbility? ability,
-      CharacterLiveBlock? liveBlock}) {
+      CharacterLiveBlock? liveBlock,
+      ACBLock? eacBlock,
+      ACBLock? kacBlock}) {
     return Character(
         id: id ?? this.id,
         charName: charName ?? this.charName,
@@ -50,7 +58,9 @@ class Character {
         alignment: alignment ?? this.alignment,
         size: size ?? this.size,
         ability: ability ?? this.ability,
-        liveBlock: liveBlock ?? this.liveBlock);
+        liveBlock: liveBlock ?? this.liveBlock,
+        eacBlock: eacBlock ?? this.eacBlock,
+        kacBlock: kacBlock ?? this.kacBlock);
   }
 
   @override
@@ -152,4 +162,26 @@ class CharacterLiveBlock {
       this.maxResolve = 0,
       this.currentResolve = -1,
       this.damageLog = ''});
+}
+
+class ACBLock {
+  final int amror;
+  final int dodge;
+  final int natural;
+  final int deflect;
+  final int misc;
+
+  const ACBLock(
+      {required this.amror,
+      required this.dodge,
+      required this.natural,
+      required this.deflect,
+      required this.misc});
+
+  const ACBLock.empty(
+      {this.amror = 0,
+      this.dodge = 0,
+      this.natural = 0,
+      this.deflect = 0,
+      this.misc = 0});
 }

@@ -21,6 +21,20 @@ class Mapper {
         currentResolve: element.currentResolve,
         damageLog: element.damageLog);
 
+    final ACBLock eacBlock = ACBLock(
+        amror: element.eacArmor,
+        dodge: element.eacDodger,
+        natural: element.eacNatural,
+        deflect: element.eacDeflect,
+        misc: element.eacMisc);
+
+    final ACBLock kacBlock = ACBLock(
+        amror: element.kacArmor,
+        dodge: element.kacDodger,
+        natural: element.kacNatural,
+        deflect: element.kacDeflect,
+        misc: element.kacMisc);
+
     return Character(
         id: element.id,
         charName: element.charName,
@@ -31,7 +45,9 @@ class Mapper {
             .firstWhere((e) => e.alignName == element.alignment),
         size: CharSize.values.firstWhere((e) => e.sizeName == element.size),
         ability: ability,
-        liveBlock: liveBlock);
+        liveBlock: liveBlock,
+        eacBlock: eacBlock,
+        kacBlock: kacBlock);
   }
 
   TableCharacterData toTableCharacterData(Character character) {
@@ -55,7 +71,17 @@ class Mapper {
         currentStam: character.liveBlock.currentStam,
         maxResolve: character.liveBlock.maxResolve,
         currentResolve: character.liveBlock.currentResolve,
-        damageLog: character.liveBlock.damageLog);
+        damageLog: character.liveBlock.damageLog,
+        eacArmor: character.eacBlock.amror,
+        eacDodger: character.eacBlock.dodge,
+        eacNatural: character.eacBlock.natural,
+        eacDeflect: character.eacBlock.deflect,
+        eacMisc: character.eacBlock.misc,
+        kacArmor: character.kacBlock.amror,
+        kacDodger: character.kacBlock.dodge,
+        kacNatural: character.kacBlock.natural,
+        kacDeflect: character.kacBlock.deflect,
+        kacMisc: character.kacBlock.misc);
   }
 
   TableCharacterCompanion toTableCharacterCompanion(Character character) {
@@ -79,6 +105,16 @@ class Mapper {
         currentStam: Value(character.liveBlock.currentStam),
         maxResolve: Value(character.liveBlock.maxResolve),
         currentResolve: Value(character.liveBlock.currentResolve),
-        damageLog: Value(character.liveBlock.damageLog));
+        damageLog: Value(character.liveBlock.damageLog),
+        eacArmor: Value(character.eacBlock.amror),
+        eacDodger: Value(character.eacBlock.dodge),
+        eacNatural: Value(character.eacBlock.natural),
+        eacDeflect: Value(character.eacBlock.deflect),
+        eacMisc: Value(character.eacBlock.misc),
+        kacArmor: Value(character.kacBlock.amror),
+        kacDodger: Value(character.kacBlock.dodge),
+        kacNatural: Value(character.kacBlock.natural),
+        kacDeflect: Value(character.kacBlock.deflect),
+        kacMisc: Value(character.kacBlock.misc));
   }
 }

@@ -127,6 +127,66 @@ class $TableCharacterTable extends TableCharacter
   late final GeneratedColumn<String> damageLog = GeneratedColumn<String>(
       'damage_log', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _eacArmorMeta =
+      const VerificationMeta('eacArmor');
+  @override
+  late final GeneratedColumn<int> eacArmor = GeneratedColumn<int>(
+      'eac_armor', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _eacDodgerMeta =
+      const VerificationMeta('eacDodger');
+  @override
+  late final GeneratedColumn<int> eacDodger = GeneratedColumn<int>(
+      'eac_dodger', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _eacNaturalMeta =
+      const VerificationMeta('eacNatural');
+  @override
+  late final GeneratedColumn<int> eacNatural = GeneratedColumn<int>(
+      'eac_natural', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _eacDeflectMeta =
+      const VerificationMeta('eacDeflect');
+  @override
+  late final GeneratedColumn<int> eacDeflect = GeneratedColumn<int>(
+      'eac_deflect', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _eacMiscMeta =
+      const VerificationMeta('eacMisc');
+  @override
+  late final GeneratedColumn<int> eacMisc = GeneratedColumn<int>(
+      'eac_misc', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _kacArmorMeta =
+      const VerificationMeta('kacArmor');
+  @override
+  late final GeneratedColumn<int> kacArmor = GeneratedColumn<int>(
+      'kac_armor', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _kacDodgerMeta =
+      const VerificationMeta('kacDodger');
+  @override
+  late final GeneratedColumn<int> kacDodger = GeneratedColumn<int>(
+      'kac_dodger', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _kacNaturalMeta =
+      const VerificationMeta('kacNatural');
+  @override
+  late final GeneratedColumn<int> kacNatural = GeneratedColumn<int>(
+      'kac_natural', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _kacDeflectMeta =
+      const VerificationMeta('kacDeflect');
+  @override
+  late final GeneratedColumn<int> kacDeflect = GeneratedColumn<int>(
+      'kac_deflect', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _kacMiscMeta =
+      const VerificationMeta('kacMisc');
+  @override
+  late final GeneratedColumn<int> kacMisc = GeneratedColumn<int>(
+      'kac_misc', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -148,7 +208,17 @@ class $TableCharacterTable extends TableCharacter
         currentStam,
         maxResolve,
         currentResolve,
-        damageLog
+        damageLog,
+        eacArmor,
+        eacDodger,
+        eacNatural,
+        eacDeflect,
+        eacMisc,
+        kacArmor,
+        kacDodger,
+        kacNatural,
+        kacDeflect,
+        kacMisc
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -287,6 +357,74 @@ class $TableCharacterTable extends TableCharacter
     } else if (isInserting) {
       context.missing(_damageLogMeta);
     }
+    if (data.containsKey('eac_armor')) {
+      context.handle(_eacArmorMeta,
+          eacArmor.isAcceptableOrUnknown(data['eac_armor']!, _eacArmorMeta));
+    } else if (isInserting) {
+      context.missing(_eacArmorMeta);
+    }
+    if (data.containsKey('eac_dodger')) {
+      context.handle(_eacDodgerMeta,
+          eacDodger.isAcceptableOrUnknown(data['eac_dodger']!, _eacDodgerMeta));
+    } else if (isInserting) {
+      context.missing(_eacDodgerMeta);
+    }
+    if (data.containsKey('eac_natural')) {
+      context.handle(
+          _eacNaturalMeta,
+          eacNatural.isAcceptableOrUnknown(
+              data['eac_natural']!, _eacNaturalMeta));
+    } else if (isInserting) {
+      context.missing(_eacNaturalMeta);
+    }
+    if (data.containsKey('eac_deflect')) {
+      context.handle(
+          _eacDeflectMeta,
+          eacDeflect.isAcceptableOrUnknown(
+              data['eac_deflect']!, _eacDeflectMeta));
+    } else if (isInserting) {
+      context.missing(_eacDeflectMeta);
+    }
+    if (data.containsKey('eac_misc')) {
+      context.handle(_eacMiscMeta,
+          eacMisc.isAcceptableOrUnknown(data['eac_misc']!, _eacMiscMeta));
+    } else if (isInserting) {
+      context.missing(_eacMiscMeta);
+    }
+    if (data.containsKey('kac_armor')) {
+      context.handle(_kacArmorMeta,
+          kacArmor.isAcceptableOrUnknown(data['kac_armor']!, _kacArmorMeta));
+    } else if (isInserting) {
+      context.missing(_kacArmorMeta);
+    }
+    if (data.containsKey('kac_dodger')) {
+      context.handle(_kacDodgerMeta,
+          kacDodger.isAcceptableOrUnknown(data['kac_dodger']!, _kacDodgerMeta));
+    } else if (isInserting) {
+      context.missing(_kacDodgerMeta);
+    }
+    if (data.containsKey('kac_natural')) {
+      context.handle(
+          _kacNaturalMeta,
+          kacNatural.isAcceptableOrUnknown(
+              data['kac_natural']!, _kacNaturalMeta));
+    } else if (isInserting) {
+      context.missing(_kacNaturalMeta);
+    }
+    if (data.containsKey('kac_deflect')) {
+      context.handle(
+          _kacDeflectMeta,
+          kacDeflect.isAcceptableOrUnknown(
+              data['kac_deflect']!, _kacDeflectMeta));
+    } else if (isInserting) {
+      context.missing(_kacDeflectMeta);
+    }
+    if (data.containsKey('kac_misc')) {
+      context.handle(_kacMiscMeta,
+          kacMisc.isAcceptableOrUnknown(data['kac_misc']!, _kacMiscMeta));
+    } else if (isInserting) {
+      context.missing(_kacMiscMeta);
+    }
     return context;
   }
 
@@ -336,6 +474,26 @@ class $TableCharacterTable extends TableCharacter
           .read(DriftSqlType.int, data['${effectivePrefix}current_resolve'])!,
       damageLog: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}damage_log'])!,
+      eacArmor: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}eac_armor'])!,
+      eacDodger: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}eac_dodger'])!,
+      eacNatural: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}eac_natural'])!,
+      eacDeflect: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}eac_deflect'])!,
+      eacMisc: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}eac_misc'])!,
+      kacArmor: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}kac_armor'])!,
+      kacDodger: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}kac_dodger'])!,
+      kacNatural: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}kac_natural'])!,
+      kacDeflect: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}kac_deflect'])!,
+      kacMisc: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}kac_misc'])!,
     );
   }
 
@@ -367,6 +525,16 @@ class TableCharacterData extends DataClass
   final int maxResolve;
   final int currentResolve;
   final String damageLog;
+  final int eacArmor;
+  final int eacDodger;
+  final int eacNatural;
+  final int eacDeflect;
+  final int eacMisc;
+  final int kacArmor;
+  final int kacDodger;
+  final int kacNatural;
+  final int kacDeflect;
+  final int kacMisc;
   const TableCharacterData(
       {required this.id,
       required this.charName,
@@ -387,7 +555,17 @@ class TableCharacterData extends DataClass
       required this.currentStam,
       required this.maxResolve,
       required this.currentResolve,
-      required this.damageLog});
+      required this.damageLog,
+      required this.eacArmor,
+      required this.eacDodger,
+      required this.eacNatural,
+      required this.eacDeflect,
+      required this.eacMisc,
+      required this.kacArmor,
+      required this.kacDodger,
+      required this.kacNatural,
+      required this.kacDeflect,
+      required this.kacMisc});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -411,6 +589,16 @@ class TableCharacterData extends DataClass
     map['max_resolve'] = Variable<int>(maxResolve);
     map['current_resolve'] = Variable<int>(currentResolve);
     map['damage_log'] = Variable<String>(damageLog);
+    map['eac_armor'] = Variable<int>(eacArmor);
+    map['eac_dodger'] = Variable<int>(eacDodger);
+    map['eac_natural'] = Variable<int>(eacNatural);
+    map['eac_deflect'] = Variable<int>(eacDeflect);
+    map['eac_misc'] = Variable<int>(eacMisc);
+    map['kac_armor'] = Variable<int>(kacArmor);
+    map['kac_dodger'] = Variable<int>(kacDodger);
+    map['kac_natural'] = Variable<int>(kacNatural);
+    map['kac_deflect'] = Variable<int>(kacDeflect);
+    map['kac_misc'] = Variable<int>(kacMisc);
     return map;
   }
 
@@ -436,6 +624,16 @@ class TableCharacterData extends DataClass
       maxResolve: Value(maxResolve),
       currentResolve: Value(currentResolve),
       damageLog: Value(damageLog),
+      eacArmor: Value(eacArmor),
+      eacDodger: Value(eacDodger),
+      eacNatural: Value(eacNatural),
+      eacDeflect: Value(eacDeflect),
+      eacMisc: Value(eacMisc),
+      kacArmor: Value(kacArmor),
+      kacDodger: Value(kacDodger),
+      kacNatural: Value(kacNatural),
+      kacDeflect: Value(kacDeflect),
+      kacMisc: Value(kacMisc),
     );
   }
 
@@ -463,6 +661,16 @@ class TableCharacterData extends DataClass
       maxResolve: serializer.fromJson<int>(json['maxResolve']),
       currentResolve: serializer.fromJson<int>(json['currentResolve']),
       damageLog: serializer.fromJson<String>(json['damageLog']),
+      eacArmor: serializer.fromJson<int>(json['eacArmor']),
+      eacDodger: serializer.fromJson<int>(json['eacDodger']),
+      eacNatural: serializer.fromJson<int>(json['eacNatural']),
+      eacDeflect: serializer.fromJson<int>(json['eacDeflect']),
+      eacMisc: serializer.fromJson<int>(json['eacMisc']),
+      kacArmor: serializer.fromJson<int>(json['kacArmor']),
+      kacDodger: serializer.fromJson<int>(json['kacDodger']),
+      kacNatural: serializer.fromJson<int>(json['kacNatural']),
+      kacDeflect: serializer.fromJson<int>(json['kacDeflect']),
+      kacMisc: serializer.fromJson<int>(json['kacMisc']),
     );
   }
   @override
@@ -489,6 +697,16 @@ class TableCharacterData extends DataClass
       'maxResolve': serializer.toJson<int>(maxResolve),
       'currentResolve': serializer.toJson<int>(currentResolve),
       'damageLog': serializer.toJson<String>(damageLog),
+      'eacArmor': serializer.toJson<int>(eacArmor),
+      'eacDodger': serializer.toJson<int>(eacDodger),
+      'eacNatural': serializer.toJson<int>(eacNatural),
+      'eacDeflect': serializer.toJson<int>(eacDeflect),
+      'eacMisc': serializer.toJson<int>(eacMisc),
+      'kacArmor': serializer.toJson<int>(kacArmor),
+      'kacDodger': serializer.toJson<int>(kacDodger),
+      'kacNatural': serializer.toJson<int>(kacNatural),
+      'kacDeflect': serializer.toJson<int>(kacDeflect),
+      'kacMisc': serializer.toJson<int>(kacMisc),
     };
   }
 
@@ -512,7 +730,17 @@ class TableCharacterData extends DataClass
           int? currentStam,
           int? maxResolve,
           int? currentResolve,
-          String? damageLog}) =>
+          String? damageLog,
+          int? eacArmor,
+          int? eacDodger,
+          int? eacNatural,
+          int? eacDeflect,
+          int? eacMisc,
+          int? kacArmor,
+          int? kacDodger,
+          int? kacNatural,
+          int? kacDeflect,
+          int? kacMisc}) =>
       TableCharacterData(
         id: id ?? this.id,
         charName: charName ?? this.charName,
@@ -534,6 +762,16 @@ class TableCharacterData extends DataClass
         maxResolve: maxResolve ?? this.maxResolve,
         currentResolve: currentResolve ?? this.currentResolve,
         damageLog: damageLog ?? this.damageLog,
+        eacArmor: eacArmor ?? this.eacArmor,
+        eacDodger: eacDodger ?? this.eacDodger,
+        eacNatural: eacNatural ?? this.eacNatural,
+        eacDeflect: eacDeflect ?? this.eacDeflect,
+        eacMisc: eacMisc ?? this.eacMisc,
+        kacArmor: kacArmor ?? this.kacArmor,
+        kacDodger: kacDodger ?? this.kacDodger,
+        kacNatural: kacNatural ?? this.kacNatural,
+        kacDeflect: kacDeflect ?? this.kacDeflect,
+        kacMisc: kacMisc ?? this.kacMisc,
       );
   TableCharacterData copyWithCompanion(TableCharacterCompanion data) {
     return TableCharacterData(
@@ -565,6 +803,20 @@ class TableCharacterData extends DataClass
           ? data.currentResolve.value
           : this.currentResolve,
       damageLog: data.damageLog.present ? data.damageLog.value : this.damageLog,
+      eacArmor: data.eacArmor.present ? data.eacArmor.value : this.eacArmor,
+      eacDodger: data.eacDodger.present ? data.eacDodger.value : this.eacDodger,
+      eacNatural:
+          data.eacNatural.present ? data.eacNatural.value : this.eacNatural,
+      eacDeflect:
+          data.eacDeflect.present ? data.eacDeflect.value : this.eacDeflect,
+      eacMisc: data.eacMisc.present ? data.eacMisc.value : this.eacMisc,
+      kacArmor: data.kacArmor.present ? data.kacArmor.value : this.kacArmor,
+      kacDodger: data.kacDodger.present ? data.kacDodger.value : this.kacDodger,
+      kacNatural:
+          data.kacNatural.present ? data.kacNatural.value : this.kacNatural,
+      kacDeflect:
+          data.kacDeflect.present ? data.kacDeflect.value : this.kacDeflect,
+      kacMisc: data.kacMisc.present ? data.kacMisc.value : this.kacMisc,
     );
   }
 
@@ -590,33 +842,54 @@ class TableCharacterData extends DataClass
           ..write('currentStam: $currentStam, ')
           ..write('maxResolve: $maxResolve, ')
           ..write('currentResolve: $currentResolve, ')
-          ..write('damageLog: $damageLog')
+          ..write('damageLog: $damageLog, ')
+          ..write('eacArmor: $eacArmor, ')
+          ..write('eacDodger: $eacDodger, ')
+          ..write('eacNatural: $eacNatural, ')
+          ..write('eacDeflect: $eacDeflect, ')
+          ..write('eacMisc: $eacMisc, ')
+          ..write('kacArmor: $kacArmor, ')
+          ..write('kacDodger: $kacDodger, ')
+          ..write('kacNatural: $kacNatural, ')
+          ..write('kacDeflect: $kacDeflect, ')
+          ..write('kacMisc: $kacMisc')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      id,
-      charName,
-      charClass,
-      lvl,
-      race,
-      alignment,
-      size,
-      strength,
-      dexterity,
-      constitution,
-      intelligence,
-      wisdom,
-      charisma,
-      maxHp,
-      currentHp,
-      maxStam,
-      currentStam,
-      maxResolve,
-      currentResolve,
-      damageLog);
+  int get hashCode => Object.hashAll([
+        id,
+        charName,
+        charClass,
+        lvl,
+        race,
+        alignment,
+        size,
+        strength,
+        dexterity,
+        constitution,
+        intelligence,
+        wisdom,
+        charisma,
+        maxHp,
+        currentHp,
+        maxStam,
+        currentStam,
+        maxResolve,
+        currentResolve,
+        damageLog,
+        eacArmor,
+        eacDodger,
+        eacNatural,
+        eacDeflect,
+        eacMisc,
+        kacArmor,
+        kacDodger,
+        kacNatural,
+        kacDeflect,
+        kacMisc
+      ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -640,7 +913,17 @@ class TableCharacterData extends DataClass
           other.currentStam == this.currentStam &&
           other.maxResolve == this.maxResolve &&
           other.currentResolve == this.currentResolve &&
-          other.damageLog == this.damageLog);
+          other.damageLog == this.damageLog &&
+          other.eacArmor == this.eacArmor &&
+          other.eacDodger == this.eacDodger &&
+          other.eacNatural == this.eacNatural &&
+          other.eacDeflect == this.eacDeflect &&
+          other.eacMisc == this.eacMisc &&
+          other.kacArmor == this.kacArmor &&
+          other.kacDodger == this.kacDodger &&
+          other.kacNatural == this.kacNatural &&
+          other.kacDeflect == this.kacDeflect &&
+          other.kacMisc == this.kacMisc);
 }
 
 class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
@@ -664,6 +947,16 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   final Value<int> maxResolve;
   final Value<int> currentResolve;
   final Value<String> damageLog;
+  final Value<int> eacArmor;
+  final Value<int> eacDodger;
+  final Value<int> eacNatural;
+  final Value<int> eacDeflect;
+  final Value<int> eacMisc;
+  final Value<int> kacArmor;
+  final Value<int> kacDodger;
+  final Value<int> kacNatural;
+  final Value<int> kacDeflect;
+  final Value<int> kacMisc;
   const TableCharacterCompanion({
     this.id = const Value.absent(),
     this.charName = const Value.absent(),
@@ -685,6 +978,16 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     this.maxResolve = const Value.absent(),
     this.currentResolve = const Value.absent(),
     this.damageLog = const Value.absent(),
+    this.eacArmor = const Value.absent(),
+    this.eacDodger = const Value.absent(),
+    this.eacNatural = const Value.absent(),
+    this.eacDeflect = const Value.absent(),
+    this.eacMisc = const Value.absent(),
+    this.kacArmor = const Value.absent(),
+    this.kacDodger = const Value.absent(),
+    this.kacNatural = const Value.absent(),
+    this.kacDeflect = const Value.absent(),
+    this.kacMisc = const Value.absent(),
   });
   TableCharacterCompanion.insert({
     this.id = const Value.absent(),
@@ -707,6 +1010,16 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     required int maxResolve,
     required int currentResolve,
     required String damageLog,
+    required int eacArmor,
+    required int eacDodger,
+    required int eacNatural,
+    required int eacDeflect,
+    required int eacMisc,
+    required int kacArmor,
+    required int kacDodger,
+    required int kacNatural,
+    required int kacDeflect,
+    required int kacMisc,
   })  : charName = Value(charName),
         charClass = Value(charClass),
         lvl = Value(lvl),
@@ -725,7 +1038,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
         currentStam = Value(currentStam),
         maxResolve = Value(maxResolve),
         currentResolve = Value(currentResolve),
-        damageLog = Value(damageLog);
+        damageLog = Value(damageLog),
+        eacArmor = Value(eacArmor),
+        eacDodger = Value(eacDodger),
+        eacNatural = Value(eacNatural),
+        eacDeflect = Value(eacDeflect),
+        eacMisc = Value(eacMisc),
+        kacArmor = Value(kacArmor),
+        kacDodger = Value(kacDodger),
+        kacNatural = Value(kacNatural),
+        kacDeflect = Value(kacDeflect),
+        kacMisc = Value(kacMisc);
   static Insertable<TableCharacterData> custom({
     Expression<int>? id,
     Expression<String>? charName,
@@ -747,6 +1070,16 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     Expression<int>? maxResolve,
     Expression<int>? currentResolve,
     Expression<String>? damageLog,
+    Expression<int>? eacArmor,
+    Expression<int>? eacDodger,
+    Expression<int>? eacNatural,
+    Expression<int>? eacDeflect,
+    Expression<int>? eacMisc,
+    Expression<int>? kacArmor,
+    Expression<int>? kacDodger,
+    Expression<int>? kacNatural,
+    Expression<int>? kacDeflect,
+    Expression<int>? kacMisc,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -769,6 +1102,16 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       if (maxResolve != null) 'max_resolve': maxResolve,
       if (currentResolve != null) 'current_resolve': currentResolve,
       if (damageLog != null) 'damage_log': damageLog,
+      if (eacArmor != null) 'eac_armor': eacArmor,
+      if (eacDodger != null) 'eac_dodger': eacDodger,
+      if (eacNatural != null) 'eac_natural': eacNatural,
+      if (eacDeflect != null) 'eac_deflect': eacDeflect,
+      if (eacMisc != null) 'eac_misc': eacMisc,
+      if (kacArmor != null) 'kac_armor': kacArmor,
+      if (kacDodger != null) 'kac_dodger': kacDodger,
+      if (kacNatural != null) 'kac_natural': kacNatural,
+      if (kacDeflect != null) 'kac_deflect': kacDeflect,
+      if (kacMisc != null) 'kac_misc': kacMisc,
     });
   }
 
@@ -792,7 +1135,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       Value<int>? currentStam,
       Value<int>? maxResolve,
       Value<int>? currentResolve,
-      Value<String>? damageLog}) {
+      Value<String>? damageLog,
+      Value<int>? eacArmor,
+      Value<int>? eacDodger,
+      Value<int>? eacNatural,
+      Value<int>? eacDeflect,
+      Value<int>? eacMisc,
+      Value<int>? kacArmor,
+      Value<int>? kacDodger,
+      Value<int>? kacNatural,
+      Value<int>? kacDeflect,
+      Value<int>? kacMisc}) {
     return TableCharacterCompanion(
       id: id ?? this.id,
       charName: charName ?? this.charName,
@@ -814,6 +1167,16 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       maxResolve: maxResolve ?? this.maxResolve,
       currentResolve: currentResolve ?? this.currentResolve,
       damageLog: damageLog ?? this.damageLog,
+      eacArmor: eacArmor ?? this.eacArmor,
+      eacDodger: eacDodger ?? this.eacDodger,
+      eacNatural: eacNatural ?? this.eacNatural,
+      eacDeflect: eacDeflect ?? this.eacDeflect,
+      eacMisc: eacMisc ?? this.eacMisc,
+      kacArmor: kacArmor ?? this.kacArmor,
+      kacDodger: kacDodger ?? this.kacDodger,
+      kacNatural: kacNatural ?? this.kacNatural,
+      kacDeflect: kacDeflect ?? this.kacDeflect,
+      kacMisc: kacMisc ?? this.kacMisc,
     );
   }
 
@@ -880,6 +1243,36 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     if (damageLog.present) {
       map['damage_log'] = Variable<String>(damageLog.value);
     }
+    if (eacArmor.present) {
+      map['eac_armor'] = Variable<int>(eacArmor.value);
+    }
+    if (eacDodger.present) {
+      map['eac_dodger'] = Variable<int>(eacDodger.value);
+    }
+    if (eacNatural.present) {
+      map['eac_natural'] = Variable<int>(eacNatural.value);
+    }
+    if (eacDeflect.present) {
+      map['eac_deflect'] = Variable<int>(eacDeflect.value);
+    }
+    if (eacMisc.present) {
+      map['eac_misc'] = Variable<int>(eacMisc.value);
+    }
+    if (kacArmor.present) {
+      map['kac_armor'] = Variable<int>(kacArmor.value);
+    }
+    if (kacDodger.present) {
+      map['kac_dodger'] = Variable<int>(kacDodger.value);
+    }
+    if (kacNatural.present) {
+      map['kac_natural'] = Variable<int>(kacNatural.value);
+    }
+    if (kacDeflect.present) {
+      map['kac_deflect'] = Variable<int>(kacDeflect.value);
+    }
+    if (kacMisc.present) {
+      map['kac_misc'] = Variable<int>(kacMisc.value);
+    }
     return map;
   }
 
@@ -905,7 +1298,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
           ..write('currentStam: $currentStam, ')
           ..write('maxResolve: $maxResolve, ')
           ..write('currentResolve: $currentResolve, ')
-          ..write('damageLog: $damageLog')
+          ..write('damageLog: $damageLog, ')
+          ..write('eacArmor: $eacArmor, ')
+          ..write('eacDodger: $eacDodger, ')
+          ..write('eacNatural: $eacNatural, ')
+          ..write('eacDeflect: $eacDeflect, ')
+          ..write('eacMisc: $eacMisc, ')
+          ..write('kacArmor: $kacArmor, ')
+          ..write('kacDodger: $kacDodger, ')
+          ..write('kacNatural: $kacNatural, ')
+          ..write('kacDeflect: $kacDeflect, ')
+          ..write('kacMisc: $kacMisc')
           ..write(')'))
         .toString();
   }
@@ -944,6 +1347,16 @@ typedef $$TableCharacterTableCreateCompanionBuilder = TableCharacterCompanion
   required int maxResolve,
   required int currentResolve,
   required String damageLog,
+  required int eacArmor,
+  required int eacDodger,
+  required int eacNatural,
+  required int eacDeflect,
+  required int eacMisc,
+  required int kacArmor,
+  required int kacDodger,
+  required int kacNatural,
+  required int kacDeflect,
+  required int kacMisc,
 });
 typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
     Function({
@@ -967,6 +1380,16 @@ typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
   Value<int> maxResolve,
   Value<int> currentResolve,
   Value<String> damageLog,
+  Value<int> eacArmor,
+  Value<int> eacDodger,
+  Value<int> eacNatural,
+  Value<int> eacDeflect,
+  Value<int> eacMisc,
+  Value<int> kacArmor,
+  Value<int> kacDodger,
+  Value<int> kacNatural,
+  Value<int> kacDeflect,
+  Value<int> kacMisc,
 });
 
 class $$TableCharacterTableFilterComposer
@@ -1038,6 +1461,36 @@ class $$TableCharacterTableFilterComposer
 
   ColumnFilters<String> get damageLog => $composableBuilder(
       column: $table.damageLog, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get eacArmor => $composableBuilder(
+      column: $table.eacArmor, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get eacDodger => $composableBuilder(
+      column: $table.eacDodger, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get eacNatural => $composableBuilder(
+      column: $table.eacNatural, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get eacDeflect => $composableBuilder(
+      column: $table.eacDeflect, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get eacMisc => $composableBuilder(
+      column: $table.eacMisc, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get kacArmor => $composableBuilder(
+      column: $table.kacArmor, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get kacDodger => $composableBuilder(
+      column: $table.kacDodger, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get kacNatural => $composableBuilder(
+      column: $table.kacNatural, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get kacDeflect => $composableBuilder(
+      column: $table.kacDeflect, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get kacMisc => $composableBuilder(
+      column: $table.kacMisc, builder: (column) => ColumnFilters(column));
 }
 
 class $$TableCharacterTableOrderingComposer
@@ -1111,6 +1564,36 @@ class $$TableCharacterTableOrderingComposer
 
   ColumnOrderings<String> get damageLog => $composableBuilder(
       column: $table.damageLog, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get eacArmor => $composableBuilder(
+      column: $table.eacArmor, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get eacDodger => $composableBuilder(
+      column: $table.eacDodger, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get eacNatural => $composableBuilder(
+      column: $table.eacNatural, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get eacDeflect => $composableBuilder(
+      column: $table.eacDeflect, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get eacMisc => $composableBuilder(
+      column: $table.eacMisc, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get kacArmor => $composableBuilder(
+      column: $table.kacArmor, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get kacDodger => $composableBuilder(
+      column: $table.kacDodger, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get kacNatural => $composableBuilder(
+      column: $table.kacNatural, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get kacDeflect => $composableBuilder(
+      column: $table.kacDeflect, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get kacMisc => $composableBuilder(
+      column: $table.kacMisc, builder: (column) => ColumnOrderings(column));
 }
 
 class $$TableCharacterTableAnnotationComposer
@@ -1181,6 +1664,36 @@ class $$TableCharacterTableAnnotationComposer
 
   GeneratedColumn<String> get damageLog =>
       $composableBuilder(column: $table.damageLog, builder: (column) => column);
+
+  GeneratedColumn<int> get eacArmor =>
+      $composableBuilder(column: $table.eacArmor, builder: (column) => column);
+
+  GeneratedColumn<int> get eacDodger =>
+      $composableBuilder(column: $table.eacDodger, builder: (column) => column);
+
+  GeneratedColumn<int> get eacNatural => $composableBuilder(
+      column: $table.eacNatural, builder: (column) => column);
+
+  GeneratedColumn<int> get eacDeflect => $composableBuilder(
+      column: $table.eacDeflect, builder: (column) => column);
+
+  GeneratedColumn<int> get eacMisc =>
+      $composableBuilder(column: $table.eacMisc, builder: (column) => column);
+
+  GeneratedColumn<int> get kacArmor =>
+      $composableBuilder(column: $table.kacArmor, builder: (column) => column);
+
+  GeneratedColumn<int> get kacDodger =>
+      $composableBuilder(column: $table.kacDodger, builder: (column) => column);
+
+  GeneratedColumn<int> get kacNatural => $composableBuilder(
+      column: $table.kacNatural, builder: (column) => column);
+
+  GeneratedColumn<int> get kacDeflect => $composableBuilder(
+      column: $table.kacDeflect, builder: (column) => column);
+
+  GeneratedColumn<int> get kacMisc =>
+      $composableBuilder(column: $table.kacMisc, builder: (column) => column);
 }
 
 class $$TableCharacterTableTableManager extends RootTableManager<
@@ -1230,6 +1743,16 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             Value<int> maxResolve = const Value.absent(),
             Value<int> currentResolve = const Value.absent(),
             Value<String> damageLog = const Value.absent(),
+            Value<int> eacArmor = const Value.absent(),
+            Value<int> eacDodger = const Value.absent(),
+            Value<int> eacNatural = const Value.absent(),
+            Value<int> eacDeflect = const Value.absent(),
+            Value<int> eacMisc = const Value.absent(),
+            Value<int> kacArmor = const Value.absent(),
+            Value<int> kacDodger = const Value.absent(),
+            Value<int> kacNatural = const Value.absent(),
+            Value<int> kacDeflect = const Value.absent(),
+            Value<int> kacMisc = const Value.absent(),
           }) =>
               TableCharacterCompanion(
             id: id,
@@ -1252,6 +1775,16 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             maxResolve: maxResolve,
             currentResolve: currentResolve,
             damageLog: damageLog,
+            eacArmor: eacArmor,
+            eacDodger: eacDodger,
+            eacNatural: eacNatural,
+            eacDeflect: eacDeflect,
+            eacMisc: eacMisc,
+            kacArmor: kacArmor,
+            kacDodger: kacDodger,
+            kacNatural: kacNatural,
+            kacDeflect: kacDeflect,
+            kacMisc: kacMisc,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -1274,6 +1807,16 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             required int maxResolve,
             required int currentResolve,
             required String damageLog,
+            required int eacArmor,
+            required int eacDodger,
+            required int eacNatural,
+            required int eacDeflect,
+            required int eacMisc,
+            required int kacArmor,
+            required int kacDodger,
+            required int kacNatural,
+            required int kacDeflect,
+            required int kacMisc,
           }) =>
               TableCharacterCompanion.insert(
             id: id,
@@ -1296,6 +1839,16 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             maxResolve: maxResolve,
             currentResolve: currentResolve,
             damageLog: damageLog,
+            eacArmor: eacArmor,
+            eacDodger: eacDodger,
+            eacNatural: eacNatural,
+            eacDeflect: eacDeflect,
+            eacMisc: eacMisc,
+            kacArmor: kacArmor,
+            kacDodger: kacDodger,
+            kacNatural: kacNatural,
+            kacDeflect: kacDeflect,
+            kacMisc: kacMisc,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

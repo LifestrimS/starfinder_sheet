@@ -260,7 +260,8 @@ class CharacterSheetWM
       if (characterList.isNotEmpty) {
         _listCharactersNotifier.content(characterList);
       } else {
-        _listCharactersNotifier.error();
+        _listCharactersNotifier.content([]);
+        return;
       }
 
       await Future.delayed(const Duration(milliseconds: 300));
@@ -305,25 +306,34 @@ class CharacterSheetWM
       _liveBlockTextControllers.maxResolveController.text =
           model.maxResolve.toString();
 
-      _eacControllers.armorController.text = '0';
+      _eacControllers.armorController.text =
+          model.getEacBlock().amror.toString();
       _eacControllers.dexController.text =
           CharacterAbility.getModifier(model.getAbility().dexterity).toString();
-      _eacControllers.dodgeController.text = '0';
-      _eacControllers.naturalController.text = '0';
-      _eacControllers.deflectController.text = '0';
-      _eacControllers.miscController.text = '0';
+      _eacControllers.dodgeController.text =
+          model.getEacBlock().dodge.toString();
+      _eacControllers.naturalController.text =
+          model.getEacBlock().natural.toString();
+      _eacControllers.deflectController.text =
+          model.getEacBlock().deflect.toString();
+      _eacControllers.miscController.text = model.getEacBlock().misc.toString();
 
-      _kacControllers.armorController.text = '0';
+      _kacControllers.armorController.text =
+          model.getKacBlock().amror.toString();
       _kacControllers.dexController.text =
           CharacterAbility.getModifier(model.getAbility().dexterity).toString();
-      _kacControllers.dodgeController.text = '0';
-      _kacControllers.naturalController.text = '0';
-      _kacControllers.deflectController.text = '0';
-      _kacControllers.miscController.text = '0';
+      _kacControllers.dodgeController.text =
+          model.getKacBlock().dodge.toString();
+      _kacControllers.naturalController.text =
+          model.getKacBlock().natural.toString();
+      _kacControllers.deflectController.text =
+          model.getKacBlock().deflect.toString();
+      _kacControllers.miscController.text = model.getKacBlock().misc.toString();
 
       _characterLoadNotifier.content(_character);
     } catch (e) {
       log('Smth went wrong in init CharacterSheet: $e');
+      _listCharactersNotifier.error();
     }
   }
 
@@ -421,32 +431,45 @@ class CharacterSheetWM
   void saveCharacter() async {
     try {
       final Character newCharacter = Character(
-        id: character.id,
-        charName: _nameTextController.text,
-        charClass: _classTextController.text,
-        lvl: int.parse(_lvlTextController.text),
-        race: _raceTextController.text,
-        alignment: CharAlignment.values
-            .firstWhere((e) => e.alignName == model.alignment),
-        size: CharSize.values.firstWhere((e) => e.sizeName == model.size),
-        ability: CharacterAbility(
-            strength: int.parse(_abilityTextControllers.strController.text),
-            dexterity: int.parse(_abilityTextControllers.dexController.text),
-            constitution: int.parse(_abilityTextControllers.conController.text),
-            intelligence: int.parse(_abilityTextControllers.intController.text),
-            wisdom: int.parse(_abilityTextControllers.wisController.text),
-            charisma: int.parse(_abilityTextControllers.chaController.text)),
-        liveBlock: CharacterLiveBlock(
-            maxHp: int.parse(_liveBlockTextControllers.maxHpController.text),
-            currentHp: model.currentHp,
-            maxStam:
-                int.parse(_liveBlockTextControllers.maxStamController.text),
-            currentStam: model.currentStam,
-            maxResolve:
-                int.parse(_liveBlockTextControllers.maxResolveController.text),
-            currentResolve: model.currentResolve,
-            damageLog: model.damageLog),
-      );
+          id: character.id,
+          charName: _nameTextController.text,
+          charClass: _classTextController.text,
+          lvl: int.parse(_lvlTextController.text),
+          race: _raceTextController.text,
+          alignment: CharAlignment.values
+              .firstWhere((e) => e.alignName == model.alignment),
+          size: CharSize.values.firstWhere((e) => e.sizeName == model.size),
+          ability: CharacterAbility(
+              strength: int.parse(_abilityTextControllers.strController.text),
+              dexterity: int.parse(_abilityTextControllers.dexController.text),
+              constitution:
+                  int.parse(_abilityTextControllers.conController.text),
+              intelligence:
+                  int.parse(_abilityTextControllers.intController.text),
+              wisdom: int.parse(_abilityTextControllers.wisController.text),
+              charisma: int.parse(_abilityTextControllers.chaController.text)),
+          liveBlock: CharacterLiveBlock(
+              maxHp: int.parse(_liveBlockTextControllers.maxHpController.text),
+              currentHp: model.currentHp,
+              maxStam:
+                  int.parse(_liveBlockTextControllers.maxStamController.text),
+              currentStam: model.currentStam,
+              maxResolve: int.parse(
+                  _liveBlockTextControllers.maxResolveController.text),
+              currentResolve: model.currentResolve,
+              damageLog: model.damageLog),
+          eacBlock: ACBLock(
+              amror: int.parse(_eacControllers.armorController.text),
+              dodge: int.parse(_eacControllers.dodgeController.text),
+              natural: int.parse(_eacControllers.naturalController.text),
+              deflect: int.parse(_eacControllers.deflectController.text),
+              misc: int.parse(_eacControllers.miscController.text)),
+          kacBlock: ACBLock(
+              amror: int.parse(_kacControllers.armorController.text),
+              dodge: int.parse(_kacControllers.dodgeController.text),
+              natural: int.parse(_kacControllers.naturalController.text),
+              deflect: int.parse(_kacControllers.deflectController.text),
+              misc: int.parse(_kacControllers.miscController.text)));
 
       model.saveCharacter(newCharacter);
 

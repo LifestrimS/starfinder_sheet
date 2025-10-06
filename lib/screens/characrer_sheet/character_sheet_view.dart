@@ -226,20 +226,42 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
             ),
           );
         } else {
-          return AppRefreshWidget(
-            onRefresh: () async {
-              await Future.delayed(const Duration(seconds: 1));
-              wm.onRefresh();
-            },
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Padding(
-                padding: EdgeInsets.only(top: wm.screenHeight()),
-                child: const Center(
-                  child: Text(
-                    'You don\'t have characters :(',
-                    style: TextStyle(
-                        color: AppColors.textContrastDark, fontSize: 20.0),
+          return Scaffold(
+            drawer: SideBar(
+              wm: wm,
+              listOfCharacters: listOfCharacters ?? [],
+            ),
+            backgroundColor: AppColors.backgroundDark,
+            appBar: AppBar(
+              backgroundColor: AppColors.darkBlue,
+              actions: [
+                GestureDetector(
+                  onTap: () => wm.goDebug(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Text(
+                      'Debug',
+                      style: AppStyles.commonPixel(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            body: AppRefreshWidget(
+              onRefresh: () async {
+                await Future.delayed(const Duration(seconds: 1));
+                wm.onRefresh();
+              },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.only(top: wm.screenHeight()),
+                  child: const Center(
+                    child: Text(
+                      'You don\'t have characters :(',
+                      style: TextStyle(
+                          color: AppColors.textContrastDark, fontSize: 20.0),
+                    ),
                   ),
                 ),
               ),
