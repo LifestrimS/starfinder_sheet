@@ -12,99 +12,43 @@ class Move extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Column(
-          children: [
-            Text(
-              'Move',
-              style: AppStyles.commonPixel(),
-            ),
-            const SizedBox(
-              height: 4.0,
-            ),
-            SizedBox(
-              height: 30.0,
-              width: 50.0,
-              child: CustomPaint(
-                painter: MovePainter(),
-                child: TextFormField(
-                  controller: controllers.moveController,
-                  expands: true,
-                  maxLines: null,
-                  style: AppStyles.commonPixel(),
-                  textAlign: TextAlign.center,
-                  textAlignVertical: TextAlignVertical.center,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
-                  ),
-                ),
-              ),
-            )
-          ],
+        speedBlock(controllers.moveController, 'Move'),
+        speedBlock(controllers.flyController, 'Fly'),
+        speedBlock(controllers.swimController, 'Swim')
+      ],
+    );
+  }
+
+  Widget speedBlock(TextEditingController controller, String title) {
+    return Column(
+      children: [
+        Text(
+          title,
+          style: AppStyles.commonPixel(),
         ),
-        Column(
-          children: [
-            Text(
-              'Fly',
-              style: AppStyles.commonPixel(),
-            ),
-            const SizedBox(
-              height: 4.0,
-            ),
-            SizedBox(
-              height: 30.0,
-              width: 50.0,
-              child: CustomPaint(
-                painter: MovePainter(),
-                child: TextFormField(
-                  controller: controllers.flyController,
-                  expands: true,
-                  maxLines: null,
-                  style: AppStyles.commonPixel(),
-                  textAlign: TextAlign.center,
-                  textAlignVertical: TextAlignVertical.center,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
-                  ),
-                ),
-              ),
-            )
-          ],
+        const SizedBox(
+          height: 4.0,
         ),
-        Column(
-          children: [
-            Text(
-              'Swim',
+        SizedBox(
+          height: 30.0,
+          width: 50.0,
+          child: CustomPaint(
+            painter: MovePainter(),
+            child: TextFormField(
+              controller: controllers.swimController,
+              expands: true,
+              maxLines: null,
               style: AppStyles.commonPixel(),
-            ),
-            const SizedBox(
-              height: 4.0,
-            ),
-            SizedBox(
-              height: 30.0,
-              width: 50.0,
-              child: CustomPaint(
-                painter: MovePainter(),
-                child: TextFormField(
-                  controller: controllers.swimController,
-                  expands: true,
-                  maxLines: null,
-                  style: AppStyles.commonPixel(),
-                  textAlign: TextAlign.center,
-                  textAlignVertical: TextAlignVertical.center,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
-                  ),
-                ),
+              textAlign: TextAlign.center,
+              textAlignVertical: TextAlignVertical.center,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+        )
       ],
     );
   }
