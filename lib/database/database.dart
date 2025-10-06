@@ -81,4 +81,9 @@ class TableCharacter extends Table {
   IntColumn get kacNatural => integer()();
   IntColumn get kacDeflect => integer()();
   IntColumn get kacMisc => integer()();
+
+  //Move
+  IntColumn get moveSpeed => integer()();
+  IntColumn get flySpeed => integer()();
+  IntColumn get swimSpeed => integer()();
 }

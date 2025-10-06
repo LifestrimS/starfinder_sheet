@@ -59,6 +59,12 @@ class CharacterSheetModel extends ElementaryModel {
 
   int get totalDamage => _totalDamage;
 
+  int get moveSpeed => character.moveSpeed;
+
+  int get flySpeed => character.flySpeed;
+
+  int get swimSpeed => character.swimSpeed;
+
   CharacterAbility getAbility() {
     return character.ability;
   }

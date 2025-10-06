@@ -47,7 +47,10 @@ class Mapper {
         ability: ability,
         liveBlock: liveBlock,
         eacBlock: eacBlock,
-        kacBlock: kacBlock);
+        kacBlock: kacBlock,
+        moveSpeed: element.moveSpeed,
+        flySpeed: element.flySpeed,
+        swimSpeed: element.swimSpeed);
   }
 
   TableCharacterData toTableCharacterData(Character character) {
@@ -81,7 +84,10 @@ class Mapper {
         kacDodger: character.kacBlock.dodge,
         kacNatural: character.kacBlock.natural,
         kacDeflect: character.kacBlock.deflect,
-        kacMisc: character.kacBlock.misc);
+        kacMisc: character.kacBlock.misc,
+        moveSpeed: character.moveSpeed,
+        flySpeed: character.flySpeed,
+        swimSpeed: character.swimSpeed);
   }
 
   TableCharacterCompanion toTableCharacterCompanion(Character character) {
@@ -115,6 +121,9 @@ class Mapper {
         kacDodger: Value(character.kacBlock.dodge),
         kacNatural: Value(character.kacBlock.natural),
         kacDeflect: Value(character.kacBlock.deflect),
-        kacMisc: Value(character.kacBlock.misc));
+        kacMisc: Value(character.kacBlock.misc),
+        moveSpeed: Value(character.moveSpeed),
+        flySpeed: Value(character.flySpeed),
+        swimSpeed: Value(character.swimSpeed));
   }
 }

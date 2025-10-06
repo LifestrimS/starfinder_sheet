@@ -10,6 +10,9 @@ class Character {
   final CharacterLiveBlock liveBlock;
   final ACBLock eacBlock;
   final ACBLock kacBlock;
+  final int moveSpeed;
+  final int flySpeed;
+  final int swimSpeed;
 
   Character(
       {required this.id,
@@ -22,7 +25,10 @@ class Character {
       required this.ability,
       required this.liveBlock,
       required this.eacBlock,
-      required this.kacBlock});
+      required this.kacBlock,
+      required this.moveSpeed,
+      required this.flySpeed,
+      required this.swimSpeed});
 
   Character.empty(
       {this.id = 0,
@@ -35,20 +41,27 @@ class Character {
       this.ability = const CharacterAbility.empty(),
       this.liveBlock = const CharacterLiveBlock.empty(),
       this.eacBlock = const ACBLock.empty(),
-      this.kacBlock = const ACBLock.empty()});
+      this.kacBlock = const ACBLock.empty(),
+      this.moveSpeed = 0,
+      this.flySpeed = 0,
+      this.swimSpeed = 0});
 
-  Character copyWith(
-      {int? id,
-      String? charName,
-      String? charClass,
-      int? lvl,
-      String? race,
-      CharAlignment? alignment,
-      CharSize? size,
-      CharacterAbility? ability,
-      CharacterLiveBlock? liveBlock,
-      ACBLock? eacBlock,
-      ACBLock? kacBlock}) {
+  Character copyWith({
+    int? id,
+    String? charName,
+    String? charClass,
+    int? lvl,
+    String? race,
+    CharAlignment? alignment,
+    CharSize? size,
+    CharacterAbility? ability,
+    CharacterLiveBlock? liveBlock,
+    ACBLock? eacBlock,
+    ACBLock? kacBlock,
+    int? moveSpeed,
+    int? flySpeed,
+    int? swimSpeed,
+  }) {
     return Character(
         id: id ?? this.id,
         charName: charName ?? this.charName,
@@ -60,7 +73,10 @@ class Character {
         ability: ability ?? this.ability,
         liveBlock: liveBlock ?? this.liveBlock,
         eacBlock: eacBlock ?? this.eacBlock,
-        kacBlock: kacBlock ?? this.kacBlock);
+        kacBlock: kacBlock ?? this.kacBlock,
+        moveSpeed: moveSpeed ?? this.moveSpeed,
+        flySpeed: flySpeed ?? this.flySpeed,
+        swimSpeed: swimSpeed ?? this.swimSpeed);
   }
 
   @override

@@ -7,6 +7,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/avatar.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/move.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/resolve_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/short_bio_block.dart';
 import 'package:pathfinder_sheet/screens/side_bar.dart';
@@ -293,6 +294,7 @@ class _CarouselBodyState extends State<CarouselBody> {
             const SizedBox(
               height: 12.0,
             ),
+            Move(controllers: wm.moveControllers)
           ],
         ),
       ),
