@@ -11,7 +11,6 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/pages/magic_page.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/pages/skill_page.dart';
 import 'package:pathfinder_sheet/screens/side_bar.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/loading_indicator.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/pull_to_refresh.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/utils/utils.dart';
@@ -68,53 +67,47 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
       ),
       builder: (context, listOfCharacters) {
         if (listOfCharacters != null && listOfCharacters.isNotEmpty) {
-          return AppRefreshWidget(
-            onRefresh: () async {
-              await Future.delayed(const Duration(seconds: 1));
-              wm.onRefresh();
-            },
-            child: Scaffold(
-              drawer: SideBar(
-                wm: wm,
-                listOfCharacters: listOfCharacters,
-              ),
-              backgroundColor: AppColors.backgroundDark,
-              appBar: appbar,
-              body: EntityStateNotifierBuilder(
-                listenableEntityState: wm.characterLoadNotifier(),
-                errorBuilder: (context, e, data) {
+          return Scaffold(
+            drawer: SideBar(
+              wm: wm,
+              listOfCharacters: listOfCharacters,
+            ),
+            backgroundColor: AppColors.backgroundDark,
+            appBar: appbar,
+            body: EntityStateNotifierBuilder(
+              listenableEntityState: wm.characterLoadNotifier(),
+              errorBuilder: (context, e, data) {
+                return Center(
+                  child: Text(
+                    'Can\'t load character',
+                    style: AppStyles.commonPixel(),
+                  ),
+                );
+              },
+              loadingBuilder: (context, data) {
+                return Center(
+                  child: Text(
+                    'Loading character...',
+                    style: AppStyles.commonPixel(),
+                  ),
+                );
+              },
+              builder: (context, character) {
+                if (character == null) {
                   return Center(
                     child: Text(
                       'Can\'t load character',
+                      textAlign: TextAlign.center,
                       style: AppStyles.commonPixel(),
                     ),
                   );
-                },
-                loadingBuilder: (context, data) {
-                  return Center(
-                    child: Text(
-                      'Loading character...',
-                      style: AppStyles.commonPixel(),
-                    ),
+                } else {
+                  return CarouselBody(
+                    wm: wm,
+                    appBarHeight: appbar.preferredSize.height,
                   );
-                },
-                builder: (context, character) {
-                  if (character == null) {
-                    return Center(
-                      child: Text(
-                        'Can\'t load character',
-                        textAlign: TextAlign.center,
-                        style: AppStyles.commonPixel(),
-                      ),
-                    );
-                  } else {
-                    return CarouselBody(
-                      wm: wm,
-                      appBarHeight: appbar.preferredSize.height,
-                    );
-                  }
-                },
-              ),
+                }
+              },
             ),
           );
         } else {

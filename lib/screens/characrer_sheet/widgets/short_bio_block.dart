@@ -139,7 +139,6 @@ class ShortBioRow extends StatelessWidget {
               border: InputBorder.none,
               contentPadding: EdgeInsets.zero,
             ),
-            //onChanged: (value) => statValue.value = int.parse(value),
           ),
         ),
       ],
