@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
@@ -38,7 +39,6 @@ class LiveBlock extends StatelessWidget {
                       height: 15.0,
                       child: TextFormField(
                         controller: controllers.maxHpController,
-                        //initialValue: wm.maxHp.toString(),
                         expands: true,
                         maxLines: null,
                         style: AppStyles.commonPixel().copyWith(
@@ -51,6 +51,9 @@ class LiveBlock extends StatelessWidget {
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.zero,
                         ),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                        ],
                       ),
                     ),
                   ],
@@ -116,7 +119,6 @@ class LiveBlock extends StatelessWidget {
                       height: 15.0,
                       child: TextFormField(
                         controller: controllers.maxStamController,
-                        //initialValue: wm.maxStam.toString(),
                         expands: true,
                         maxLines: null,
                         style: AppStyles.commonPixel().copyWith(
@@ -129,6 +131,9 @@ class LiveBlock extends StatelessWidget {
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.zero,
                         ),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                        ],
                       ),
                     ),
                   ],
@@ -173,7 +178,6 @@ class LiveBlock extends StatelessWidget {
           children: [
             SizedBox(
               height: 30.0,
-              //16.0 -> horizontal padding
               width: (MediaQuery.of(context).size.width - 32.0) / 2,
               child: CustomPaint(
                 painter: DamageCounterPainter(),
@@ -190,6 +194,9 @@ class LiveBlock extends StatelessWidget {
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.zero,
                     ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
+                    ],
                   ),
                 ),
               ),
@@ -294,6 +301,9 @@ class LiveBlock extends StatelessWidget {
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                   ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
+                  ],
                 ),
               ),
             ),
@@ -353,6 +363,9 @@ class LiveBlock extends StatelessWidget {
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                   ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
+                  ],
                 ),
               ),
             ),

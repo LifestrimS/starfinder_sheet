@@ -48,6 +48,10 @@ class FirstPage extends StatelessWidget {
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.zero,
                           ),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'[0-9]*')),
+                          ],
                         ),
                       ),
                     ),

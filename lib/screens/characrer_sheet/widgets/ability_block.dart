@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/text_fields.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
@@ -187,6 +187,9 @@ class _AbilityCellState extends State<AbilityCell> {
                   ),
                   onChanged: (value) =>
                       statValueNotifier.value = int.parse(value),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                  ],
                 ),
               ),
             ),
@@ -308,8 +311,23 @@ class _AbilityCellState extends State<AbilityCell> {
               Expanded(
                 child: SizedBox(
                   height: 30.0,
-                  child: UnderLinedTextFormField(
+                  child: TextFormField(
                     controller: abilityTmpController,
+                    expands: true,
+                    maxLines: null,
+                    style: AppStyles.commonPixel(),
+                    textAlign: TextAlign.left,
+                    cursorColor: AppColors.darkPink,
+                    textAlignVertical: TextAlignVertical.center,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      focusColor: AppColors.darkPink,
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.darkPink)),
+                    ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                    ],
                   ),
                 ),
               ),

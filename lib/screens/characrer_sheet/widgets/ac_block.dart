@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
@@ -343,6 +344,9 @@ class DialogBox extends StatelessWidget {
                 contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
                 border: InputBorder.none,
               ),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
+              ],
             ),
           ),
         ),

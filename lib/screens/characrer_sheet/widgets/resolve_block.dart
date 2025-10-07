@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
@@ -46,6 +47,9 @@ class ResolveBlock extends StatelessWidget {
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.zero,
                     ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                    ],
                   ),
                 ),
               ],
