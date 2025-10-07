@@ -41,7 +41,6 @@ class BattlePage extends StatelessWidget {
             ),
             BabBlock(
               controllers: wm.babControllers,
-              ability: wm.getAbility(),
               dexModificatorNotifier: wm.dexModificatorNotifier(),
               strModificatorNotifier: wm.strModificatorNotifier(),
             ),

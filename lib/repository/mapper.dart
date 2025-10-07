@@ -14,12 +14,19 @@ class Mapper {
         rabTemp: element.rabTemp);
 
     final CharacterAbility ability = CharacterAbility(
-        strength: element.strength,
-        dexterity: element.dexterity,
-        constitution: element.constitution,
-        intelligence: element.intelligence,
-        wisdom: element.wisdom,
-        charisma: element.charisma);
+      strength: element.strength,
+      dexterity: element.dexterity,
+      constitution: element.constitution,
+      intelligence: element.intelligence,
+      wisdom: element.wisdom,
+      charisma: element.charisma,
+      strengthTmp: element.strengthTmp,
+      dexterityTmp: element.dexterityTmp,
+      constitutionTmp: element.constitutionTmp,
+      intelligenceTmp: element.intelligenceTmp,
+      wisdomTmp: element.wisdomTmp,
+      charismaTmp: element.charismaTmp,
+    );
 
     final CharacterLiveBlock liveBlock = CharacterLiveBlock(
         maxHp: element.maxHp,
@@ -79,6 +86,12 @@ class Mapper {
       intelligence: character.ability.intelligence,
       wisdom: character.ability.wisdom,
       charisma: character.ability.charisma,
+      strengthTmp: character.ability.strengthTmp,
+      dexterityTmp: character.ability.dexterityTmp,
+      constitutionTmp: character.ability.constitutionTmp,
+      intelligenceTmp: character.ability.intelligenceTmp,
+      wisdomTmp: character.ability.wisdomTmp,
+      charismaTmp: character.ability.charismaTmp,
       maxHp: character.liveBlock.maxHp,
       currentHp: character.liveBlock.currentHp,
       maxStam: character.liveBlock.maxStam,
@@ -125,6 +138,12 @@ class Mapper {
       intelligence: Value(character.ability.intelligence),
       wisdom: Value(character.ability.wisdom),
       charisma: Value(character.ability.charisma),
+      strengthTmp: Value(character.ability.strengthTmp),
+      dexterityTmp: Value(character.ability.dexterityTmp),
+      constitutionTmp: Value(character.ability.constitutionTmp),
+      intelligenceTmp: Value(character.ability.intelligenceTmp),
+      wisdomTmp: Value(character.ability.wisdomTmp),
+      charismaTmp: Value(character.ability.charismaTmp),
       maxHp: Value(character.liveBlock.maxHp),
       currentHp: Value(character.liveBlock.currentHp),
       maxStam: Value(character.liveBlock.maxStam),

@@ -55,11 +55,17 @@ class TableCharacter extends Table {
 
 //ability
   IntColumn get strength => integer()();
+  IntColumn get strengthTmp => integer()();
   IntColumn get dexterity => integer()();
+  IntColumn get dexterityTmp => integer()();
   IntColumn get constitution => integer()();
+  IntColumn get constitutionTmp => integer()();
   IntColumn get intelligence => integer()();
+  IntColumn get intelligenceTmp => integer()();
   IntColumn get wisdom => integer()();
+  IntColumn get wisdomTmp => integer()();
   IntColumn get charisma => integer()();
+  IntColumn get charismaTmp => integer()();
 
 //liveBlock
   IntColumn get maxHp => integer()();

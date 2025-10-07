@@ -94,12 +94,19 @@ class CharacterSheetWM
   final TextEditingController _raceTextController = TextEditingController();
   final TextEditingController _lvlTextController = TextEditingController();
   final AbilityTextControllers _abilityTextControllers = AbilityTextControllers(
-      strController: TextEditingController(),
-      dexController: TextEditingController(),
-      conController: TextEditingController(),
-      intController: TextEditingController(),
-      wisController: TextEditingController(),
-      chaController: TextEditingController());
+    strController: TextEditingController(),
+    dexController: TextEditingController(),
+    conController: TextEditingController(),
+    intController: TextEditingController(),
+    wisController: TextEditingController(),
+    chaController: TextEditingController(),
+    strTmpController: TextEditingController(),
+    dexTmpController: TextEditingController(),
+    conTmpController: TextEditingController(),
+    intTmpController: TextEditingController(),
+    wisTmpController: TextEditingController(),
+    chaTmpController: TextEditingController(),
+  );
   final LiveBlockTextControllers _liveBlockTextControllers =
       LiveBlockTextControllers(
           maxHpController: TextEditingController(),
@@ -216,6 +223,8 @@ class CharacterSheetWM
     _currentResolveNotifier.dispose();
     _abilityTextControllers.dexController.removeListener(dexListener);
     _abilityTextControllers.strController.removeListener(strListener);
+    _abilityTextControllers.dexTmpController.removeListener(dexListener);
+    _abilityTextControllers.strTmpController.removeListener(strListener);
     _dexModificatorNotifier.dispose();
     _strModificatorNotifier.dispose();
     super.dispose();
@@ -270,13 +279,25 @@ class CharacterSheetWM
   }
 
   void dexListener() {
-    _dexModificatorNotifier.value = CharacterAbility.getModifier(
-        int.parse(_abilityTextControllers.dexController.text));
+    if (_abilityTextControllers.dexTmpController.text.isNotEmpty &&
+        _abilityTextControllers.dexTmpController.text != '0') {
+      _dexModificatorNotifier.value = CharacterAbility.getModifier(
+          int.parse(_abilityTextControllers.dexTmpController.text));
+    } else {
+      _dexModificatorNotifier.value = CharacterAbility.getModifier(
+          int.parse(_abilityTextControllers.dexController.text));
+    }
   }
 
   void strListener() {
-    _strModificatorNotifier.value = CharacterAbility.getModifier(
-        int.parse(_abilityTextControllers.strController.text));
+    if (_abilityTextControllers.strTmpController.text.isNotEmpty &&
+        _abilityTextControllers.strTmpController.text != '0') {
+      _strModificatorNotifier.value = CharacterAbility.getModifier(
+          int.parse(_abilityTextControllers.strTmpController.text));
+    } else {
+      _strModificatorNotifier.value = CharacterAbility.getModifier(
+          int.parse(_abilityTextControllers.strController.text));
+    }
   }
 
   @override
@@ -383,12 +404,22 @@ class CharacterSheetWM
             .firstWhere((e) => e.alignName == model.alignment),
         size: CharSize.values.firstWhere((e) => e.sizeName == model.size),
         ability: CharacterAbility(
-            strength: int.parse(_abilityTextControllers.strController.text),
-            dexterity: int.parse(_abilityTextControllers.dexController.text),
-            constitution: int.parse(_abilityTextControllers.conController.text),
-            intelligence: int.parse(_abilityTextControllers.intController.text),
-            wisdom: int.parse(_abilityTextControllers.wisController.text),
-            charisma: int.parse(_abilityTextControllers.chaController.text)),
+          strength: int.parse(_abilityTextControllers.strController.text),
+          dexterity: int.parse(_abilityTextControllers.dexController.text),
+          constitution: int.parse(_abilityTextControllers.conController.text),
+          intelligence: int.parse(_abilityTextControllers.intController.text),
+          wisdom: int.parse(_abilityTextControllers.wisController.text),
+          charisma: int.parse(_abilityTextControllers.chaController.text),
+          strengthTmp: int.parse(_abilityTextControllers.strTmpController.text),
+          dexterityTmp:
+              int.parse(_abilityTextControllers.dexTmpController.text),
+          constitutionTmp:
+              int.parse(_abilityTextControllers.conTmpController.text),
+          intelligenceTmp:
+              int.parse(_abilityTextControllers.intTmpController.text),
+          wisdomTmp: int.parse(_abilityTextControllers.wisTmpController.text),
+          charismaTmp: int.parse(_abilityTextControllers.chaTmpController.text),
+        ),
         liveBlock: CharacterLiveBlock(
             maxHp: int.parse(_liveBlockTextControllers.maxHpController.text),
             currentHp: model.currentHp,
@@ -448,6 +479,8 @@ class CharacterSheetWM
 
     _abilityTextControllers.dexController.addListener(dexListener);
     _abilityTextControllers.strController.addListener(strListener);
+    _abilityTextControllers.dexTmpController.addListener(dexListener);
+    _abilityTextControllers.strTmpController.addListener(strListener);
 
     _abilityTextControllers.strController.text =
         model.getAbility().strength.toString();
@@ -461,6 +494,18 @@ class CharacterSheetWM
         model.getAbility().wisdom.toString();
     _abilityTextControllers.chaController.text =
         model.getAbility().charisma.toString();
+    _abilityTextControllers.strTmpController.text =
+        model.getAbility().strengthTmp.toString();
+    _abilityTextControllers.dexTmpController.text =
+        model.getAbility().dexterityTmp.toString();
+    _abilityTextControllers.conTmpController.text =
+        model.getAbility().constitutionTmp.toString();
+    _abilityTextControllers.intTmpController.text =
+        model.getAbility().intelligenceTmp.toString();
+    _abilityTextControllers.wisTmpController.text =
+        model.getAbility().wisdomTmp.toString();
+    _abilityTextControllers.chaTmpController.text =
+        model.getAbility().charismaTmp.toString();
 
     _liveBlockTextControllers.maxHpController.text = model.maxHp.toString();
     _liveBlockTextControllers.maxStamController.text = model.maxStam.toString();

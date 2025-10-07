@@ -33,7 +33,7 @@ class _ACBlockState extends State<ACBlock> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
         valueListenable: widget.dexModificatorNotifier,
-        builder: (context, value, child) {
+        builder: (context, dexModificator, child) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -42,7 +42,9 @@ class _ACBlockState extends State<ACBlock> {
                   await showDialog(
                     context: context,
                     builder: (context) => aCDialog(context,
-                        isEAC: true, controllers: widget.eacControllers),
+                        isEAC: true,
+                        controllers: widget.eacControllers,
+                        dexModificator: dexModificator),
                   );
                   update(isEac: true);
                 },
@@ -91,7 +93,9 @@ class _ACBlockState extends State<ACBlock> {
                   await showDialog(
                     context: context,
                     builder: (context) => aCDialog(context,
-                        isEAC: false, controllers: widget.kacControllers),
+                        isEAC: false,
+                        controllers: widget.kacControllers,
+                        dexModificator: dexModificator),
                   );
                   update(isEac: false);
                 },
@@ -157,6 +161,7 @@ class _ACBlockState extends State<ACBlock> {
 Widget aCDialog(
   BuildContext context, {
   required bool isEAC,
+  required int dexModificator,
   required AcControllers controllers,
 }) {
   return AlertDialog(
@@ -175,40 +180,74 @@ Widget aCDialog(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '10',
-              style: AppStyles.commonPixel(),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Text(
+                '10',
+                style: AppStyles.commonPixel(),
+              ),
             ),
-            Text(
-              ' + ',
-              style: AppStyles.commonPixel(),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Text(
+                ' + ',
+                style: AppStyles.commonPixel(),
+              ),
             ),
-            DialogBox(
-              title: 'Dex',
-              controller: controllers.dexController,
-              isEnable: false,
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'DEX',
+                  style: AppStyles.commonPixel()
+                      .copyWith(fontSize: 6.0, color: AppColors.darkPink),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                SizedBox(
+                  height: 30.0,
+                  width: 40.0,
+                  child: Text(
+                    dexModificator.toString(),
+                    textAlign: TextAlign.center,
+                    style: AppStyles.commonPixel(),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              ' + ',
-              style: AppStyles.commonPixel(),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Text(
+                ' + ',
+                style: AppStyles.commonPixel(),
+              ),
             ),
             DialogBox(
               title: 'Armor',
               controller: controllers.armorController,
               isEnable: false,
             ),
-            Text(
-              ' + ',
-              style: AppStyles.commonPixel(),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Text(
+                ' + ',
+                style: AppStyles.commonPixel(),
+              ),
             ),
             DialogBox(
               title: 'Dodge',
               controller: controllers.dodgeController,
             ),
-            Text(
-              ' + ',
-              style: AppStyles.commonPixel(),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Text(
+                ' + ',
+                style: AppStyles.commonPixel(),
+              ),
             ),
           ],
         ),

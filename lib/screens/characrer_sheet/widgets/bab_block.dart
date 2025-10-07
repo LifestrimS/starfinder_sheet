@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class BabBlock extends StatefulWidget {
   final BabControllers controllers;
-  final CharacterAbility ability;
   final ValueNotifier dexModificatorNotifier;
   final ValueNotifier strModificatorNotifier;
 
@@ -13,7 +11,6 @@ class BabBlock extends StatefulWidget {
 
   BabBlock(
       {required this.controllers,
-      required this.ability,
       required this.dexModificatorNotifier,
       required this.strModificatorNotifier,
       super.key});
@@ -82,31 +79,31 @@ class _BabBlockState extends State<BabBlock> {
           style: AppStyles.commonPixel(),
         ),
         ValueListenableBuilder(
-            valueListenable: widget.babNotifier,
-            builder: (context, bab, child) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        await showDialog(
-                            context: context,
-                            builder: (context) => babDialog(context,
-                                babType: BabType.mab,
-                                abilityMod: CharacterAbility.getModifier(
-                                    widget.ability.strength),
-                                bab: widget.controllers.babController.text,
-                                miscController:
-                                    widget.controllers.mabMiscController,
-                                tempController:
-                                    widget.controllers.mabTempController));
-                        setState(() {});
-                      },
-                      child: ValueListenableBuilder(
-                          valueListenable: widget.strModificatorNotifier,
-                          builder: (context, strModificator, child) {
-                            return SizedBox(
+            valueListenable: widget.strModificatorNotifier,
+            builder: (context, strMod, child) {
+              return ValueListenableBuilder(
+                  valueListenable: widget.babNotifier,
+                  builder: (context, bab, child) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              await showDialog(
+                                  context: context,
+                                  builder: (context) => babDialog(context,
+                                      babType: BabType.mab,
+                                      abilityMod: strMod,
+                                      bab:
+                                          widget.controllers.babController.text,
+                                      miscController:
+                                          widget.controllers.mabMiscController,
+                                      tempController: widget
+                                          .controllers.mabTempController));
+                              setState(() {});
+                            },
+                            child: SizedBox(
                               height: 47.0,
                               width: 65.0,
                               child: Stack(children: [
@@ -122,8 +119,7 @@ class _BabBlockState extends State<BabBlock> {
                                             const EdgeInsets.only(top: 4.0),
                                         child: Center(
                                           child: Text(
-                                            getValue(
-                                                BabType.mab, strModificator),
+                                            getValue(BabType.mab, strMod),
                                             style: AppStyles.commonPixel()
                                                 .copyWith(fontSize: 10.0),
                                           ),
@@ -142,23 +138,18 @@ class _BabBlockState extends State<BabBlock> {
                                   ),
                                 )
                               ]),
-                            );
-                          }),
-                    ),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
-                    ValueListenableBuilder(
-                        valueListenable: widget.strModificatorNotifier,
-                        builder: (context, strModificator, child) {
-                          return GestureDetector(
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8.0,
+                          ),
+                          GestureDetector(
                             onTap: () async {
                               await showDialog(
                                   context: context,
                                   builder: (context) => babDialog(context,
                                       babType: BabType.tab,
-                                      abilityMod: CharacterAbility.getModifier(
-                                          widget.ability.strength),
+                                      abilityMod: strMod,
                                       bab:
                                           widget.controllers.babController.text,
                                       miscController:
@@ -183,8 +174,7 @@ class _BabBlockState extends State<BabBlock> {
                                             const EdgeInsets.only(top: 4.0),
                                         child: Center(
                                           child: Text(
-                                            getValue(
-                                                BabType.tab, strModificator),
+                                            getValue(BabType.tab, strMod),
                                             style: AppStyles.commonPixel()
                                                 .copyWith(fontSize: 10.0),
                                           ),
@@ -204,71 +194,71 @@ class _BabBlockState extends State<BabBlock> {
                                 )
                               ]),
                             ),
-                          );
-                        }),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        await showDialog(
-                            context: context,
-                            builder: (context) => babDialog(context,
-                                babType: BabType.rab,
-                                abilityMod: CharacterAbility.getModifier(
-                                    widget.ability.dexterity),
-                                bab: widget.controllers.babController.text,
-                                miscController:
-                                    widget.controllers.rabMiscController,
-                                tempController:
-                                    widget.controllers.rabTempController));
-                        setState(() {});
-                      },
-                      child: ValueListenableBuilder(
-                          valueListenable: widget.dexModificatorNotifier,
-                          builder: (context, dexModificator, child) {
-                            return SizedBox(
-                              height: 47.0,
-                              width: 65.0,
-                              child: Stack(children: [
-                                Align(
-                                  alignment: Alignment.bottomRight,
+                          ),
+                          const SizedBox(
+                            width: 8.0,
+                          ),
+                          ValueListenableBuilder(
+                              valueListenable: widget.dexModificatorNotifier,
+                              builder: (context, dexMod, child) {
+                                return GestureDetector(
+                                  onTap: () async {
+                                    await showDialog(
+                                        context: context,
+                                        builder: (context) => babDialog(context,
+                                            babType: BabType.rab,
+                                            abilityMod: dexMod,
+                                            bab: widget
+                                                .controllers.babController.text,
+                                            miscController: widget
+                                                .controllers.rabMiscController,
+                                            tempController: widget.controllers
+                                                .rabTempController));
+                                    setState(() {});
+                                  },
                                   child: SizedBox(
-                                    height: 40.0,
-                                    width: 60.0,
-                                    child: CustomPaint(
-                                      painter: BabBorderPainter(),
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 4.0),
-                                        child: Center(
-                                          child: Text(
-                                            getValue(
-                                                BabType.rab, dexModificator),
-                                            style: AppStyles.commonPixel()
-                                                .copyWith(fontSize: 10.0),
+                                    height: 47.0,
+                                    width: 65.0,
+                                    child: Stack(children: [
+                                      Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: SizedBox(
+                                          height: 40.0,
+                                          width: 60.0,
+                                          child: CustomPaint(
+                                            painter: BabBorderPainter(),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 4.0),
+                                              child: Center(
+                                                child: Text(
+                                                  getValue(BabType.rab, dexMod),
+                                                  style: AppStyles.commonPixel()
+                                                      .copyWith(fontSize: 10.0),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          'RAB',
+                                          style: AppStyles.commonPixel()
+                                              .copyWith(
+                                                  color: AppColors.darkPink,
+                                                  fontSize: 6.0),
+                                        ),
+                                      )
+                                    ]),
                                   ),
-                                ),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    'RAB',
-                                    style: AppStyles.commonPixel().copyWith(
-                                        color: AppColors.darkPink,
-                                        fontSize: 6.0),
-                                  ),
-                                )
-                              ]),
-                            );
-                          }),
-                    ),
-                  ],
-                ),
-              );
+                                );
+                              }),
+                        ],
+                      ),
+                    );
+                  });
             }),
       ],
     );

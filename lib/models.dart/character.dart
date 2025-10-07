@@ -135,14 +135,27 @@ class CharacterAbility {
   final int intelligence;
   final int wisdom;
   final int charisma;
+  final int strengthTmp;
+  final int dexterityTmp;
+  final int constitutionTmp;
+  final int intelligenceTmp;
+  final int wisdomTmp;
+  final int charismaTmp;
 
-  const CharacterAbility(
-      {required this.strength,
-      required this.dexterity,
-      required this.constitution,
-      required this.intelligence,
-      required this.wisdom,
-      required this.charisma});
+  const CharacterAbility({
+    required this.strength,
+    required this.dexterity,
+    required this.constitution,
+    required this.intelligence,
+    required this.wisdom,
+    required this.charisma,
+    required this.strengthTmp,
+    required this.dexterityTmp,
+    required this.constitutionTmp,
+    required this.intelligenceTmp,
+    required this.wisdomTmp,
+    required this.charismaTmp,
+  });
 
   const CharacterAbility.empty(
       {this.strength = 10,
@@ -150,7 +163,13 @@ class CharacterAbility {
       this.constitution = 10,
       this.intelligence = 10,
       this.wisdom = 10,
-      this.charisma = 10});
+      this.charisma = 10,
+      this.strengthTmp = 0,
+      this.dexterityTmp = 0,
+      this.constitutionTmp = 0,
+      this.intelligenceTmp = 0,
+      this.wisdomTmp = 0,
+      this.charismaTmp = 0});
 
   static int getModifier(int value) {
     int modifier = 0;

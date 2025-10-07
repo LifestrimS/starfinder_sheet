@@ -57,11 +57,23 @@ class $TableCharacterTable extends TableCharacter
   late final GeneratedColumn<int> strength = GeneratedColumn<int>(
       'strength', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _strengthTmpMeta =
+      const VerificationMeta('strengthTmp');
+  @override
+  late final GeneratedColumn<int> strengthTmp = GeneratedColumn<int>(
+      'strength_tmp', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _dexterityMeta =
       const VerificationMeta('dexterity');
   @override
   late final GeneratedColumn<int> dexterity = GeneratedColumn<int>(
       'dexterity', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _dexterityTmpMeta =
+      const VerificationMeta('dexterityTmp');
+  @override
+  late final GeneratedColumn<int> dexterityTmp = GeneratedColumn<int>(
+      'dexterity_tmp', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _constitutionMeta =
       const VerificationMeta('constitution');
@@ -69,22 +81,46 @@ class $TableCharacterTable extends TableCharacter
   late final GeneratedColumn<int> constitution = GeneratedColumn<int>(
       'constitution', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _constitutionTmpMeta =
+      const VerificationMeta('constitutionTmp');
+  @override
+  late final GeneratedColumn<int> constitutionTmp = GeneratedColumn<int>(
+      'constitution_tmp', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _intelligenceMeta =
       const VerificationMeta('intelligence');
   @override
   late final GeneratedColumn<int> intelligence = GeneratedColumn<int>(
       'intelligence', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _intelligenceTmpMeta =
+      const VerificationMeta('intelligenceTmp');
+  @override
+  late final GeneratedColumn<int> intelligenceTmp = GeneratedColumn<int>(
+      'intelligence_tmp', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _wisdomMeta = const VerificationMeta('wisdom');
   @override
   late final GeneratedColumn<int> wisdom = GeneratedColumn<int>(
       'wisdom', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _wisdomTmpMeta =
+      const VerificationMeta('wisdomTmp');
+  @override
+  late final GeneratedColumn<int> wisdomTmp = GeneratedColumn<int>(
+      'wisdom_tmp', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _charismaMeta =
       const VerificationMeta('charisma');
   @override
   late final GeneratedColumn<int> charisma = GeneratedColumn<int>(
       'charisma', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _charismaTmpMeta =
+      const VerificationMeta('charismaTmp');
+  @override
+  late final GeneratedColumn<int> charismaTmp = GeneratedColumn<int>(
+      'charisma_tmp', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _maxHpMeta = const VerificationMeta('maxHp');
   @override
@@ -262,11 +298,17 @@ class $TableCharacterTable extends TableCharacter
         alignment,
         size,
         strength,
+        strengthTmp,
         dexterity,
+        dexterityTmp,
         constitution,
+        constitutionTmp,
         intelligence,
+        intelligenceTmp,
         wisdom,
+        wisdomTmp,
         charisma,
+        charismaTmp,
         maxHp,
         currentHp,
         maxStam,
@@ -351,11 +393,27 @@ class $TableCharacterTable extends TableCharacter
     } else if (isInserting) {
       context.missing(_strengthMeta);
     }
+    if (data.containsKey('strength_tmp')) {
+      context.handle(
+          _strengthTmpMeta,
+          strengthTmp.isAcceptableOrUnknown(
+              data['strength_tmp']!, _strengthTmpMeta));
+    } else if (isInserting) {
+      context.missing(_strengthTmpMeta);
+    }
     if (data.containsKey('dexterity')) {
       context.handle(_dexterityMeta,
           dexterity.isAcceptableOrUnknown(data['dexterity']!, _dexterityMeta));
     } else if (isInserting) {
       context.missing(_dexterityMeta);
+    }
+    if (data.containsKey('dexterity_tmp')) {
+      context.handle(
+          _dexterityTmpMeta,
+          dexterityTmp.isAcceptableOrUnknown(
+              data['dexterity_tmp']!, _dexterityTmpMeta));
+    } else if (isInserting) {
+      context.missing(_dexterityTmpMeta);
     }
     if (data.containsKey('constitution')) {
       context.handle(
@@ -365,6 +423,14 @@ class $TableCharacterTable extends TableCharacter
     } else if (isInserting) {
       context.missing(_constitutionMeta);
     }
+    if (data.containsKey('constitution_tmp')) {
+      context.handle(
+          _constitutionTmpMeta,
+          constitutionTmp.isAcceptableOrUnknown(
+              data['constitution_tmp']!, _constitutionTmpMeta));
+    } else if (isInserting) {
+      context.missing(_constitutionTmpMeta);
+    }
     if (data.containsKey('intelligence')) {
       context.handle(
           _intelligenceMeta,
@@ -373,17 +439,39 @@ class $TableCharacterTable extends TableCharacter
     } else if (isInserting) {
       context.missing(_intelligenceMeta);
     }
+    if (data.containsKey('intelligence_tmp')) {
+      context.handle(
+          _intelligenceTmpMeta,
+          intelligenceTmp.isAcceptableOrUnknown(
+              data['intelligence_tmp']!, _intelligenceTmpMeta));
+    } else if (isInserting) {
+      context.missing(_intelligenceTmpMeta);
+    }
     if (data.containsKey('wisdom')) {
       context.handle(_wisdomMeta,
           wisdom.isAcceptableOrUnknown(data['wisdom']!, _wisdomMeta));
     } else if (isInserting) {
       context.missing(_wisdomMeta);
     }
+    if (data.containsKey('wisdom_tmp')) {
+      context.handle(_wisdomTmpMeta,
+          wisdomTmp.isAcceptableOrUnknown(data['wisdom_tmp']!, _wisdomTmpMeta));
+    } else if (isInserting) {
+      context.missing(_wisdomTmpMeta);
+    }
     if (data.containsKey('charisma')) {
       context.handle(_charismaMeta,
           charisma.isAcceptableOrUnknown(data['charisma']!, _charismaMeta));
     } else if (isInserting) {
       context.missing(_charismaMeta);
+    }
+    if (data.containsKey('charisma_tmp')) {
+      context.handle(
+          _charismaTmpMeta,
+          charismaTmp.isAcceptableOrUnknown(
+              data['charisma_tmp']!, _charismaTmpMeta));
+    } else if (isInserting) {
+      context.missing(_charismaTmpMeta);
     }
     if (data.containsKey('max_hp')) {
       context.handle(
@@ -592,16 +680,28 @@ class $TableCharacterTable extends TableCharacter
           .read(DriftSqlType.string, data['${effectivePrefix}size'])!,
       strength: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}strength'])!,
+      strengthTmp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}strength_tmp'])!,
       dexterity: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}dexterity'])!,
+      dexterityTmp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}dexterity_tmp'])!,
       constitution: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}constitution'])!,
+      constitutionTmp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}constitution_tmp'])!,
       intelligence: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}intelligence'])!,
+      intelligenceTmp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}intelligence_tmp'])!,
       wisdom: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}wisdom'])!,
+      wisdomTmp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}wisdom_tmp'])!,
       charisma: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}charisma'])!,
+      charismaTmp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}charisma_tmp'])!,
       maxHp: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}max_hp'])!,
       currentHp: attachedDatabase.typeMapping
@@ -677,11 +777,17 @@ class TableCharacterData extends DataClass
   final String alignment;
   final String size;
   final int strength;
+  final int strengthTmp;
   final int dexterity;
+  final int dexterityTmp;
   final int constitution;
+  final int constitutionTmp;
   final int intelligence;
+  final int intelligenceTmp;
   final int wisdom;
+  final int wisdomTmp;
   final int charisma;
+  final int charismaTmp;
   final int maxHp;
   final int currentHp;
   final int maxStam;
@@ -719,11 +825,17 @@ class TableCharacterData extends DataClass
       required this.alignment,
       required this.size,
       required this.strength,
+      required this.strengthTmp,
       required this.dexterity,
+      required this.dexterityTmp,
       required this.constitution,
+      required this.constitutionTmp,
       required this.intelligence,
+      required this.intelligenceTmp,
       required this.wisdom,
+      required this.wisdomTmp,
       required this.charisma,
+      required this.charismaTmp,
       required this.maxHp,
       required this.currentHp,
       required this.maxStam,
@@ -763,11 +875,17 @@ class TableCharacterData extends DataClass
     map['alignment'] = Variable<String>(alignment);
     map['size'] = Variable<String>(size);
     map['strength'] = Variable<int>(strength);
+    map['strength_tmp'] = Variable<int>(strengthTmp);
     map['dexterity'] = Variable<int>(dexterity);
+    map['dexterity_tmp'] = Variable<int>(dexterityTmp);
     map['constitution'] = Variable<int>(constitution);
+    map['constitution_tmp'] = Variable<int>(constitutionTmp);
     map['intelligence'] = Variable<int>(intelligence);
+    map['intelligence_tmp'] = Variable<int>(intelligenceTmp);
     map['wisdom'] = Variable<int>(wisdom);
+    map['wisdom_tmp'] = Variable<int>(wisdomTmp);
     map['charisma'] = Variable<int>(charisma);
+    map['charisma_tmp'] = Variable<int>(charismaTmp);
     map['max_hp'] = Variable<int>(maxHp);
     map['current_hp'] = Variable<int>(currentHp);
     map['max_stam'] = Variable<int>(maxStam);
@@ -809,11 +927,17 @@ class TableCharacterData extends DataClass
       alignment: Value(alignment),
       size: Value(size),
       strength: Value(strength),
+      strengthTmp: Value(strengthTmp),
       dexterity: Value(dexterity),
+      dexterityTmp: Value(dexterityTmp),
       constitution: Value(constitution),
+      constitutionTmp: Value(constitutionTmp),
       intelligence: Value(intelligence),
+      intelligenceTmp: Value(intelligenceTmp),
       wisdom: Value(wisdom),
+      wisdomTmp: Value(wisdomTmp),
       charisma: Value(charisma),
+      charismaTmp: Value(charismaTmp),
       maxHp: Value(maxHp),
       currentHp: Value(currentHp),
       maxStam: Value(maxStam),
@@ -857,11 +981,17 @@ class TableCharacterData extends DataClass
       alignment: serializer.fromJson<String>(json['alignment']),
       size: serializer.fromJson<String>(json['size']),
       strength: serializer.fromJson<int>(json['strength']),
+      strengthTmp: serializer.fromJson<int>(json['strengthTmp']),
       dexterity: serializer.fromJson<int>(json['dexterity']),
+      dexterityTmp: serializer.fromJson<int>(json['dexterityTmp']),
       constitution: serializer.fromJson<int>(json['constitution']),
+      constitutionTmp: serializer.fromJson<int>(json['constitutionTmp']),
       intelligence: serializer.fromJson<int>(json['intelligence']),
+      intelligenceTmp: serializer.fromJson<int>(json['intelligenceTmp']),
       wisdom: serializer.fromJson<int>(json['wisdom']),
+      wisdomTmp: serializer.fromJson<int>(json['wisdomTmp']),
       charisma: serializer.fromJson<int>(json['charisma']),
+      charismaTmp: serializer.fromJson<int>(json['charismaTmp']),
       maxHp: serializer.fromJson<int>(json['maxHp']),
       currentHp: serializer.fromJson<int>(json['currentHp']),
       maxStam: serializer.fromJson<int>(json['maxStam']),
@@ -904,11 +1034,17 @@ class TableCharacterData extends DataClass
       'alignment': serializer.toJson<String>(alignment),
       'size': serializer.toJson<String>(size),
       'strength': serializer.toJson<int>(strength),
+      'strengthTmp': serializer.toJson<int>(strengthTmp),
       'dexterity': serializer.toJson<int>(dexterity),
+      'dexterityTmp': serializer.toJson<int>(dexterityTmp),
       'constitution': serializer.toJson<int>(constitution),
+      'constitutionTmp': serializer.toJson<int>(constitutionTmp),
       'intelligence': serializer.toJson<int>(intelligence),
+      'intelligenceTmp': serializer.toJson<int>(intelligenceTmp),
       'wisdom': serializer.toJson<int>(wisdom),
+      'wisdomTmp': serializer.toJson<int>(wisdomTmp),
       'charisma': serializer.toJson<int>(charisma),
+      'charismaTmp': serializer.toJson<int>(charismaTmp),
       'maxHp': serializer.toJson<int>(maxHp),
       'currentHp': serializer.toJson<int>(currentHp),
       'maxStam': serializer.toJson<int>(maxStam),
@@ -949,11 +1085,17 @@ class TableCharacterData extends DataClass
           String? alignment,
           String? size,
           int? strength,
+          int? strengthTmp,
           int? dexterity,
+          int? dexterityTmp,
           int? constitution,
+          int? constitutionTmp,
           int? intelligence,
+          int? intelligenceTmp,
           int? wisdom,
+          int? wisdomTmp,
           int? charisma,
+          int? charismaTmp,
           int? maxHp,
           int? currentHp,
           int? maxStam,
@@ -991,11 +1133,17 @@ class TableCharacterData extends DataClass
         alignment: alignment ?? this.alignment,
         size: size ?? this.size,
         strength: strength ?? this.strength,
+        strengthTmp: strengthTmp ?? this.strengthTmp,
         dexterity: dexterity ?? this.dexterity,
+        dexterityTmp: dexterityTmp ?? this.dexterityTmp,
         constitution: constitution ?? this.constitution,
+        constitutionTmp: constitutionTmp ?? this.constitutionTmp,
         intelligence: intelligence ?? this.intelligence,
+        intelligenceTmp: intelligenceTmp ?? this.intelligenceTmp,
         wisdom: wisdom ?? this.wisdom,
+        wisdomTmp: wisdomTmp ?? this.wisdomTmp,
         charisma: charisma ?? this.charisma,
+        charismaTmp: charismaTmp ?? this.charismaTmp,
         maxHp: maxHp ?? this.maxHp,
         currentHp: currentHp ?? this.currentHp,
         maxStam: maxStam ?? this.maxStam,
@@ -1035,15 +1183,29 @@ class TableCharacterData extends DataClass
       alignment: data.alignment.present ? data.alignment.value : this.alignment,
       size: data.size.present ? data.size.value : this.size,
       strength: data.strength.present ? data.strength.value : this.strength,
+      strengthTmp:
+          data.strengthTmp.present ? data.strengthTmp.value : this.strengthTmp,
       dexterity: data.dexterity.present ? data.dexterity.value : this.dexterity,
+      dexterityTmp: data.dexterityTmp.present
+          ? data.dexterityTmp.value
+          : this.dexterityTmp,
       constitution: data.constitution.present
           ? data.constitution.value
           : this.constitution,
+      constitutionTmp: data.constitutionTmp.present
+          ? data.constitutionTmp.value
+          : this.constitutionTmp,
       intelligence: data.intelligence.present
           ? data.intelligence.value
           : this.intelligence,
+      intelligenceTmp: data.intelligenceTmp.present
+          ? data.intelligenceTmp.value
+          : this.intelligenceTmp,
       wisdom: data.wisdom.present ? data.wisdom.value : this.wisdom,
+      wisdomTmp: data.wisdomTmp.present ? data.wisdomTmp.value : this.wisdomTmp,
       charisma: data.charisma.present ? data.charisma.value : this.charisma,
+      charismaTmp:
+          data.charismaTmp.present ? data.charismaTmp.value : this.charismaTmp,
       maxHp: data.maxHp.present ? data.maxHp.value : this.maxHp,
       currentHp: data.currentHp.present ? data.currentHp.value : this.currentHp,
       maxStam: data.maxStam.present ? data.maxStam.value : this.maxStam,
@@ -1094,11 +1256,17 @@ class TableCharacterData extends DataClass
           ..write('alignment: $alignment, ')
           ..write('size: $size, ')
           ..write('strength: $strength, ')
+          ..write('strengthTmp: $strengthTmp, ')
           ..write('dexterity: $dexterity, ')
+          ..write('dexterityTmp: $dexterityTmp, ')
           ..write('constitution: $constitution, ')
+          ..write('constitutionTmp: $constitutionTmp, ')
           ..write('intelligence: $intelligence, ')
+          ..write('intelligenceTmp: $intelligenceTmp, ')
           ..write('wisdom: $wisdom, ')
+          ..write('wisdomTmp: $wisdomTmp, ')
           ..write('charisma: $charisma, ')
+          ..write('charismaTmp: $charismaTmp, ')
           ..write('maxHp: $maxHp, ')
           ..write('currentHp: $currentHp, ')
           ..write('maxStam: $maxStam, ')
@@ -1141,11 +1309,17 @@ class TableCharacterData extends DataClass
         alignment,
         size,
         strength,
+        strengthTmp,
         dexterity,
+        dexterityTmp,
         constitution,
+        constitutionTmp,
         intelligence,
+        intelligenceTmp,
         wisdom,
+        wisdomTmp,
         charisma,
+        charismaTmp,
         maxHp,
         currentHp,
         maxStam,
@@ -1187,11 +1361,17 @@ class TableCharacterData extends DataClass
           other.alignment == this.alignment &&
           other.size == this.size &&
           other.strength == this.strength &&
+          other.strengthTmp == this.strengthTmp &&
           other.dexterity == this.dexterity &&
+          other.dexterityTmp == this.dexterityTmp &&
           other.constitution == this.constitution &&
+          other.constitutionTmp == this.constitutionTmp &&
           other.intelligence == this.intelligence &&
+          other.intelligenceTmp == this.intelligenceTmp &&
           other.wisdom == this.wisdom &&
+          other.wisdomTmp == this.wisdomTmp &&
           other.charisma == this.charisma &&
+          other.charismaTmp == this.charismaTmp &&
           other.maxHp == this.maxHp &&
           other.currentHp == this.currentHp &&
           other.maxStam == this.maxStam &&
@@ -1231,11 +1411,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   final Value<String> alignment;
   final Value<String> size;
   final Value<int> strength;
+  final Value<int> strengthTmp;
   final Value<int> dexterity;
+  final Value<int> dexterityTmp;
   final Value<int> constitution;
+  final Value<int> constitutionTmp;
   final Value<int> intelligence;
+  final Value<int> intelligenceTmp;
   final Value<int> wisdom;
+  final Value<int> wisdomTmp;
   final Value<int> charisma;
+  final Value<int> charismaTmp;
   final Value<int> maxHp;
   final Value<int> currentHp;
   final Value<int> maxStam;
@@ -1273,11 +1459,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     this.alignment = const Value.absent(),
     this.size = const Value.absent(),
     this.strength = const Value.absent(),
+    this.strengthTmp = const Value.absent(),
     this.dexterity = const Value.absent(),
+    this.dexterityTmp = const Value.absent(),
     this.constitution = const Value.absent(),
+    this.constitutionTmp = const Value.absent(),
     this.intelligence = const Value.absent(),
+    this.intelligenceTmp = const Value.absent(),
     this.wisdom = const Value.absent(),
+    this.wisdomTmp = const Value.absent(),
     this.charisma = const Value.absent(),
+    this.charismaTmp = const Value.absent(),
     this.maxHp = const Value.absent(),
     this.currentHp = const Value.absent(),
     this.maxStam = const Value.absent(),
@@ -1316,11 +1508,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     required String alignment,
     required String size,
     required int strength,
+    required int strengthTmp,
     required int dexterity,
+    required int dexterityTmp,
     required int constitution,
+    required int constitutionTmp,
     required int intelligence,
+    required int intelligenceTmp,
     required int wisdom,
+    required int wisdomTmp,
     required int charisma,
+    required int charismaTmp,
     required int maxHp,
     required int currentHp,
     required int maxStam,
@@ -1356,11 +1554,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
         alignment = Value(alignment),
         size = Value(size),
         strength = Value(strength),
+        strengthTmp = Value(strengthTmp),
         dexterity = Value(dexterity),
+        dexterityTmp = Value(dexterityTmp),
         constitution = Value(constitution),
+        constitutionTmp = Value(constitutionTmp),
         intelligence = Value(intelligence),
+        intelligenceTmp = Value(intelligenceTmp),
         wisdom = Value(wisdom),
+        wisdomTmp = Value(wisdomTmp),
         charisma = Value(charisma),
+        charismaTmp = Value(charismaTmp),
         maxHp = Value(maxHp),
         currentHp = Value(currentHp),
         maxStam = Value(maxStam),
@@ -1398,11 +1602,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     Expression<String>? alignment,
     Expression<String>? size,
     Expression<int>? strength,
+    Expression<int>? strengthTmp,
     Expression<int>? dexterity,
+    Expression<int>? dexterityTmp,
     Expression<int>? constitution,
+    Expression<int>? constitutionTmp,
     Expression<int>? intelligence,
+    Expression<int>? intelligenceTmp,
     Expression<int>? wisdom,
+    Expression<int>? wisdomTmp,
     Expression<int>? charisma,
+    Expression<int>? charismaTmp,
     Expression<int>? maxHp,
     Expression<int>? currentHp,
     Expression<int>? maxStam,
@@ -1441,11 +1651,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       if (alignment != null) 'alignment': alignment,
       if (size != null) 'size': size,
       if (strength != null) 'strength': strength,
+      if (strengthTmp != null) 'strength_tmp': strengthTmp,
       if (dexterity != null) 'dexterity': dexterity,
+      if (dexterityTmp != null) 'dexterity_tmp': dexterityTmp,
       if (constitution != null) 'constitution': constitution,
+      if (constitutionTmp != null) 'constitution_tmp': constitutionTmp,
       if (intelligence != null) 'intelligence': intelligence,
+      if (intelligenceTmp != null) 'intelligence_tmp': intelligenceTmp,
       if (wisdom != null) 'wisdom': wisdom,
+      if (wisdomTmp != null) 'wisdom_tmp': wisdomTmp,
       if (charisma != null) 'charisma': charisma,
+      if (charismaTmp != null) 'charisma_tmp': charismaTmp,
       if (maxHp != null) 'max_hp': maxHp,
       if (currentHp != null) 'current_hp': currentHp,
       if (maxStam != null) 'max_stam': maxStam,
@@ -1486,11 +1702,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       Value<String>? alignment,
       Value<String>? size,
       Value<int>? strength,
+      Value<int>? strengthTmp,
       Value<int>? dexterity,
+      Value<int>? dexterityTmp,
       Value<int>? constitution,
+      Value<int>? constitutionTmp,
       Value<int>? intelligence,
+      Value<int>? intelligenceTmp,
       Value<int>? wisdom,
+      Value<int>? wisdomTmp,
       Value<int>? charisma,
+      Value<int>? charismaTmp,
       Value<int>? maxHp,
       Value<int>? currentHp,
       Value<int>? maxStam,
@@ -1528,11 +1750,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       alignment: alignment ?? this.alignment,
       size: size ?? this.size,
       strength: strength ?? this.strength,
+      strengthTmp: strengthTmp ?? this.strengthTmp,
       dexterity: dexterity ?? this.dexterity,
+      dexterityTmp: dexterityTmp ?? this.dexterityTmp,
       constitution: constitution ?? this.constitution,
+      constitutionTmp: constitutionTmp ?? this.constitutionTmp,
       intelligence: intelligence ?? this.intelligence,
+      intelligenceTmp: intelligenceTmp ?? this.intelligenceTmp,
       wisdom: wisdom ?? this.wisdom,
+      wisdomTmp: wisdomTmp ?? this.wisdomTmp,
       charisma: charisma ?? this.charisma,
+      charismaTmp: charismaTmp ?? this.charismaTmp,
       maxHp: maxHp ?? this.maxHp,
       currentHp: currentHp ?? this.currentHp,
       maxStam: maxStam ?? this.maxStam,
@@ -1591,20 +1819,38 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     if (strength.present) {
       map['strength'] = Variable<int>(strength.value);
     }
+    if (strengthTmp.present) {
+      map['strength_tmp'] = Variable<int>(strengthTmp.value);
+    }
     if (dexterity.present) {
       map['dexterity'] = Variable<int>(dexterity.value);
+    }
+    if (dexterityTmp.present) {
+      map['dexterity_tmp'] = Variable<int>(dexterityTmp.value);
     }
     if (constitution.present) {
       map['constitution'] = Variable<int>(constitution.value);
     }
+    if (constitutionTmp.present) {
+      map['constitution_tmp'] = Variable<int>(constitutionTmp.value);
+    }
     if (intelligence.present) {
       map['intelligence'] = Variable<int>(intelligence.value);
+    }
+    if (intelligenceTmp.present) {
+      map['intelligence_tmp'] = Variable<int>(intelligenceTmp.value);
     }
     if (wisdom.present) {
       map['wisdom'] = Variable<int>(wisdom.value);
     }
+    if (wisdomTmp.present) {
+      map['wisdom_tmp'] = Variable<int>(wisdomTmp.value);
+    }
     if (charisma.present) {
       map['charisma'] = Variable<int>(charisma.value);
+    }
+    if (charismaTmp.present) {
+      map['charisma_tmp'] = Variable<int>(charismaTmp.value);
     }
     if (maxHp.present) {
       map['max_hp'] = Variable<int>(maxHp.value);
@@ -1704,11 +1950,17 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
           ..write('alignment: $alignment, ')
           ..write('size: $size, ')
           ..write('strength: $strength, ')
+          ..write('strengthTmp: $strengthTmp, ')
           ..write('dexterity: $dexterity, ')
+          ..write('dexterityTmp: $dexterityTmp, ')
           ..write('constitution: $constitution, ')
+          ..write('constitutionTmp: $constitutionTmp, ')
           ..write('intelligence: $intelligence, ')
+          ..write('intelligenceTmp: $intelligenceTmp, ')
           ..write('wisdom: $wisdom, ')
+          ..write('wisdomTmp: $wisdomTmp, ')
           ..write('charisma: $charisma, ')
+          ..write('charismaTmp: $charismaTmp, ')
           ..write('maxHp: $maxHp, ')
           ..write('currentHp: $currentHp, ')
           ..write('maxStam: $maxStam, ')
@@ -1763,11 +2015,17 @@ typedef $$TableCharacterTableCreateCompanionBuilder = TableCharacterCompanion
   required String alignment,
   required String size,
   required int strength,
+  required int strengthTmp,
   required int dexterity,
+  required int dexterityTmp,
   required int constitution,
+  required int constitutionTmp,
   required int intelligence,
+  required int intelligenceTmp,
   required int wisdom,
+  required int wisdomTmp,
   required int charisma,
+  required int charismaTmp,
   required int maxHp,
   required int currentHp,
   required int maxStam,
@@ -1807,11 +2065,17 @@ typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
   Value<String> alignment,
   Value<String> size,
   Value<int> strength,
+  Value<int> strengthTmp,
   Value<int> dexterity,
+  Value<int> dexterityTmp,
   Value<int> constitution,
+  Value<int> constitutionTmp,
   Value<int> intelligence,
+  Value<int> intelligenceTmp,
   Value<int> wisdom,
+  Value<int> wisdomTmp,
   Value<int> charisma,
+  Value<int> charismaTmp,
   Value<int> maxHp,
   Value<int> currentHp,
   Value<int> maxStam,
@@ -1875,20 +2139,40 @@ class $$TableCharacterTableFilterComposer
   ColumnFilters<int> get strength => $composableBuilder(
       column: $table.strength, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<int> get strengthTmp => $composableBuilder(
+      column: $table.strengthTmp, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<int> get dexterity => $composableBuilder(
       column: $table.dexterity, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get dexterityTmp => $composableBuilder(
+      column: $table.dexterityTmp, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get constitution => $composableBuilder(
       column: $table.constitution, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<int> get constitutionTmp => $composableBuilder(
+      column: $table.constitutionTmp,
+      builder: (column) => ColumnFilters(column));
+
   ColumnFilters<int> get intelligence => $composableBuilder(
       column: $table.intelligence, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get intelligenceTmp => $composableBuilder(
+      column: $table.intelligenceTmp,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get wisdom => $composableBuilder(
       column: $table.wisdom, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<int> get wisdomTmp => $composableBuilder(
+      column: $table.wisdomTmp, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<int> get charisma => $composableBuilder(
       column: $table.charisma, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get charismaTmp => $composableBuilder(
+      column: $table.charismaTmp, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get maxHp => $composableBuilder(
       column: $table.maxHp, builder: (column) => ColumnFilters(column));
@@ -2009,22 +2293,43 @@ class $$TableCharacterTableOrderingComposer
   ColumnOrderings<int> get strength => $composableBuilder(
       column: $table.strength, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get strengthTmp => $composableBuilder(
+      column: $table.strengthTmp, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get dexterity => $composableBuilder(
       column: $table.dexterity, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get dexterityTmp => $composableBuilder(
+      column: $table.dexterityTmp,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get constitution => $composableBuilder(
       column: $table.constitution,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get constitutionTmp => $composableBuilder(
+      column: $table.constitutionTmp,
       builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get intelligence => $composableBuilder(
       column: $table.intelligence,
       builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get intelligenceTmp => $composableBuilder(
+      column: $table.intelligenceTmp,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get wisdom => $composableBuilder(
       column: $table.wisdom, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get wisdomTmp => $composableBuilder(
+      column: $table.wisdomTmp, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get charisma => $composableBuilder(
       column: $table.charisma, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get charismaTmp => $composableBuilder(
+      column: $table.charismaTmp, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get maxHp => $composableBuilder(
       column: $table.maxHp, builder: (column) => ColumnOrderings(column));
@@ -2145,20 +2450,38 @@ class $$TableCharacterTableAnnotationComposer
   GeneratedColumn<int> get strength =>
       $composableBuilder(column: $table.strength, builder: (column) => column);
 
+  GeneratedColumn<int> get strengthTmp => $composableBuilder(
+      column: $table.strengthTmp, builder: (column) => column);
+
   GeneratedColumn<int> get dexterity =>
       $composableBuilder(column: $table.dexterity, builder: (column) => column);
+
+  GeneratedColumn<int> get dexterityTmp => $composableBuilder(
+      column: $table.dexterityTmp, builder: (column) => column);
 
   GeneratedColumn<int> get constitution => $composableBuilder(
       column: $table.constitution, builder: (column) => column);
 
+  GeneratedColumn<int> get constitutionTmp => $composableBuilder(
+      column: $table.constitutionTmp, builder: (column) => column);
+
   GeneratedColumn<int> get intelligence => $composableBuilder(
       column: $table.intelligence, builder: (column) => column);
+
+  GeneratedColumn<int> get intelligenceTmp => $composableBuilder(
+      column: $table.intelligenceTmp, builder: (column) => column);
 
   GeneratedColumn<int> get wisdom =>
       $composableBuilder(column: $table.wisdom, builder: (column) => column);
 
+  GeneratedColumn<int> get wisdomTmp =>
+      $composableBuilder(column: $table.wisdomTmp, builder: (column) => column);
+
   GeneratedColumn<int> get charisma =>
       $composableBuilder(column: $table.charisma, builder: (column) => column);
+
+  GeneratedColumn<int> get charismaTmp => $composableBuilder(
+      column: $table.charismaTmp, builder: (column) => column);
 
   GeneratedColumn<int> get maxHp =>
       $composableBuilder(column: $table.maxHp, builder: (column) => column);
@@ -2280,11 +2603,17 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             Value<String> alignment = const Value.absent(),
             Value<String> size = const Value.absent(),
             Value<int> strength = const Value.absent(),
+            Value<int> strengthTmp = const Value.absent(),
             Value<int> dexterity = const Value.absent(),
+            Value<int> dexterityTmp = const Value.absent(),
             Value<int> constitution = const Value.absent(),
+            Value<int> constitutionTmp = const Value.absent(),
             Value<int> intelligence = const Value.absent(),
+            Value<int> intelligenceTmp = const Value.absent(),
             Value<int> wisdom = const Value.absent(),
+            Value<int> wisdomTmp = const Value.absent(),
             Value<int> charisma = const Value.absent(),
+            Value<int> charismaTmp = const Value.absent(),
             Value<int> maxHp = const Value.absent(),
             Value<int> currentHp = const Value.absent(),
             Value<int> maxStam = const Value.absent(),
@@ -2323,11 +2652,17 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             alignment: alignment,
             size: size,
             strength: strength,
+            strengthTmp: strengthTmp,
             dexterity: dexterity,
+            dexterityTmp: dexterityTmp,
             constitution: constitution,
+            constitutionTmp: constitutionTmp,
             intelligence: intelligence,
+            intelligenceTmp: intelligenceTmp,
             wisdom: wisdom,
+            wisdomTmp: wisdomTmp,
             charisma: charisma,
+            charismaTmp: charismaTmp,
             maxHp: maxHp,
             currentHp: currentHp,
             maxStam: maxStam,
@@ -2366,11 +2701,17 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             required String alignment,
             required String size,
             required int strength,
+            required int strengthTmp,
             required int dexterity,
+            required int dexterityTmp,
             required int constitution,
+            required int constitutionTmp,
             required int intelligence,
+            required int intelligenceTmp,
             required int wisdom,
+            required int wisdomTmp,
             required int charisma,
+            required int charismaTmp,
             required int maxHp,
             required int currentHp,
             required int maxStam,
@@ -2409,11 +2750,17 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             alignment: alignment,
             size: size,
             strength: strength,
+            strengthTmp: strengthTmp,
             dexterity: dexterity,
+            dexterityTmp: dexterityTmp,
             constitution: constitution,
+            constitutionTmp: constitutionTmp,
             intelligence: intelligence,
+            intelligenceTmp: intelligenceTmp,
             wisdom: wisdom,
+            wisdomTmp: wisdomTmp,
             charisma: charisma,
+            charismaTmp: charismaTmp,
             maxHp: maxHp,
             currentHp: currentHp,
             maxStam: maxStam,

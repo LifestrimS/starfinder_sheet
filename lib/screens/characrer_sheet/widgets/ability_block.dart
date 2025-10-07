@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
+import 'package:pathfinder_sheet/screens/util_widgets/dilog.dart';
+import 'package:pathfinder_sheet/screens/util_widgets/text_fields.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
-class AbilityBlock extends StatelessWidget {
+class AbilityBlock extends StatefulWidget {
   final CharacterAbility ability;
   final AbilityTextControllers controllers;
   const AbilityBlock(
       {required this.ability, required this.controllers, super.key});
 
+  @override
+  State<AbilityBlock> createState() => _AbilityBlockState();
+}
+
+class _AbilityBlockState extends State<AbilityBlock> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -16,19 +23,19 @@ class AbilityBlock extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AbilityCell(
-            statName: 'STR',
-            statValue: ability.strength,
-            controller: controllers.strController,
+            ability: AbilityEnum.str,
+            controller: widget.controllers.strController,
+            tmpController: widget.controllers.strTmpController,
           ),
           AbilityCell(
-            statName: 'DEX',
-            statValue: ability.dexterity,
-            controller: controllers.dexController,
+            ability: AbilityEnum.dex,
+            controller: widget.controllers.dexController,
+            tmpController: widget.controllers.dexTmpController,
           ),
           AbilityCell(
-            statName: 'CON',
-            statValue: ability.constitution,
-            controller: controllers.conController,
+            ability: AbilityEnum.con,
+            controller: widget.controllers.conController,
+            tmpController: widget.controllers.conTmpController,
           ),
         ],
       ),
@@ -39,19 +46,19 @@ class AbilityBlock extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AbilityCell(
-            statName: 'INT',
-            statValue: ability.intelligence,
-            controller: controllers.intController,
+            ability: AbilityEnum.charint,
+            controller: widget.controllers.intController,
+            tmpController: widget.controllers.intTmpController,
           ),
           AbilityCell(
-            statName: 'WIS',
-            statValue: ability.wisdom,
-            controller: controllers.wisController,
+            ability: AbilityEnum.wis,
+            controller: widget.controllers.wisController,
+            tmpController: widget.controllers.wisTmpController,
           ),
           AbilityCell(
-            statName: 'CHA',
-            statValue: ability.charisma,
-            controller: controllers.chaController,
+            ability: AbilityEnum.cha,
+            controller: widget.controllers.chaController,
+            tmpController: widget.controllers.chaTmpController,
           ),
         ],
       ),
@@ -60,13 +67,14 @@ class AbilityBlock extends StatelessWidget {
 }
 
 class AbilityCell extends StatefulWidget {
-  final String statName;
-  final int statValue;
+  final AbilityEnum ability;
   final TextEditingController controller;
+  final TextEditingController tmpController;
+
   const AbilityCell(
-      {required this.statName,
-      required this.statValue,
+      {required this.ability,
       required this.controller,
+      required this.tmpController,
       super.key});
 
   @override
@@ -74,41 +82,46 @@ class AbilityCell extends StatefulWidget {
 }
 
 class _AbilityCellState extends State<AbilityCell> {
-  ValueNotifier<int> statValue = ValueNotifier(0);
+  ValueNotifier<int> statValueNotifier = ValueNotifier(0);
 
   @override
   void initState() {
-    statValue.value = widget.statValue;
     super.initState();
   }
 
   @override
   void dispose() {
-    statValue.dispose();
+    statValueNotifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    widget.controller.text = widget.statValue.toString();
-
-    return SizedBox(
-      height: 90.0,
-      width: 90.0,
-      child: Stack(
-        children: [
-          ValueListenableBuilder(
-            valueListenable: statValue,
-            builder: (context, value, child) {
-              return ColoredBox(
-                color: Colors.transparent,
-                child: Align(
+    return GestureDetector(
+      onLongPress: () async {
+        await showDialog(
+          context: context,
+          builder: (context) => CustomDiolog(
+            content: diologContent(context, getName(), widget.tmpController),
+          ),
+        );
+        setState(() {});
+      },
+      child: SizedBox(
+        height: 90.0,
+        width: 90.0,
+        child: Stack(
+          children: [
+            ValueListenableBuilder(
+              valueListenable: statValueNotifier,
+              builder: (context, value, child) {
+                return Align(
                   alignment: AlignmentGeometry.center,
                   child: SizedBox(
                     height: 80.0,
                     width: 80.0,
                     child: CustomPaint(
-                      painter: StatBorderPainter(),
+                      painter: StatBorderPainter(isTmp: isHaveTmpValue()),
                       child: Stack(
                         children: [
                           Align(
@@ -116,58 +129,247 @@ class _AbilityCellState extends State<AbilityCell> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.only(top: 10.0, left: 3.0),
-                              child: Text(
-                                CharacterAbility.getModifier(value).toString(),
-                                style: AppStyles.commonPixel()
-                                    .copyWith(fontSize: 20.0),
-                              ),
+                              child: isHaveTmpValue()
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          getModifierValue(value),
+                                          style: AppStyles.commonPixel()
+                                              .copyWith(fontSize: 20.0),
+                                        ),
+                                        Container(
+                                          width: 10.0,
+                                          height: 2.0,
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 6.0),
+                                          color: AppColors.darkPink,
+                                        ),
+                                        Text(
+                                          widget.tmpController.text,
+                                          style: AppStyles.commonPixel()
+                                              .copyWith(fontSize: 8.0),
+                                        ),
+                                      ],
+                                    )
+                                  : Text(
+                                      getModifierValue(value),
+                                      style: AppStyles.commonPixel()
+                                          .copyWith(fontSize: 20.0),
+                                    ),
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
+                );
+              },
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                height: 20.0,
+                child: TextFormField(
+                  controller: widget.controller,
+                  expands: true,
+                  maxLines: null,
+                  style: AppStyles.commonPixel().copyWith(
+                    fontSize: 10.0,
+                  ),
+                  textAlign: TextAlign.left,
+                  textAlignVertical: TextAlignVertical.center,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(left: 0.0),
+                  ),
+                  onChanged: (value) =>
+                      statValueNotifier.value = int.parse(value),
                 ),
-              );
-            },
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: SizedBox(
-              height: 20.0,
-              child: TextFormField(
-                controller: widget.controller,
-                expands: true,
-                maxLines: null,
-                style: AppStyles.commonPixel().copyWith(
-                  fontSize: 10.0,
-                ),
-                textAlign: TextAlign.left,
-                textAlignVertical: TextAlignVertical.center,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 0.0),
-                ),
-                onChanged: (value) => statValue.value = int.parse(value),
               ),
             ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                getName(),
+                style: AppStyles.commonPixel()
+                    .copyWith(fontSize: 6.0, color: AppColors.darkPink),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  String getModifierValue(int value) {
+    int modificator = 0;
+
+    if (isHaveTmpValue()) {
+      modificator =
+          CharacterAbility.getModifier(int.parse(widget.tmpController.text));
+    } else {
+      modificator =
+          CharacterAbility.getModifier(int.parse(widget.controller.text));
+    }
+
+    statValueNotifier.value = modificator;
+
+    return modificator.toString();
+  }
+
+  String getName() {
+    switch (widget.ability) {
+      case AbilityEnum.str:
+        return 'STR';
+      case AbilityEnum.dex:
+        return 'DEX';
+      case AbilityEnum.con:
+        return 'CON';
+      case AbilityEnum.charint:
+        return 'INT';
+      case AbilityEnum.wis:
+        return 'WIS';
+      case AbilityEnum.cha:
+        return 'CHA';
+    }
+  }
+
+  bool isHaveTmpValue() {
+    switch (widget.ability) {
+      case AbilityEnum.str:
+        if (widget.tmpController.text.isNotEmpty &&
+            widget.tmpController.text != '0') {
+          return true;
+        } else {
+          return false;
+        }
+      case AbilityEnum.dex:
+        if (widget.tmpController.text.isNotEmpty &&
+            widget.tmpController.text != '0') {
+          return true;
+        } else {
+          return false;
+        }
+      case AbilityEnum.con:
+        if (widget.tmpController.text.isNotEmpty &&
+            widget.tmpController.text != '0') {
+          return true;
+        } else {
+          return false;
+        }
+      case AbilityEnum.charint:
+        if (widget.tmpController.text.isNotEmpty &&
+            widget.tmpController.text != '0') {
+          return true;
+        } else {
+          return false;
+        }
+      case AbilityEnum.wis:
+        if (widget.tmpController.text.isNotEmpty &&
+            widget.tmpController.text != '0') {
+          return true;
+        } else {
+          return false;
+        }
+      case AbilityEnum.cha:
+        if (widget.tmpController.text.isNotEmpty &&
+            widget.tmpController.text != '0') {
+          return true;
+        } else {
+          return false;
+        }
+    }
+  }
+
+  Widget diologContent(BuildContext context, String title,
+      TextEditingController abilityTmpController) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            title,
+            style: AppStyles.commonPixel().copyWith(color: AppColors.darkPink),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              widget.statName,
-              style: AppStyles.commonPixel()
-                  .copyWith(fontSize: 6.0, color: AppColors.darkPink),
-            ),
-          )
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: Text(
+                  'Tmp value: ',
+                  style: AppStyles.commonPixel(),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: 30.0,
+                  child: UnderLinedTextFormField(
+                    controller: abilityTmpController,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Done",
+                  style: AppStyles.commonPixel(),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
 }
 
+class DialogFramePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    const cut = 0.1;
+    final widthCut = size.width * cut;
+
+    Paint paintFrame = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3.0
+      ..color = AppColors.teal;
+    Path pathFrame = Path();
+
+    pathFrame.moveTo(0.0, 0.0);
+    pathFrame.lineTo(size.width - widthCut, 0.0);
+    pathFrame.lineTo(size.width, 0.0 + widthCut);
+    pathFrame.lineTo(size.width, size.height);
+    pathFrame.lineTo(0.0 + widthCut, size.height);
+    pathFrame.lineTo(0.0, size.height - widthCut);
+    pathFrame.close();
+    canvas.drawPath(pathFrame, paintFrame);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+}
+
 class StatBorderPainter extends CustomPainter {
+  final bool isTmp;
+  const StatBorderPainter({
+    required this.isTmp,
+    Listenable? repaint,
+  });
   @override
   void paint(Canvas canvas, Size size) {
     const cut = 0.15;
@@ -175,7 +377,7 @@ class StatBorderPainter extends CustomPainter {
     Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3.0
-      ..color = AppColors.teal;
+      ..color = isTmp ? AppColors.darkPink : AppColors.teal;
     Path path = Path();
 
     path.moveTo(size.width * (cut * 2), 0.0);
@@ -202,12 +404,27 @@ class AbilityTextControllers {
   final TextEditingController intController;
   final TextEditingController wisController;
   final TextEditingController chaController;
+  final TextEditingController strTmpController;
+  final TextEditingController dexTmpController;
+  final TextEditingController conTmpController;
+  final TextEditingController intTmpController;
+  final TextEditingController wisTmpController;
+  final TextEditingController chaTmpController;
 
-  const AbilityTextControllers(
-      {required this.strController,
-      required this.dexController,
-      required this.conController,
-      required this.intController,
-      required this.wisController,
-      required this.chaController});
+  const AbilityTextControllers({
+    required this.strController,
+    required this.dexController,
+    required this.conController,
+    required this.intController,
+    required this.wisController,
+    required this.chaController,
+    required this.strTmpController,
+    required this.dexTmpController,
+    required this.conTmpController,
+    required this.intTmpController,
+    required this.wisTmpController,
+    required this.chaTmpController,
+  });
 }
+
+enum AbilityEnum { str, dex, con, wis, charint, cha }
