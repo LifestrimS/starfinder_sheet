@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ui' as ui;
 
 import 'package:elementary/elementary.dart';
 import 'package:elementary_helper/elementary_helper.dart';
@@ -14,90 +13,53 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/bab_block.dart'
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/move.dart';
 import 'package:pathfinder_sheet/utils/debug_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 abstract interface class ICharacterSheetWM implements IWidgetModel {
-  CharacterAbility getAbility();
-
-  void onRefresh();
-
   Character get character;
-
   int get maxHp;
-
   int get maxStam;
-
   int get maxResolve;
-
   int get currentResolve;
-
   int get dexModificator;
 
+  CharacterAbility getAbility();
+  void onRefresh();
   void goDebug();
-
   void getDamage();
-
   void clearDamageLog();
-
   void healHP(int value);
-
   void healStam(int value);
-
   void addResolve();
-
   void removeResolve();
-
   void setAlignment(String alignment);
-
   void setSize(String size);
-
   void saveCharacter();
-
   void goToCharacter(int charId);
-
   void createNewCharacter();
 
-  double screenHeight();
-
   EntityStateNotifier<Character?> characterLoadNotifier();
-
   EntityStateNotifier<List<Character?>> listCharactersNotifier();
 
   ValueNotifier<int> currentHpNotifier();
-
   ValueNotifier<int> currentStamNotifier();
-
   ValueNotifier<String> damageLogNotifier();
-
   ValueNotifier<int> totalDamageNotifier();
-
   ValueNotifier<int> currentResolveNotifier();
-
   ValueNotifier<int> dexModificatorNotifier();
   ValueNotifier<int> strModificatorNotifier();
 
   TextEditingController get damageTextController;
-
   TextEditingController get nameTextController;
-
   TextEditingController get classTextController;
-
   TextEditingController get raceTextController;
-
   TextEditingController get lvlTextController;
-
   AbilityTextControllers get abilityTextControllers;
-
   LiveBlockTextControllers get liveBlockTextControllers;
-
   AcControllers get eacControllers;
-
   AcControllers get kacControllers;
-
   MoveControllers get moveControllers;
-
   TextEditingController get initMiscController;
-
   BabControllers get babControllers;
 }
 
@@ -131,7 +93,6 @@ class CharacterSheetWM
   final TextEditingController _classTextController = TextEditingController();
   final TextEditingController _raceTextController = TextEditingController();
   final TextEditingController _lvlTextController = TextEditingController();
-
   final AbilityTextControllers _abilityTextControllers = AbilityTextControllers(
       strController: TextEditingController(),
       dexController: TextEditingController(),
@@ -139,13 +100,11 @@ class CharacterSheetWM
       intController: TextEditingController(),
       wisController: TextEditingController(),
       chaController: TextEditingController());
-
   final LiveBlockTextControllers _liveBlockTextControllers =
       LiveBlockTextControllers(
           maxHpController: TextEditingController(),
           maxStamController: TextEditingController(),
           maxResolveController: TextEditingController());
-
   final AcControllers _eacControllers = AcControllers(
       armorController: TextEditingController(),
       dexController: TextEditingController(),
@@ -153,7 +112,6 @@ class CharacterSheetWM
       naturalController: TextEditingController(),
       deflectController: TextEditingController(),
       miscController: TextEditingController());
-
   final AcControllers _kacControllers = AcControllers(
       armorController: TextEditingController(),
       dexController: TextEditingController(),
@@ -161,14 +119,11 @@ class CharacterSheetWM
       naturalController: TextEditingController(),
       deflectController: TextEditingController(),
       miscController: TextEditingController());
-
   final MoveControllers _moveControllers = MoveControllers(
       moveController: TextEditingController(),
       flyController: TextEditingController(),
       swimController: TextEditingController());
-
   final TextEditingController _initMiscController = TextEditingController();
-
   final BabControllers _babControllers = BabControllers(
       babController: TextEditingController(),
       mabMiscController: TextEditingController(),
@@ -184,29 +139,21 @@ class CharacterSheetWM
   @override
   EntityStateNotifier<Character?> characterLoadNotifier() =>
       _characterLoadNotifier;
-
   @override
   EntityStateNotifier<List<Character?>> listCharactersNotifier() =>
       _listCharactersNotifier;
-
   @override
   ValueNotifier<int> currentHpNotifier() => _currentHpNotifier;
-
   @override
   ValueNotifier<int> currentStamNotifier() => _currentStampNotifier;
-
   @override
   ValueNotifier<String> damageLogNotifier() => _damageLogNotifier;
-
   @override
   ValueNotifier<int> totalDamageNotifier() => _totalDamageNotifier;
-
   @override
   ValueNotifier<int> currentResolveNotifier() => _currentResolveNotifier;
-
   @override
   ValueNotifier<int> dexModificatorNotifier() => _dexModificatorNotifier;
-
   @override
   ValueNotifier<int> strModificatorNotifier() => _strModificatorNotifier;
 
@@ -238,19 +185,14 @@ class CharacterSheetWM
 
   @override
   Character get character => _character ?? Character.empty();
-
   @override
   int get maxHp => model.maxHp;
-
   @override
   int get maxStam => model.maxStam;
-
   @override
   int get maxResolve => model.maxResolve;
-
   @override
   int get currentResolve => model.currentResolve;
-
   @override
   int get dexModificator =>
       CharacterAbility.getModifier(model.getAbility().dexterity);
@@ -274,23 +216,14 @@ class CharacterSheetWM
     _currentResolveNotifier.dispose();
     _abilityTextControllers.dexController.removeListener(dexListener);
     _abilityTextControllers.strController.removeListener(strListener);
+    _dexModificatorNotifier.dispose();
+    _strModificatorNotifier.dispose();
     super.dispose();
   }
 
   @override
   CharacterAbility getAbility() {
     return model.getAbility();
-  }
-
-  Future<int?> getSavedId() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? charId = prefs.getInt('lastCharacterId');
-    return charId;
-  }
-
-  Future<void> saveId(int charId) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('lastCharacterId', charId);
   }
 
   Future<void> loadData({int? charId, bool isGoToCharacter = false}) async {
@@ -300,7 +233,7 @@ class CharacterSheetWM
 
       characterList = await model.getCharacterList();
 
-      final int? savedCharId = await getSavedId();
+      final int? savedCharId = await getSavedCharacterId();
 
       if (characterList.isNotEmpty) {
         _listCharactersNotifier.content(characterList);
@@ -309,94 +242,20 @@ class CharacterSheetWM
         return;
       }
 
+      //for see animation of loading
       await Future.delayed(const Duration(milliseconds: 300));
 
       if (isGoToCharacter) {
         _character =
             await model.getCharacter(charId ?? characterList.first!.id);
-        await saveId(charId ?? characterList.first!.id);
+        await saveCharacterId(charId ?? characterList.first!.id);
       } else if (savedCharId != null) {
         _character = await model.getCharacter(savedCharId);
       } else {
         _character = await model.getCharacter(characterList.first!.id);
       }
 
-      _currentHpNotifier.value = model.currentHp;
-      _currentStampNotifier.value = model.currentStam;
-      _damageLogNotifier.value = model.damageLog;
-      _totalDamageNotifier.value = model.totalDamage;
-      _currentResolveNotifier.value = model.currentResolve;
-
-      _nameTextController.text = model.name;
-      _classTextController.text = model.charClass;
-      _raceTextController.text = model.race;
-      _lvlTextController.text = model.lvl.toString();
-
-      _abilityTextControllers.dexController.addListener(dexListener);
-      _abilityTextControllers.strController.addListener(strListener);
-
-      _abilityTextControllers.strController.text =
-          model.getAbility().strength.toString();
-      _abilityTextControllers.dexController.text =
-          model.getAbility().dexterity.toString();
-      _abilityTextControllers.conController.text =
-          model.getAbility().constitution.toString();
-      _abilityTextControllers.intController.text =
-          model.getAbility().intelligence.toString();
-      _abilityTextControllers.wisController.text =
-          model.getAbility().wisdom.toString();
-      _abilityTextControllers.chaController.text =
-          model.getAbility().charisma.toString();
-
-      _liveBlockTextControllers.maxHpController.text = model.maxHp.toString();
-      _liveBlockTextControllers.maxStamController.text =
-          model.maxStam.toString();
-      _liveBlockTextControllers.maxResolveController.text =
-          model.maxResolve.toString();
-
-      _eacControllers.armorController.text =
-          model.getEacBlock().amror.toString();
-      _eacControllers.dexController.text =
-          CharacterAbility.getModifier(model.getAbility().dexterity).toString();
-      _eacControllers.dodgeController.text =
-          model.getEacBlock().dodge.toString();
-      _eacControllers.naturalController.text =
-          model.getEacBlock().natural.toString();
-      _eacControllers.deflectController.text =
-          model.getEacBlock().deflect.toString();
-      _eacControllers.miscController.text = model.getEacBlock().misc.toString();
-
-      _kacControllers.armorController.text =
-          model.getKacBlock().amror.toString();
-      _kacControllers.dexController.text =
-          CharacterAbility.getModifier(model.getAbility().dexterity).toString();
-      _kacControllers.dodgeController.text =
-          model.getKacBlock().dodge.toString();
-      _kacControllers.naturalController.text =
-          model.getKacBlock().natural.toString();
-      _kacControllers.deflectController.text =
-          model.getKacBlock().deflect.toString();
-      _kacControllers.miscController.text = model.getKacBlock().misc.toString();
-
-      _moveControllers.moveController.text = model.moveSpeed.toString();
-      _moveControllers.flyController.text = model.flySpeed.toString();
-      _moveControllers.swimController.text = model.swimSpeed.toString();
-
-      _initMiscController.text = model.iniMisc.toString();
-
-      _babControllers.babController.text = model.getBabBlock().bab.toString();
-      _babControllers.mabMiscController.text =
-          model.getBabBlock().mabMisc.toString();
-      _babControllers.mabTempController.text =
-          model.getBabBlock().mabTemp.toString();
-      _babControllers.tabMiscController.text =
-          model.getBabBlock().tabMisc.toString();
-      _babControllers.tabTempController.text =
-          model.getBabBlock().tabTemp.toString();
-      _babControllers.rabMiscController.text =
-          model.getBabBlock().rabMisc.toString();
-      _babControllers.rabTempController.text =
-          model.getBabBlock().rabTemp.toString();
+      initNotifiersAndControllers();
 
       _characterLoadNotifier.content(_character);
     } catch (e) {
@@ -413,13 +272,11 @@ class CharacterSheetWM
   void dexListener() {
     _dexModificatorNotifier.value = CharacterAbility.getModifier(
         int.parse(_abilityTextControllers.dexController.text));
-    log('TTest: ${_dexModificatorNotifier.value}');
   }
 
   void strListener() {
     _strModificatorNotifier.value = CharacterAbility.getModifier(
         int.parse(_abilityTextControllers.strController.text));
-    log('TTest: ${_strModificatorNotifier.value}');
   }
 
   @override
@@ -517,57 +374,56 @@ class CharacterSheetWM
   void saveCharacter() async {
     try {
       final Character newCharacter = Character(
-          id: character.id,
-          charName: _nameTextController.text,
-          charClass: _classTextController.text,
-          lvl: int.parse(_lvlTextController.text),
-          race: _raceTextController.text,
-          alignment: CharAlignment.values
-              .firstWhere((e) => e.alignName == model.alignment),
-          size: CharSize.values.firstWhere((e) => e.sizeName == model.size),
-          ability: CharacterAbility(
-              strength: int.parse(_abilityTextControllers.strController.text),
-              dexterity: int.parse(_abilityTextControllers.dexController.text),
-              constitution:
-                  int.parse(_abilityTextControllers.conController.text),
-              intelligence:
-                  int.parse(_abilityTextControllers.intController.text),
-              wisdom: int.parse(_abilityTextControllers.wisController.text),
-              charisma: int.parse(_abilityTextControllers.chaController.text)),
-          liveBlock: CharacterLiveBlock(
-              maxHp: int.parse(_liveBlockTextControllers.maxHpController.text),
-              currentHp: model.currentHp,
-              maxStam:
-                  int.parse(_liveBlockTextControllers.maxStamController.text),
-              currentStam: model.currentStam,
-              maxResolve: int.parse(
-                  _liveBlockTextControllers.maxResolveController.text),
-              currentResolve: model.currentResolve,
-              damageLog: model.damageLog),
-          eacBlock: ACBLock(
-              amror: int.parse(_eacControllers.armorController.text),
-              dodge: int.parse(_eacControllers.dodgeController.text),
-              natural: int.parse(_eacControllers.naturalController.text),
-              deflect: int.parse(_eacControllers.deflectController.text),
-              misc: int.parse(_eacControllers.miscController.text)),
-          kacBlock: ACBLock(
-              amror: int.parse(_kacControllers.armorController.text),
-              dodge: int.parse(_kacControllers.dodgeController.text),
-              natural: int.parse(_kacControllers.naturalController.text),
-              deflect: int.parse(_kacControllers.deflectController.text),
-              misc: int.parse(_kacControllers.miscController.text)),
-          moveSpeed: int.parse(_moveControllers.moveController.text),
-          flySpeed: int.parse(_moveControllers.flyController.text),
-          swimSpeed: int.parse(_moveControllers.swimController.text),
-          initMisc: int.parse(_initMiscController.text),
-          babBlock: CharacterBab(
-              bab: int.parse(_babControllers.babController.text),
-              mabMisc: int.parse(_babControllers.mabMiscController.text),
-              mabTemp: int.parse(_babControllers.mabTempController.text),
-              tabMisc: int.parse(_babControllers.tabMiscController.text),
-              tabTemp: int.parse(_babControllers.tabTempController.text),
-              rabMisc: int.parse(_babControllers.rabMiscController.text),
-              rabTemp: int.parse(_babControllers.rabTempController.text)));
+        id: character.id,
+        charName: _nameTextController.text,
+        charClass: _classTextController.text,
+        lvl: int.parse(_lvlTextController.text),
+        race: _raceTextController.text,
+        alignment: CharAlignment.values
+            .firstWhere((e) => e.alignName == model.alignment),
+        size: CharSize.values.firstWhere((e) => e.sizeName == model.size),
+        ability: CharacterAbility(
+            strength: int.parse(_abilityTextControllers.strController.text),
+            dexterity: int.parse(_abilityTextControllers.dexController.text),
+            constitution: int.parse(_abilityTextControllers.conController.text),
+            intelligence: int.parse(_abilityTextControllers.intController.text),
+            wisdom: int.parse(_abilityTextControllers.wisController.text),
+            charisma: int.parse(_abilityTextControllers.chaController.text)),
+        liveBlock: CharacterLiveBlock(
+            maxHp: int.parse(_liveBlockTextControllers.maxHpController.text),
+            currentHp: model.currentHp,
+            maxStam:
+                int.parse(_liveBlockTextControllers.maxStamController.text),
+            currentStam: model.currentStam,
+            maxResolve:
+                int.parse(_liveBlockTextControllers.maxResolveController.text),
+            currentResolve: model.currentResolve,
+            damageLog: model.damageLog),
+        eacBlock: ACBLock(
+            amror: int.parse(_eacControllers.armorController.text),
+            dodge: int.parse(_eacControllers.dodgeController.text),
+            natural: int.parse(_eacControllers.naturalController.text),
+            deflect: int.parse(_eacControllers.deflectController.text),
+            misc: int.parse(_eacControllers.miscController.text)),
+        kacBlock: ACBLock(
+            amror: int.parse(_kacControllers.armorController.text),
+            dodge: int.parse(_kacControllers.dodgeController.text),
+            natural: int.parse(_kacControllers.naturalController.text),
+            deflect: int.parse(_kacControllers.deflectController.text),
+            misc: int.parse(_kacControllers.miscController.text)),
+        moveSpeed: int.parse(_moveControllers.moveController.text),
+        flySpeed: int.parse(_moveControllers.flyController.text),
+        swimSpeed: int.parse(_moveControllers.swimController.text),
+        initMisc: int.parse(_initMiscController.text),
+        babBlock: CharacterBab(
+            bab: int.parse(_babControllers.babController.text),
+            mabMisc: int.parse(_babControllers.mabMiscController.text),
+            mabTemp: int.parse(_babControllers.mabTempController.text),
+            tabMisc: int.parse(_babControllers.tabMiscController.text),
+            tabTemp: int.parse(_babControllers.tabTempController.text),
+            rabMisc: int.parse(_babControllers.rabMiscController.text),
+            rabTemp: int.parse(_babControllers.rabTempController.text)),
+      );
 
       model.saveCharacter(newCharacter);
 
@@ -578,21 +434,83 @@ class CharacterSheetWM
     }
   }
 
+  void initNotifiersAndControllers() {
+    _currentHpNotifier.value = model.currentHp;
+    _currentStampNotifier.value = model.currentStam;
+    _damageLogNotifier.value = model.damageLog;
+    _totalDamageNotifier.value = model.totalDamage;
+    _currentResolveNotifier.value = model.currentResolve;
+
+    _nameTextController.text = model.name;
+    _classTextController.text = model.charClass;
+    _raceTextController.text = model.race;
+    _lvlTextController.text = model.lvl.toString();
+
+    _abilityTextControllers.dexController.addListener(dexListener);
+    _abilityTextControllers.strController.addListener(strListener);
+
+    _abilityTextControllers.strController.text =
+        model.getAbility().strength.toString();
+    _abilityTextControllers.dexController.text =
+        model.getAbility().dexterity.toString();
+    _abilityTextControllers.conController.text =
+        model.getAbility().constitution.toString();
+    _abilityTextControllers.intController.text =
+        model.getAbility().intelligence.toString();
+    _abilityTextControllers.wisController.text =
+        model.getAbility().wisdom.toString();
+    _abilityTextControllers.chaController.text =
+        model.getAbility().charisma.toString();
+
+    _liveBlockTextControllers.maxHpController.text = model.maxHp.toString();
+    _liveBlockTextControllers.maxStamController.text = model.maxStam.toString();
+    _liveBlockTextControllers.maxResolveController.text =
+        model.maxResolve.toString();
+
+    _eacControllers.armorController.text = model.getEacBlock().amror.toString();
+    _eacControllers.dexController.text =
+        CharacterAbility.getModifier(model.getAbility().dexterity).toString();
+    _eacControllers.dodgeController.text = model.getEacBlock().dodge.toString();
+    _eacControllers.naturalController.text =
+        model.getEacBlock().natural.toString();
+    _eacControllers.deflectController.text =
+        model.getEacBlock().deflect.toString();
+    _eacControllers.miscController.text = model.getEacBlock().misc.toString();
+
+    _kacControllers.armorController.text = model.getKacBlock().amror.toString();
+    _kacControllers.dexController.text =
+        CharacterAbility.getModifier(model.getAbility().dexterity).toString();
+    _kacControllers.dodgeController.text = model.getKacBlock().dodge.toString();
+    _kacControllers.naturalController.text =
+        model.getKacBlock().natural.toString();
+    _kacControllers.deflectController.text =
+        model.getKacBlock().deflect.toString();
+    _kacControllers.miscController.text = model.getKacBlock().misc.toString();
+
+    _moveControllers.moveController.text = model.moveSpeed.toString();
+    _moveControllers.flyController.text = model.flySpeed.toString();
+    _moveControllers.swimController.text = model.swimSpeed.toString();
+
+    _initMiscController.text = model.iniMisc.toString();
+
+    _babControllers.babController.text = model.getBabBlock().bab.toString();
+    _babControllers.mabMiscController.text =
+        model.getBabBlock().mabMisc.toString();
+    _babControllers.mabTempController.text =
+        model.getBabBlock().mabTemp.toString();
+    _babControllers.tabMiscController.text =
+        model.getBabBlock().tabMisc.toString();
+    _babControllers.tabTempController.text =
+        model.getBabBlock().tabTemp.toString();
+    _babControllers.rabMiscController.text =
+        model.getBabBlock().rabMisc.toString();
+    _babControllers.rabTempController.text =
+        model.getBabBlock().rabTemp.toString();
+  }
+
   @override
   void goDebug() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const DebugScreen()));
-  }
-
-  @override
-  double screenHeight() {
-    ui.FlutterView view =
-        WidgetsBinding.instance.platformDispatcher.views.first;
-    // Dimensions in logical pixels (dp)
-    ui.Size size = view.physicalSize / view.devicePixelRatio;
-    double height = size.height;
-
-    //hald of screen - appbar size
-    return height / 2 - 70;
   }
 }

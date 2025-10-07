@@ -76,6 +76,26 @@ class CharacterSheetModel extends ElementaryModel {
 
   CharacterBab getBabBlock() => character.babBlock;
 
+  void setCurrentHp(int value) => _currentHp = value;
+
+  void setCurrentStam(int value) => _currentStam = value;
+
+  void addHp(int value) => _currentHp += value;
+
+  void addStam(int value) => _currentStam += value;
+
+  void setAlignment(String value) => _alignment = value;
+
+  void setSize(String value) => _size = value;
+
+  void setLvl(int value) => _lvl = value;
+
+  void setName(String value) => _name = value;
+
+  void setClass(String value) => _class = value;
+
+  void setRace(String value) => _race = value;
+
   Future<List<Character?>> getCharacterList() async {
     try {
       List<Character> characterList = await repository.getAllCharacter();
@@ -105,9 +125,9 @@ class CharacterSheetModel extends ElementaryModel {
       _damageLog = character.liveBlock.damageLog;
       _lvl = character.lvl;
 
-      if (_damageLog.isEmpty) {
-        _totalDamage = 0;
-      } else {
+      _totalDamage = 0;
+
+      if (_damageLog.isNotEmpty) {
         final List<String> damageList = _damageLog.trim().split('-');
         for (int i = 1; i <= damageList.length - 1; i++) {
           _totalDamage += int.parse(damageList[i]);
@@ -129,30 +149,9 @@ class CharacterSheetModel extends ElementaryModel {
   Future<void> saveCharacter(Character newCharacter) async {
     try {
       await repository.updateCharacter(newCharacter);
-      // if (newCharacter != null) {
-      //   await repository.addCharacter(newCharacter);
-      // } else if (newCharacter != null) {
-      //   await repository.updateCharacter(newCharacter);
-      // }
     } catch (e) {
       log('Smthing went wrong during save character: $e');
     }
-  }
-
-  void setCurrentHp(int value) {
-    _currentHp = value;
-  }
-
-  void setCurrentStam(int value) {
-    _currentStam = value;
-  }
-
-  void addHp(int value) {
-    _currentHp += value;
-  }
-
-  void addStam(int value) {
-    _currentStam += value;
   }
 
   void addResolve() {
@@ -179,29 +178,5 @@ class CharacterSheetModel extends ElementaryModel {
   void clearDamageLog() {
     _damageLog = '';
     _totalDamage = 0;
-  }
-
-  void setAlignment(String value) {
-    _alignment = value;
-  }
-
-  void setSize(String value) {
-    _size = value;
-  }
-
-  void setLvl(int value) {
-    _lvl = value;
-  }
-
-  void setName(String value) {
-    _name = value;
-  }
-
-  void setClass(String value) {
-    _class = value;
-  }
-
-  void setRace(String value) {
-    _race = value;
   }
 }

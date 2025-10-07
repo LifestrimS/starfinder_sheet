@@ -2,21 +2,19 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:elementary/elementary.dart';
 import 'package:elementary_helper/elementary_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/pages/battle_page.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/pages/bio_page.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ac_block.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/avatar.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/bab_block.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/initiative.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/move.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/resolve_block.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/short_bio_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/pages/equipment_page.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/pages/first_page.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/pages/magic_page.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/pages/skill_page.dart';
 import 'package:pathfinder_sheet/screens/side_bar.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/loading_indicator.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/pull_to_refresh.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
   CharacterSheetView({
@@ -70,56 +68,53 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
       ),
       builder: (context, listOfCharacters) {
         if (listOfCharacters != null && listOfCharacters.isNotEmpty) {
-          return Scaffold(
-            drawer: SideBar(
-              wm: wm,
-              listOfCharacters: listOfCharacters,
-            ),
-            backgroundColor: AppColors.backgroundDark,
-            appBar: appbar,
-            body: EntityStateNotifierBuilder(
-              listenableEntityState: wm.characterLoadNotifier(),
-              errorBuilder: (context, e, data) {
-                return AppRefreshWidget(
-                  onRefresh: () async {
-                    await Future.delayed(const Duration(seconds: 1));
-                    wm.onRefresh();
-                  },
-                  child: Center(
+          return AppRefreshWidget(
+            onRefresh: () async {
+              await Future.delayed(const Duration(seconds: 1));
+              wm.onRefresh();
+            },
+            child: Scaffold(
+              drawer: SideBar(
+                wm: wm,
+                listOfCharacters: listOfCharacters,
+              ),
+              backgroundColor: AppColors.backgroundDark,
+              appBar: appbar,
+              body: EntityStateNotifierBuilder(
+                listenableEntityState: wm.characterLoadNotifier(),
+                errorBuilder: (context, e, data) {
+                  return Center(
                     child: Text(
                       'Can\'t load character',
                       style: AppStyles.commonPixel(),
                     ),
-                  ),
-                );
-              },
-              loadingBuilder: (context, data) {
-                return Center(
-                  child: Text(
-                    'Loading character...',
-                    style: AppStyles.commonPixel(),
-                  ),
-                );
-              },
-              builder: (context, character) {
-                if (character == null) {
-                  return GestureDetector(
-                    onTap: () => wm.onRefresh(),
-                    child: Center(
+                  );
+                },
+                loadingBuilder: (context, data) {
+                  return Center(
+                    child: Text(
+                      'Loading character...',
+                      style: AppStyles.commonPixel(),
+                    ),
+                  );
+                },
+                builder: (context, character) {
+                  if (character == null) {
+                    return Center(
                       child: Text(
-                        'Can\'t load character\n\nPress for refresh',
+                        'Can\'t load character',
                         textAlign: TextAlign.center,
                         style: AppStyles.commonPixel(),
                       ),
-                    ),
-                  );
-                } else {
-                  return CarouselBody(
-                    wm: wm,
-                    appBarHeight: appbar.preferredSize.height,
-                  );
-                }
-              },
+                    );
+                  } else {
+                    return CarouselBody(
+                      wm: wm,
+                      appBarHeight: appbar.preferredSize.height,
+                    );
+                  }
+                },
+              ),
             ),
           );
         } else {
@@ -144,21 +139,15 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
                 ),
               ],
             ),
-            body: AppRefreshWidget(
-              onRefresh: () async {
-                await Future.delayed(const Duration(seconds: 1));
-                wm.onRefresh();
-              },
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Padding(
-                  padding: EdgeInsets.only(top: wm.screenHeight()),
-                  child: const Center(
-                    child: Text(
-                      'You don\'t have characters :(',
-                      style: TextStyle(
-                          color: AppColors.textContrastDark, fontSize: 20.0),
-                    ),
+            body: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.only(top: screenHeight()),
+                child: const Center(
+                  child: Text(
+                    'You don\'t have characters :(',
+                    style: TextStyle(
+                        color: AppColors.textContrastDark, fontSize: 20.0),
                   ),
                 ),
               ),
@@ -185,259 +174,60 @@ class _CarouselBodyState extends State<CarouselBody> {
 
   @override
   Widget build(BuildContext context) {
-    return AppRefreshWidget(
-      onRefresh: () async {
-        await Future.delayed(const Duration(seconds: 1));
-        widget.wm.onRefresh();
-      },
-      child: Column(
-        children: [
-          ListView(shrinkWrap: true, children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                  enableInfiniteScroll: false,
-                  viewportFraction: 1.0,
-                  height: MediaQuery.sizeOf(context).height -
-                      64.0 -
-                      widget.appBarHeight,
-                  onPageChanged: (index, reason) {
-                    pageNotifier.value = index;
-                  }),
-              items: [
-                BuildMainPage(wm: widget.wm),
-                BuildBattlePage(wm: widget.wm),
-                BuildSkillsPage(wm: widget.wm),
-                BuildEquipmentPage(wm: widget.wm),
-                BuildBioPage(wm: widget.wm)
-              ],
-            ),
-          ]),
-          ValueListenableBuilder(
-              valueListenable: pageNotifier,
-              builder: (context, value, child) {
-                return Container(
-                  height: 24.0,
-                  color: AppColors.darkBlue,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: list.asMap().entries.map((entry) {
-                      return GestureDetector(
-                        onTap: () => _controller.animateToPage(entry.key),
-                        child: Container(
-                          width: 12.0,
-                          height: 12.0,
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 2.0, horizontal: 4.0),
-                          child: CustomPaint(
-                            painter:
-                                IndicatorPainter(isFilled: value == entry.key),
-                          ),
+    return Column(
+      children: [
+        ListView(shrinkWrap: true, children: [
+          CarouselSlider(
+            options: CarouselOptions(
+                enableInfiniteScroll: false,
+                viewportFraction: 1.0,
+                height: MediaQuery.sizeOf(context).height -
+                    64.0 -
+                    widget.appBarHeight,
+                onPageChanged: (index, reason) {
+                  pageNotifier.value = index;
+                }),
+            items: [
+              FirstPage(wm: widget.wm),
+              BattlePage(wm: widget.wm),
+              MagicPage(wm: widget.wm),
+              SkillsPage(wm: widget.wm),
+              EquipmentPage(wm: widget.wm),
+              BioPage(wm: widget.wm)
+            ],
+          ),
+        ]),
+        ValueListenableBuilder(
+            valueListenable: pageNotifier,
+            builder: (context, value, child) {
+              return Container(
+                height: 24.0,
+                color: AppColors.darkBlue,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: list.asMap().entries.map((entry) {
+                    return GestureDetector(
+                      onTap: () => _controller.animateToPage(entry.key),
+                      child: Container(
+                        width: 12.0,
+                        height: 12.0,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 2.0, horizontal: 4.0),
+                        child: CustomPaint(
+                          painter:
+                              IndicatorPainter(isFilled: value == entry.key),
                         ),
-                      );
-                    }).toList(),
-                  ),
-                );
-              }),
-        ],
-      ),
-    );
-  }
-
-  List<int> list = [0, 1, 2, 3, 4];
-}
-
-class BuildMainPage extends StatelessWidget {
-  final ICharacterSheetWM wm;
-  const BuildMainPage({required this.wm, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 140.0,
-              child: Stack(children: [
-                Align(
-                  alignment: AlignmentGeometry.topRight,
-                  child: SizedBox(
-                    width: 40.0,
-                    height: 25.0,
-                    child: TextFormField(
-                      controller: wm.lvlTextController,
-                      expands: true,
-                      maxLines: null,
-                      keyboardType: TextInputType.number,
-                      style: AppStyles.commonPixel()
-                          .copyWith(color: AppColors.darkPink),
-                      textAlign: TextAlign.right,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.zero,
                       ),
-                    ),
-                  ),
+                    );
+                  }).toList(),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 130.0,
-                    margin: const EdgeInsets.only(
-                      right: 5.0,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Avatar(),
-                        Expanded(
-                            child: ShortBioBlock(
-                          character: wm.character,
-                          nameController: wm.nameTextController,
-                          classController: wm.classTextController,
-                          raceController: wm.raceTextController,
-                          setAlignment: wm.setAlignment,
-                          setSize: wm.setSize,
-                        ))
-                      ],
-                    ),
-                  ),
-                ),
-              ]),
-            ),
-            const SizedBox(
-              height: 12.0,
-            ),
-            AbilityBlock(
-              ability: wm.getAbility(),
-              controllers: wm.abilityTextControllers,
-            ),
-            const SizedBox(
-              height: 16.0,
-            ),
-            Move(controllers: wm.moveControllers),
-            const SizedBox(
-              height: 16.0,
-            ),
-            Initiative(
-              controller: wm.initMiscController,
-              dexModificatorNotifier: wm.dexModificatorNotifier(),
-            ),
-            const SizedBox(
-              height: 12.0,
-            ),
-            Text(
-              'Feats, features, abilities',
-              textAlign: TextAlign.center,
-              style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
-            ),
-          ],
-        ),
-      ),
+              );
+            }),
+      ],
     );
   }
-}
 
-class BuildBattlePage extends StatelessWidget {
-  final ICharacterSheetWM wm;
-  const BuildBattlePage({required this.wm, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            ResolveBlock(
-              wm: wm,
-              controller: wm.liveBlockTextControllers.maxResolveController,
-            ),
-            const SizedBox(
-              height: 12.0,
-            ),
-            ACBlock(
-              eacControllers: wm.eacControllers,
-              kacControllers: wm.kacControllers,
-              dexModificatorNotifier: wm.dexModificatorNotifier(),
-            ),
-            const SizedBox(
-              height: 12.0,
-            ),
-            LiveBlock(
-              wm: wm,
-              controllers: wm.liveBlockTextControllers,
-            ),
-            const SizedBox(
-              height: 12.0,
-            ),
-            BabBlock(
-              controllers: wm.babControllers,
-              ability: wm.getAbility(),
-              dexModificatorNotifier: wm.dexModificatorNotifier(),
-              strModificatorNotifier: wm.strModificatorNotifier(),
-            ),
-            const SizedBox(
-              height: 16.0,
-            ),
-            Text(
-              'BAB, THR, DRs',
-              textAlign: TextAlign.center,
-              style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class BuildSkillsPage extends StatelessWidget {
-  final ICharacterSheetWM wm;
-  const BuildSkillsPage({required this.wm, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Skills',
-        style: AppStyles.commonPixel(),
-      ),
-    );
-  }
-}
-
-class BuildEquipmentPage extends StatelessWidget {
-  final ICharacterSheetWM wm;
-  const BuildEquipmentPage({required this.wm, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Equipment\nweapon, armor, equip',
-        textAlign: TextAlign.center,
-        style: AppStyles.commonPixel(),
-      ),
-    );
-  }
-}
-
-class BuildBioPage extends StatelessWidget {
-  final ICharacterSheetWM wm;
-  const BuildBioPage({required this.wm, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Bio',
-        textAlign: TextAlign.center,
-        style: AppStyles.commonPixel(),
-      ),
-    );
-  }
+  List<int> list = [0, 1, 2, 3, 4, 5];
 }
 
 class IndicatorPainter extends CustomPainter {

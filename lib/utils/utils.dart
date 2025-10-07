@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Color getColorFromString(String stringColor) {
   log('getColorFromString: $stringColor');
@@ -44,4 +46,25 @@ Color getColorFromString(String stringColor) {
   }
 
   return Colors.black;
+}
+
+double screenHeight() {
+  ui.FlutterView view = WidgetsBinding.instance.platformDispatcher.views.first;
+  // Dimensions in logical pixels (dp)
+  ui.Size size = view.physicalSize / view.devicePixelRatio;
+  double height = size.height;
+
+  //hald of screen - appbar size
+  return height / 2 - 70;
+}
+
+Future<int?> getSavedCharacterId() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  int? charId = prefs.getInt('lastCharacterId');
+  return charId;
+}
+
+Future<void> saveCharacterId(int charId) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setInt('lastCharacterId', charId);
 }
