@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/dilog.dart';
+import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/text_fields.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';

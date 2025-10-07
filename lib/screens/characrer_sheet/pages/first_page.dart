@@ -15,6 +15,7 @@ class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(

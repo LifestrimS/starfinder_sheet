@@ -74,6 +74,7 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
               wm.onRefresh();
             },
             child: Scaffold(
+              resizeToAvoidBottomInset: false,
               drawer: SideBar(
                 wm: wm,
                 listOfCharacters: listOfCharacters,
@@ -139,16 +140,13 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
                 ),
               ],
             ),
-            body: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Padding(
-                padding: EdgeInsets.only(top: screenHeight()),
-                child: const Center(
-                  child: Text(
-                    'You don\'t have characters :(',
-                    style: TextStyle(
-                        color: AppColors.textContrastDark, fontSize: 20.0),
-                  ),
+            body: Padding(
+              padding: EdgeInsets.only(top: screenHeight()),
+              child: const Center(
+                child: Text(
+                  'You don\'t have characters :(',
+                  style: TextStyle(
+                      color: AppColors.textContrastDark, fontSize: 20.0),
                 ),
               ),
             ),
@@ -174,57 +172,51 @@ class _CarouselBodyState extends State<CarouselBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListView(shrinkWrap: true, children: [
-          CarouselSlider(
-            options: CarouselOptions(
-                enableInfiniteScroll: false,
-                viewportFraction: 1.0,
-                height: MediaQuery.sizeOf(context).height -
-                    64.0 -
-                    widget.appBarHeight,
-                onPageChanged: (index, reason) {
-                  pageNotifier.value = index;
-                }),
-            items: [
-              FirstPage(wm: widget.wm),
-              BattlePage(wm: widget.wm),
-              MagicPage(wm: widget.wm),
-              SkillsPage(wm: widget.wm),
-              EquipmentPage(wm: widget.wm),
-              BioPage(wm: widget.wm)
-            ],
-          ),
-        ]),
-        ValueListenableBuilder(
-            valueListenable: pageNotifier,
-            builder: (context, value, child) {
-              return Container(
-                height: 24.0,
-                color: AppColors.darkBlue,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: list.asMap().entries.map((entry) {
-                    return GestureDetector(
-                      onTap: () => _controller.animateToPage(entry.key),
-                      child: Container(
-                        width: 12.0,
-                        height: 12.0,
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 2.0, horizontal: 4.0),
-                        child: CustomPaint(
-                          painter:
-                              IndicatorPainter(isFilled: value == entry.key),
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              );
+    return ListView(shrinkWrap: true, children: [
+      CarouselSlider(
+        options: CarouselOptions(
+            enableInfiniteScroll: false,
+            viewportFraction: 1.0,
+            height:
+                MediaQuery.sizeOf(context).height - 64.0 - widget.appBarHeight,
+            onPageChanged: (index, reason) {
+              pageNotifier.value = index;
             }),
-      ],
-    );
+        items: [
+          FirstPage(wm: widget.wm),
+          BattlePage(wm: widget.wm),
+          MagicPage(wm: widget.wm),
+          SkillsPage(wm: widget.wm),
+          EquipmentPage(wm: widget.wm),
+          BioPage(wm: widget.wm)
+        ],
+      ),
+      ValueListenableBuilder(
+          valueListenable: pageNotifier,
+          builder: (context, value, child) {
+            return Container(
+              height: 24.0,
+              color: AppColors.darkBlue,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: list.asMap().entries.map((entry) {
+                  return GestureDetector(
+                    onTap: () => _controller.animateToPage(entry.key),
+                    child: Container(
+                      width: 12.0,
+                      height: 12.0,
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 2.0, horizontal: 4.0),
+                      child: CustomPaint(
+                        painter: IndicatorPainter(isFilled: value == entry.key),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            );
+          }),
+    ]);
   }
 
   List<int> list = [0, 1, 2, 3, 4, 5];
