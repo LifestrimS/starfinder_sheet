@@ -211,6 +211,47 @@ class $TableCharacterTable extends TableCharacter
   late final GeneratedColumn<int> initMisc = GeneratedColumn<int>(
       'init_misc', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _babMeta = const VerificationMeta('bab');
+  @override
+  late final GeneratedColumn<int> bab = GeneratedColumn<int>(
+      'bab', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _mabMiscMeta =
+      const VerificationMeta('mabMisc');
+  @override
+  late final GeneratedColumn<int> mabMisc = GeneratedColumn<int>(
+      'mab_misc', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _mabTempMeta =
+      const VerificationMeta('mabTemp');
+  @override
+  late final GeneratedColumn<int> mabTemp = GeneratedColumn<int>(
+      'mab_temp', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _tabMiscMeta =
+      const VerificationMeta('tabMisc');
+  @override
+  late final GeneratedColumn<int> tabMisc = GeneratedColumn<int>(
+      'tab_misc', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _tabTempMeta =
+      const VerificationMeta('tabTemp');
+  @override
+  late final GeneratedColumn<int> tabTemp = GeneratedColumn<int>(
+      'tab_temp', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _rabMiscMeta =
+      const VerificationMeta('rabMisc');
+  @override
+  late final GeneratedColumn<int> rabMisc = GeneratedColumn<int>(
+      'rab_misc', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _rabTempMeta =
+      const VerificationMeta('rabTemp');
+  @override
+  late final GeneratedColumn<int> rabTemp = GeneratedColumn<int>(
+      'rab_temp', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -246,7 +287,14 @@ class $TableCharacterTable extends TableCharacter
         moveSpeed,
         flySpeed,
         swimSpeed,
-        initMisc
+        initMisc,
+        bab,
+        mabMisc,
+        mabTemp,
+        tabMisc,
+        tabTemp,
+        rabMisc,
+        rabTemp
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -477,6 +525,48 @@ class $TableCharacterTable extends TableCharacter
     } else if (isInserting) {
       context.missing(_initMiscMeta);
     }
+    if (data.containsKey('bab')) {
+      context.handle(
+          _babMeta, bab.isAcceptableOrUnknown(data['bab']!, _babMeta));
+    } else if (isInserting) {
+      context.missing(_babMeta);
+    }
+    if (data.containsKey('mab_misc')) {
+      context.handle(_mabMiscMeta,
+          mabMisc.isAcceptableOrUnknown(data['mab_misc']!, _mabMiscMeta));
+    } else if (isInserting) {
+      context.missing(_mabMiscMeta);
+    }
+    if (data.containsKey('mab_temp')) {
+      context.handle(_mabTempMeta,
+          mabTemp.isAcceptableOrUnknown(data['mab_temp']!, _mabTempMeta));
+    } else if (isInserting) {
+      context.missing(_mabTempMeta);
+    }
+    if (data.containsKey('tab_misc')) {
+      context.handle(_tabMiscMeta,
+          tabMisc.isAcceptableOrUnknown(data['tab_misc']!, _tabMiscMeta));
+    } else if (isInserting) {
+      context.missing(_tabMiscMeta);
+    }
+    if (data.containsKey('tab_temp')) {
+      context.handle(_tabTempMeta,
+          tabTemp.isAcceptableOrUnknown(data['tab_temp']!, _tabTempMeta));
+    } else if (isInserting) {
+      context.missing(_tabTempMeta);
+    }
+    if (data.containsKey('rab_misc')) {
+      context.handle(_rabMiscMeta,
+          rabMisc.isAcceptableOrUnknown(data['rab_misc']!, _rabMiscMeta));
+    } else if (isInserting) {
+      context.missing(_rabMiscMeta);
+    }
+    if (data.containsKey('rab_temp')) {
+      context.handle(_rabTempMeta,
+          rabTemp.isAcceptableOrUnknown(data['rab_temp']!, _rabTempMeta));
+    } else if (isInserting) {
+      context.missing(_rabTempMeta);
+    }
     return context;
   }
 
@@ -554,6 +644,20 @@ class $TableCharacterTable extends TableCharacter
           .read(DriftSqlType.int, data['${effectivePrefix}swim_speed'])!,
       initMisc: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}init_misc'])!,
+      bab: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}bab'])!,
+      mabMisc: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}mab_misc'])!,
+      mabTemp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}mab_temp'])!,
+      tabMisc: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}tab_misc'])!,
+      tabTemp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}tab_temp'])!,
+      rabMisc: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}rab_misc'])!,
+      rabTemp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}rab_temp'])!,
     );
   }
 
@@ -599,6 +703,13 @@ class TableCharacterData extends DataClass
   final int flySpeed;
   final int swimSpeed;
   final int initMisc;
+  final int bab;
+  final int mabMisc;
+  final int mabTemp;
+  final int tabMisc;
+  final int tabTemp;
+  final int rabMisc;
+  final int rabTemp;
   const TableCharacterData(
       {required this.id,
       required this.charName,
@@ -633,7 +744,14 @@ class TableCharacterData extends DataClass
       required this.moveSpeed,
       required this.flySpeed,
       required this.swimSpeed,
-      required this.initMisc});
+      required this.initMisc,
+      required this.bab,
+      required this.mabMisc,
+      required this.mabTemp,
+      required this.tabMisc,
+      required this.tabTemp,
+      required this.rabMisc,
+      required this.rabTemp});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -671,6 +789,13 @@ class TableCharacterData extends DataClass
     map['fly_speed'] = Variable<int>(flySpeed);
     map['swim_speed'] = Variable<int>(swimSpeed);
     map['init_misc'] = Variable<int>(initMisc);
+    map['bab'] = Variable<int>(bab);
+    map['mab_misc'] = Variable<int>(mabMisc);
+    map['mab_temp'] = Variable<int>(mabTemp);
+    map['tab_misc'] = Variable<int>(tabMisc);
+    map['tab_temp'] = Variable<int>(tabTemp);
+    map['rab_misc'] = Variable<int>(rabMisc);
+    map['rab_temp'] = Variable<int>(rabTemp);
     return map;
   }
 
@@ -710,6 +835,13 @@ class TableCharacterData extends DataClass
       flySpeed: Value(flySpeed),
       swimSpeed: Value(swimSpeed),
       initMisc: Value(initMisc),
+      bab: Value(bab),
+      mabMisc: Value(mabMisc),
+      mabTemp: Value(mabTemp),
+      tabMisc: Value(tabMisc),
+      tabTemp: Value(tabTemp),
+      rabMisc: Value(rabMisc),
+      rabTemp: Value(rabTemp),
     );
   }
 
@@ -751,6 +883,13 @@ class TableCharacterData extends DataClass
       flySpeed: serializer.fromJson<int>(json['flySpeed']),
       swimSpeed: serializer.fromJson<int>(json['swimSpeed']),
       initMisc: serializer.fromJson<int>(json['initMisc']),
+      bab: serializer.fromJson<int>(json['bab']),
+      mabMisc: serializer.fromJson<int>(json['mabMisc']),
+      mabTemp: serializer.fromJson<int>(json['mabTemp']),
+      tabMisc: serializer.fromJson<int>(json['tabMisc']),
+      tabTemp: serializer.fromJson<int>(json['tabTemp']),
+      rabMisc: serializer.fromJson<int>(json['rabMisc']),
+      rabTemp: serializer.fromJson<int>(json['rabTemp']),
     );
   }
   @override
@@ -791,6 +930,13 @@ class TableCharacterData extends DataClass
       'flySpeed': serializer.toJson<int>(flySpeed),
       'swimSpeed': serializer.toJson<int>(swimSpeed),
       'initMisc': serializer.toJson<int>(initMisc),
+      'bab': serializer.toJson<int>(bab),
+      'mabMisc': serializer.toJson<int>(mabMisc),
+      'mabTemp': serializer.toJson<int>(mabTemp),
+      'tabMisc': serializer.toJson<int>(tabMisc),
+      'tabTemp': serializer.toJson<int>(tabTemp),
+      'rabMisc': serializer.toJson<int>(rabMisc),
+      'rabTemp': serializer.toJson<int>(rabTemp),
     };
   }
 
@@ -828,7 +974,14 @@ class TableCharacterData extends DataClass
           int? moveSpeed,
           int? flySpeed,
           int? swimSpeed,
-          int? initMisc}) =>
+          int? initMisc,
+          int? bab,
+          int? mabMisc,
+          int? mabTemp,
+          int? tabMisc,
+          int? tabTemp,
+          int? rabMisc,
+          int? rabTemp}) =>
       TableCharacterData(
         id: id ?? this.id,
         charName: charName ?? this.charName,
@@ -864,6 +1017,13 @@ class TableCharacterData extends DataClass
         flySpeed: flySpeed ?? this.flySpeed,
         swimSpeed: swimSpeed ?? this.swimSpeed,
         initMisc: initMisc ?? this.initMisc,
+        bab: bab ?? this.bab,
+        mabMisc: mabMisc ?? this.mabMisc,
+        mabTemp: mabTemp ?? this.mabTemp,
+        tabMisc: tabMisc ?? this.tabMisc,
+        tabTemp: tabTemp ?? this.tabTemp,
+        rabMisc: rabMisc ?? this.rabMisc,
+        rabTemp: rabTemp ?? this.rabTemp,
       );
   TableCharacterData copyWithCompanion(TableCharacterCompanion data) {
     return TableCharacterData(
@@ -913,6 +1073,13 @@ class TableCharacterData extends DataClass
       flySpeed: data.flySpeed.present ? data.flySpeed.value : this.flySpeed,
       swimSpeed: data.swimSpeed.present ? data.swimSpeed.value : this.swimSpeed,
       initMisc: data.initMisc.present ? data.initMisc.value : this.initMisc,
+      bab: data.bab.present ? data.bab.value : this.bab,
+      mabMisc: data.mabMisc.present ? data.mabMisc.value : this.mabMisc,
+      mabTemp: data.mabTemp.present ? data.mabTemp.value : this.mabTemp,
+      tabMisc: data.tabMisc.present ? data.tabMisc.value : this.tabMisc,
+      tabTemp: data.tabTemp.present ? data.tabTemp.value : this.tabTemp,
+      rabMisc: data.rabMisc.present ? data.rabMisc.value : this.rabMisc,
+      rabTemp: data.rabTemp.present ? data.rabTemp.value : this.rabTemp,
     );
   }
 
@@ -952,7 +1119,14 @@ class TableCharacterData extends DataClass
           ..write('moveSpeed: $moveSpeed, ')
           ..write('flySpeed: $flySpeed, ')
           ..write('swimSpeed: $swimSpeed, ')
-          ..write('initMisc: $initMisc')
+          ..write('initMisc: $initMisc, ')
+          ..write('bab: $bab, ')
+          ..write('mabMisc: $mabMisc, ')
+          ..write('mabTemp: $mabTemp, ')
+          ..write('tabMisc: $tabMisc, ')
+          ..write('tabTemp: $tabTemp, ')
+          ..write('rabMisc: $rabMisc, ')
+          ..write('rabTemp: $rabTemp')
           ..write(')'))
         .toString();
   }
@@ -992,7 +1166,14 @@ class TableCharacterData extends DataClass
         moveSpeed,
         flySpeed,
         swimSpeed,
-        initMisc
+        initMisc,
+        bab,
+        mabMisc,
+        mabTemp,
+        tabMisc,
+        tabTemp,
+        rabMisc,
+        rabTemp
       ]);
   @override
   bool operator ==(Object other) =>
@@ -1031,7 +1212,14 @@ class TableCharacterData extends DataClass
           other.moveSpeed == this.moveSpeed &&
           other.flySpeed == this.flySpeed &&
           other.swimSpeed == this.swimSpeed &&
-          other.initMisc == this.initMisc);
+          other.initMisc == this.initMisc &&
+          other.bab == this.bab &&
+          other.mabMisc == this.mabMisc &&
+          other.mabTemp == this.mabTemp &&
+          other.tabMisc == this.tabMisc &&
+          other.tabTemp == this.tabTemp &&
+          other.rabMisc == this.rabMisc &&
+          other.rabTemp == this.rabTemp);
 }
 
 class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
@@ -1069,6 +1257,13 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   final Value<int> flySpeed;
   final Value<int> swimSpeed;
   final Value<int> initMisc;
+  final Value<int> bab;
+  final Value<int> mabMisc;
+  final Value<int> mabTemp;
+  final Value<int> tabMisc;
+  final Value<int> tabTemp;
+  final Value<int> rabMisc;
+  final Value<int> rabTemp;
   const TableCharacterCompanion({
     this.id = const Value.absent(),
     this.charName = const Value.absent(),
@@ -1104,6 +1299,13 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     this.flySpeed = const Value.absent(),
     this.swimSpeed = const Value.absent(),
     this.initMisc = const Value.absent(),
+    this.bab = const Value.absent(),
+    this.mabMisc = const Value.absent(),
+    this.mabTemp = const Value.absent(),
+    this.tabMisc = const Value.absent(),
+    this.tabTemp = const Value.absent(),
+    this.rabMisc = const Value.absent(),
+    this.rabTemp = const Value.absent(),
   });
   TableCharacterCompanion.insert({
     this.id = const Value.absent(),
@@ -1140,6 +1342,13 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     required int flySpeed,
     required int swimSpeed,
     required int initMisc,
+    required int bab,
+    required int mabMisc,
+    required int mabTemp,
+    required int tabMisc,
+    required int tabTemp,
+    required int rabMisc,
+    required int rabTemp,
   })  : charName = Value(charName),
         charClass = Value(charClass),
         lvl = Value(lvl),
@@ -1172,7 +1381,14 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
         moveSpeed = Value(moveSpeed),
         flySpeed = Value(flySpeed),
         swimSpeed = Value(swimSpeed),
-        initMisc = Value(initMisc);
+        initMisc = Value(initMisc),
+        bab = Value(bab),
+        mabMisc = Value(mabMisc),
+        mabTemp = Value(mabTemp),
+        tabMisc = Value(tabMisc),
+        tabTemp = Value(tabTemp),
+        rabMisc = Value(rabMisc),
+        rabTemp = Value(rabTemp);
   static Insertable<TableCharacterData> custom({
     Expression<int>? id,
     Expression<String>? charName,
@@ -1208,6 +1424,13 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     Expression<int>? flySpeed,
     Expression<int>? swimSpeed,
     Expression<int>? initMisc,
+    Expression<int>? bab,
+    Expression<int>? mabMisc,
+    Expression<int>? mabTemp,
+    Expression<int>? tabMisc,
+    Expression<int>? tabTemp,
+    Expression<int>? rabMisc,
+    Expression<int>? rabTemp,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1244,6 +1467,13 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       if (flySpeed != null) 'fly_speed': flySpeed,
       if (swimSpeed != null) 'swim_speed': swimSpeed,
       if (initMisc != null) 'init_misc': initMisc,
+      if (bab != null) 'bab': bab,
+      if (mabMisc != null) 'mab_misc': mabMisc,
+      if (mabTemp != null) 'mab_temp': mabTemp,
+      if (tabMisc != null) 'tab_misc': tabMisc,
+      if (tabTemp != null) 'tab_temp': tabTemp,
+      if (rabMisc != null) 'rab_misc': rabMisc,
+      if (rabTemp != null) 'rab_temp': rabTemp,
     });
   }
 
@@ -1281,7 +1511,14 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       Value<int>? moveSpeed,
       Value<int>? flySpeed,
       Value<int>? swimSpeed,
-      Value<int>? initMisc}) {
+      Value<int>? initMisc,
+      Value<int>? bab,
+      Value<int>? mabMisc,
+      Value<int>? mabTemp,
+      Value<int>? tabMisc,
+      Value<int>? tabTemp,
+      Value<int>? rabMisc,
+      Value<int>? rabTemp}) {
     return TableCharacterCompanion(
       id: id ?? this.id,
       charName: charName ?? this.charName,
@@ -1317,6 +1554,13 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       flySpeed: flySpeed ?? this.flySpeed,
       swimSpeed: swimSpeed ?? this.swimSpeed,
       initMisc: initMisc ?? this.initMisc,
+      bab: bab ?? this.bab,
+      mabMisc: mabMisc ?? this.mabMisc,
+      mabTemp: mabTemp ?? this.mabTemp,
+      tabMisc: tabMisc ?? this.tabMisc,
+      tabTemp: tabTemp ?? this.tabTemp,
+      rabMisc: rabMisc ?? this.rabMisc,
+      rabTemp: rabTemp ?? this.rabTemp,
     );
   }
 
@@ -1425,6 +1669,27 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     if (initMisc.present) {
       map['init_misc'] = Variable<int>(initMisc.value);
     }
+    if (bab.present) {
+      map['bab'] = Variable<int>(bab.value);
+    }
+    if (mabMisc.present) {
+      map['mab_misc'] = Variable<int>(mabMisc.value);
+    }
+    if (mabTemp.present) {
+      map['mab_temp'] = Variable<int>(mabTemp.value);
+    }
+    if (tabMisc.present) {
+      map['tab_misc'] = Variable<int>(tabMisc.value);
+    }
+    if (tabTemp.present) {
+      map['tab_temp'] = Variable<int>(tabTemp.value);
+    }
+    if (rabMisc.present) {
+      map['rab_misc'] = Variable<int>(rabMisc.value);
+    }
+    if (rabTemp.present) {
+      map['rab_temp'] = Variable<int>(rabTemp.value);
+    }
     return map;
   }
 
@@ -1464,7 +1729,14 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
           ..write('moveSpeed: $moveSpeed, ')
           ..write('flySpeed: $flySpeed, ')
           ..write('swimSpeed: $swimSpeed, ')
-          ..write('initMisc: $initMisc')
+          ..write('initMisc: $initMisc, ')
+          ..write('bab: $bab, ')
+          ..write('mabMisc: $mabMisc, ')
+          ..write('mabTemp: $mabTemp, ')
+          ..write('tabMisc: $tabMisc, ')
+          ..write('tabTemp: $tabTemp, ')
+          ..write('rabMisc: $rabMisc, ')
+          ..write('rabTemp: $rabTemp')
           ..write(')'))
         .toString();
   }
@@ -1517,6 +1789,13 @@ typedef $$TableCharacterTableCreateCompanionBuilder = TableCharacterCompanion
   required int flySpeed,
   required int swimSpeed,
   required int initMisc,
+  required int bab,
+  required int mabMisc,
+  required int mabTemp,
+  required int tabMisc,
+  required int tabTemp,
+  required int rabMisc,
+  required int rabTemp,
 });
 typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
     Function({
@@ -1554,6 +1833,13 @@ typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
   Value<int> flySpeed,
   Value<int> swimSpeed,
   Value<int> initMisc,
+  Value<int> bab,
+  Value<int> mabMisc,
+  Value<int> mabTemp,
+  Value<int> tabMisc,
+  Value<int> tabTemp,
+  Value<int> rabMisc,
+  Value<int> rabTemp,
 });
 
 class $$TableCharacterTableFilterComposer
@@ -1667,6 +1953,27 @@ class $$TableCharacterTableFilterComposer
 
   ColumnFilters<int> get initMisc => $composableBuilder(
       column: $table.initMisc, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get bab => $composableBuilder(
+      column: $table.bab, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get mabMisc => $composableBuilder(
+      column: $table.mabMisc, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get mabTemp => $composableBuilder(
+      column: $table.mabTemp, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get tabMisc => $composableBuilder(
+      column: $table.tabMisc, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get tabTemp => $composableBuilder(
+      column: $table.tabTemp, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get rabMisc => $composableBuilder(
+      column: $table.rabMisc, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get rabTemp => $composableBuilder(
+      column: $table.rabTemp, builder: (column) => ColumnFilters(column));
 }
 
 class $$TableCharacterTableOrderingComposer
@@ -1782,6 +2089,27 @@ class $$TableCharacterTableOrderingComposer
 
   ColumnOrderings<int> get initMisc => $composableBuilder(
       column: $table.initMisc, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get bab => $composableBuilder(
+      column: $table.bab, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get mabMisc => $composableBuilder(
+      column: $table.mabMisc, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get mabTemp => $composableBuilder(
+      column: $table.mabTemp, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get tabMisc => $composableBuilder(
+      column: $table.tabMisc, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get tabTemp => $composableBuilder(
+      column: $table.tabTemp, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get rabMisc => $composableBuilder(
+      column: $table.rabMisc, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get rabTemp => $composableBuilder(
+      column: $table.rabTemp, builder: (column) => ColumnOrderings(column));
 }
 
 class $$TableCharacterTableAnnotationComposer
@@ -1894,6 +2222,27 @@ class $$TableCharacterTableAnnotationComposer
 
   GeneratedColumn<int> get initMisc =>
       $composableBuilder(column: $table.initMisc, builder: (column) => column);
+
+  GeneratedColumn<int> get bab =>
+      $composableBuilder(column: $table.bab, builder: (column) => column);
+
+  GeneratedColumn<int> get mabMisc =>
+      $composableBuilder(column: $table.mabMisc, builder: (column) => column);
+
+  GeneratedColumn<int> get mabTemp =>
+      $composableBuilder(column: $table.mabTemp, builder: (column) => column);
+
+  GeneratedColumn<int> get tabMisc =>
+      $composableBuilder(column: $table.tabMisc, builder: (column) => column);
+
+  GeneratedColumn<int> get tabTemp =>
+      $composableBuilder(column: $table.tabTemp, builder: (column) => column);
+
+  GeneratedColumn<int> get rabMisc =>
+      $composableBuilder(column: $table.rabMisc, builder: (column) => column);
+
+  GeneratedColumn<int> get rabTemp =>
+      $composableBuilder(column: $table.rabTemp, builder: (column) => column);
 }
 
 class $$TableCharacterTableTableManager extends RootTableManager<
@@ -1957,6 +2306,13 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             Value<int> flySpeed = const Value.absent(),
             Value<int> swimSpeed = const Value.absent(),
             Value<int> initMisc = const Value.absent(),
+            Value<int> bab = const Value.absent(),
+            Value<int> mabMisc = const Value.absent(),
+            Value<int> mabTemp = const Value.absent(),
+            Value<int> tabMisc = const Value.absent(),
+            Value<int> tabTemp = const Value.absent(),
+            Value<int> rabMisc = const Value.absent(),
+            Value<int> rabTemp = const Value.absent(),
           }) =>
               TableCharacterCompanion(
             id: id,
@@ -1993,6 +2349,13 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             flySpeed: flySpeed,
             swimSpeed: swimSpeed,
             initMisc: initMisc,
+            bab: bab,
+            mabMisc: mabMisc,
+            mabTemp: mabTemp,
+            tabMisc: tabMisc,
+            tabTemp: tabTemp,
+            rabMisc: rabMisc,
+            rabTemp: rabTemp,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -2029,6 +2392,13 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             required int flySpeed,
             required int swimSpeed,
             required int initMisc,
+            required int bab,
+            required int mabMisc,
+            required int mabTemp,
+            required int tabMisc,
+            required int tabTemp,
+            required int rabMisc,
+            required int rabTemp,
           }) =>
               TableCharacterCompanion.insert(
             id: id,
@@ -2065,6 +2435,13 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             flySpeed: flySpeed,
             swimSpeed: swimSpeed,
             initMisc: initMisc,
+            bab: bab,
+            mabMisc: mabMisc,
+            mabTemp: mabTemp,
+            tabMisc: tabMisc,
+            tabTemp: tabTemp,
+            rabMisc: rabMisc,
+            rabTemp: rabTemp,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

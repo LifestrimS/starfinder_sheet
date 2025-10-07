@@ -14,6 +14,7 @@ class Character {
   final int flySpeed;
   final int swimSpeed;
   final int initMisc;
+  final CharacterBab babBlock;
 
   Character(
       {required this.id,
@@ -30,7 +31,8 @@ class Character {
       required this.moveSpeed,
       required this.flySpeed,
       required this.swimSpeed,
-      required this.initMisc});
+      required this.initMisc,
+      required this.babBlock});
 
   Character.empty(
       {this.id = 0,
@@ -47,7 +49,8 @@ class Character {
       this.moveSpeed = 0,
       this.flySpeed = 0,
       this.swimSpeed = 0,
-      this.initMisc = 0});
+      this.initMisc = 0,
+      this.babBlock = const CharacterBab.empty()});
 
   Character copyWith({
     int? id,
@@ -65,6 +68,7 @@ class Character {
     int? flySpeed,
     int? swimSpeed,
     int? initMisc,
+    CharacterBab? babBlock,
   }) {
     return Character(
       id: id ?? this.id,
@@ -82,6 +86,7 @@ class Character {
       flySpeed: flySpeed ?? this.flySpeed,
       swimSpeed: swimSpeed ?? this.swimSpeed,
       initMisc: initMisc ?? this.initMisc,
+      babBlock: babBlock ?? this.babBlock,
     );
   }
 
@@ -206,4 +211,34 @@ class ACBLock {
       this.natural = 0,
       this.deflect = 0,
       this.misc = 0});
+}
+
+class CharacterBab {
+  final int bab;
+  final int mabMisc;
+  final int mabTemp;
+  final int tabMisc;
+  final int tabTemp;
+  final int rabMisc;
+  final int rabTemp;
+
+  const CharacterBab({
+    required this.bab,
+    required this.mabMisc,
+    required this.mabTemp,
+    required this.tabMisc,
+    required this.tabTemp,
+    required this.rabMisc,
+    required this.rabTemp,
+  });
+
+  const CharacterBab.empty({
+    this.bab = 0,
+    this.mabMisc = 0,
+    this.mabTemp = 0,
+    this.tabMisc = 0,
+    this.tabTemp = 0,
+    this.rabMisc = 0,
+    this.rabTemp = 0,
+  });
 }

@@ -10,6 +10,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.d
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ability_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ac_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/bab_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/move.dart';
 import 'package:pathfinder_sheet/utils/debug_screen.dart';
@@ -73,6 +74,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   ValueNotifier<int> currentResolveNotifier();
 
   ValueNotifier<int> dexModificatorNotifier();
+  ValueNotifier<int> strModificatorNotifier();
 
   TextEditingController get damageTextController;
 
@@ -95,6 +97,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   MoveControllers get moveControllers;
 
   TextEditingController get initMiscController;
+
+  BabControllers get babControllers;
 }
 
 CharacterSheetWM createCharacterSheetWM(
@@ -120,6 +124,7 @@ class CharacterSheetWM
   final ValueNotifier<int> _totalDamageNotifier = ValueNotifier(0);
   final ValueNotifier<int> _currentResolveNotifier = ValueNotifier(0);
   final ValueNotifier<int> _dexModificatorNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _strModificatorNotifier = ValueNotifier(0);
 
   final TextEditingController _damageTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
@@ -164,6 +169,15 @@ class CharacterSheetWM
 
   final TextEditingController _initMiscController = TextEditingController();
 
+  final BabControllers _babControllers = BabControllers(
+      babController: TextEditingController(),
+      mabMiscController: TextEditingController(),
+      mabTempController: TextEditingController(),
+      tabMiscController: TextEditingController(),
+      tabTempController: TextEditingController(),
+      rabMiscController: TextEditingController(),
+      rabTempController: TextEditingController());
+
   Character? _character;
   List<Character?> characterList = [];
 
@@ -194,6 +208,9 @@ class CharacterSheetWM
   ValueNotifier<int> dexModificatorNotifier() => _dexModificatorNotifier;
 
   @override
+  ValueNotifier<int> strModificatorNotifier() => _strModificatorNotifier;
+
+  @override
   TextEditingController get damageTextController => _damageTextController;
   @override
   TextEditingController get nameTextController => _nameTextController;
@@ -216,6 +233,8 @@ class CharacterSheetWM
   MoveControllers get moveControllers => _moveControllers;
   @override
   TextEditingController get initMiscController => _initMiscController;
+  @override
+  BabControllers get babControllers => _babControllers;
 
   @override
   Character get character => _character ?? Character.empty();
@@ -254,6 +273,7 @@ class CharacterSheetWM
     _totalDamageNotifier.dispose();
     _currentResolveNotifier.dispose();
     _abilityTextControllers.dexController.removeListener(dexListener);
+    _abilityTextControllers.strController.removeListener(strListener);
     super.dispose();
   }
 
@@ -313,6 +333,7 @@ class CharacterSheetWM
       _lvlTextController.text = model.lvl.toString();
 
       _abilityTextControllers.dexController.addListener(dexListener);
+      _abilityTextControllers.strController.addListener(strListener);
 
       _abilityTextControllers.strController.text =
           model.getAbility().strength.toString();
@@ -363,6 +384,20 @@ class CharacterSheetWM
 
       _initMiscController.text = model.iniMisc.toString();
 
+      _babControllers.babController.text = model.getBabBlock().bab.toString();
+      _babControllers.mabMiscController.text =
+          model.getBabBlock().mabMisc.toString();
+      _babControllers.mabTempController.text =
+          model.getBabBlock().mabTemp.toString();
+      _babControllers.tabMiscController.text =
+          model.getBabBlock().tabMisc.toString();
+      _babControllers.tabTempController.text =
+          model.getBabBlock().tabTemp.toString();
+      _babControllers.rabMiscController.text =
+          model.getBabBlock().rabMisc.toString();
+      _babControllers.rabTempController.text =
+          model.getBabBlock().rabTemp.toString();
+
       _characterLoadNotifier.content(_character);
     } catch (e) {
       log('Smth went wrong in init CharacterSheet: $e');
@@ -379,6 +414,12 @@ class CharacterSheetWM
     _dexModificatorNotifier.value = CharacterAbility.getModifier(
         int.parse(_abilityTextControllers.dexController.text));
     log('TTest: ${_dexModificatorNotifier.value}');
+  }
+
+  void strListener() {
+    _strModificatorNotifier.value = CharacterAbility.getModifier(
+        int.parse(_abilityTextControllers.strController.text));
+    log('TTest: ${_strModificatorNotifier.value}');
   }
 
   @override
@@ -518,7 +559,15 @@ class CharacterSheetWM
           moveSpeed: int.parse(_moveControllers.moveController.text),
           flySpeed: int.parse(_moveControllers.flyController.text),
           swimSpeed: int.parse(_moveControllers.swimController.text),
-          initMisc: int.parse(_initMiscController.text));
+          initMisc: int.parse(_initMiscController.text),
+          babBlock: CharacterBab(
+              bab: int.parse(_babControllers.babController.text),
+              mabMisc: int.parse(_babControllers.mabMiscController.text),
+              mabTemp: int.parse(_babControllers.mabTempController.text),
+              tabMisc: int.parse(_babControllers.tabMiscController.text),
+              tabTemp: int.parse(_babControllers.tabTempController.text),
+              rabMisc: int.parse(_babControllers.rabMiscController.text),
+              rabTemp: int.parse(_babControllers.rabTempController.text)));
 
       model.saveCharacter(newCharacter);
 

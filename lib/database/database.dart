@@ -89,4 +89,13 @@ class TableCharacter extends Table {
 
   //Init
   IntColumn get initMisc => integer()();
+
+  //Bab
+  IntColumn get bab => integer()();
+  IntColumn get mabMisc => integer()();
+  IntColumn get mabTemp => integer()();
+  IntColumn get tabMisc => integer()();
+  IntColumn get tabTemp => integer()();
+  IntColumn get rabMisc => integer()();
+  IntColumn get rabTemp => integer()();
 }

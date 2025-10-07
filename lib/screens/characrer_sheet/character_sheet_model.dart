@@ -74,6 +74,8 @@ class CharacterSheetModel extends ElementaryModel {
   ACBLock getEacBlock() => character.eacBlock;
   ACBLock getKacBlock() => character.kacBlock;
 
+  CharacterBab getBabBlock() => character.babBlock;
+
   Future<List<Character?>> getCharacterList() async {
     try {
       List<Character> characterList = await repository.getAllCharacter();

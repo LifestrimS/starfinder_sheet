@@ -41,7 +41,7 @@ class Move extends StatelessWidget {
             child: CustomPaint(
               painter: MovePainter(cutModificator: cutModificator),
               child: TextFormField(
-                controller: controllers.swimController,
+                controller: controller,
                 expands: true,
                 maxLines: null,
                 style: AppStyles.commonPixel(),
