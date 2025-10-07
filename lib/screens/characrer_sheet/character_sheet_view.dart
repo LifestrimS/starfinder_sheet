@@ -175,6 +175,7 @@ class _CarouselBodyState extends State<CarouselBody> {
       children: [
         Expanded(
           child: CarouselSlider(
+            carouselController: _controller,
             options: CarouselOptions(
                 enableInfiniteScroll: false,
                 viewportFraction: 1.0,
@@ -206,8 +207,8 @@ class _CarouselBodyState extends State<CarouselBody> {
                     return GestureDetector(
                       onTap: () => _controller.animateToPage(entry.key),
                       child: Container(
-                        width: 12.0,
-                        height: 12.0,
+                        width: 24.0,
+                        height: 16.0,
                         margin: const EdgeInsets.symmetric(
                             vertical: 2.0, horizontal: 4.0),
                         child: CustomPaint(
@@ -237,7 +238,7 @@ class IndicatorPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    const cut = 0.2;
+    const cut = 0.12;
     final widthCut = size.width * cut;
 
     Paint paintFrame = Paint()
