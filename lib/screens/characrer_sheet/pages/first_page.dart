@@ -19,7 +19,8 @@ class FirstPage extends StatelessWidget {
     return AppRefreshWidget(
       onRefresh: () async {
         await Future.delayed(const Duration(seconds: 1));
-        wm.onRefresh();
+        int? index = wm.currentPage;
+        wm.onRefresh(pageIndex: index);
       },
       child: ListView(children: [
         SingleChildScrollView(

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:carousel_slider/carousel_controller.dart';
 import 'package:elementary/elementary.dart';
 import 'package:elementary_helper/elementary_helper.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +23,10 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   int get maxResolve;
   int get currentResolve;
   int get dexModificator;
+  int get currentPage;
 
   CharacterAbility getAbility();
-  void onRefresh();
+  void onRefresh({int? pageIndex});
   void goDebug();
   void getDamage();
   void clearDamageLog();
@@ -37,6 +39,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   void saveCharacter();
   void goToCharacter(int charId);
   void createNewCharacter();
+  void setCurrentPage(int pageIndex);
 
   EntityStateNotifier<Character?> characterLoadNotifier();
   EntityStateNotifier<List<Character?>> listCharactersNotifier();
@@ -61,6 +64,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   MoveControllers get moveControllers;
   TextEditingController get initMiscController;
   BabControllers get babControllers;
+
+  CarouselSliderController get carouselController;
 }
 
 CharacterSheetWM createCharacterSheetWM(
@@ -140,8 +145,15 @@ class CharacterSheetWM
       rabMiscController: TextEditingController(),
       rabTempController: TextEditingController());
 
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
+
   Character? _character;
   List<Character?> characterList = [];
+  int? _currentPage;
+
+  @override
+  int get currentPage => _currentPage ?? 0;
 
   @override
   EntityStateNotifier<Character?> characterLoadNotifier() =>
@@ -189,6 +201,9 @@ class CharacterSheetWM
   TextEditingController get initMiscController => _initMiscController;
   @override
   BabControllers get babControllers => _babControllers;
+
+  @override
+  CarouselSliderController get carouselController => _carouselController;
 
   @override
   Character get character => _character ?? Character.empty();
@@ -274,8 +289,15 @@ class CharacterSheetWM
   }
 
   @override
-  void onRefresh() async {
+  void onRefresh({int? pageIndex}) async {
     await loadData();
+    await Future.delayed(const Duration(milliseconds: 100));
+    _carouselController.jumpToPage(pageIndex ?? 0);
+  }
+
+  @override
+  void setCurrentPage(int pageIndex) {
+    _currentPage = pageIndex;
   }
 
   void dexListener() {

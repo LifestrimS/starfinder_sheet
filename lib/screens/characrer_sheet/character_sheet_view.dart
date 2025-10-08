@@ -159,7 +159,6 @@ class CarouselBody extends StatefulWidget {
 }
 
 class _CarouselBodyState extends State<CarouselBody> {
-  final CarouselSliderController _controller = CarouselSliderController();
   final ValueNotifier pageNotifier = ValueNotifier(0);
 
   @override
@@ -168,7 +167,7 @@ class _CarouselBodyState extends State<CarouselBody> {
       children: [
         Expanded(
           child: CarouselSlider(
-            carouselController: _controller,
+            carouselController: widget.wm.carouselController,
             options: CarouselOptions(
                 enableInfiniteScroll: false,
                 viewportFraction: 1.0,
@@ -177,6 +176,7 @@ class _CarouselBodyState extends State<CarouselBody> {
                     widget.appBarHeight,
                 onPageChanged: (index, reason) {
                   pageNotifier.value = index;
+                  widget.wm.setCurrentPage(index);
                 }),
             items: [
               FirstPage(wm: widget.wm),
@@ -198,7 +198,10 @@ class _CarouselBodyState extends State<CarouselBody> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: list.asMap().entries.map((entry) {
                     return GestureDetector(
-                      onTap: () => _controller.animateToPage(entry.key),
+                      onTap: () {
+                        widget.wm.carouselController.animateToPage(entry.key);
+                        widget.wm.setCurrentPage(entry.key);
+                      },
                       child: Container(
                         width: 24.0,
                         height: 16.0,
