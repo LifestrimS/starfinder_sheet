@@ -118,4 +118,8 @@ class TableCharacter extends Table {
   IntColumn get willMagic => integer()();
   IntColumn get willMisc => integer()();
   IntColumn get willTemp => integer()();
+
+  //DRs SRs
+  TextColumn get dr => text()();
+  TextColumn get sr => text()();
 }

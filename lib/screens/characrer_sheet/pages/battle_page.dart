@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/bab_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/dr_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/resolve_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/saving_throws_block.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/pull_to_refresh.dart';
-import 'package:pathfinder_sheet/utils/styles.dart';
 
 class BattlePage extends StatelessWidget {
   final ICharacterSheetWM wm;
@@ -67,11 +67,7 @@ class BattlePage extends StatelessWidget {
                 const SizedBox(
                   height: 16.0,
                 ),
-                Text(
-                  'DRs',
-                  textAlign: TextAlign.center,
-                  style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
-                ),
+                DrBlock(wm: wm, controllers: wm.drSrControllers)
               ],
             ),
           ),

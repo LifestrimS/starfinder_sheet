@@ -16,6 +16,8 @@ class Character {
   final int initMisc;
   final CharacterBab babBlock;
   final CharacterSavingThrows savingThrows;
+  final String dr;
+  final String sr;
 
   Character({
     required this.id,
@@ -35,6 +37,8 @@ class Character {
     required this.initMisc,
     required this.babBlock,
     required this.savingThrows,
+    required this.dr,
+    required this.sr,
   });
 
   Character.empty({
@@ -55,6 +59,8 @@ class Character {
     this.initMisc = 0,
     this.babBlock = const CharacterBab.empty(),
     this.savingThrows = const CharacterSavingThrows.empty(),
+    this.dr = '',
+    this.sr = '',
   });
 
   Character copyWith({
@@ -75,25 +81,30 @@ class Character {
     int? initMisc,
     CharacterBab? babBlock,
     CharacterSavingThrows? savingThrows,
+    String? dr,
+    String? sr,
   }) {
     return Character(
-        id: id ?? this.id,
-        charName: charName ?? this.charName,
-        charClass: charClass ?? this.charClass,
-        lvl: lvl ?? this.lvl,
-        race: race ?? this.race,
-        alignment: alignment ?? this.alignment,
-        size: size ?? this.size,
-        ability: ability ?? this.ability,
-        liveBlock: liveBlock ?? this.liveBlock,
-        eacBlock: eacBlock ?? this.eacBlock,
-        kacBlock: kacBlock ?? this.kacBlock,
-        moveSpeed: moveSpeed ?? this.moveSpeed,
-        flySpeed: flySpeed ?? this.flySpeed,
-        swimSpeed: swimSpeed ?? this.swimSpeed,
-        initMisc: initMisc ?? this.initMisc,
-        babBlock: babBlock ?? this.babBlock,
-        savingThrows: savingThrows ?? this.savingThrows);
+      id: id ?? this.id,
+      charName: charName ?? this.charName,
+      charClass: charClass ?? this.charClass,
+      lvl: lvl ?? this.lvl,
+      race: race ?? this.race,
+      alignment: alignment ?? this.alignment,
+      size: size ?? this.size,
+      ability: ability ?? this.ability,
+      liveBlock: liveBlock ?? this.liveBlock,
+      eacBlock: eacBlock ?? this.eacBlock,
+      kacBlock: kacBlock ?? this.kacBlock,
+      moveSpeed: moveSpeed ?? this.moveSpeed,
+      flySpeed: flySpeed ?? this.flySpeed,
+      swimSpeed: swimSpeed ?? this.swimSpeed,
+      initMisc: initMisc ?? this.initMisc,
+      babBlock: babBlock ?? this.babBlock,
+      savingThrows: savingThrows ?? this.savingThrows,
+      dr: dr ?? this.dr,
+      sr: sr ?? this.sr,
+    );
   }
 
   @override

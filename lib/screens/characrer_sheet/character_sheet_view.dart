@@ -13,7 +13,6 @@ import 'package:pathfinder_sheet/screens/side_bar.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/loading_indicator.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
-import 'package:pathfinder_sheet/utils/utils.dart';
 
 class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
   CharacterSheetView({
@@ -134,14 +133,11 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
                   ),
                 ],
               ),
-              body: Padding(
-                padding: EdgeInsets.only(top: screenHeight()),
-                child: const Center(
-                  child: Text(
-                    'You don\'t have characters :(',
-                    style: TextStyle(
-                        color: AppColors.textContrastDark, fontSize: 20.0),
-                  ),
+              body: const Center(
+                child: Text(
+                  'You don\'t have characters :(',
+                  style: TextStyle(
+                      color: AppColors.textContrastDark, fontSize: 20.0),
                 ),
               ),
             );

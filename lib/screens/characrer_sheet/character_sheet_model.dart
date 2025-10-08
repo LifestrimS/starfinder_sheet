@@ -67,6 +67,10 @@ class CharacterSheetModel extends ElementaryModel {
 
   int get iniMisc => character.initMisc;
 
+  String get dr => character.dr;
+
+  String get sr => character.sr;
+
   CharacterAbility getAbility() {
     return character.ability;
   }

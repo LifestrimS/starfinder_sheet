@@ -84,6 +84,8 @@ class Mapper {
       initMisc: element.initMisc,
       babBlock: babBlock,
       savingThrows: savingThrows,
+      dr: element.dr,
+      sr: element.sr,
     );
   }
 
@@ -148,6 +150,8 @@ class Mapper {
       willMagic: character.savingThrows.willMagic,
       willMisc: character.savingThrows.willMisc,
       willTemp: character.savingThrows.willTemp,
+      dr: character.dr,
+      sr: character.sr,
     );
   }
 
@@ -212,6 +216,8 @@ class Mapper {
       willMagic: Value(character.savingThrows.willMagic),
       willMisc: Value(character.savingThrows.willMisc),
       willTemp: Value(character.savingThrows.willTemp),
+      dr: Value(character.dr),
+      sr: Value(character.sr),
     );
   }
 }
