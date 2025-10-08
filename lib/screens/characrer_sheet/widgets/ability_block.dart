@@ -101,8 +101,8 @@ class _AbilityCellState extends State<AbilityCell> {
       onLongPress: () async {
         await showDialog(
           context: context,
-          builder: (context) => CustomDiolog(
-            content: diologContent(context, getName(), widget.tmpController),
+          builder: (context) => CustomDialog(
+            content: dialogContent(context, getName(), widget.tmpController),
           ),
         );
         setState(() {});
@@ -287,7 +287,7 @@ class _AbilityCellState extends State<AbilityCell> {
     }
   }
 
-  Widget diologContent(BuildContext context, String title,
+  Widget dialogContent(BuildContext context, String title,
       TextEditingController abilityTmpController) {
     return Padding(
       padding: const EdgeInsets.all(8.0),

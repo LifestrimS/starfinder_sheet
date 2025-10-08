@@ -104,4 +104,18 @@ class TableCharacter extends Table {
   IntColumn get tabTemp => integer()();
   IntColumn get rabMisc => integer()();
   IntColumn get rabTemp => integer()();
+
+  //SavingThrows
+  IntColumn get fortBase => integer()();
+  IntColumn get fortMagic => integer()();
+  IntColumn get fortMisc => integer()();
+  IntColumn get fortTemp => integer()();
+  IntColumn get refBase => integer()();
+  IntColumn get refMagic => integer()();
+  IntColumn get refMisc => integer()();
+  IntColumn get refTemp => integer()();
+  IntColumn get willBase => integer()();
+  IntColumn get willMagic => integer()();
+  IntColumn get willMisc => integer()();
+  IntColumn get willTemp => integer()();
 }

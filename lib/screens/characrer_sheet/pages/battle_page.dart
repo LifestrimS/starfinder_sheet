@@ -4,6 +4,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/bab_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/live_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/resolve_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/saving_throws_block.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/pull_to_refresh.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
@@ -54,10 +55,20 @@ class BattlePage extends StatelessWidget {
                   strModificatorNotifier: wm.strModificatorNotifier(),
                 ),
                 const SizedBox(
+                  height: 12.0,
+                ),
+                SavingThrowsBlock(
+                  wm: wm,
+                  controllers: wm.sTHRTexEditingControllers,
+                  dexModificatorNotifier: wm.dexModificatorNotifier(),
+                  conModificatorNotifier: wm.conModificatorNotifier(),
+                  wisModificatorNotifier: wm.wisModificatorNotifier(),
+                ),
+                const SizedBox(
                   height: 16.0,
                 ),
                 Text(
-                  'BAB, THR, DRs',
+                  'DRs',
                   textAlign: TextAlign.center,
                   style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
                 ),

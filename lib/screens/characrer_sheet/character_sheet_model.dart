@@ -76,6 +76,8 @@ class CharacterSheetModel extends ElementaryModel {
 
   CharacterBab getBabBlock() => character.babBlock;
 
+  CharacterSavingThrows getSTHRBlock() => character.savingThrows;
+
   void setCurrentHp(int value) => _currentHp = value;
 
   void setCurrentStam(int value) => _currentStam = value;

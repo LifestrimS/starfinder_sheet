@@ -15,42 +15,47 @@ class Character {
   final int swimSpeed;
   final int initMisc;
   final CharacterBab babBlock;
+  final CharacterSavingThrows savingThrows;
 
-  Character(
-      {required this.id,
-      required this.charName,
-      required this.charClass,
-      required this.lvl,
-      required this.race,
-      required this.alignment,
-      required this.size,
-      required this.ability,
-      required this.liveBlock,
-      required this.eacBlock,
-      required this.kacBlock,
-      required this.moveSpeed,
-      required this.flySpeed,
-      required this.swimSpeed,
-      required this.initMisc,
-      required this.babBlock});
+  Character({
+    required this.id,
+    required this.charName,
+    required this.charClass,
+    required this.lvl,
+    required this.race,
+    required this.alignment,
+    required this.size,
+    required this.ability,
+    required this.liveBlock,
+    required this.eacBlock,
+    required this.kacBlock,
+    required this.moveSpeed,
+    required this.flySpeed,
+    required this.swimSpeed,
+    required this.initMisc,
+    required this.babBlock,
+    required this.savingThrows,
+  });
 
-  Character.empty(
-      {this.id = 0,
-      this.charName = 'Name',
-      this.charClass = 'Class',
-      this.lvl = 0,
-      this.race = 'Race',
-      this.alignment = CharAlignment.nn,
-      this.size = CharSize.m,
-      this.ability = const CharacterAbility.empty(),
-      this.liveBlock = const CharacterLiveBlock.empty(),
-      this.eacBlock = const ACBLock.empty(),
-      this.kacBlock = const ACBLock.empty(),
-      this.moveSpeed = 0,
-      this.flySpeed = 0,
-      this.swimSpeed = 0,
-      this.initMisc = 0,
-      this.babBlock = const CharacterBab.empty()});
+  Character.empty({
+    this.id = 0,
+    this.charName = 'Name',
+    this.charClass = 'Class',
+    this.lvl = 0,
+    this.race = 'Race',
+    this.alignment = CharAlignment.nn,
+    this.size = CharSize.m,
+    this.ability = const CharacterAbility.empty(),
+    this.liveBlock = const CharacterLiveBlock.empty(),
+    this.eacBlock = const ACBLock.empty(),
+    this.kacBlock = const ACBLock.empty(),
+    this.moveSpeed = 0,
+    this.flySpeed = 0,
+    this.swimSpeed = 0,
+    this.initMisc = 0,
+    this.babBlock = const CharacterBab.empty(),
+    this.savingThrows = const CharacterSavingThrows.empty(),
+  });
 
   Character copyWith({
     int? id,
@@ -69,25 +74,26 @@ class Character {
     int? swimSpeed,
     int? initMisc,
     CharacterBab? babBlock,
+    CharacterSavingThrows? savingThrows,
   }) {
     return Character(
-      id: id ?? this.id,
-      charName: charName ?? this.charName,
-      charClass: charClass ?? this.charClass,
-      lvl: lvl ?? this.lvl,
-      race: race ?? this.race,
-      alignment: alignment ?? this.alignment,
-      size: size ?? this.size,
-      ability: ability ?? this.ability,
-      liveBlock: liveBlock ?? this.liveBlock,
-      eacBlock: eacBlock ?? this.eacBlock,
-      kacBlock: kacBlock ?? this.kacBlock,
-      moveSpeed: moveSpeed ?? this.moveSpeed,
-      flySpeed: flySpeed ?? this.flySpeed,
-      swimSpeed: swimSpeed ?? this.swimSpeed,
-      initMisc: initMisc ?? this.initMisc,
-      babBlock: babBlock ?? this.babBlock,
-    );
+        id: id ?? this.id,
+        charName: charName ?? this.charName,
+        charClass: charClass ?? this.charClass,
+        lvl: lvl ?? this.lvl,
+        race: race ?? this.race,
+        alignment: alignment ?? this.alignment,
+        size: size ?? this.size,
+        ability: ability ?? this.ability,
+        liveBlock: liveBlock ?? this.liveBlock,
+        eacBlock: eacBlock ?? this.eacBlock,
+        kacBlock: kacBlock ?? this.kacBlock,
+        moveSpeed: moveSpeed ?? this.moveSpeed,
+        flySpeed: flySpeed ?? this.flySpeed,
+        swimSpeed: swimSpeed ?? this.swimSpeed,
+        initMisc: initMisc ?? this.initMisc,
+        babBlock: babBlock ?? this.babBlock,
+        savingThrows: savingThrows ?? this.savingThrows);
   }
 
   @override
@@ -259,5 +265,49 @@ class CharacterBab {
     this.tabTemp = 0,
     this.rabMisc = 0,
     this.rabTemp = 0,
+  });
+}
+
+class CharacterSavingThrows {
+  final int fortBase;
+  final int fortMagic;
+  final int fortMisc;
+  final int fortTemp;
+  final int refBase;
+  final int refMagic;
+  final int refMisc;
+  final int refTemp;
+  final int willBase;
+  final int willMagic;
+  final int willMisc;
+  final int willTemp;
+
+  const CharacterSavingThrows(
+      {required this.fortBase,
+      required this.fortMagic,
+      required this.fortMisc,
+      required this.fortTemp,
+      required this.refBase,
+      required this.refMagic,
+      required this.refMisc,
+      required this.refTemp,
+      required this.willBase,
+      required this.willMagic,
+      required this.willMisc,
+      required this.willTemp});
+
+  const CharacterSavingThrows.empty({
+    this.fortBase = 0,
+    this.fortMagic = 0,
+    this.fortMisc = 0,
+    this.fortTemp = 0,
+    this.refBase = 0,
+    this.refMagic = 0,
+    this.refMisc = 0,
+    this.refTemp = 0,
+    this.willBase = 0,
+    this.willMagic = 0,
+    this.willMisc = 0,
+    this.willTemp = 0,
   });
 }

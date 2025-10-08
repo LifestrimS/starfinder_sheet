@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 
-class CustomDiolog extends StatelessWidget {
+class CustomDialog extends StatelessWidget {
   final Widget content;
 
-  const CustomDiolog({required this.content, super.key});
+  const CustomDialog({required this.content, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +15,7 @@ class CustomDiolog extends StatelessWidget {
       child: Dialog(
         shadowColor: AppColors.teal,
         elevation: 20.0,
+        insetPadding: const EdgeInsets.all(21.0),
         backgroundColor: AppColors.backgroundDark,
         shape: const BeveledRectangleBorder(
             borderRadius: BorderRadiusGeometry.only(

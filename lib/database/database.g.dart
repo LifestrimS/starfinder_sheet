@@ -288,6 +288,78 @@ class $TableCharacterTable extends TableCharacter
   late final GeneratedColumn<int> rabTemp = GeneratedColumn<int>(
       'rab_temp', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fortBaseMeta =
+      const VerificationMeta('fortBase');
+  @override
+  late final GeneratedColumn<int> fortBase = GeneratedColumn<int>(
+      'fort_base', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fortMagicMeta =
+      const VerificationMeta('fortMagic');
+  @override
+  late final GeneratedColumn<int> fortMagic = GeneratedColumn<int>(
+      'fort_magic', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fortMiscMeta =
+      const VerificationMeta('fortMisc');
+  @override
+  late final GeneratedColumn<int> fortMisc = GeneratedColumn<int>(
+      'fort_misc', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fortTempMeta =
+      const VerificationMeta('fortTemp');
+  @override
+  late final GeneratedColumn<int> fortTemp = GeneratedColumn<int>(
+      'fort_temp', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _refBaseMeta =
+      const VerificationMeta('refBase');
+  @override
+  late final GeneratedColumn<int> refBase = GeneratedColumn<int>(
+      'ref_base', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _refMagicMeta =
+      const VerificationMeta('refMagic');
+  @override
+  late final GeneratedColumn<int> refMagic = GeneratedColumn<int>(
+      'ref_magic', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _refMiscMeta =
+      const VerificationMeta('refMisc');
+  @override
+  late final GeneratedColumn<int> refMisc = GeneratedColumn<int>(
+      'ref_misc', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _refTempMeta =
+      const VerificationMeta('refTemp');
+  @override
+  late final GeneratedColumn<int> refTemp = GeneratedColumn<int>(
+      'ref_temp', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _willBaseMeta =
+      const VerificationMeta('willBase');
+  @override
+  late final GeneratedColumn<int> willBase = GeneratedColumn<int>(
+      'will_base', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _willMagicMeta =
+      const VerificationMeta('willMagic');
+  @override
+  late final GeneratedColumn<int> willMagic = GeneratedColumn<int>(
+      'will_magic', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _willMiscMeta =
+      const VerificationMeta('willMisc');
+  @override
+  late final GeneratedColumn<int> willMisc = GeneratedColumn<int>(
+      'will_misc', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _willTempMeta =
+      const VerificationMeta('willTemp');
+  @override
+  late final GeneratedColumn<int> willTemp = GeneratedColumn<int>(
+      'will_temp', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -336,7 +408,19 @@ class $TableCharacterTable extends TableCharacter
         tabMisc,
         tabTemp,
         rabMisc,
-        rabTemp
+        rabTemp,
+        fortBase,
+        fortMagic,
+        fortMisc,
+        fortTemp,
+        refBase,
+        refMagic,
+        refMisc,
+        refTemp,
+        willBase,
+        willMagic,
+        willMisc,
+        willTemp
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -655,6 +739,78 @@ class $TableCharacterTable extends TableCharacter
     } else if (isInserting) {
       context.missing(_rabTempMeta);
     }
+    if (data.containsKey('fort_base')) {
+      context.handle(_fortBaseMeta,
+          fortBase.isAcceptableOrUnknown(data['fort_base']!, _fortBaseMeta));
+    } else if (isInserting) {
+      context.missing(_fortBaseMeta);
+    }
+    if (data.containsKey('fort_magic')) {
+      context.handle(_fortMagicMeta,
+          fortMagic.isAcceptableOrUnknown(data['fort_magic']!, _fortMagicMeta));
+    } else if (isInserting) {
+      context.missing(_fortMagicMeta);
+    }
+    if (data.containsKey('fort_misc')) {
+      context.handle(_fortMiscMeta,
+          fortMisc.isAcceptableOrUnknown(data['fort_misc']!, _fortMiscMeta));
+    } else if (isInserting) {
+      context.missing(_fortMiscMeta);
+    }
+    if (data.containsKey('fort_temp')) {
+      context.handle(_fortTempMeta,
+          fortTemp.isAcceptableOrUnknown(data['fort_temp']!, _fortTempMeta));
+    } else if (isInserting) {
+      context.missing(_fortTempMeta);
+    }
+    if (data.containsKey('ref_base')) {
+      context.handle(_refBaseMeta,
+          refBase.isAcceptableOrUnknown(data['ref_base']!, _refBaseMeta));
+    } else if (isInserting) {
+      context.missing(_refBaseMeta);
+    }
+    if (data.containsKey('ref_magic')) {
+      context.handle(_refMagicMeta,
+          refMagic.isAcceptableOrUnknown(data['ref_magic']!, _refMagicMeta));
+    } else if (isInserting) {
+      context.missing(_refMagicMeta);
+    }
+    if (data.containsKey('ref_misc')) {
+      context.handle(_refMiscMeta,
+          refMisc.isAcceptableOrUnknown(data['ref_misc']!, _refMiscMeta));
+    } else if (isInserting) {
+      context.missing(_refMiscMeta);
+    }
+    if (data.containsKey('ref_temp')) {
+      context.handle(_refTempMeta,
+          refTemp.isAcceptableOrUnknown(data['ref_temp']!, _refTempMeta));
+    } else if (isInserting) {
+      context.missing(_refTempMeta);
+    }
+    if (data.containsKey('will_base')) {
+      context.handle(_willBaseMeta,
+          willBase.isAcceptableOrUnknown(data['will_base']!, _willBaseMeta));
+    } else if (isInserting) {
+      context.missing(_willBaseMeta);
+    }
+    if (data.containsKey('will_magic')) {
+      context.handle(_willMagicMeta,
+          willMagic.isAcceptableOrUnknown(data['will_magic']!, _willMagicMeta));
+    } else if (isInserting) {
+      context.missing(_willMagicMeta);
+    }
+    if (data.containsKey('will_misc')) {
+      context.handle(_willMiscMeta,
+          willMisc.isAcceptableOrUnknown(data['will_misc']!, _willMiscMeta));
+    } else if (isInserting) {
+      context.missing(_willMiscMeta);
+    }
+    if (data.containsKey('will_temp')) {
+      context.handle(_willTempMeta,
+          willTemp.isAcceptableOrUnknown(data['will_temp']!, _willTempMeta));
+    } else if (isInserting) {
+      context.missing(_willTempMeta);
+    }
     return context;
   }
 
@@ -758,6 +914,30 @@ class $TableCharacterTable extends TableCharacter
           .read(DriftSqlType.int, data['${effectivePrefix}rab_misc'])!,
       rabTemp: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}rab_temp'])!,
+      fortBase: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fort_base'])!,
+      fortMagic: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fort_magic'])!,
+      fortMisc: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fort_misc'])!,
+      fortTemp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fort_temp'])!,
+      refBase: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}ref_base'])!,
+      refMagic: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}ref_magic'])!,
+      refMisc: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}ref_misc'])!,
+      refTemp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}ref_temp'])!,
+      willBase: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}will_base'])!,
+      willMagic: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}will_magic'])!,
+      willMisc: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}will_misc'])!,
+      willTemp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}will_temp'])!,
     );
   }
 
@@ -816,6 +996,18 @@ class TableCharacterData extends DataClass
   final int tabTemp;
   final int rabMisc;
   final int rabTemp;
+  final int fortBase;
+  final int fortMagic;
+  final int fortMisc;
+  final int fortTemp;
+  final int refBase;
+  final int refMagic;
+  final int refMisc;
+  final int refTemp;
+  final int willBase;
+  final int willMagic;
+  final int willMisc;
+  final int willTemp;
   const TableCharacterData(
       {required this.id,
       required this.charName,
@@ -863,7 +1055,19 @@ class TableCharacterData extends DataClass
       required this.tabMisc,
       required this.tabTemp,
       required this.rabMisc,
-      required this.rabTemp});
+      required this.rabTemp,
+      required this.fortBase,
+      required this.fortMagic,
+      required this.fortMisc,
+      required this.fortTemp,
+      required this.refBase,
+      required this.refMagic,
+      required this.refMisc,
+      required this.refTemp,
+      required this.willBase,
+      required this.willMagic,
+      required this.willMisc,
+      required this.willTemp});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -914,6 +1118,18 @@ class TableCharacterData extends DataClass
     map['tab_temp'] = Variable<int>(tabTemp);
     map['rab_misc'] = Variable<int>(rabMisc);
     map['rab_temp'] = Variable<int>(rabTemp);
+    map['fort_base'] = Variable<int>(fortBase);
+    map['fort_magic'] = Variable<int>(fortMagic);
+    map['fort_misc'] = Variable<int>(fortMisc);
+    map['fort_temp'] = Variable<int>(fortTemp);
+    map['ref_base'] = Variable<int>(refBase);
+    map['ref_magic'] = Variable<int>(refMagic);
+    map['ref_misc'] = Variable<int>(refMisc);
+    map['ref_temp'] = Variable<int>(refTemp);
+    map['will_base'] = Variable<int>(willBase);
+    map['will_magic'] = Variable<int>(willMagic);
+    map['will_misc'] = Variable<int>(willMisc);
+    map['will_temp'] = Variable<int>(willTemp);
     return map;
   }
 
@@ -966,6 +1182,18 @@ class TableCharacterData extends DataClass
       tabTemp: Value(tabTemp),
       rabMisc: Value(rabMisc),
       rabTemp: Value(rabTemp),
+      fortBase: Value(fortBase),
+      fortMagic: Value(fortMagic),
+      fortMisc: Value(fortMisc),
+      fortTemp: Value(fortTemp),
+      refBase: Value(refBase),
+      refMagic: Value(refMagic),
+      refMisc: Value(refMisc),
+      refTemp: Value(refTemp),
+      willBase: Value(willBase),
+      willMagic: Value(willMagic),
+      willMisc: Value(willMisc),
+      willTemp: Value(willTemp),
     );
   }
 
@@ -1020,6 +1248,18 @@ class TableCharacterData extends DataClass
       tabTemp: serializer.fromJson<int>(json['tabTemp']),
       rabMisc: serializer.fromJson<int>(json['rabMisc']),
       rabTemp: serializer.fromJson<int>(json['rabTemp']),
+      fortBase: serializer.fromJson<int>(json['fortBase']),
+      fortMagic: serializer.fromJson<int>(json['fortMagic']),
+      fortMisc: serializer.fromJson<int>(json['fortMisc']),
+      fortTemp: serializer.fromJson<int>(json['fortTemp']),
+      refBase: serializer.fromJson<int>(json['refBase']),
+      refMagic: serializer.fromJson<int>(json['refMagic']),
+      refMisc: serializer.fromJson<int>(json['refMisc']),
+      refTemp: serializer.fromJson<int>(json['refTemp']),
+      willBase: serializer.fromJson<int>(json['willBase']),
+      willMagic: serializer.fromJson<int>(json['willMagic']),
+      willMisc: serializer.fromJson<int>(json['willMisc']),
+      willTemp: serializer.fromJson<int>(json['willTemp']),
     );
   }
   @override
@@ -1073,6 +1313,18 @@ class TableCharacterData extends DataClass
       'tabTemp': serializer.toJson<int>(tabTemp),
       'rabMisc': serializer.toJson<int>(rabMisc),
       'rabTemp': serializer.toJson<int>(rabTemp),
+      'fortBase': serializer.toJson<int>(fortBase),
+      'fortMagic': serializer.toJson<int>(fortMagic),
+      'fortMisc': serializer.toJson<int>(fortMisc),
+      'fortTemp': serializer.toJson<int>(fortTemp),
+      'refBase': serializer.toJson<int>(refBase),
+      'refMagic': serializer.toJson<int>(refMagic),
+      'refMisc': serializer.toJson<int>(refMisc),
+      'refTemp': serializer.toJson<int>(refTemp),
+      'willBase': serializer.toJson<int>(willBase),
+      'willMagic': serializer.toJson<int>(willMagic),
+      'willMisc': serializer.toJson<int>(willMisc),
+      'willTemp': serializer.toJson<int>(willTemp),
     };
   }
 
@@ -1123,7 +1375,19 @@ class TableCharacterData extends DataClass
           int? tabMisc,
           int? tabTemp,
           int? rabMisc,
-          int? rabTemp}) =>
+          int? rabTemp,
+          int? fortBase,
+          int? fortMagic,
+          int? fortMisc,
+          int? fortTemp,
+          int? refBase,
+          int? refMagic,
+          int? refMisc,
+          int? refTemp,
+          int? willBase,
+          int? willMagic,
+          int? willMisc,
+          int? willTemp}) =>
       TableCharacterData(
         id: id ?? this.id,
         charName: charName ?? this.charName,
@@ -1172,6 +1436,18 @@ class TableCharacterData extends DataClass
         tabTemp: tabTemp ?? this.tabTemp,
         rabMisc: rabMisc ?? this.rabMisc,
         rabTemp: rabTemp ?? this.rabTemp,
+        fortBase: fortBase ?? this.fortBase,
+        fortMagic: fortMagic ?? this.fortMagic,
+        fortMisc: fortMisc ?? this.fortMisc,
+        fortTemp: fortTemp ?? this.fortTemp,
+        refBase: refBase ?? this.refBase,
+        refMagic: refMagic ?? this.refMagic,
+        refMisc: refMisc ?? this.refMisc,
+        refTemp: refTemp ?? this.refTemp,
+        willBase: willBase ?? this.willBase,
+        willMagic: willMagic ?? this.willMagic,
+        willMisc: willMisc ?? this.willMisc,
+        willTemp: willTemp ?? this.willTemp,
       );
   TableCharacterData copyWithCompanion(TableCharacterCompanion data) {
     return TableCharacterData(
@@ -1242,6 +1518,18 @@ class TableCharacterData extends DataClass
       tabTemp: data.tabTemp.present ? data.tabTemp.value : this.tabTemp,
       rabMisc: data.rabMisc.present ? data.rabMisc.value : this.rabMisc,
       rabTemp: data.rabTemp.present ? data.rabTemp.value : this.rabTemp,
+      fortBase: data.fortBase.present ? data.fortBase.value : this.fortBase,
+      fortMagic: data.fortMagic.present ? data.fortMagic.value : this.fortMagic,
+      fortMisc: data.fortMisc.present ? data.fortMisc.value : this.fortMisc,
+      fortTemp: data.fortTemp.present ? data.fortTemp.value : this.fortTemp,
+      refBase: data.refBase.present ? data.refBase.value : this.refBase,
+      refMagic: data.refMagic.present ? data.refMagic.value : this.refMagic,
+      refMisc: data.refMisc.present ? data.refMisc.value : this.refMisc,
+      refTemp: data.refTemp.present ? data.refTemp.value : this.refTemp,
+      willBase: data.willBase.present ? data.willBase.value : this.willBase,
+      willMagic: data.willMagic.present ? data.willMagic.value : this.willMagic,
+      willMisc: data.willMisc.present ? data.willMisc.value : this.willMisc,
+      willTemp: data.willTemp.present ? data.willTemp.value : this.willTemp,
     );
   }
 
@@ -1294,7 +1582,19 @@ class TableCharacterData extends DataClass
           ..write('tabMisc: $tabMisc, ')
           ..write('tabTemp: $tabTemp, ')
           ..write('rabMisc: $rabMisc, ')
-          ..write('rabTemp: $rabTemp')
+          ..write('rabTemp: $rabTemp, ')
+          ..write('fortBase: $fortBase, ')
+          ..write('fortMagic: $fortMagic, ')
+          ..write('fortMisc: $fortMisc, ')
+          ..write('fortTemp: $fortTemp, ')
+          ..write('refBase: $refBase, ')
+          ..write('refMagic: $refMagic, ')
+          ..write('refMisc: $refMisc, ')
+          ..write('refTemp: $refTemp, ')
+          ..write('willBase: $willBase, ')
+          ..write('willMagic: $willMagic, ')
+          ..write('willMisc: $willMisc, ')
+          ..write('willTemp: $willTemp')
           ..write(')'))
         .toString();
   }
@@ -1347,7 +1647,19 @@ class TableCharacterData extends DataClass
         tabMisc,
         tabTemp,
         rabMisc,
-        rabTemp
+        rabTemp,
+        fortBase,
+        fortMagic,
+        fortMisc,
+        fortTemp,
+        refBase,
+        refMagic,
+        refMisc,
+        refTemp,
+        willBase,
+        willMagic,
+        willMisc,
+        willTemp
       ]);
   @override
   bool operator ==(Object other) =>
@@ -1399,7 +1711,19 @@ class TableCharacterData extends DataClass
           other.tabMisc == this.tabMisc &&
           other.tabTemp == this.tabTemp &&
           other.rabMisc == this.rabMisc &&
-          other.rabTemp == this.rabTemp);
+          other.rabTemp == this.rabTemp &&
+          other.fortBase == this.fortBase &&
+          other.fortMagic == this.fortMagic &&
+          other.fortMisc == this.fortMisc &&
+          other.fortTemp == this.fortTemp &&
+          other.refBase == this.refBase &&
+          other.refMagic == this.refMagic &&
+          other.refMisc == this.refMisc &&
+          other.refTemp == this.refTemp &&
+          other.willBase == this.willBase &&
+          other.willMagic == this.willMagic &&
+          other.willMisc == this.willMisc &&
+          other.willTemp == this.willTemp);
 }
 
 class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
@@ -1450,6 +1774,18 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   final Value<int> tabTemp;
   final Value<int> rabMisc;
   final Value<int> rabTemp;
+  final Value<int> fortBase;
+  final Value<int> fortMagic;
+  final Value<int> fortMisc;
+  final Value<int> fortTemp;
+  final Value<int> refBase;
+  final Value<int> refMagic;
+  final Value<int> refMisc;
+  final Value<int> refTemp;
+  final Value<int> willBase;
+  final Value<int> willMagic;
+  final Value<int> willMisc;
+  final Value<int> willTemp;
   const TableCharacterCompanion({
     this.id = const Value.absent(),
     this.charName = const Value.absent(),
@@ -1498,6 +1834,18 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     this.tabTemp = const Value.absent(),
     this.rabMisc = const Value.absent(),
     this.rabTemp = const Value.absent(),
+    this.fortBase = const Value.absent(),
+    this.fortMagic = const Value.absent(),
+    this.fortMisc = const Value.absent(),
+    this.fortTemp = const Value.absent(),
+    this.refBase = const Value.absent(),
+    this.refMagic = const Value.absent(),
+    this.refMisc = const Value.absent(),
+    this.refTemp = const Value.absent(),
+    this.willBase = const Value.absent(),
+    this.willMagic = const Value.absent(),
+    this.willMisc = const Value.absent(),
+    this.willTemp = const Value.absent(),
   });
   TableCharacterCompanion.insert({
     this.id = const Value.absent(),
@@ -1547,6 +1895,18 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     required int tabTemp,
     required int rabMisc,
     required int rabTemp,
+    required int fortBase,
+    required int fortMagic,
+    required int fortMisc,
+    required int fortTemp,
+    required int refBase,
+    required int refMagic,
+    required int refMisc,
+    required int refTemp,
+    required int willBase,
+    required int willMagic,
+    required int willMisc,
+    required int willTemp,
   })  : charName = Value(charName),
         charClass = Value(charClass),
         lvl = Value(lvl),
@@ -1592,7 +1952,19 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
         tabMisc = Value(tabMisc),
         tabTemp = Value(tabTemp),
         rabMisc = Value(rabMisc),
-        rabTemp = Value(rabTemp);
+        rabTemp = Value(rabTemp),
+        fortBase = Value(fortBase),
+        fortMagic = Value(fortMagic),
+        fortMisc = Value(fortMisc),
+        fortTemp = Value(fortTemp),
+        refBase = Value(refBase),
+        refMagic = Value(refMagic),
+        refMisc = Value(refMisc),
+        refTemp = Value(refTemp),
+        willBase = Value(willBase),
+        willMagic = Value(willMagic),
+        willMisc = Value(willMisc),
+        willTemp = Value(willTemp);
   static Insertable<TableCharacterData> custom({
     Expression<int>? id,
     Expression<String>? charName,
@@ -1641,6 +2013,18 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     Expression<int>? tabTemp,
     Expression<int>? rabMisc,
     Expression<int>? rabTemp,
+    Expression<int>? fortBase,
+    Expression<int>? fortMagic,
+    Expression<int>? fortMisc,
+    Expression<int>? fortTemp,
+    Expression<int>? refBase,
+    Expression<int>? refMagic,
+    Expression<int>? refMisc,
+    Expression<int>? refTemp,
+    Expression<int>? willBase,
+    Expression<int>? willMagic,
+    Expression<int>? willMisc,
+    Expression<int>? willTemp,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1690,6 +2074,18 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       if (tabTemp != null) 'tab_temp': tabTemp,
       if (rabMisc != null) 'rab_misc': rabMisc,
       if (rabTemp != null) 'rab_temp': rabTemp,
+      if (fortBase != null) 'fort_base': fortBase,
+      if (fortMagic != null) 'fort_magic': fortMagic,
+      if (fortMisc != null) 'fort_misc': fortMisc,
+      if (fortTemp != null) 'fort_temp': fortTemp,
+      if (refBase != null) 'ref_base': refBase,
+      if (refMagic != null) 'ref_magic': refMagic,
+      if (refMisc != null) 'ref_misc': refMisc,
+      if (refTemp != null) 'ref_temp': refTemp,
+      if (willBase != null) 'will_base': willBase,
+      if (willMagic != null) 'will_magic': willMagic,
+      if (willMisc != null) 'will_misc': willMisc,
+      if (willTemp != null) 'will_temp': willTemp,
     });
   }
 
@@ -1740,7 +2136,19 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       Value<int>? tabMisc,
       Value<int>? tabTemp,
       Value<int>? rabMisc,
-      Value<int>? rabTemp}) {
+      Value<int>? rabTemp,
+      Value<int>? fortBase,
+      Value<int>? fortMagic,
+      Value<int>? fortMisc,
+      Value<int>? fortTemp,
+      Value<int>? refBase,
+      Value<int>? refMagic,
+      Value<int>? refMisc,
+      Value<int>? refTemp,
+      Value<int>? willBase,
+      Value<int>? willMagic,
+      Value<int>? willMisc,
+      Value<int>? willTemp}) {
     return TableCharacterCompanion(
       id: id ?? this.id,
       charName: charName ?? this.charName,
@@ -1789,6 +2197,18 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       tabTemp: tabTemp ?? this.tabTemp,
       rabMisc: rabMisc ?? this.rabMisc,
       rabTemp: rabTemp ?? this.rabTemp,
+      fortBase: fortBase ?? this.fortBase,
+      fortMagic: fortMagic ?? this.fortMagic,
+      fortMisc: fortMisc ?? this.fortMisc,
+      fortTemp: fortTemp ?? this.fortTemp,
+      refBase: refBase ?? this.refBase,
+      refMagic: refMagic ?? this.refMagic,
+      refMisc: refMisc ?? this.refMisc,
+      refTemp: refTemp ?? this.refTemp,
+      willBase: willBase ?? this.willBase,
+      willMagic: willMagic ?? this.willMagic,
+      willMisc: willMisc ?? this.willMisc,
+      willTemp: willTemp ?? this.willTemp,
     );
   }
 
@@ -1936,6 +2356,42 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     if (rabTemp.present) {
       map['rab_temp'] = Variable<int>(rabTemp.value);
     }
+    if (fortBase.present) {
+      map['fort_base'] = Variable<int>(fortBase.value);
+    }
+    if (fortMagic.present) {
+      map['fort_magic'] = Variable<int>(fortMagic.value);
+    }
+    if (fortMisc.present) {
+      map['fort_misc'] = Variable<int>(fortMisc.value);
+    }
+    if (fortTemp.present) {
+      map['fort_temp'] = Variable<int>(fortTemp.value);
+    }
+    if (refBase.present) {
+      map['ref_base'] = Variable<int>(refBase.value);
+    }
+    if (refMagic.present) {
+      map['ref_magic'] = Variable<int>(refMagic.value);
+    }
+    if (refMisc.present) {
+      map['ref_misc'] = Variable<int>(refMisc.value);
+    }
+    if (refTemp.present) {
+      map['ref_temp'] = Variable<int>(refTemp.value);
+    }
+    if (willBase.present) {
+      map['will_base'] = Variable<int>(willBase.value);
+    }
+    if (willMagic.present) {
+      map['will_magic'] = Variable<int>(willMagic.value);
+    }
+    if (willMisc.present) {
+      map['will_misc'] = Variable<int>(willMisc.value);
+    }
+    if (willTemp.present) {
+      map['will_temp'] = Variable<int>(willTemp.value);
+    }
     return map;
   }
 
@@ -1988,7 +2444,19 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
           ..write('tabMisc: $tabMisc, ')
           ..write('tabTemp: $tabTemp, ')
           ..write('rabMisc: $rabMisc, ')
-          ..write('rabTemp: $rabTemp')
+          ..write('rabTemp: $rabTemp, ')
+          ..write('fortBase: $fortBase, ')
+          ..write('fortMagic: $fortMagic, ')
+          ..write('fortMisc: $fortMisc, ')
+          ..write('fortTemp: $fortTemp, ')
+          ..write('refBase: $refBase, ')
+          ..write('refMagic: $refMagic, ')
+          ..write('refMisc: $refMisc, ')
+          ..write('refTemp: $refTemp, ')
+          ..write('willBase: $willBase, ')
+          ..write('willMagic: $willMagic, ')
+          ..write('willMisc: $willMisc, ')
+          ..write('willTemp: $willTemp')
           ..write(')'))
         .toString();
   }
@@ -2054,6 +2522,18 @@ typedef $$TableCharacterTableCreateCompanionBuilder = TableCharacterCompanion
   required int tabTemp,
   required int rabMisc,
   required int rabTemp,
+  required int fortBase,
+  required int fortMagic,
+  required int fortMisc,
+  required int fortTemp,
+  required int refBase,
+  required int refMagic,
+  required int refMisc,
+  required int refTemp,
+  required int willBase,
+  required int willMagic,
+  required int willMisc,
+  required int willTemp,
 });
 typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
     Function({
@@ -2104,6 +2584,18 @@ typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
   Value<int> tabTemp,
   Value<int> rabMisc,
   Value<int> rabTemp,
+  Value<int> fortBase,
+  Value<int> fortMagic,
+  Value<int> fortMisc,
+  Value<int> fortTemp,
+  Value<int> refBase,
+  Value<int> refMagic,
+  Value<int> refMisc,
+  Value<int> refTemp,
+  Value<int> willBase,
+  Value<int> willMagic,
+  Value<int> willMisc,
+  Value<int> willTemp,
 });
 
 class $$TableCharacterTableFilterComposer
@@ -2258,6 +2750,42 @@ class $$TableCharacterTableFilterComposer
 
   ColumnFilters<int> get rabTemp => $composableBuilder(
       column: $table.rabTemp, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get fortBase => $composableBuilder(
+      column: $table.fortBase, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get fortMagic => $composableBuilder(
+      column: $table.fortMagic, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get fortMisc => $composableBuilder(
+      column: $table.fortMisc, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get fortTemp => $composableBuilder(
+      column: $table.fortTemp, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get refBase => $composableBuilder(
+      column: $table.refBase, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get refMagic => $composableBuilder(
+      column: $table.refMagic, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get refMisc => $composableBuilder(
+      column: $table.refMisc, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get refTemp => $composableBuilder(
+      column: $table.refTemp, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get willBase => $composableBuilder(
+      column: $table.willBase, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get willMagic => $composableBuilder(
+      column: $table.willMagic, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get willMisc => $composableBuilder(
+      column: $table.willMisc, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get willTemp => $composableBuilder(
+      column: $table.willTemp, builder: (column) => ColumnFilters(column));
 }
 
 class $$TableCharacterTableOrderingComposer
@@ -2415,6 +2943,42 @@ class $$TableCharacterTableOrderingComposer
 
   ColumnOrderings<int> get rabTemp => $composableBuilder(
       column: $table.rabTemp, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get fortBase => $composableBuilder(
+      column: $table.fortBase, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get fortMagic => $composableBuilder(
+      column: $table.fortMagic, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get fortMisc => $composableBuilder(
+      column: $table.fortMisc, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get fortTemp => $composableBuilder(
+      column: $table.fortTemp, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get refBase => $composableBuilder(
+      column: $table.refBase, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get refMagic => $composableBuilder(
+      column: $table.refMagic, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get refMisc => $composableBuilder(
+      column: $table.refMisc, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get refTemp => $composableBuilder(
+      column: $table.refTemp, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get willBase => $composableBuilder(
+      column: $table.willBase, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get willMagic => $composableBuilder(
+      column: $table.willMagic, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get willMisc => $composableBuilder(
+      column: $table.willMisc, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get willTemp => $composableBuilder(
+      column: $table.willTemp, builder: (column) => ColumnOrderings(column));
 }
 
 class $$TableCharacterTableAnnotationComposer
@@ -2566,6 +3130,42 @@ class $$TableCharacterTableAnnotationComposer
 
   GeneratedColumn<int> get rabTemp =>
       $composableBuilder(column: $table.rabTemp, builder: (column) => column);
+
+  GeneratedColumn<int> get fortBase =>
+      $composableBuilder(column: $table.fortBase, builder: (column) => column);
+
+  GeneratedColumn<int> get fortMagic =>
+      $composableBuilder(column: $table.fortMagic, builder: (column) => column);
+
+  GeneratedColumn<int> get fortMisc =>
+      $composableBuilder(column: $table.fortMisc, builder: (column) => column);
+
+  GeneratedColumn<int> get fortTemp =>
+      $composableBuilder(column: $table.fortTemp, builder: (column) => column);
+
+  GeneratedColumn<int> get refBase =>
+      $composableBuilder(column: $table.refBase, builder: (column) => column);
+
+  GeneratedColumn<int> get refMagic =>
+      $composableBuilder(column: $table.refMagic, builder: (column) => column);
+
+  GeneratedColumn<int> get refMisc =>
+      $composableBuilder(column: $table.refMisc, builder: (column) => column);
+
+  GeneratedColumn<int> get refTemp =>
+      $composableBuilder(column: $table.refTemp, builder: (column) => column);
+
+  GeneratedColumn<int> get willBase =>
+      $composableBuilder(column: $table.willBase, builder: (column) => column);
+
+  GeneratedColumn<int> get willMagic =>
+      $composableBuilder(column: $table.willMagic, builder: (column) => column);
+
+  GeneratedColumn<int> get willMisc =>
+      $composableBuilder(column: $table.willMisc, builder: (column) => column);
+
+  GeneratedColumn<int> get willTemp =>
+      $composableBuilder(column: $table.willTemp, builder: (column) => column);
 }
 
 class $$TableCharacterTableTableManager extends RootTableManager<
@@ -2642,6 +3242,18 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             Value<int> tabTemp = const Value.absent(),
             Value<int> rabMisc = const Value.absent(),
             Value<int> rabTemp = const Value.absent(),
+            Value<int> fortBase = const Value.absent(),
+            Value<int> fortMagic = const Value.absent(),
+            Value<int> fortMisc = const Value.absent(),
+            Value<int> fortTemp = const Value.absent(),
+            Value<int> refBase = const Value.absent(),
+            Value<int> refMagic = const Value.absent(),
+            Value<int> refMisc = const Value.absent(),
+            Value<int> refTemp = const Value.absent(),
+            Value<int> willBase = const Value.absent(),
+            Value<int> willMagic = const Value.absent(),
+            Value<int> willMisc = const Value.absent(),
+            Value<int> willTemp = const Value.absent(),
           }) =>
               TableCharacterCompanion(
             id: id,
@@ -2691,6 +3303,18 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             tabTemp: tabTemp,
             rabMisc: rabMisc,
             rabTemp: rabTemp,
+            fortBase: fortBase,
+            fortMagic: fortMagic,
+            fortMisc: fortMisc,
+            fortTemp: fortTemp,
+            refBase: refBase,
+            refMagic: refMagic,
+            refMisc: refMisc,
+            refTemp: refTemp,
+            willBase: willBase,
+            willMagic: willMagic,
+            willMisc: willMisc,
+            willTemp: willTemp,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -2740,6 +3364,18 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             required int tabTemp,
             required int rabMisc,
             required int rabTemp,
+            required int fortBase,
+            required int fortMagic,
+            required int fortMisc,
+            required int fortTemp,
+            required int refBase,
+            required int refMagic,
+            required int refMisc,
+            required int refTemp,
+            required int willBase,
+            required int willMagic,
+            required int willMisc,
+            required int willTemp,
           }) =>
               TableCharacterCompanion.insert(
             id: id,
@@ -2789,6 +3425,18 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             tabTemp: tabTemp,
             rabMisc: rabMisc,
             rabTemp: rabTemp,
+            fortBase: fortBase,
+            fortMagic: fortMagic,
+            fortMisc: fortMisc,
+            fortTemp: fortTemp,
+            refBase: refBase,
+            refMagic: refMagic,
+            refMisc: refMisc,
+            refTemp: refTemp,
+            willBase: willBase,
+            willMagic: willMagic,
+            willMisc: willMisc,
+            willTemp: willTemp,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

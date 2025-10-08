@@ -4,6 +4,20 @@ import 'package:pathfinder_sheet/models.dart/character.dart';
 
 class Mapper {
   Character toCharacter(TableCharacterData element) {
+    final CharacterSavingThrows savingThrows = CharacterSavingThrows(
+        fortBase: element.fortBase,
+        fortMagic: element.fortMagic,
+        fortMisc: element.fortMisc,
+        fortTemp: element.fortTemp,
+        refBase: element.refBase,
+        refMagic: element.refMagic,
+        refMisc: element.refMisc,
+        refTemp: element.refTemp,
+        willBase: element.willBase,
+        willMagic: element.willMagic,
+        willMisc: element.willMisc,
+        willTemp: element.willTemp);
+
     final CharacterBab babBlock = CharacterBab(
         bab: element.bab,
         mabMisc: element.mabMisc,
@@ -52,23 +66,25 @@ class Mapper {
         misc: element.kacMisc);
 
     return Character(
-        id: element.id,
-        charName: element.charName,
-        charClass: element.charClass,
-        lvl: element.lvl,
-        race: element.race,
-        alignment: CharAlignment.values
-            .firstWhere((e) => e.alignName == element.alignment),
-        size: CharSize.values.firstWhere((e) => e.sizeName == element.size),
-        ability: ability,
-        liveBlock: liveBlock,
-        eacBlock: eacBlock,
-        kacBlock: kacBlock,
-        moveSpeed: element.moveSpeed,
-        flySpeed: element.flySpeed,
-        swimSpeed: element.swimSpeed,
-        initMisc: element.initMisc,
-        babBlock: babBlock);
+      id: element.id,
+      charName: element.charName,
+      charClass: element.charClass,
+      lvl: element.lvl,
+      race: element.race,
+      alignment: CharAlignment.values
+          .firstWhere((e) => e.alignName == element.alignment),
+      size: CharSize.values.firstWhere((e) => e.sizeName == element.size),
+      ability: ability,
+      liveBlock: liveBlock,
+      eacBlock: eacBlock,
+      kacBlock: kacBlock,
+      moveSpeed: element.moveSpeed,
+      flySpeed: element.flySpeed,
+      swimSpeed: element.swimSpeed,
+      initMisc: element.initMisc,
+      babBlock: babBlock,
+      savingThrows: savingThrows,
+    );
   }
 
   TableCharacterData toTableCharacterData(Character character) {
@@ -120,6 +136,18 @@ class Mapper {
       tabTemp: character.babBlock.tabTemp,
       rabMisc: character.babBlock.rabMisc,
       rabTemp: character.babBlock.rabTemp,
+      fortBase: character.savingThrows.fortBase,
+      fortMagic: character.savingThrows.fortMagic,
+      fortMisc: character.savingThrows.fortMisc,
+      fortTemp: character.savingThrows.fortTemp,
+      refBase: character.savingThrows.refBase,
+      refMagic: character.savingThrows.refMagic,
+      refMisc: character.savingThrows.refMisc,
+      refTemp: character.savingThrows.refTemp,
+      willBase: character.savingThrows.willBase,
+      willMagic: character.savingThrows.willMagic,
+      willMisc: character.savingThrows.willMisc,
+      willTemp: character.savingThrows.willTemp,
     );
   }
 
@@ -172,6 +200,18 @@ class Mapper {
       tabTemp: Value(character.babBlock.tabTemp),
       rabMisc: Value(character.babBlock.rabMisc),
       rabTemp: Value(character.babBlock.rabTemp),
+      fortBase: Value(character.savingThrows.fortBase),
+      fortMagic: Value(character.savingThrows.fortMagic),
+      fortMisc: Value(character.savingThrows.fortMisc),
+      fortTemp: Value(character.savingThrows.fortTemp),
+      refBase: Value(character.savingThrows.refBase),
+      refMagic: Value(character.savingThrows.refMagic),
+      refMisc: Value(character.savingThrows.refMisc),
+      refTemp: Value(character.savingThrows.refTemp),
+      willBase: Value(character.savingThrows.willBase),
+      willMagic: Value(character.savingThrows.willMagic),
+      willMisc: Value(character.savingThrows.willMisc),
+      willTemp: Value(character.savingThrows.willTemp),
     );
   }
 }
