@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
+import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
@@ -77,7 +78,8 @@ class LiveBlock extends StatelessWidget {
                       onTap: () {
                         showDialog(
                           context: context,
-                          builder: (context) => addHPDiolog(context),
+                          builder: (context) => CustomDialog(
+                              content: dialogContent(context, true)),
                         );
                       },
                       child: const Padding(
@@ -153,9 +155,9 @@ class LiveBlock extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         showDialog(
-                          context: context,
-                          builder: (context) => addStamDiolog(context),
-                        );
+                            context: context,
+                            builder: (context) => CustomDialog(
+                                content: dialogContent(context, false)));
                       },
                       child: const Padding(
                         padding: EdgeInsets.only(left: 8.0),
@@ -269,116 +271,63 @@ class LiveBlock extends StatelessWidget {
     );
   }
 
-  Widget addHPDiolog(BuildContext context) {
+  Widget dialogContent(BuildContext context, bool isHp) {
     TextEditingController controller = TextEditingController();
-
-    return AlertDialog(
-      title: Text(
-        "Heal Hp",
-        style: AppStyles.commonPixel(),
-      ),
-      backgroundColor: AppColors.backgroundDark,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.all(Radius.zero)),
-      content: Column(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 30.0,
-            child: CustomPaint(
-              painter: DialogFramePainter(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: TextFormField(
-                  controller: controller,
-                  //initialValue: '23',
-                  expands: true,
-                  maxLines: null,
-                  style: AppStyles.commonPixel(),
-                  textAlign: TextAlign.left,
-                  textAlignVertical: TextAlignVertical.center,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 8.0,
+          Text(
+            isHp ? 'HP' : 'Stam',
+            style: AppStyles.commonPixel().copyWith(color: AppColors.darkPink),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              GestureDetector(
-                onTap: () {
-                  wm.healHP(int.parse(controller.text));
-                  Navigator.of(context).pop();
-                },
+              Expanded(
                 child: Text(
-                  "Heal",
+                  'Heal value: ',
                   style: AppStyles.commonPixel(),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: 30.0,
+                  child: TextFormField(
+                    controller: controller,
+                    expands: true,
+                    maxLines: null,
+                    style: AppStyles.commonPixel(),
+                    textAlign: TextAlign.left,
+                    cursorColor: AppColors.darkPink,
+                    textAlignVertical: TextAlignVertical.center,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      focusColor: AppColors.darkPink,
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.darkPink)),
+                    ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget addStamDiolog(BuildContext context) {
-    TextEditingController controller = TextEditingController();
-
-    return AlertDialog(
-      title: Text(
-        "Heal Stam",
-        style: AppStyles.commonPixel(),
-      ),
-      backgroundColor: AppColors.backgroundDark,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.all(Radius.zero)),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            height: 30.0,
-            child: CustomPaint(
-              painter: DialogFramePainter(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: TextFormField(
-                  controller: controller,
-                  //initialValue: '23',
-                  expands: true,
-                  maxLines: null,
-                  style: AppStyles.commonPixel(),
-                  textAlign: TextAlign.left,
-                  textAlignVertical: TextAlignVertical.center,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
-                  ],
-                ),
-              ),
-            ),
-          ),
           const SizedBox(
-            height: 8.0,
+            height: 16.0,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
                 onTap: () {
-                  wm.healStam(int.parse(controller.text));
+                  isHp
+                      ? wm.healHP(int.parse(controller.text))
+                      : wm.healStam(int.parse(controller.text));
                   Navigator.of(context).pop();
                 },
                 child: Text(

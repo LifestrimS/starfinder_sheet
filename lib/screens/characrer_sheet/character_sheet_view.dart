@@ -50,101 +50,104 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
       ],
     );
 
-    return EntityStateNotifierBuilder(
-      listenableEntityState: wm.listCharactersNotifier(),
-      errorBuilder: (context, e, data) => Scaffold(
-        body: Center(
-          child: Text(
-            'Can\'t load list of characters',
-            style: AppStyles.commonPixel(),
+    return PopScope(
+      canPop: false,
+      child: EntityStateNotifierBuilder(
+        listenableEntityState: wm.listCharactersNotifier(),
+        errorBuilder: (context, e, data) => Scaffold(
+          body: Center(
+            child: Text(
+              'Can\'t load list of characters',
+              style: AppStyles.commonPixel(),
+            ),
           ),
         ),
-      ),
-      loadingBuilder: (context, data) => Center(
-        child: LoadingIndicatorWidget(
-          dimension: 250.0,
+        loadingBuilder: (context, data) => Center(
+          child: LoadingIndicatorWidget(
+            dimension: 250.0,
+          ),
         ),
-      ),
-      builder: (context, listOfCharacters) {
-        if (listOfCharacters != null && listOfCharacters.isNotEmpty) {
-          return Scaffold(
-            drawer: SideBar(
-              wm: wm,
-              listOfCharacters: listOfCharacters,
-            ),
-            backgroundColor: AppColors.backgroundDark,
-            appBar: appbar,
-            body: EntityStateNotifierBuilder(
-              listenableEntityState: wm.characterLoadNotifier(),
-              errorBuilder: (context, e, data) {
-                return Center(
-                  child: Text(
-                    'Can\'t load character',
-                    style: AppStyles.commonPixel(),
-                  ),
-                );
-              },
-              loadingBuilder: (context, data) {
-                return Center(
-                  child: Text(
-                    'Loading character...',
-                    style: AppStyles.commonPixel(),
-                  ),
-                );
-              },
-              builder: (context, character) {
-                if (character == null) {
+        builder: (context, listOfCharacters) {
+          if (listOfCharacters != null && listOfCharacters.isNotEmpty) {
+            return Scaffold(
+              drawer: SideBar(
+                wm: wm,
+                listOfCharacters: listOfCharacters,
+              ),
+              backgroundColor: AppColors.backgroundDark,
+              appBar: appbar,
+              body: EntityStateNotifierBuilder(
+                listenableEntityState: wm.characterLoadNotifier(),
+                errorBuilder: (context, e, data) {
                   return Center(
                     child: Text(
                       'Can\'t load character',
-                      textAlign: TextAlign.center,
                       style: AppStyles.commonPixel(),
                     ),
                   );
-                } else {
-                  return CarouselBody(
-                    wm: wm,
-                    appBarHeight: appbar.preferredSize.height,
-                  );
-                }
-              },
-            ),
-          );
-        } else {
-          return Scaffold(
-            drawer: SideBar(
-              wm: wm,
-              listOfCharacters: listOfCharacters ?? [],
-            ),
-            backgroundColor: AppColors.backgroundDark,
-            appBar: AppBar(
-              backgroundColor: AppColors.darkBlue,
-              actions: [
-                GestureDetector(
-                  onTap: () => wm.goDebug(),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
+                },
+                loadingBuilder: (context, data) {
+                  return Center(
                     child: Text(
-                      'Debug',
+                      'Loading character...',
                       style: AppStyles.commonPixel(),
+                    ),
+                  );
+                },
+                builder: (context, character) {
+                  if (character == null) {
+                    return Center(
+                      child: Text(
+                        'Can\'t load character',
+                        textAlign: TextAlign.center,
+                        style: AppStyles.commonPixel(),
+                      ),
+                    );
+                  } else {
+                    return CarouselBody(
+                      wm: wm,
+                      appBarHeight: appbar.preferredSize.height,
+                    );
+                  }
+                },
+              ),
+            );
+          } else {
+            return Scaffold(
+              drawer: SideBar(
+                wm: wm,
+                listOfCharacters: listOfCharacters ?? [],
+              ),
+              backgroundColor: AppColors.backgroundDark,
+              appBar: AppBar(
+                backgroundColor: AppColors.darkBlue,
+                actions: [
+                  GestureDetector(
+                    onTap: () => wm.goDebug(),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Text(
+                        'Debug',
+                        style: AppStyles.commonPixel(),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            body: Padding(
-              padding: EdgeInsets.only(top: screenHeight()),
-              child: const Center(
-                child: Text(
-                  'You don\'t have characters :(',
-                  style: TextStyle(
-                      color: AppColors.textContrastDark, fontSize: 20.0),
+                ],
+              ),
+              body: Padding(
+                padding: EdgeInsets.only(top: screenHeight()),
+                child: const Center(
+                  child: Text(
+                    'You don\'t have characters :(',
+                    style: TextStyle(
+                        color: AppColors.textContrastDark, fontSize: 20.0),
+                  ),
                 ),
               ),
-            ),
-          );
-        }
-      },
+            );
+          }
+        },
+      ),
     );
   }
 }

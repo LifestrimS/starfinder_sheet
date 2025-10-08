@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
@@ -41,12 +42,10 @@ class _ACBlockState extends State<ACBlock> {
               GestureDetector(
                 onTap: () async {
                   await showDialog(
-                    context: context,
-                    builder: (context) => aCDialog(context,
-                        isEAC: true,
-                        controllers: widget.eacControllers,
-                        dexModificator: dexModificator),
-                  );
+                      context: context,
+                      builder: (context) => CustomDialog(
+                          content: dialogContent(context, true, dexModificator,
+                              widget.eacControllers)));
                   update(isEac: true);
                 },
                 child: SizedBox(
@@ -92,12 +91,10 @@ class _ACBlockState extends State<ACBlock> {
               GestureDetector(
                 onTap: () async {
                   await showDialog(
-                    context: context,
-                    builder: (context) => aCDialog(context,
-                        isEAC: false,
-                        controllers: widget.kacControllers,
-                        dexModificator: dexModificator),
-                  );
+                      context: context,
+                      builder: (context) => CustomDialog(
+                          content: dialogContent(context, false, dexModificator,
+                              widget.kacControllers)));
                   update(isEac: false);
                 },
                 child: SizedBox(
@@ -157,203 +154,180 @@ class _ACBlockState extends State<ACBlock> {
       kacNotifier.value = countAC(widget.kacControllers);
     }
   }
-}
 
-Widget aCDialog(
-  BuildContext context, {
-  required bool isEAC,
-  required int dexModificator,
-  required AcControllers controllers,
-}) {
-  return AlertDialog(
-    insetPadding: EdgeInsets.zero,
-    title: Text(
-      isEAC ? 'EAC' : 'KAC',
-      style: AppStyles.commonPixel().copyWith(color: AppColors.darkPink),
-    ),
-    backgroundColor: AppColors.backgroundDark,
-    shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.all(Radius.zero)),
-    content: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Text(
-                '10',
-                style: AppStyles.commonPixel(),
+  Widget dialogContent(
+    BuildContext context,
+    bool isEAC,
+    int dexModificator,
+    AcControllers controllers,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            isEAC ? 'EAC' : 'KAC',
+            style: AppStyles.commonPixel().copyWith(color: AppColors.darkPink),
+          ),
+          const SizedBox(
+            height: 12.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const DialogBox(
+                title: 'Base',
+                value: 10,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Text(
-                ' + ',
-                style: AppStyles.commonPixel(),
+              plusSymbol(),
+              DialogBox(
+                title: 'Dex',
+                value: dexModificator,
+                widthCutCount: 2.5,
               ),
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'DEX',
-                  style: AppStyles.commonPixel()
-                      .copyWith(fontSize: 6.0, color: AppColors.darkPink),
+              plusSymbol(),
+              DialogBox(
+                title: 'Armor',
+                controller: controllers.armorController,
+                widthCutCount: 4.2,
+              ),
+              plusSymbol(),
+              DialogBox(
+                title: 'Dodge',
+                controller: controllers.dodgeController,
+                widthCutCount: 4.2,
+              ),
+              plusSymbol(),
+            ],
+          ),
+          const SizedBox(
+            height: 12.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              plusSymbol(),
+              DialogBox(
+                title: 'Natur',
+                controller: controllers.naturalController,
+                widthCutCount: 4.2,
+              ),
+              plusSymbol(),
+              DialogBox(
+                title: 'Deflect',
+                controller: controllers.deflectController,
+                widthCutCount: 5,
+              ),
+              plusSymbol(),
+              DialogBox(
+                title: 'Misc',
+                controller: controllers.miscController,
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Done",
+                  style: AppStyles.commonPixel(),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                SizedBox(
-                  height: 30.0,
-                  width: 40.0,
-                  child: Text(
-                    dexModificator.toString(),
-                    textAlign: TextAlign.center,
-                    style: AppStyles.commonPixel(),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Text(
-                ' + ',
-                style: AppStyles.commonPixel(),
               ),
-            ),
-            DialogBox(
-              title: 'Armor',
-              controller: controllers.armorController,
-              isEnable: false,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Text(
-                ' + ',
-                style: AppStyles.commonPixel(),
-              ),
-            ),
-            DialogBox(
-              title: 'Dodge',
-              controller: controllers.dodgeController,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Text(
-                ' + ',
-                style: AppStyles.commonPixel(),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Text(
-              ' + ',
-              style: AppStyles.commonPixel(),
-            ),
-            DialogBox(
-              title: 'Natural',
-              controller: controllers.naturalController,
-            ),
-            Text(
-              ' + ',
-              style: AppStyles.commonPixel(),
-            ),
-            DialogBox(
-              title: 'Deflect',
-              controller: controllers.deflectController,
-            ),
-            Text(
-              ' + ',
-              style: AppStyles.commonPixel(),
-            ),
-            DialogBox(
-              title: 'Misc',
-              controller: controllers.miscController,
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 8.0,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                "Done",
-                style: AppStyles.commonPixel(),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget plusSymbol() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0, left: 6.0),
+      child: Text(
+        '+',
+        style: AppStyles.commonPixel(),
+      ),
+    );
+  }
 }
 
 class DialogBox extends StatelessWidget {
   final String title;
-  final TextEditingController controller;
-  final bool isEnable;
+  final TextEditingController? controller;
+  final int? value;
+  final double widthCutCount;
 
   const DialogBox(
       {required this.title,
-      required this.controller,
-      this.isEnable = true,
+      this.controller,
+      this.value,
+      this.widthCutCount = 3,
       super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          title,
-          style: AppStyles.commonPixel()
-              .copyWith(fontSize: 6.0, color: AppColors.darkPink),
-        ),
-        const SizedBox(
-          height: 4.0,
-        ),
-        SizedBox(
-          height: 30.0,
-          width: 40.0,
-          child: CustomPaint(
-            painter: DialogFramePainter(),
-            child: TextFormField(
-              controller: controller,
-              //initialValue: '13',
-              expands: true,
-              maxLines: null,
-              enabled: isEnable,
-              style: AppStyles.commonPixel(),
-              textAlign: TextAlign.center,
-              textAlignVertical: TextAlignVertical.center,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
-                border: InputBorder.none,
-              ),
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
-              ],
+    return SizedBox(
+      height: 45.0,
+      width: 55.0,
+      child: Stack(children: [
+        Align(
+          alignment: Alignment.bottomRight,
+          child: SizedBox(
+            height: 40.0,
+            width: 50.0,
+            child: CustomPaint(
+              painter: DialogFramePainter(widthCutCount: widthCutCount),
+              child: controller != null
+                  ? TextFormField(
+                      controller: controller,
+                      //initialValue: '13',
+                      expands: true,
+                      maxLines: null,
+                      style: AppStyles.commonPixel(),
+                      textAlign: TextAlign.center,
+                      textAlignVertical: TextAlignVertical.center,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
+                        border: InputBorder.none,
+                      ),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
+                      ],
+                    )
+                  : Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 4.0),
+                        child: Text(
+                          value.toString(),
+                          style: AppStyles.commonPixel(),
+                        ),
+                      ),
+                    ),
             ),
           ),
         ),
-        const SizedBox(
-          height: 18.0,
-        ),
-      ],
+        Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            title,
+            style: AppStyles.commonPixel()
+                .copyWith(color: AppColors.darkPink, fontSize: 6.0),
+          ),
+        )
+      ]),
     );
   }
 }
@@ -385,25 +359,28 @@ class ACBorderPainter extends CustomPainter {
 }
 
 class DialogFramePainter extends CustomPainter {
+  final double widthCutCount;
+
+  const DialogFramePainter({required this.widthCutCount, Listenable? repaint});
+
   @override
   void paint(Canvas canvas, Size size) {
-    const cut = 0.1;
-    final widthCut = size.width * cut;
+    const cut = 0.17;
 
-    Paint paintFrame = Paint()
+    Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3.0
       ..color = AppColors.teal;
-    Path pathFrame = Path();
+    Path path = Path();
 
-    pathFrame.moveTo(0.0, 0.0);
-    pathFrame.lineTo(size.width - widthCut, 0.0);
-    pathFrame.lineTo(size.width, 0.0 + widthCut);
-    pathFrame.lineTo(size.width, size.height);
-    pathFrame.lineTo(0.0 + widthCut, size.height);
-    pathFrame.lineTo(0.0, size.height - widthCut);
-    pathFrame.close();
-    canvas.drawPath(pathFrame, paintFrame);
+    path.moveTo(size.width * (cut * widthCutCount), 0.0);
+    path.lineTo(size.width * (1 - cut), 0.0);
+    path.lineTo(size.width, size.height * cut);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width * cut, size.height);
+    path.lineTo(0.0, size.height * (1 - cut));
+    path.lineTo(0.0, size.height * cut * 1.2);
+    canvas.drawPath(path, paint);
   }
 
   @override

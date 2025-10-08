@@ -147,93 +147,93 @@ class _STHRBlockState extends State<STHRBlock> {
         int.parse(widget.tmpController.text);
     return value.toString();
   }
-}
 
-Widget dialogContent(
-    BuildContext context,
-    String title,
-    int modValue,
-    TextEditingController baseController,
-    TextEditingController magicController,
-    TextEditingController miscController,
-    TextEditingController tmpController) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          title,
-          style: AppStyles.commonPixel().copyWith(color: AppColors.darkPink),
-        ),
-        const SizedBox(
-          height: 12.0,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            DialogBox(title: 'Base', controller: baseController),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                '+',
-                style: AppStyles.commonPixel(),
+  Widget dialogContent(
+      BuildContext context,
+      String title,
+      int modValue,
+      TextEditingController baseController,
+      TextEditingController magicController,
+      TextEditingController miscController,
+      TextEditingController tmpController) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            title,
+            style: AppStyles.commonPixel().copyWith(color: AppColors.darkPink),
+          ),
+          const SizedBox(
+            height: 12.0,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              DialogBox(title: 'Base', controller: baseController),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  '+',
+                  style: AppStyles.commonPixel(),
+                ),
               ),
-            ),
-            DialogBox(
-              title: 'Abil',
-              value: modValue,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                '+',
-                style: AppStyles.commonPixel(),
+              DialogBox(
+                title: 'Abil',
+                value: modValue,
               ),
-            ),
-            DialogBox(title: 'Magic', controller: magicController),
-          ],
-        ),
-        const SizedBox(
-          height: 12.0,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            DialogBox(title: 'Misc', controller: miscController),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                '+',
-                style: AppStyles.commonPixel(),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  '+',
+                  style: AppStyles.commonPixel(),
+                ),
               ),
-            ),
-            DialogBox(title: 'Temp', controller: tmpController),
-          ],
-        ),
-        const SizedBox(
-          height: 16.0,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                "Done",
-                style: AppStyles.commonPixel(),
+              DialogBox(title: 'Magic', controller: magicController),
+            ],
+          ),
+          const SizedBox(
+            height: 12.0,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              DialogBox(title: 'Misc', controller: miscController),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  '+',
+                  style: AppStyles.commonPixel(),
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
+              DialogBox(title: 'Temp', controller: tmpController),
+            ],
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Done",
+                  style: AppStyles.commonPixel(),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class DialogBox extends StatelessWidget {
@@ -299,7 +299,7 @@ class DialogBox extends StatelessWidget {
 class STHRBorderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    const cut = 0.18;
+    const cut = 0.19;
 
     Paint paint = Paint()
       ..style = PaintingStyle.stroke
