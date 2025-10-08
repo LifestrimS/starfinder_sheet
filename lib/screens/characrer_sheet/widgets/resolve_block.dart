@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
@@ -125,11 +127,32 @@ class ResolveBlock extends StatelessWidget {
         crossAxisSpacing: 4.0,
       ),
       itemBuilder: (context, index) {
-        return CustomPaint(
-          painter: ResolveCounterPainer(isFilled: index < currentResolve),
+        return GestureDetector(
+          onTap: () {
+            addResolveByTap(index, currentResolve, int.parse(controller.text));
+          },
+          child: CustomPaint(
+            painter: ResolveCounterPainer(isFilled: index < currentResolve),
+          ),
         );
       },
     );
+  }
+
+  void addResolveByTap(int tapedIndex, int currentResolve, int maxResolve) {
+    if (tapedIndex + 1 > currentResolve && tapedIndex + 1 <= maxResolve) {
+      log('add current: $currentResolve index: ${tapedIndex + 1}');
+      for (int i = 0; i <= tapedIndex - currentResolve; i++) {
+        wm.addResolve();
+      }
+    }
+
+    if (tapedIndex + 1 < currentResolve && tapedIndex + 1 > 0) {
+      log('remove current: $currentResolve index: ${tapedIndex + 1}');
+      for (int i = 1; i < currentResolve - tapedIndex; i++) {
+        wm.removeResolve();
+      }
+    }
   }
 }
 

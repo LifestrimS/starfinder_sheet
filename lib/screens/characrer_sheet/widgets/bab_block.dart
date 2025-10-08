@@ -79,9 +79,12 @@ class _BabBlockState extends State<BabBlock> {
             )
           ]),
         ),
-        Text(
-          ':',
-          style: AppStyles.commonPixel(),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0, top: 4.0),
+          child: Text(
+            ':',
+            style: AppStyles.commonPixel(),
+          ),
         ),
         ValueListenableBuilder(
             valueListenable: widget.strModificatorNotifier,
@@ -90,7 +93,7 @@ class _BabBlockState extends State<BabBlock> {
                   valueListenable: widget.babNotifier,
                   builder: (context, bab, child) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.only(right: 8.0),
                       child: Row(
                         children: [
                           GestureDetector(

@@ -27,17 +27,17 @@ class BattlePage extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                ResolveBlock(
-                  wm: wm,
-                  controller: wm.liveBlockTextControllers.maxResolveController,
-                ),
-                const SizedBox(
-                  height: 12.0,
-                ),
                 ACBlock(
                   eacControllers: wm.eacControllers,
                   kacControllers: wm.kacControllers,
                   dexModificatorNotifier: wm.dexModificatorNotifier(),
+                ),
+                const SizedBox(
+                  height: 12.0,
+                ),
+                ResolveBlock(
+                  wm: wm,
+                  controller: wm.liveBlockTextControllers.maxResolveController,
                 ),
                 const SizedBox(
                   height: 12.0,
@@ -47,7 +47,7 @@ class BattlePage extends StatelessWidget {
                   controllers: wm.liveBlockTextControllers,
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: 18.0,
                 ),
                 BabBlock(
                   controllers: wm.babControllers,
@@ -55,7 +55,7 @@ class BattlePage extends StatelessWidget {
                   strModificatorNotifier: wm.strModificatorNotifier(),
                 ),
                 const SizedBox(
-                  height: 12.0,
+                  height: 18.0,
                 ),
                 SavingThrowsBlock(
                   wm: wm,
@@ -65,7 +65,7 @@ class BattlePage extends StatelessWidget {
                   wisModificatorNotifier: wm.wisModificatorNotifier(),
                 ),
                 const SizedBox(
-                  height: 16.0,
+                  height: 18.0,
                 ),
                 DrBlock(wm: wm, controllers: wm.drSrControllers)
               ],
