@@ -572,7 +572,7 @@ class CharacterSheetWM
       model.saveCharacter(newCharacter);
 
       log('Save:\n $newCharacter');
-      onRefresh();
+      onRefresh(pageIndex: _currentPage);
     } catch (e) {
       log('Smth went wrong during save: $e');
     }
