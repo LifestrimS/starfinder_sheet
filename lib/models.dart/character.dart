@@ -19,6 +19,7 @@ class Character {
   final String dr;
   final String sr;
   final bool isMagic;
+  final List<Weapon> weaponList;
 
   Character({
     required this.id,
@@ -41,6 +42,7 @@ class Character {
     required this.dr,
     required this.sr,
     required this.isMagic,
+    required this.weaponList,
   });
 
   Character.empty({
@@ -64,6 +66,7 @@ class Character {
     this.dr = '',
     this.sr = '',
     this.isMagic = true,
+    this.weaponList = const [],
   });
 
   Character copyWith({
@@ -87,6 +90,7 @@ class Character {
     String? dr,
     String? sr,
     bool? isMagic,
+    List<Weapon>? weaponList,
   }) {
     return Character(
       id: id ?? this.id,
@@ -109,6 +113,7 @@ class Character {
       dr: dr ?? this.dr,
       sr: sr ?? this.sr,
       isMagic: isMagic ?? this.isMagic,
+      weaponList: weaponList ?? this.weaponList,
     );
   }
 
@@ -326,4 +331,41 @@ class CharacterSavingThrows {
     this.willMisc = 0,
     this.willTemp = 0,
   });
+}
+
+class Weapon {
+  final String name;
+  final String attackBonus;
+  final String crit;
+  final String special;
+  final String range;
+  final String damage;
+  final String size;
+  final String type;
+  final String capacity;
+  final String usages;
+
+  const Weapon(
+      {required this.name,
+      required this.attackBonus,
+      required this.crit,
+      required this.special,
+      required this.range,
+      required this.damage,
+      required this.size,
+      required this.type,
+      required this.capacity,
+      required this.usages});
+
+  const Weapon.empty(
+      {this.name = '',
+      this.attackBonus = '',
+      this.crit = '',
+      this.special = '',
+      this.range = '',
+      this.damage = '',
+      this.size = '',
+      this.type = '',
+      this.capacity = '',
+      this.usages = ''});
 }

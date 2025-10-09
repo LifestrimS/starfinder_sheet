@@ -66,28 +66,28 @@ class Mapper {
         misc: element.kacMisc);
 
     return Character(
-      id: element.id,
-      charName: element.charName,
-      charClass: element.charClass,
-      lvl: element.lvl,
-      race: element.race,
-      alignment: CharAlignment.values
-          .firstWhere((e) => e.alignName == element.alignment),
-      size: CharSize.values.firstWhere((e) => e.sizeName == element.size),
-      ability: ability,
-      liveBlock: liveBlock,
-      eacBlock: eacBlock,
-      kacBlock: kacBlock,
-      moveSpeed: element.moveSpeed,
-      flySpeed: element.flySpeed,
-      swimSpeed: element.swimSpeed,
-      initMisc: element.initMisc,
-      babBlock: babBlock,
-      savingThrows: savingThrows,
-      dr: element.dr,
-      sr: element.sr,
-      isMagic: element.isMagic,
-    );
+        id: element.id,
+        charName: element.charName,
+        charClass: element.charClass,
+        lvl: element.lvl,
+        race: element.race,
+        alignment: CharAlignment.values
+            .firstWhere((e) => e.alignName == element.alignment),
+        size: CharSize.values.firstWhere((e) => e.sizeName == element.size),
+        ability: ability,
+        liveBlock: liveBlock,
+        eacBlock: eacBlock,
+        kacBlock: kacBlock,
+        moveSpeed: element.moveSpeed,
+        flySpeed: element.flySpeed,
+        swimSpeed: element.swimSpeed,
+        initMisc: element.initMisc,
+        babBlock: babBlock,
+        savingThrows: savingThrows,
+        dr: element.dr,
+        sr: element.sr,
+        isMagic: element.isMagic,
+        weaponList: []);
   }
 
   TableCharacterData toTableCharacterData(Character character) {
