@@ -86,6 +86,7 @@ class Mapper {
       savingThrows: savingThrows,
       dr: element.dr,
       sr: element.sr,
+      isMagic: element.isMagic,
     );
   }
 
@@ -152,6 +153,7 @@ class Mapper {
       willTemp: character.savingThrows.willTemp,
       dr: character.dr,
       sr: character.sr,
+      isMagic: character.isMagic,
     );
   }
 
@@ -218,6 +220,7 @@ class Mapper {
       willTemp: Value(character.savingThrows.willTemp),
       dr: Value(character.dr),
       sr: Value(character.sr),
+      isMagic: Value(character.isMagic),
     );
   }
 }

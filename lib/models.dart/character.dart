@@ -18,6 +18,7 @@ class Character {
   final CharacterSavingThrows savingThrows;
   final String dr;
   final String sr;
+  final bool isMagic;
 
   Character({
     required this.id,
@@ -39,6 +40,7 @@ class Character {
     required this.savingThrows,
     required this.dr,
     required this.sr,
+    required this.isMagic,
   });
 
   Character.empty({
@@ -61,6 +63,7 @@ class Character {
     this.savingThrows = const CharacterSavingThrows.empty(),
     this.dr = '',
     this.sr = '',
+    this.isMagic = true,
   });
 
   Character copyWith({
@@ -83,6 +86,7 @@ class Character {
     CharacterSavingThrows? savingThrows,
     String? dr,
     String? sr,
+    bool? isMagic,
   }) {
     return Character(
       id: id ?? this.id,
@@ -104,6 +108,7 @@ class Character {
       savingThrows: savingThrows ?? this.savingThrows,
       dr: dr ?? this.dr,
       sr: sr ?? this.sr,
+      isMagic: isMagic ?? this.isMagic,
     );
   }
 

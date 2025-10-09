@@ -370,6 +370,15 @@ class $TableCharacterTable extends TableCharacter
   late final GeneratedColumn<String> sr = GeneratedColumn<String>(
       'sr', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _isMagicMeta =
+      const VerificationMeta('isMagic');
+  @override
+  late final GeneratedColumn<bool> isMagic = GeneratedColumn<bool>(
+      'is_magic', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_magic" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -432,7 +441,8 @@ class $TableCharacterTable extends TableCharacter
         willMisc,
         willTemp,
         dr,
-        sr
+        sr,
+        isMagic
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -833,6 +843,12 @@ class $TableCharacterTable extends TableCharacter
     } else if (isInserting) {
       context.missing(_srMeta);
     }
+    if (data.containsKey('is_magic')) {
+      context.handle(_isMagicMeta,
+          isMagic.isAcceptableOrUnknown(data['is_magic']!, _isMagicMeta));
+    } else if (isInserting) {
+      context.missing(_isMagicMeta);
+    }
     return context;
   }
 
@@ -964,6 +980,8 @@ class $TableCharacterTable extends TableCharacter
           .read(DriftSqlType.string, data['${effectivePrefix}dr'])!,
       sr: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}sr'])!,
+      isMagic: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_magic'])!,
     );
   }
 
@@ -1036,6 +1054,7 @@ class TableCharacterData extends DataClass
   final int willTemp;
   final String dr;
   final String sr;
+  final bool isMagic;
   const TableCharacterData(
       {required this.id,
       required this.charName,
@@ -1097,7 +1116,8 @@ class TableCharacterData extends DataClass
       required this.willMisc,
       required this.willTemp,
       required this.dr,
-      required this.sr});
+      required this.sr,
+      required this.isMagic});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1162,6 +1182,7 @@ class TableCharacterData extends DataClass
     map['will_temp'] = Variable<int>(willTemp);
     map['dr'] = Variable<String>(dr);
     map['sr'] = Variable<String>(sr);
+    map['is_magic'] = Variable<bool>(isMagic);
     return map;
   }
 
@@ -1228,6 +1249,7 @@ class TableCharacterData extends DataClass
       willTemp: Value(willTemp),
       dr: Value(dr),
       sr: Value(sr),
+      isMagic: Value(isMagic),
     );
   }
 
@@ -1296,6 +1318,7 @@ class TableCharacterData extends DataClass
       willTemp: serializer.fromJson<int>(json['willTemp']),
       dr: serializer.fromJson<String>(json['dr']),
       sr: serializer.fromJson<String>(json['sr']),
+      isMagic: serializer.fromJson<bool>(json['isMagic']),
     );
   }
   @override
@@ -1363,6 +1386,7 @@ class TableCharacterData extends DataClass
       'willTemp': serializer.toJson<int>(willTemp),
       'dr': serializer.toJson<String>(dr),
       'sr': serializer.toJson<String>(sr),
+      'isMagic': serializer.toJson<bool>(isMagic),
     };
   }
 
@@ -1427,7 +1451,8 @@ class TableCharacterData extends DataClass
           int? willMisc,
           int? willTemp,
           String? dr,
-          String? sr}) =>
+          String? sr,
+          bool? isMagic}) =>
       TableCharacterData(
         id: id ?? this.id,
         charName: charName ?? this.charName,
@@ -1490,6 +1515,7 @@ class TableCharacterData extends DataClass
         willTemp: willTemp ?? this.willTemp,
         dr: dr ?? this.dr,
         sr: sr ?? this.sr,
+        isMagic: isMagic ?? this.isMagic,
       );
   TableCharacterData copyWithCompanion(TableCharacterCompanion data) {
     return TableCharacterData(
@@ -1574,6 +1600,7 @@ class TableCharacterData extends DataClass
       willTemp: data.willTemp.present ? data.willTemp.value : this.willTemp,
       dr: data.dr.present ? data.dr.value : this.dr,
       sr: data.sr.present ? data.sr.value : this.sr,
+      isMagic: data.isMagic.present ? data.isMagic.value : this.isMagic,
     );
   }
 
@@ -1640,7 +1667,8 @@ class TableCharacterData extends DataClass
           ..write('willMisc: $willMisc, ')
           ..write('willTemp: $willTemp, ')
           ..write('dr: $dr, ')
-          ..write('sr: $sr')
+          ..write('sr: $sr, ')
+          ..write('isMagic: $isMagic')
           ..write(')'))
         .toString();
   }
@@ -1707,7 +1735,8 @@ class TableCharacterData extends DataClass
         willMisc,
         willTemp,
         dr,
-        sr
+        sr,
+        isMagic
       ]);
   @override
   bool operator ==(Object other) =>
@@ -1773,7 +1802,8 @@ class TableCharacterData extends DataClass
           other.willMisc == this.willMisc &&
           other.willTemp == this.willTemp &&
           other.dr == this.dr &&
-          other.sr == this.sr);
+          other.sr == this.sr &&
+          other.isMagic == this.isMagic);
 }
 
 class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
@@ -1838,6 +1868,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   final Value<int> willTemp;
   final Value<String> dr;
   final Value<String> sr;
+  final Value<bool> isMagic;
   const TableCharacterCompanion({
     this.id = const Value.absent(),
     this.charName = const Value.absent(),
@@ -1900,6 +1931,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     this.willTemp = const Value.absent(),
     this.dr = const Value.absent(),
     this.sr = const Value.absent(),
+    this.isMagic = const Value.absent(),
   });
   TableCharacterCompanion.insert({
     this.id = const Value.absent(),
@@ -1963,6 +1995,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     required int willTemp,
     required String dr,
     required String sr,
+    required bool isMagic,
   })  : charName = Value(charName),
         charClass = Value(charClass),
         lvl = Value(lvl),
@@ -2022,7 +2055,8 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
         willMisc = Value(willMisc),
         willTemp = Value(willTemp),
         dr = Value(dr),
-        sr = Value(sr);
+        sr = Value(sr),
+        isMagic = Value(isMagic);
   static Insertable<TableCharacterData> custom({
     Expression<int>? id,
     Expression<String>? charName,
@@ -2085,6 +2119,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     Expression<int>? willTemp,
     Expression<String>? dr,
     Expression<String>? sr,
+    Expression<bool>? isMagic,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2148,6 +2183,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       if (willTemp != null) 'will_temp': willTemp,
       if (dr != null) 'dr': dr,
       if (sr != null) 'sr': sr,
+      if (isMagic != null) 'is_magic': isMagic,
     });
   }
 
@@ -2212,7 +2248,8 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       Value<int>? willMisc,
       Value<int>? willTemp,
       Value<String>? dr,
-      Value<String>? sr}) {
+      Value<String>? sr,
+      Value<bool>? isMagic}) {
     return TableCharacterCompanion(
       id: id ?? this.id,
       charName: charName ?? this.charName,
@@ -2275,6 +2312,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       willTemp: willTemp ?? this.willTemp,
       dr: dr ?? this.dr,
       sr: sr ?? this.sr,
+      isMagic: isMagic ?? this.isMagic,
     );
   }
 
@@ -2464,6 +2502,9 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     if (sr.present) {
       map['sr'] = Variable<String>(sr.value);
     }
+    if (isMagic.present) {
+      map['is_magic'] = Variable<bool>(isMagic.value);
+    }
     return map;
   }
 
@@ -2530,7 +2571,8 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
           ..write('willMisc: $willMisc, ')
           ..write('willTemp: $willTemp, ')
           ..write('dr: $dr, ')
-          ..write('sr: $sr')
+          ..write('sr: $sr, ')
+          ..write('isMagic: $isMagic')
           ..write(')'))
         .toString();
   }
@@ -2610,6 +2652,7 @@ typedef $$TableCharacterTableCreateCompanionBuilder = TableCharacterCompanion
   required int willTemp,
   required String dr,
   required String sr,
+  required bool isMagic,
 });
 typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
     Function({
@@ -2674,6 +2717,7 @@ typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
   Value<int> willTemp,
   Value<String> dr,
   Value<String> sr,
+  Value<bool> isMagic,
 });
 
 class $$TableCharacterTableFilterComposer
@@ -2870,6 +2914,9 @@ class $$TableCharacterTableFilterComposer
 
   ColumnFilters<String> get sr => $composableBuilder(
       column: $table.sr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isMagic => $composableBuilder(
+      column: $table.isMagic, builder: (column) => ColumnFilters(column));
 }
 
 class $$TableCharacterTableOrderingComposer
@@ -3069,6 +3116,9 @@ class $$TableCharacterTableOrderingComposer
 
   ColumnOrderings<String> get sr => $composableBuilder(
       column: $table.sr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isMagic => $composableBuilder(
+      column: $table.isMagic, builder: (column) => ColumnOrderings(column));
 }
 
 class $$TableCharacterTableAnnotationComposer
@@ -3262,6 +3312,9 @@ class $$TableCharacterTableAnnotationComposer
 
   GeneratedColumn<String> get sr =>
       $composableBuilder(column: $table.sr, builder: (column) => column);
+
+  GeneratedColumn<bool> get isMagic =>
+      $composableBuilder(column: $table.isMagic, builder: (column) => column);
 }
 
 class $$TableCharacterTableTableManager extends RootTableManager<
@@ -3352,6 +3405,7 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             Value<int> willTemp = const Value.absent(),
             Value<String> dr = const Value.absent(),
             Value<String> sr = const Value.absent(),
+            Value<bool> isMagic = const Value.absent(),
           }) =>
               TableCharacterCompanion(
             id: id,
@@ -3415,6 +3469,7 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             willTemp: willTemp,
             dr: dr,
             sr: sr,
+            isMagic: isMagic,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -3478,6 +3533,7 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             required int willTemp,
             required String dr,
             required String sr,
+            required bool isMagic,
           }) =>
               TableCharacterCompanion.insert(
             id: id,
@@ -3541,6 +3597,7 @@ class $$TableCharacterTableTableManager extends RootTableManager<
             willTemp: willTemp,
             dr: dr,
             sr: sr,
+            isMagic: isMagic,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

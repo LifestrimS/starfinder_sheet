@@ -36,16 +36,47 @@ class CharacterSheetView extends ElementaryWidget<ICharacterSheetWM> {
             ),
           ),
         ),
-        GestureDetector(
-          onTap: () => wm.goDebug(),
-          child: Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Text(
-              'Debug',
-              style: AppStyles.commonPixel(),
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Text(
+                '|',
+                style: AppStyles.commonPixel()
+                    .copyWith(color: AppColors.backgroundDark),
+              ),
             ),
+            GestureDetector(
+              onTap: () => wm.goDebug(),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Text(
+                  'Debug',
+                  style: AppStyles.commonPixel(),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: Text(
+            '|',
+            style: AppStyles.commonPixel()
+                .copyWith(color: AppColors.backgroundDark),
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: Text(
+            'Magic?',
+            style: AppStyles.commonPixel().copyWith(color: AppColors.white),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: CustomCheckBox(wm: wm),
+        )
       ],
     );
 
@@ -162,65 +193,70 @@ class _CarouselBodyState extends State<CarouselBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: CarouselSlider(
-            carouselController: widget.wm.carouselController,
-            options: CarouselOptions(
-                enableInfiniteScroll: false,
-                viewportFraction: 1.0,
-                height: MediaQuery.sizeOf(context).height -
-                    64.0 -
-                    widget.appBarHeight,
-                onPageChanged: (index, reason) {
-                  pageNotifier.value = index;
-                  widget.wm.setCurrentPage(index);
-                }),
-            items: [
-              FirstPage(wm: widget.wm),
-              BattlePage(wm: widget.wm),
-              MagicPage(wm: widget.wm),
-              SkillsPage(wm: widget.wm),
-              EquipmentPage(wm: widget.wm),
-              BioPage(wm: widget.wm)
-            ],
-          ),
-        ),
-        ValueListenableBuilder(
-            valueListenable: pageNotifier,
-            builder: (context, value, child) {
-              return Container(
-                height: 24.0,
-                color: AppColors.darkBlue,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: list.asMap().entries.map((entry) {
-                    return GestureDetector(
-                      onTap: () {
-                        widget.wm.carouselController.animateToPage(entry.key);
-                        widget.wm.setCurrentPage(entry.key);
-                      },
-                      child: Container(
-                        width: 24.0,
-                        height: 16.0,
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 2.0, horizontal: 4.0),
-                        child: CustomPaint(
-                          painter:
-                              IndicatorPainter(isFilled: value == entry.key),
-                        ),
+    return ValueListenableBuilder(
+        valueListenable: widget.wm.isMagicNotifier(),
+        builder: (context, isMagic, child) {
+          List<int> list = isMagic ? [0, 1, 2, 3, 4, 5] : [0, 1, 2, 3, 4];
+
+          return Column(
+            children: [
+              Expanded(
+                child: CarouselSlider(
+                  carouselController: widget.wm.carouselController,
+                  options: CarouselOptions(
+                      enableInfiniteScroll: false,
+                      viewportFraction: 1.0,
+                      height: MediaQuery.sizeOf(context).height -
+                          64.0 -
+                          widget.appBarHeight,
+                      onPageChanged: (index, reason) {
+                        pageNotifier.value = index;
+                        widget.wm.setCurrentPage(index);
+                      }),
+                  items: [
+                    FirstPage(wm: widget.wm),
+                    BattlePage(wm: widget.wm),
+                    if (isMagic) MagicPage(wm: widget.wm),
+                    SkillsPage(wm: widget.wm),
+                    EquipmentPage(wm: widget.wm),
+                    BioPage(wm: widget.wm)
+                  ],
+                ),
+              ),
+              ValueListenableBuilder(
+                  valueListenable: pageNotifier,
+                  builder: (context, value, child) {
+                    return Container(
+                      height: 24.0,
+                      color: AppColors.darkBlue,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: list.asMap().entries.map((entry) {
+                          return GestureDetector(
+                            onTap: () {
+                              widget.wm.carouselController
+                                  .animateToPage(entry.key);
+                              widget.wm.setCurrentPage(entry.key);
+                            },
+                            child: Container(
+                              width: 24.0,
+                              height: 16.0,
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 2.0, horizontal: 4.0),
+                              child: CustomPaint(
+                                painter: IndicatorPainter(
+                                    isFilled: value == entry.key),
+                              ),
+                            ),
+                          );
+                        }).toList(),
                       ),
                     );
-                  }).toList(),
-                ),
-              );
-            }),
-      ],
-    );
+                  }),
+            ],
+          );
+        });
   }
-
-  List<int> list = [0, 1, 2, 3, 4, 5];
 }
 
 class IndicatorPainter extends CustomPainter {
@@ -240,6 +276,79 @@ class IndicatorPainter extends CustomPainter {
       ..style = isFilled ? PaintingStyle.fill : PaintingStyle.stroke
       ..strokeWidth = 2.0
       ..color = AppColors.teal;
+    Path pathFrame = Path();
+
+    pathFrame.moveTo(0.0, 0.0);
+    pathFrame.lineTo(size.width - widthCut, 0.0);
+    pathFrame.lineTo(size.width, 0.0 + widthCut);
+    pathFrame.lineTo(size.width, size.height);
+    pathFrame.lineTo(0.0 + widthCut, size.height);
+    pathFrame.lineTo(0.0, size.height - widthCut);
+    pathFrame.close();
+    canvas.drawPath(pathFrame, paintFrame);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
+}
+
+class CustomCheckBox extends StatefulWidget {
+  final ICharacterSheetWM wm;
+  const CustomCheckBox({required this.wm, super.key});
+
+  @override
+  State<CustomCheckBox> createState() => _CustomCheckBoxState();
+}
+
+class _CustomCheckBoxState extends State<CustomCheckBox> {
+  bool isChecked = true;
+
+  @override
+  void initState() {
+    isChecked = widget.wm.isMagic;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        isChecked = !isChecked;
+        widget.wm.setIsMagic(isChecked);
+        setState(() {});
+      },
+      child: SizedBox(
+        height: 20.0,
+        width: 20.0,
+        child: CustomPaint(
+          painter: const CheckBoxPainter(),
+          child: isChecked
+              ? const Icon(
+                  size: 20.0,
+                  Icons.accessible_forward,
+                  color: AppColors.darkPink,
+                )
+              : const SizedBox(),
+        ),
+      ),
+    );
+  }
+}
+
+class CheckBoxPainter extends CustomPainter {
+  const CheckBoxPainter({
+    Listenable? repaint,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const cut = 0.2;
+    final widthCut = size.width * cut;
+
+    Paint paintFrame = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0
+      ..color = AppColors.white;
     Path pathFrame = Path();
 
     pathFrame.moveTo(0.0, 0.0);

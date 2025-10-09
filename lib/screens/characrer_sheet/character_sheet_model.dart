@@ -28,6 +28,8 @@ class CharacterSheetModel extends ElementaryModel {
   String _damageLog = '';
   int _totalDamage = 0;
 
+  bool _isMagic = true;
+
   CharacterSheetModel({
     required this.repository,
   });
@@ -72,6 +74,8 @@ class CharacterSheetModel extends ElementaryModel {
 
   String get sr => character.sr;
 
+  bool get isMagic => _isMagic;
+
   CharacterAbility getAbility() {
     return character.ability;
   }
@@ -103,6 +107,8 @@ class CharacterSheetModel extends ElementaryModel {
 
   void setRace(String value) => _race = value;
 
+  void setIsMagic(bool value) => _isMagic = value;
+
   Future<List<Character?>> getCharacterList() async {
     try {
       List<Character> characterList = await repository.getAllCharacter();
@@ -131,6 +137,7 @@ class CharacterSheetModel extends ElementaryModel {
           : character.liveBlock.currentResolve;
       _damageLog = character.liveBlock.damageLog;
       _lvl = character.lvl;
+      _isMagic = character.isMagic;
 
       _totalDamage = 0;
 

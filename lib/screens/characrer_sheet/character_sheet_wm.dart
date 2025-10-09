@@ -26,6 +26,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   int get currentResolve;
   int get dexModificator;
   int get currentPage;
+  bool get isMagic;
 
   CharacterAbility getAbility();
   void onRefresh({int? pageIndex});
@@ -42,6 +43,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   void goToCharacter(int charId);
   void createNewCharacter();
   void setCurrentPage(int pageIndex);
+  void setIsMagic(bool isMagic);
 
   EntityStateNotifier<Character?> characterLoadNotifier();
   EntityStateNotifier<List<Character?>> listCharactersNotifier();
@@ -55,6 +57,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   ValueNotifier<int> strModificatorNotifier();
   ValueNotifier<int> conModificatorNotifier();
   ValueNotifier<int> wisModificatorNotifier();
+  ValueNotifier<bool> isMagicNotifier();
 
   TextEditingController get damageTextController;
   TextEditingController get nameTextController;
@@ -100,6 +103,7 @@ class CharacterSheetWM
   final ValueNotifier<int> _strModificatorNotifier = ValueNotifier(0);
   final ValueNotifier<int> _conModificatorNotifier = ValueNotifier(0);
   final ValueNotifier<int> _wisModificatorNotifier = ValueNotifier(0);
+  final ValueNotifier<bool> _isMagicNotifier = ValueNotifier(true);
 
   final TextEditingController _damageTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
@@ -204,6 +208,8 @@ class CharacterSheetWM
   ValueNotifier<int> conModificatorNotifier() => _conModificatorNotifier;
   @override
   ValueNotifier<int> wisModificatorNotifier() => _wisModificatorNotifier;
+  @override
+  ValueNotifier<bool> isMagicNotifier() => _isMagicNotifier;
 
   @override
   TextEditingController get damageTextController => _damageTextController;
@@ -252,6 +258,8 @@ class CharacterSheetWM
   @override
   int get dexModificator =>
       CharacterAbility.getModifier(model.getAbility().dexterity);
+  @override
+  bool get isMagic => model.isMagic;
 
   CharacterSheetWM(super._model);
 
@@ -284,6 +292,7 @@ class CharacterSheetWM
     _strModificatorNotifier.dispose();
     _conModificatorNotifier.dispose();
     _wisModificatorNotifier.dispose();
+    _isMagicNotifier.dispose();
     super.dispose();
   }
 
@@ -467,6 +476,12 @@ class CharacterSheetWM
   }
 
   @override
+  void setIsMagic(bool value) {
+    model.setIsMagic(value);
+    _isMagicNotifier.value = value;
+  }
+
+  @override
   void goToCharacter(int charId) {
     loadData(charId: charId, isGoToCharacter: true);
   }
@@ -576,6 +591,7 @@ class CharacterSheetWM
             willTemp: parseIntFromString(_sTHRTexEditingControllers.willTempController.text)),
         dr: _drSrControllers.drController.text,
         sr: _drSrControllers.srController.text,
+        isMagic: model.isMagic,
       );
 
       model.saveCharacter(newCharacter);
@@ -593,6 +609,7 @@ class CharacterSheetWM
     _damageLogNotifier.value = model.damageLog;
     _totalDamageNotifier.value = model.totalDamage;
     _currentResolveNotifier.value = model.currentResolve;
+    _isMagicNotifier.value = model.isMagic;
 
     _nameTextController.text = model.name;
     _classTextController.text = model.charClass;

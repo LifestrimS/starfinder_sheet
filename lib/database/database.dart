@@ -122,4 +122,6 @@ class TableCharacter extends Table {
   //DRs SRs
   TextColumn get dr => text()();
   TextColumn get sr => text()();
+
+  BoolColumn get isMagic => boolean()();
 }
