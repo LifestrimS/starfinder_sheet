@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:elementary/elementary.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/repository/db_repository.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 class CharacterSheetModel extends ElementaryModel {
   final Repository repository;
@@ -136,7 +137,7 @@ class CharacterSheetModel extends ElementaryModel {
       if (_damageLog.isNotEmpty) {
         final List<String> damageList = _damageLog.trim().split('-');
         for (int i = 1; i <= damageList.length - 1; i++) {
-          _totalDamage += int.parse(damageList[i]);
+          _totalDamage += parseIntFromString(damageList[i]);
         }
       }
 
@@ -176,7 +177,7 @@ class CharacterSheetModel extends ElementaryModel {
 
   void addDamage(String damage) {
     final tmpDamage = damage.startsWith('-') ? damage.substring(1) : damage;
-    _totalDamage += int.parse(tmpDamage);
+    _totalDamage += parseIntFromString(tmpDamage);
 
     _damageLog = '$_damageLog - $damage';
   }

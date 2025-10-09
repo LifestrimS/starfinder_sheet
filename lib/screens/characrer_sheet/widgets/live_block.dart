@@ -4,6 +4,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart
 import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 class LiveBlock extends StatelessWidget {
   final ICharacterSheetWM wm;
@@ -326,8 +327,8 @@ class LiveBlock extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   isHp
-                      ? wm.healHP(int.parse(controller.text))
-                      : wm.healStam(int.parse(controller.text));
+                      ? wm.healHP(parseIntFromString(controller.text))
+                      : wm.healStam(parseIntFromString(controller.text));
                   Navigator.of(context).pop();
                 },
                 child: Text(

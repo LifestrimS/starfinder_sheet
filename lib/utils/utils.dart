@@ -68,3 +68,7 @@ Future<void> saveCharacterId(int charId) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setInt('lastCharacterId', charId);
 }
+
+int parseIntFromString(String str) {
+  return int.tryParse(str) ?? 0;
+}

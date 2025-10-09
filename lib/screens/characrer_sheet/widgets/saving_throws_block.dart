@@ -4,6 +4,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart
 import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 class SavingThrowsBlock extends StatelessWidget {
   final ICharacterSheetWM wm;
@@ -140,11 +141,11 @@ class _STHRBlockState extends State<STHRBlock> {
   }
 
   String countTHR(int modValue) {
-    int value = int.parse(widget.baseController.text) +
+    int value = parseIntFromString(widget.baseController.text) +
         modValue +
-        int.parse(widget.magicController.text) +
-        int.parse(widget.miscController.text) +
-        int.parse(widget.tmpController.text);
+        parseIntFromString(widget.magicController.text) +
+        parseIntFromString(widget.miscController.text) +
+        parseIntFromString(widget.tmpController.text);
     return value.toString();
   }
 

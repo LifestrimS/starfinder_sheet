@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 class Initiative extends StatelessWidget {
   final TextEditingController controller;
@@ -152,7 +153,7 @@ class Initiative extends StatelessWidget {
   }
 
   String countInit(int modificator) {
-    return (modificator + int.parse(controller.text)).toString();
+    return (modificator + parseIntFromString(controller.text)).toString();
   }
 }
 

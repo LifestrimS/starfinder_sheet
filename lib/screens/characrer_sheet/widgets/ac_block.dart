@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 class ACBlock extends StatefulWidget {
   final AcControllers eacControllers;
@@ -140,11 +141,11 @@ class _ACBlockState extends State<ACBlock> {
   int countAC(AcControllers controllers) {
     return 10 +
         widget.dexModificatorNotifier.value +
-        int.parse(controllers.armorController.text) +
-        int.parse(controllers.dodgeController.text) +
-        int.parse(controllers.naturalController.text) +
-        int.parse(controllers.deflectController.text) +
-        int.parse(controllers.miscController.text);
+        parseIntFromString(controllers.armorController.text) +
+        parseIntFromString(controllers.dodgeController.text) +
+        parseIntFromString(controllers.naturalController.text) +
+        parseIntFromString(controllers.deflectController.text) +
+        parseIntFromString(controllers.miscController.text);
   }
 
   void update({required bool isEac}) {

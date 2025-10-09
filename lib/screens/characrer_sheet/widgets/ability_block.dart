@@ -4,6 +4,7 @@ import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 class AbilityBlock extends StatefulWidget {
   final CharacterAbility ability;
@@ -186,7 +187,7 @@ class _AbilityCellState extends State<AbilityCell> {
                     contentPadding: EdgeInsets.only(left: 0.0),
                   ),
                   onChanged: (value) =>
-                      statValueNotifier.value = int.parse(value),
+                      statValueNotifier.value = parseIntFromString(value),
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
                   ],
@@ -211,11 +212,11 @@ class _AbilityCellState extends State<AbilityCell> {
     int modificator = 0;
 
     if (isHaveTmpValue()) {
-      modificator =
-          CharacterAbility.getModifier(int.parse(widget.tmpController.text));
+      modificator = CharacterAbility.getModifier(
+          parseIntFromString(widget.tmpController.text));
     } else {
-      modificator =
-          CharacterAbility.getModifier(int.parse(widget.controller.text));
+      modificator = CharacterAbility.getModifier(
+          parseIntFromString(widget.controller.text));
     }
 
     statValueNotifier.value = modificator;

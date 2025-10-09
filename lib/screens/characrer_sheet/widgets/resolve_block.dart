@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 class ResolveBlock extends StatelessWidget {
   final ICharacterSheetWM wm;
@@ -129,7 +130,8 @@ class ResolveBlock extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            addResolveByTap(index, currentResolve, int.parse(controller.text));
+            addResolveByTap(
+                index, currentResolve, parseIntFromString(controller.text));
           },
           child: CustomPaint(
             painter: ResolveCounterPainer(isFilled: index < currentResolve),

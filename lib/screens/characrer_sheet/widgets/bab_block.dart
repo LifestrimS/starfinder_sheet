@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 class BabBlock extends StatefulWidget {
   final BabControllers controllers;
@@ -24,7 +25,8 @@ class BabBlock extends StatefulWidget {
 class _BabBlockState extends State<BabBlock> {
   @override
   void initState() {
-    widget.babNotifier.value = int.parse(widget.controllers.babController.text);
+    widget.babNotifier.value =
+        parseIntFromString(widget.controllers.babController.text);
     super.initState();
   }
 
@@ -58,8 +60,8 @@ class _BabBlockState extends State<BabBlock> {
                         decoration: const InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.only(left: 4.0)),
-                        onChanged: (value) =>
-                            widget.babNotifier.value = int.parse(value),
+                        onChanged: (value) => widget.babNotifier.value =
+                            parseIntFromString(value),
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
                         ],
@@ -285,22 +287,22 @@ class _BabBlockState extends State<BabBlock> {
     int value = 0;
     switch (type) {
       case BabType.mab:
-        value = int.parse(widget.controllers.babController.text) +
+        value = parseIntFromString(widget.controllers.babController.text) +
             modificator +
-            int.parse(widget.controllers.mabMiscController.text) +
-            int.parse(widget.controllers.mabTempController.text);
+            parseIntFromString(widget.controllers.mabMiscController.text) +
+            parseIntFromString(widget.controllers.mabTempController.text);
         break;
       case BabType.tab:
-        value = int.parse(widget.controllers.babController.text) +
+        value = parseIntFromString(widget.controllers.babController.text) +
             modificator +
-            int.parse(widget.controllers.tabMiscController.text) +
-            int.parse(widget.controllers.tabTempController.text);
+            parseIntFromString(widget.controllers.tabMiscController.text) +
+            parseIntFromString(widget.controllers.tabTempController.text);
         break;
       case BabType.rab:
-        value = int.parse(widget.controllers.babController.text) +
+        value = parseIntFromString(widget.controllers.babController.text) +
             modificator +
-            int.parse(widget.controllers.rabMiscController.text) +
-            int.parse(widget.controllers.rabTempController.text);
+            parseIntFromString(widget.controllers.rabMiscController.text) +
+            parseIntFromString(widget.controllers.rabTempController.text);
         break;
     }
 
