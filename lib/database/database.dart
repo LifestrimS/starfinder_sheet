@@ -1,6 +1,9 @@
+import 'dart:convert' as conv;
+
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pathfinder_sheet/models.dart/character.dart';
 
 part 'database.g.dart';
 
@@ -53,7 +56,7 @@ class TableCharacter extends Table {
   TextColumn get alignment => text()();
   TextColumn get size => text()();
 
-//ability
+  //ability
   IntColumn get strength => integer()();
   IntColumn get strengthTmp => integer()();
   IntColumn get dexterity => integer()();
@@ -67,7 +70,7 @@ class TableCharacter extends Table {
   IntColumn get charisma => integer()();
   IntColumn get charismaTmp => integer()();
 
-//liveBlock
+  //liveBlock
   IntColumn get maxHp => integer()();
   IntColumn get currentHp => integer()();
   IntColumn get maxStam => integer()();
@@ -124,4 +127,31 @@ class TableCharacter extends Table {
   TextColumn get sr => text()();
 
   BoolColumn get isMagic => boolean()();
+
+  TextColumn get weapons => text().map(WeaponList.converter).nullable()();
 }
+
+// class WeaponListConverter extends TypeConverter<WeaponList, String>
+//     with JsonTypeConverter2<WeaponList, String, Map<String, Object?>> {
+//   const WeaponListConverter();
+
+//   @override
+//   WeaponList fromSql(String fromDb) {
+//     return fromJson(conv.json.decode(fromDb) as Map<String, dynamic>);
+//   }
+
+//   @override
+//   String toSql(WeaponList value) {
+//     return conv.json.encode(toJson(value));
+//   }
+
+//   @override
+//   WeaponList fromJson(Map<String, Object?> json) {
+//     return WeaponList.fromJson(json);
+//   }
+
+//   @override
+//   Map<String, Object?> toJson(WeaponList value) {
+//     return value.toJson();
+//   }
+// }

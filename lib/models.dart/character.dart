@@ -1,3 +1,8 @@
+import 'package:drift/drift.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'character.g.dart';
+
 class Character {
   final int id;
   final String charName;
@@ -19,7 +24,7 @@ class Character {
   final String dr;
   final String sr;
   final bool isMagic;
-  final List<Weapon> weaponList;
+  final WeaponList weaponList;
 
   Character({
     required this.id,
@@ -66,7 +71,7 @@ class Character {
     this.dr = '',
     this.sr = '',
     this.isMagic = true,
-    this.weaponList = const [],
+    this.weaponList = const WeaponList.empty(),
   });
 
   Character copyWith({
@@ -90,7 +95,7 @@ class Character {
     String? dr,
     String? sr,
     bool? isMagic,
-    List<Weapon>? weaponList,
+    WeaponList? weaponList,
   }) {
     return Character(
       id: id ?? this.id,
@@ -120,7 +125,7 @@ class Character {
   @override
   String toString() {
     return 'id: $id\nName: $charName\nClass: $charClass\nLvl: $lvl'
-        '\nRace: $race\nAlignment: ${alignment.alignName}\nSize: ${size.sizeName}';
+        '\nRace: $race\nAlignment: ${alignment.alignName}\nSize: ${size.sizeName}\nweapons ${weaponList.weapons}';
   }
 
   String shortString() {
@@ -184,19 +189,20 @@ class CharacterAbility {
     required this.charismaTmp,
   });
 
-  const CharacterAbility.empty(
-      {this.strength = 10,
-      this.dexterity = 10,
-      this.constitution = 10,
-      this.intelligence = 10,
-      this.wisdom = 10,
-      this.charisma = 10,
-      this.strengthTmp = 0,
-      this.dexterityTmp = 0,
-      this.constitutionTmp = 0,
-      this.intelligenceTmp = 0,
-      this.wisdomTmp = 0,
-      this.charismaTmp = 0});
+  const CharacterAbility.empty({
+    this.strength = 10,
+    this.dexterity = 10,
+    this.constitution = 10,
+    this.intelligence = 10,
+    this.wisdom = 10,
+    this.charisma = 10,
+    this.strengthTmp = 0,
+    this.dexterityTmp = 0,
+    this.constitutionTmp = 0,
+    this.intelligenceTmp = 0,
+    this.wisdomTmp = 0,
+    this.charismaTmp = 0,
+  });
 
   static int getModifier(int value) {
     int modifier = 0;
@@ -218,23 +224,25 @@ class CharacterLiveBlock {
   final int currentResolve;
   final String damageLog;
 
-  const CharacterLiveBlock(
-      {required this.maxHp,
-      required this.currentHp,
-      required this.maxStam,
-      required this.currentStam,
-      required this.maxResolve,
-      required this.currentResolve,
-      required this.damageLog});
+  const CharacterLiveBlock({
+    required this.maxHp,
+    required this.currentHp,
+    required this.maxStam,
+    required this.currentStam,
+    required this.maxResolve,
+    required this.currentResolve,
+    required this.damageLog,
+  });
 
-  const CharacterLiveBlock.empty(
-      {this.maxHp = 0,
-      this.currentHp = -1,
-      this.maxStam = 0,
-      this.currentStam = -1,
-      this.maxResolve = 0,
-      this.currentResolve = -1,
-      this.damageLog = ''});
+  const CharacterLiveBlock.empty({
+    this.maxHp = 0,
+    this.currentHp = -1,
+    this.maxStam = 0,
+    this.currentStam = -1,
+    this.maxResolve = 0,
+    this.currentResolve = -1,
+    this.damageLog = '',
+  });
 }
 
 class ACBLock {
@@ -244,19 +252,21 @@ class ACBLock {
   final int deflect;
   final int misc;
 
-  const ACBLock(
-      {required this.amror,
-      required this.dodge,
-      required this.natural,
-      required this.deflect,
-      required this.misc});
+  const ACBLock({
+    required this.amror,
+    required this.dodge,
+    required this.natural,
+    required this.deflect,
+    required this.misc,
+  });
 
-  const ACBLock.empty(
-      {this.amror = 0,
-      this.dodge = 0,
-      this.natural = 0,
-      this.deflect = 0,
-      this.misc = 0});
+  const ACBLock.empty({
+    this.amror = 0,
+    this.dodge = 0,
+    this.natural = 0,
+    this.deflect = 0,
+    this.misc = 0,
+  });
 }
 
 class CharacterBab {
@@ -303,19 +313,20 @@ class CharacterSavingThrows {
   final int willMisc;
   final int willTemp;
 
-  const CharacterSavingThrows(
-      {required this.fortBase,
-      required this.fortMagic,
-      required this.fortMisc,
-      required this.fortTemp,
-      required this.refBase,
-      required this.refMagic,
-      required this.refMisc,
-      required this.refTemp,
-      required this.willBase,
-      required this.willMagic,
-      required this.willMisc,
-      required this.willTemp});
+  const CharacterSavingThrows({
+    required this.fortBase,
+    required this.fortMagic,
+    required this.fortMisc,
+    required this.fortTemp,
+    required this.refBase,
+    required this.refMagic,
+    required this.refMisc,
+    required this.refTemp,
+    required this.willBase,
+    required this.willMagic,
+    required this.willMisc,
+    required this.willTemp,
+  });
 
   const CharacterSavingThrows.empty({
     this.fortBase = 0,
@@ -345,27 +356,79 @@ class Weapon {
   final String capacity;
   final String usages;
 
-  const Weapon(
-      {required this.name,
-      required this.attackBonus,
-      required this.crit,
-      required this.special,
-      required this.range,
-      required this.damage,
-      required this.size,
-      required this.type,
-      required this.capacity,
-      required this.usages});
+  const Weapon({
+    required this.name,
+    required this.attackBonus,
+    required this.crit,
+    required this.special,
+    required this.range,
+    required this.damage,
+    required this.size,
+    required this.type,
+    required this.capacity,
+    required this.usages,
+  });
 
-  const Weapon.empty(
-      {this.name = '',
-      this.attackBonus = '',
-      this.crit = '',
-      this.special = '',
-      this.range = '',
-      this.damage = '',
-      this.size = '',
-      this.type = '',
-      this.capacity = '',
-      this.usages = ''});
+  const Weapon.empty({
+    this.name = '',
+    this.attackBonus = '',
+    this.crit = '',
+    this.special = '',
+    this.range = '',
+    this.damage = '',
+    this.size = '',
+    this.type = '',
+    this.capacity = '',
+    this.usages = '',
+  });
+
+  @override
+  String toString() {
+    return '\nName: $name';
+  }
+
+  Weapon.fromJson(Map<String, dynamic> json)
+    : name = json['name'] as String,
+      attackBonus = json['attackBonus'] as String,
+      crit = json['crit'] as String,
+      special = json['special'] as String,
+      range = json['range'] as String,
+      damage = json['damage'] as String,
+      size = json['size'] as String,
+      type = json['type'] as String,
+      capacity = json['capacity'] as String,
+      usages = json['usages'] as String;
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'attackBonus': attackBonus,
+    'crit': crit,
+    'special': special,
+    'range': range,
+    'damage': damage,
+    'size': size,
+    'type': type,
+    'capacity': capacity,
+    'usages': usages,
+  };
+}
+
+@JsonSerializable()
+class WeaponList {
+  final List<Weapon> weapons;
+
+  const WeaponList({required this.weapons});
+
+  const WeaponList.empty({this.weapons = const []});
+
+  factory WeaponList.fromJson(Map<String, dynamic> json) =>
+      _$WeaponListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WeaponListToJson(this);
+
+  static JsonTypeConverter2<WeaponList, String, Object?> converter =
+      TypeConverter.json2(
+        fromJson: (json) => WeaponList.fromJson(json as Map<String, Object?>),
+        toJson: (weaponList) => weaponList.toJson(),
+      );
 }

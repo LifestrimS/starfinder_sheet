@@ -12,824 +12,1252 @@ class $TableCharacterTable extends TableCharacter
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _charNameMeta =
-      const VerificationMeta('charName');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _charNameMeta = const VerificationMeta(
+    'charName',
+  );
   @override
   late final GeneratedColumn<String> charName = GeneratedColumn<String>(
-      'char_name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _charClassMeta =
-      const VerificationMeta('charClass');
+    'char_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _charClassMeta = const VerificationMeta(
+    'charClass',
+  );
   @override
   late final GeneratedColumn<String> charClass = GeneratedColumn<String>(
-      'char_class', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'char_class',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _lvlMeta = const VerificationMeta('lvl');
   @override
   late final GeneratedColumn<int> lvl = GeneratedColumn<int>(
-      'lvl', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+    'lvl',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _raceMeta = const VerificationMeta('race');
   @override
   late final GeneratedColumn<String> race = GeneratedColumn<String>(
-      'race', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _alignmentMeta =
-      const VerificationMeta('alignment');
+    'race',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _alignmentMeta = const VerificationMeta(
+    'alignment',
+  );
   @override
   late final GeneratedColumn<String> alignment = GeneratedColumn<String>(
-      'alignment', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'alignment',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _sizeMeta = const VerificationMeta('size');
   @override
   late final GeneratedColumn<String> size = GeneratedColumn<String>(
-      'size', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _strengthMeta =
-      const VerificationMeta('strength');
+    'size',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _strengthMeta = const VerificationMeta(
+    'strength',
+  );
   @override
   late final GeneratedColumn<int> strength = GeneratedColumn<int>(
-      'strength', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _strengthTmpMeta =
-      const VerificationMeta('strengthTmp');
+    'strength',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _strengthTmpMeta = const VerificationMeta(
+    'strengthTmp',
+  );
   @override
   late final GeneratedColumn<int> strengthTmp = GeneratedColumn<int>(
-      'strength_tmp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _dexterityMeta =
-      const VerificationMeta('dexterity');
+    'strength_tmp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _dexterityMeta = const VerificationMeta(
+    'dexterity',
+  );
   @override
   late final GeneratedColumn<int> dexterity = GeneratedColumn<int>(
-      'dexterity', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _dexterityTmpMeta =
-      const VerificationMeta('dexterityTmp');
+    'dexterity',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _dexterityTmpMeta = const VerificationMeta(
+    'dexterityTmp',
+  );
   @override
   late final GeneratedColumn<int> dexterityTmp = GeneratedColumn<int>(
-      'dexterity_tmp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _constitutionMeta =
-      const VerificationMeta('constitution');
+    'dexterity_tmp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _constitutionMeta = const VerificationMeta(
+    'constitution',
+  );
   @override
   late final GeneratedColumn<int> constitution = GeneratedColumn<int>(
-      'constitution', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _constitutionTmpMeta =
-      const VerificationMeta('constitutionTmp');
+    'constitution',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _constitutionTmpMeta = const VerificationMeta(
+    'constitutionTmp',
+  );
   @override
   late final GeneratedColumn<int> constitutionTmp = GeneratedColumn<int>(
-      'constitution_tmp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _intelligenceMeta =
-      const VerificationMeta('intelligence');
+    'constitution_tmp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _intelligenceMeta = const VerificationMeta(
+    'intelligence',
+  );
   @override
   late final GeneratedColumn<int> intelligence = GeneratedColumn<int>(
-      'intelligence', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _intelligenceTmpMeta =
-      const VerificationMeta('intelligenceTmp');
+    'intelligence',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _intelligenceTmpMeta = const VerificationMeta(
+    'intelligenceTmp',
+  );
   @override
   late final GeneratedColumn<int> intelligenceTmp = GeneratedColumn<int>(
-      'intelligence_tmp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+    'intelligence_tmp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _wisdomMeta = const VerificationMeta('wisdom');
   @override
   late final GeneratedColumn<int> wisdom = GeneratedColumn<int>(
-      'wisdom', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _wisdomTmpMeta =
-      const VerificationMeta('wisdomTmp');
+    'wisdom',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _wisdomTmpMeta = const VerificationMeta(
+    'wisdomTmp',
+  );
   @override
   late final GeneratedColumn<int> wisdomTmp = GeneratedColumn<int>(
-      'wisdom_tmp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _charismaMeta =
-      const VerificationMeta('charisma');
+    'wisdom_tmp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _charismaMeta = const VerificationMeta(
+    'charisma',
+  );
   @override
   late final GeneratedColumn<int> charisma = GeneratedColumn<int>(
-      'charisma', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _charismaTmpMeta =
-      const VerificationMeta('charismaTmp');
+    'charisma',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _charismaTmpMeta = const VerificationMeta(
+    'charismaTmp',
+  );
   @override
   late final GeneratedColumn<int> charismaTmp = GeneratedColumn<int>(
-      'charisma_tmp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+    'charisma_tmp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _maxHpMeta = const VerificationMeta('maxHp');
   @override
   late final GeneratedColumn<int> maxHp = GeneratedColumn<int>(
-      'max_hp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _currentHpMeta =
-      const VerificationMeta('currentHp');
+    'max_hp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currentHpMeta = const VerificationMeta(
+    'currentHp',
+  );
   @override
   late final GeneratedColumn<int> currentHp = GeneratedColumn<int>(
-      'current_hp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _maxStamMeta =
-      const VerificationMeta('maxStam');
+    'current_hp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _maxStamMeta = const VerificationMeta(
+    'maxStam',
+  );
   @override
   late final GeneratedColumn<int> maxStam = GeneratedColumn<int>(
-      'max_stam', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _currentStamMeta =
-      const VerificationMeta('currentStam');
+    'max_stam',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currentStamMeta = const VerificationMeta(
+    'currentStam',
+  );
   @override
   late final GeneratedColumn<int> currentStam = GeneratedColumn<int>(
-      'current_stam', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _maxResolveMeta =
-      const VerificationMeta('maxResolve');
+    'current_stam',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _maxResolveMeta = const VerificationMeta(
+    'maxResolve',
+  );
   @override
   late final GeneratedColumn<int> maxResolve = GeneratedColumn<int>(
-      'max_resolve', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _currentResolveMeta =
-      const VerificationMeta('currentResolve');
+    'max_resolve',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currentResolveMeta = const VerificationMeta(
+    'currentResolve',
+  );
   @override
   late final GeneratedColumn<int> currentResolve = GeneratedColumn<int>(
-      'current_resolve', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _damageLogMeta =
-      const VerificationMeta('damageLog');
+    'current_resolve',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _damageLogMeta = const VerificationMeta(
+    'damageLog',
+  );
   @override
   late final GeneratedColumn<String> damageLog = GeneratedColumn<String>(
-      'damage_log', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _eacArmorMeta =
-      const VerificationMeta('eacArmor');
+    'damage_log',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _eacArmorMeta = const VerificationMeta(
+    'eacArmor',
+  );
   @override
   late final GeneratedColumn<int> eacArmor = GeneratedColumn<int>(
-      'eac_armor', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _eacDodgerMeta =
-      const VerificationMeta('eacDodger');
+    'eac_armor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _eacDodgerMeta = const VerificationMeta(
+    'eacDodger',
+  );
   @override
   late final GeneratedColumn<int> eacDodger = GeneratedColumn<int>(
-      'eac_dodger', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _eacNaturalMeta =
-      const VerificationMeta('eacNatural');
+    'eac_dodger',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _eacNaturalMeta = const VerificationMeta(
+    'eacNatural',
+  );
   @override
   late final GeneratedColumn<int> eacNatural = GeneratedColumn<int>(
-      'eac_natural', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _eacDeflectMeta =
-      const VerificationMeta('eacDeflect');
+    'eac_natural',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _eacDeflectMeta = const VerificationMeta(
+    'eacDeflect',
+  );
   @override
   late final GeneratedColumn<int> eacDeflect = GeneratedColumn<int>(
-      'eac_deflect', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _eacMiscMeta =
-      const VerificationMeta('eacMisc');
+    'eac_deflect',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _eacMiscMeta = const VerificationMeta(
+    'eacMisc',
+  );
   @override
   late final GeneratedColumn<int> eacMisc = GeneratedColumn<int>(
-      'eac_misc', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _kacArmorMeta =
-      const VerificationMeta('kacArmor');
+    'eac_misc',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _kacArmorMeta = const VerificationMeta(
+    'kacArmor',
+  );
   @override
   late final GeneratedColumn<int> kacArmor = GeneratedColumn<int>(
-      'kac_armor', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _kacDodgerMeta =
-      const VerificationMeta('kacDodger');
+    'kac_armor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _kacDodgerMeta = const VerificationMeta(
+    'kacDodger',
+  );
   @override
   late final GeneratedColumn<int> kacDodger = GeneratedColumn<int>(
-      'kac_dodger', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _kacNaturalMeta =
-      const VerificationMeta('kacNatural');
+    'kac_dodger',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _kacNaturalMeta = const VerificationMeta(
+    'kacNatural',
+  );
   @override
   late final GeneratedColumn<int> kacNatural = GeneratedColumn<int>(
-      'kac_natural', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _kacDeflectMeta =
-      const VerificationMeta('kacDeflect');
+    'kac_natural',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _kacDeflectMeta = const VerificationMeta(
+    'kacDeflect',
+  );
   @override
   late final GeneratedColumn<int> kacDeflect = GeneratedColumn<int>(
-      'kac_deflect', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _kacMiscMeta =
-      const VerificationMeta('kacMisc');
+    'kac_deflect',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _kacMiscMeta = const VerificationMeta(
+    'kacMisc',
+  );
   @override
   late final GeneratedColumn<int> kacMisc = GeneratedColumn<int>(
-      'kac_misc', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _moveSpeedMeta =
-      const VerificationMeta('moveSpeed');
+    'kac_misc',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _moveSpeedMeta = const VerificationMeta(
+    'moveSpeed',
+  );
   @override
   late final GeneratedColumn<int> moveSpeed = GeneratedColumn<int>(
-      'move_speed', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _flySpeedMeta =
-      const VerificationMeta('flySpeed');
+    'move_speed',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _flySpeedMeta = const VerificationMeta(
+    'flySpeed',
+  );
   @override
   late final GeneratedColumn<int> flySpeed = GeneratedColumn<int>(
-      'fly_speed', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _swimSpeedMeta =
-      const VerificationMeta('swimSpeed');
+    'fly_speed',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _swimSpeedMeta = const VerificationMeta(
+    'swimSpeed',
+  );
   @override
   late final GeneratedColumn<int> swimSpeed = GeneratedColumn<int>(
-      'swim_speed', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _initMiscMeta =
-      const VerificationMeta('initMisc');
+    'swim_speed',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _initMiscMeta = const VerificationMeta(
+    'initMisc',
+  );
   @override
   late final GeneratedColumn<int> initMisc = GeneratedColumn<int>(
-      'init_misc', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+    'init_misc',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _babMeta = const VerificationMeta('bab');
   @override
   late final GeneratedColumn<int> bab = GeneratedColumn<int>(
-      'bab', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _mabMiscMeta =
-      const VerificationMeta('mabMisc');
+    'bab',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _mabMiscMeta = const VerificationMeta(
+    'mabMisc',
+  );
   @override
   late final GeneratedColumn<int> mabMisc = GeneratedColumn<int>(
-      'mab_misc', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _mabTempMeta =
-      const VerificationMeta('mabTemp');
+    'mab_misc',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _mabTempMeta = const VerificationMeta(
+    'mabTemp',
+  );
   @override
   late final GeneratedColumn<int> mabTemp = GeneratedColumn<int>(
-      'mab_temp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _tabMiscMeta =
-      const VerificationMeta('tabMisc');
+    'mab_temp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _tabMiscMeta = const VerificationMeta(
+    'tabMisc',
+  );
   @override
   late final GeneratedColumn<int> tabMisc = GeneratedColumn<int>(
-      'tab_misc', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _tabTempMeta =
-      const VerificationMeta('tabTemp');
+    'tab_misc',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _tabTempMeta = const VerificationMeta(
+    'tabTemp',
+  );
   @override
   late final GeneratedColumn<int> tabTemp = GeneratedColumn<int>(
-      'tab_temp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _rabMiscMeta =
-      const VerificationMeta('rabMisc');
+    'tab_temp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _rabMiscMeta = const VerificationMeta(
+    'rabMisc',
+  );
   @override
   late final GeneratedColumn<int> rabMisc = GeneratedColumn<int>(
-      'rab_misc', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _rabTempMeta =
-      const VerificationMeta('rabTemp');
+    'rab_misc',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _rabTempMeta = const VerificationMeta(
+    'rabTemp',
+  );
   @override
   late final GeneratedColumn<int> rabTemp = GeneratedColumn<int>(
-      'rab_temp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _fortBaseMeta =
-      const VerificationMeta('fortBase');
+    'rab_temp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fortBaseMeta = const VerificationMeta(
+    'fortBase',
+  );
   @override
   late final GeneratedColumn<int> fortBase = GeneratedColumn<int>(
-      'fort_base', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _fortMagicMeta =
-      const VerificationMeta('fortMagic');
+    'fort_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fortMagicMeta = const VerificationMeta(
+    'fortMagic',
+  );
   @override
   late final GeneratedColumn<int> fortMagic = GeneratedColumn<int>(
-      'fort_magic', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _fortMiscMeta =
-      const VerificationMeta('fortMisc');
+    'fort_magic',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fortMiscMeta = const VerificationMeta(
+    'fortMisc',
+  );
   @override
   late final GeneratedColumn<int> fortMisc = GeneratedColumn<int>(
-      'fort_misc', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _fortTempMeta =
-      const VerificationMeta('fortTemp');
+    'fort_misc',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fortTempMeta = const VerificationMeta(
+    'fortTemp',
+  );
   @override
   late final GeneratedColumn<int> fortTemp = GeneratedColumn<int>(
-      'fort_temp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _refBaseMeta =
-      const VerificationMeta('refBase');
+    'fort_temp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _refBaseMeta = const VerificationMeta(
+    'refBase',
+  );
   @override
   late final GeneratedColumn<int> refBase = GeneratedColumn<int>(
-      'ref_base', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _refMagicMeta =
-      const VerificationMeta('refMagic');
+    'ref_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _refMagicMeta = const VerificationMeta(
+    'refMagic',
+  );
   @override
   late final GeneratedColumn<int> refMagic = GeneratedColumn<int>(
-      'ref_magic', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _refMiscMeta =
-      const VerificationMeta('refMisc');
+    'ref_magic',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _refMiscMeta = const VerificationMeta(
+    'refMisc',
+  );
   @override
   late final GeneratedColumn<int> refMisc = GeneratedColumn<int>(
-      'ref_misc', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _refTempMeta =
-      const VerificationMeta('refTemp');
+    'ref_misc',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _refTempMeta = const VerificationMeta(
+    'refTemp',
+  );
   @override
   late final GeneratedColumn<int> refTemp = GeneratedColumn<int>(
-      'ref_temp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _willBaseMeta =
-      const VerificationMeta('willBase');
+    'ref_temp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _willBaseMeta = const VerificationMeta(
+    'willBase',
+  );
   @override
   late final GeneratedColumn<int> willBase = GeneratedColumn<int>(
-      'will_base', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _willMagicMeta =
-      const VerificationMeta('willMagic');
+    'will_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _willMagicMeta = const VerificationMeta(
+    'willMagic',
+  );
   @override
   late final GeneratedColumn<int> willMagic = GeneratedColumn<int>(
-      'will_magic', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _willMiscMeta =
-      const VerificationMeta('willMisc');
+    'will_magic',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _willMiscMeta = const VerificationMeta(
+    'willMisc',
+  );
   @override
   late final GeneratedColumn<int> willMisc = GeneratedColumn<int>(
-      'will_misc', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _willTempMeta =
-      const VerificationMeta('willTemp');
+    'will_misc',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _willTempMeta = const VerificationMeta(
+    'willTemp',
+  );
   @override
   late final GeneratedColumn<int> willTemp = GeneratedColumn<int>(
-      'will_temp', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+    'will_temp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _drMeta = const VerificationMeta('dr');
   @override
   late final GeneratedColumn<String> dr = GeneratedColumn<String>(
-      'dr', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'dr',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _srMeta = const VerificationMeta('sr');
   @override
   late final GeneratedColumn<String> sr = GeneratedColumn<String>(
-      'sr', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isMagicMeta =
-      const VerificationMeta('isMagic');
+    'sr',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isMagicMeta = const VerificationMeta(
+    'isMagic',
+  );
   @override
   late final GeneratedColumn<bool> isMagic = GeneratedColumn<bool>(
-      'is_magic', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_magic" IN (0, 1))'));
+    'is_magic',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_magic" IN (0, 1))',
+    ),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<WeaponList?, String> weapons =
+      GeneratedColumn<String>(
+        'weapons',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<WeaponList?>($TableCharacterTable.$converterweaponsn);
   @override
   List<GeneratedColumn> get $columns => [
-        id,
-        charName,
-        charClass,
-        lvl,
-        race,
-        alignment,
-        size,
-        strength,
-        strengthTmp,
-        dexterity,
-        dexterityTmp,
-        constitution,
-        constitutionTmp,
-        intelligence,
-        intelligenceTmp,
-        wisdom,
-        wisdomTmp,
-        charisma,
-        charismaTmp,
-        maxHp,
-        currentHp,
-        maxStam,
-        currentStam,
-        maxResolve,
-        currentResolve,
-        damageLog,
-        eacArmor,
-        eacDodger,
-        eacNatural,
-        eacDeflect,
-        eacMisc,
-        kacArmor,
-        kacDodger,
-        kacNatural,
-        kacDeflect,
-        kacMisc,
-        moveSpeed,
-        flySpeed,
-        swimSpeed,
-        initMisc,
-        bab,
-        mabMisc,
-        mabTemp,
-        tabMisc,
-        tabTemp,
-        rabMisc,
-        rabTemp,
-        fortBase,
-        fortMagic,
-        fortMisc,
-        fortTemp,
-        refBase,
-        refMagic,
-        refMisc,
-        refTemp,
-        willBase,
-        willMagic,
-        willMisc,
-        willTemp,
-        dr,
-        sr,
-        isMagic
-      ];
+    id,
+    charName,
+    charClass,
+    lvl,
+    race,
+    alignment,
+    size,
+    strength,
+    strengthTmp,
+    dexterity,
+    dexterityTmp,
+    constitution,
+    constitutionTmp,
+    intelligence,
+    intelligenceTmp,
+    wisdom,
+    wisdomTmp,
+    charisma,
+    charismaTmp,
+    maxHp,
+    currentHp,
+    maxStam,
+    currentStam,
+    maxResolve,
+    currentResolve,
+    damageLog,
+    eacArmor,
+    eacDodger,
+    eacNatural,
+    eacDeflect,
+    eacMisc,
+    kacArmor,
+    kacDodger,
+    kacNatural,
+    kacDeflect,
+    kacMisc,
+    moveSpeed,
+    flySpeed,
+    swimSpeed,
+    initMisc,
+    bab,
+    mabMisc,
+    mabTemp,
+    tabMisc,
+    tabTemp,
+    rabMisc,
+    rabTemp,
+    fortBase,
+    fortMagic,
+    fortMisc,
+    fortTemp,
+    refBase,
+    refMagic,
+    refMisc,
+    refTemp,
+    willBase,
+    willMagic,
+    willMisc,
+    willTemp,
+    dr,
+    sr,
+    isMagic,
+    weapons,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'table_character';
   @override
-  VerificationContext validateIntegrity(Insertable<TableCharacterData> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<TableCharacterData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('char_name')) {
-      context.handle(_charNameMeta,
-          charName.isAcceptableOrUnknown(data['char_name']!, _charNameMeta));
+      context.handle(
+        _charNameMeta,
+        charName.isAcceptableOrUnknown(data['char_name']!, _charNameMeta),
+      );
     } else if (isInserting) {
       context.missing(_charNameMeta);
     }
     if (data.containsKey('char_class')) {
-      context.handle(_charClassMeta,
-          charClass.isAcceptableOrUnknown(data['char_class']!, _charClassMeta));
+      context.handle(
+        _charClassMeta,
+        charClass.isAcceptableOrUnknown(data['char_class']!, _charClassMeta),
+      );
     } else if (isInserting) {
       context.missing(_charClassMeta);
     }
     if (data.containsKey('lvl')) {
       context.handle(
-          _lvlMeta, lvl.isAcceptableOrUnknown(data['lvl']!, _lvlMeta));
+        _lvlMeta,
+        lvl.isAcceptableOrUnknown(data['lvl']!, _lvlMeta),
+      );
     } else if (isInserting) {
       context.missing(_lvlMeta);
     }
     if (data.containsKey('race')) {
       context.handle(
-          _raceMeta, race.isAcceptableOrUnknown(data['race']!, _raceMeta));
+        _raceMeta,
+        race.isAcceptableOrUnknown(data['race']!, _raceMeta),
+      );
     } else if (isInserting) {
       context.missing(_raceMeta);
     }
     if (data.containsKey('alignment')) {
-      context.handle(_alignmentMeta,
-          alignment.isAcceptableOrUnknown(data['alignment']!, _alignmentMeta));
+      context.handle(
+        _alignmentMeta,
+        alignment.isAcceptableOrUnknown(data['alignment']!, _alignmentMeta),
+      );
     } else if (isInserting) {
       context.missing(_alignmentMeta);
     }
     if (data.containsKey('size')) {
       context.handle(
-          _sizeMeta, size.isAcceptableOrUnknown(data['size']!, _sizeMeta));
+        _sizeMeta,
+        size.isAcceptableOrUnknown(data['size']!, _sizeMeta),
+      );
     } else if (isInserting) {
       context.missing(_sizeMeta);
     }
     if (data.containsKey('strength')) {
-      context.handle(_strengthMeta,
-          strength.isAcceptableOrUnknown(data['strength']!, _strengthMeta));
+      context.handle(
+        _strengthMeta,
+        strength.isAcceptableOrUnknown(data['strength']!, _strengthMeta),
+      );
     } else if (isInserting) {
       context.missing(_strengthMeta);
     }
     if (data.containsKey('strength_tmp')) {
       context.handle(
+        _strengthTmpMeta,
+        strengthTmp.isAcceptableOrUnknown(
+          data['strength_tmp']!,
           _strengthTmpMeta,
-          strengthTmp.isAcceptableOrUnknown(
-              data['strength_tmp']!, _strengthTmpMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_strengthTmpMeta);
     }
     if (data.containsKey('dexterity')) {
-      context.handle(_dexterityMeta,
-          dexterity.isAcceptableOrUnknown(data['dexterity']!, _dexterityMeta));
+      context.handle(
+        _dexterityMeta,
+        dexterity.isAcceptableOrUnknown(data['dexterity']!, _dexterityMeta),
+      );
     } else if (isInserting) {
       context.missing(_dexterityMeta);
     }
     if (data.containsKey('dexterity_tmp')) {
       context.handle(
+        _dexterityTmpMeta,
+        dexterityTmp.isAcceptableOrUnknown(
+          data['dexterity_tmp']!,
           _dexterityTmpMeta,
-          dexterityTmp.isAcceptableOrUnknown(
-              data['dexterity_tmp']!, _dexterityTmpMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_dexterityTmpMeta);
     }
     if (data.containsKey('constitution')) {
       context.handle(
+        _constitutionMeta,
+        constitution.isAcceptableOrUnknown(
+          data['constitution']!,
           _constitutionMeta,
-          constitution.isAcceptableOrUnknown(
-              data['constitution']!, _constitutionMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_constitutionMeta);
     }
     if (data.containsKey('constitution_tmp')) {
       context.handle(
+        _constitutionTmpMeta,
+        constitutionTmp.isAcceptableOrUnknown(
+          data['constitution_tmp']!,
           _constitutionTmpMeta,
-          constitutionTmp.isAcceptableOrUnknown(
-              data['constitution_tmp']!, _constitutionTmpMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_constitutionTmpMeta);
     }
     if (data.containsKey('intelligence')) {
       context.handle(
+        _intelligenceMeta,
+        intelligence.isAcceptableOrUnknown(
+          data['intelligence']!,
           _intelligenceMeta,
-          intelligence.isAcceptableOrUnknown(
-              data['intelligence']!, _intelligenceMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_intelligenceMeta);
     }
     if (data.containsKey('intelligence_tmp')) {
       context.handle(
+        _intelligenceTmpMeta,
+        intelligenceTmp.isAcceptableOrUnknown(
+          data['intelligence_tmp']!,
           _intelligenceTmpMeta,
-          intelligenceTmp.isAcceptableOrUnknown(
-              data['intelligence_tmp']!, _intelligenceTmpMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_intelligenceTmpMeta);
     }
     if (data.containsKey('wisdom')) {
-      context.handle(_wisdomMeta,
-          wisdom.isAcceptableOrUnknown(data['wisdom']!, _wisdomMeta));
+      context.handle(
+        _wisdomMeta,
+        wisdom.isAcceptableOrUnknown(data['wisdom']!, _wisdomMeta),
+      );
     } else if (isInserting) {
       context.missing(_wisdomMeta);
     }
     if (data.containsKey('wisdom_tmp')) {
-      context.handle(_wisdomTmpMeta,
-          wisdomTmp.isAcceptableOrUnknown(data['wisdom_tmp']!, _wisdomTmpMeta));
+      context.handle(
+        _wisdomTmpMeta,
+        wisdomTmp.isAcceptableOrUnknown(data['wisdom_tmp']!, _wisdomTmpMeta),
+      );
     } else if (isInserting) {
       context.missing(_wisdomTmpMeta);
     }
     if (data.containsKey('charisma')) {
-      context.handle(_charismaMeta,
-          charisma.isAcceptableOrUnknown(data['charisma']!, _charismaMeta));
+      context.handle(
+        _charismaMeta,
+        charisma.isAcceptableOrUnknown(data['charisma']!, _charismaMeta),
+      );
     } else if (isInserting) {
       context.missing(_charismaMeta);
     }
     if (data.containsKey('charisma_tmp')) {
       context.handle(
+        _charismaTmpMeta,
+        charismaTmp.isAcceptableOrUnknown(
+          data['charisma_tmp']!,
           _charismaTmpMeta,
-          charismaTmp.isAcceptableOrUnknown(
-              data['charisma_tmp']!, _charismaTmpMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_charismaTmpMeta);
     }
     if (data.containsKey('max_hp')) {
       context.handle(
-          _maxHpMeta, maxHp.isAcceptableOrUnknown(data['max_hp']!, _maxHpMeta));
+        _maxHpMeta,
+        maxHp.isAcceptableOrUnknown(data['max_hp']!, _maxHpMeta),
+      );
     } else if (isInserting) {
       context.missing(_maxHpMeta);
     }
     if (data.containsKey('current_hp')) {
-      context.handle(_currentHpMeta,
-          currentHp.isAcceptableOrUnknown(data['current_hp']!, _currentHpMeta));
+      context.handle(
+        _currentHpMeta,
+        currentHp.isAcceptableOrUnknown(data['current_hp']!, _currentHpMeta),
+      );
     } else if (isInserting) {
       context.missing(_currentHpMeta);
     }
     if (data.containsKey('max_stam')) {
-      context.handle(_maxStamMeta,
-          maxStam.isAcceptableOrUnknown(data['max_stam']!, _maxStamMeta));
+      context.handle(
+        _maxStamMeta,
+        maxStam.isAcceptableOrUnknown(data['max_stam']!, _maxStamMeta),
+      );
     } else if (isInserting) {
       context.missing(_maxStamMeta);
     }
     if (data.containsKey('current_stam')) {
       context.handle(
+        _currentStamMeta,
+        currentStam.isAcceptableOrUnknown(
+          data['current_stam']!,
           _currentStamMeta,
-          currentStam.isAcceptableOrUnknown(
-              data['current_stam']!, _currentStamMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_currentStamMeta);
     }
     if (data.containsKey('max_resolve')) {
       context.handle(
-          _maxResolveMeta,
-          maxResolve.isAcceptableOrUnknown(
-              data['max_resolve']!, _maxResolveMeta));
+        _maxResolveMeta,
+        maxResolve.isAcceptableOrUnknown(data['max_resolve']!, _maxResolveMeta),
+      );
     } else if (isInserting) {
       context.missing(_maxResolveMeta);
     }
     if (data.containsKey('current_resolve')) {
       context.handle(
+        _currentResolveMeta,
+        currentResolve.isAcceptableOrUnknown(
+          data['current_resolve']!,
           _currentResolveMeta,
-          currentResolve.isAcceptableOrUnknown(
-              data['current_resolve']!, _currentResolveMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_currentResolveMeta);
     }
     if (data.containsKey('damage_log')) {
-      context.handle(_damageLogMeta,
-          damageLog.isAcceptableOrUnknown(data['damage_log']!, _damageLogMeta));
+      context.handle(
+        _damageLogMeta,
+        damageLog.isAcceptableOrUnknown(data['damage_log']!, _damageLogMeta),
+      );
     } else if (isInserting) {
       context.missing(_damageLogMeta);
     }
     if (data.containsKey('eac_armor')) {
-      context.handle(_eacArmorMeta,
-          eacArmor.isAcceptableOrUnknown(data['eac_armor']!, _eacArmorMeta));
+      context.handle(
+        _eacArmorMeta,
+        eacArmor.isAcceptableOrUnknown(data['eac_armor']!, _eacArmorMeta),
+      );
     } else if (isInserting) {
       context.missing(_eacArmorMeta);
     }
     if (data.containsKey('eac_dodger')) {
-      context.handle(_eacDodgerMeta,
-          eacDodger.isAcceptableOrUnknown(data['eac_dodger']!, _eacDodgerMeta));
+      context.handle(
+        _eacDodgerMeta,
+        eacDodger.isAcceptableOrUnknown(data['eac_dodger']!, _eacDodgerMeta),
+      );
     } else if (isInserting) {
       context.missing(_eacDodgerMeta);
     }
     if (data.containsKey('eac_natural')) {
       context.handle(
-          _eacNaturalMeta,
-          eacNatural.isAcceptableOrUnknown(
-              data['eac_natural']!, _eacNaturalMeta));
+        _eacNaturalMeta,
+        eacNatural.isAcceptableOrUnknown(data['eac_natural']!, _eacNaturalMeta),
+      );
     } else if (isInserting) {
       context.missing(_eacNaturalMeta);
     }
     if (data.containsKey('eac_deflect')) {
       context.handle(
-          _eacDeflectMeta,
-          eacDeflect.isAcceptableOrUnknown(
-              data['eac_deflect']!, _eacDeflectMeta));
+        _eacDeflectMeta,
+        eacDeflect.isAcceptableOrUnknown(data['eac_deflect']!, _eacDeflectMeta),
+      );
     } else if (isInserting) {
       context.missing(_eacDeflectMeta);
     }
     if (data.containsKey('eac_misc')) {
-      context.handle(_eacMiscMeta,
-          eacMisc.isAcceptableOrUnknown(data['eac_misc']!, _eacMiscMeta));
+      context.handle(
+        _eacMiscMeta,
+        eacMisc.isAcceptableOrUnknown(data['eac_misc']!, _eacMiscMeta),
+      );
     } else if (isInserting) {
       context.missing(_eacMiscMeta);
     }
     if (data.containsKey('kac_armor')) {
-      context.handle(_kacArmorMeta,
-          kacArmor.isAcceptableOrUnknown(data['kac_armor']!, _kacArmorMeta));
+      context.handle(
+        _kacArmorMeta,
+        kacArmor.isAcceptableOrUnknown(data['kac_armor']!, _kacArmorMeta),
+      );
     } else if (isInserting) {
       context.missing(_kacArmorMeta);
     }
     if (data.containsKey('kac_dodger')) {
-      context.handle(_kacDodgerMeta,
-          kacDodger.isAcceptableOrUnknown(data['kac_dodger']!, _kacDodgerMeta));
+      context.handle(
+        _kacDodgerMeta,
+        kacDodger.isAcceptableOrUnknown(data['kac_dodger']!, _kacDodgerMeta),
+      );
     } else if (isInserting) {
       context.missing(_kacDodgerMeta);
     }
     if (data.containsKey('kac_natural')) {
       context.handle(
-          _kacNaturalMeta,
-          kacNatural.isAcceptableOrUnknown(
-              data['kac_natural']!, _kacNaturalMeta));
+        _kacNaturalMeta,
+        kacNatural.isAcceptableOrUnknown(data['kac_natural']!, _kacNaturalMeta),
+      );
     } else if (isInserting) {
       context.missing(_kacNaturalMeta);
     }
     if (data.containsKey('kac_deflect')) {
       context.handle(
-          _kacDeflectMeta,
-          kacDeflect.isAcceptableOrUnknown(
-              data['kac_deflect']!, _kacDeflectMeta));
+        _kacDeflectMeta,
+        kacDeflect.isAcceptableOrUnknown(data['kac_deflect']!, _kacDeflectMeta),
+      );
     } else if (isInserting) {
       context.missing(_kacDeflectMeta);
     }
     if (data.containsKey('kac_misc')) {
-      context.handle(_kacMiscMeta,
-          kacMisc.isAcceptableOrUnknown(data['kac_misc']!, _kacMiscMeta));
+      context.handle(
+        _kacMiscMeta,
+        kacMisc.isAcceptableOrUnknown(data['kac_misc']!, _kacMiscMeta),
+      );
     } else if (isInserting) {
       context.missing(_kacMiscMeta);
     }
     if (data.containsKey('move_speed')) {
-      context.handle(_moveSpeedMeta,
-          moveSpeed.isAcceptableOrUnknown(data['move_speed']!, _moveSpeedMeta));
+      context.handle(
+        _moveSpeedMeta,
+        moveSpeed.isAcceptableOrUnknown(data['move_speed']!, _moveSpeedMeta),
+      );
     } else if (isInserting) {
       context.missing(_moveSpeedMeta);
     }
     if (data.containsKey('fly_speed')) {
-      context.handle(_flySpeedMeta,
-          flySpeed.isAcceptableOrUnknown(data['fly_speed']!, _flySpeedMeta));
+      context.handle(
+        _flySpeedMeta,
+        flySpeed.isAcceptableOrUnknown(data['fly_speed']!, _flySpeedMeta),
+      );
     } else if (isInserting) {
       context.missing(_flySpeedMeta);
     }
     if (data.containsKey('swim_speed')) {
-      context.handle(_swimSpeedMeta,
-          swimSpeed.isAcceptableOrUnknown(data['swim_speed']!, _swimSpeedMeta));
+      context.handle(
+        _swimSpeedMeta,
+        swimSpeed.isAcceptableOrUnknown(data['swim_speed']!, _swimSpeedMeta),
+      );
     } else if (isInserting) {
       context.missing(_swimSpeedMeta);
     }
     if (data.containsKey('init_misc')) {
-      context.handle(_initMiscMeta,
-          initMisc.isAcceptableOrUnknown(data['init_misc']!, _initMiscMeta));
+      context.handle(
+        _initMiscMeta,
+        initMisc.isAcceptableOrUnknown(data['init_misc']!, _initMiscMeta),
+      );
     } else if (isInserting) {
       context.missing(_initMiscMeta);
     }
     if (data.containsKey('bab')) {
       context.handle(
-          _babMeta, bab.isAcceptableOrUnknown(data['bab']!, _babMeta));
+        _babMeta,
+        bab.isAcceptableOrUnknown(data['bab']!, _babMeta),
+      );
     } else if (isInserting) {
       context.missing(_babMeta);
     }
     if (data.containsKey('mab_misc')) {
-      context.handle(_mabMiscMeta,
-          mabMisc.isAcceptableOrUnknown(data['mab_misc']!, _mabMiscMeta));
+      context.handle(
+        _mabMiscMeta,
+        mabMisc.isAcceptableOrUnknown(data['mab_misc']!, _mabMiscMeta),
+      );
     } else if (isInserting) {
       context.missing(_mabMiscMeta);
     }
     if (data.containsKey('mab_temp')) {
-      context.handle(_mabTempMeta,
-          mabTemp.isAcceptableOrUnknown(data['mab_temp']!, _mabTempMeta));
+      context.handle(
+        _mabTempMeta,
+        mabTemp.isAcceptableOrUnknown(data['mab_temp']!, _mabTempMeta),
+      );
     } else if (isInserting) {
       context.missing(_mabTempMeta);
     }
     if (data.containsKey('tab_misc')) {
-      context.handle(_tabMiscMeta,
-          tabMisc.isAcceptableOrUnknown(data['tab_misc']!, _tabMiscMeta));
+      context.handle(
+        _tabMiscMeta,
+        tabMisc.isAcceptableOrUnknown(data['tab_misc']!, _tabMiscMeta),
+      );
     } else if (isInserting) {
       context.missing(_tabMiscMeta);
     }
     if (data.containsKey('tab_temp')) {
-      context.handle(_tabTempMeta,
-          tabTemp.isAcceptableOrUnknown(data['tab_temp']!, _tabTempMeta));
+      context.handle(
+        _tabTempMeta,
+        tabTemp.isAcceptableOrUnknown(data['tab_temp']!, _tabTempMeta),
+      );
     } else if (isInserting) {
       context.missing(_tabTempMeta);
     }
     if (data.containsKey('rab_misc')) {
-      context.handle(_rabMiscMeta,
-          rabMisc.isAcceptableOrUnknown(data['rab_misc']!, _rabMiscMeta));
+      context.handle(
+        _rabMiscMeta,
+        rabMisc.isAcceptableOrUnknown(data['rab_misc']!, _rabMiscMeta),
+      );
     } else if (isInserting) {
       context.missing(_rabMiscMeta);
     }
     if (data.containsKey('rab_temp')) {
-      context.handle(_rabTempMeta,
-          rabTemp.isAcceptableOrUnknown(data['rab_temp']!, _rabTempMeta));
+      context.handle(
+        _rabTempMeta,
+        rabTemp.isAcceptableOrUnknown(data['rab_temp']!, _rabTempMeta),
+      );
     } else if (isInserting) {
       context.missing(_rabTempMeta);
     }
     if (data.containsKey('fort_base')) {
-      context.handle(_fortBaseMeta,
-          fortBase.isAcceptableOrUnknown(data['fort_base']!, _fortBaseMeta));
+      context.handle(
+        _fortBaseMeta,
+        fortBase.isAcceptableOrUnknown(data['fort_base']!, _fortBaseMeta),
+      );
     } else if (isInserting) {
       context.missing(_fortBaseMeta);
     }
     if (data.containsKey('fort_magic')) {
-      context.handle(_fortMagicMeta,
-          fortMagic.isAcceptableOrUnknown(data['fort_magic']!, _fortMagicMeta));
+      context.handle(
+        _fortMagicMeta,
+        fortMagic.isAcceptableOrUnknown(data['fort_magic']!, _fortMagicMeta),
+      );
     } else if (isInserting) {
       context.missing(_fortMagicMeta);
     }
     if (data.containsKey('fort_misc')) {
-      context.handle(_fortMiscMeta,
-          fortMisc.isAcceptableOrUnknown(data['fort_misc']!, _fortMiscMeta));
+      context.handle(
+        _fortMiscMeta,
+        fortMisc.isAcceptableOrUnknown(data['fort_misc']!, _fortMiscMeta),
+      );
     } else if (isInserting) {
       context.missing(_fortMiscMeta);
     }
     if (data.containsKey('fort_temp')) {
-      context.handle(_fortTempMeta,
-          fortTemp.isAcceptableOrUnknown(data['fort_temp']!, _fortTempMeta));
+      context.handle(
+        _fortTempMeta,
+        fortTemp.isAcceptableOrUnknown(data['fort_temp']!, _fortTempMeta),
+      );
     } else if (isInserting) {
       context.missing(_fortTempMeta);
     }
     if (data.containsKey('ref_base')) {
-      context.handle(_refBaseMeta,
-          refBase.isAcceptableOrUnknown(data['ref_base']!, _refBaseMeta));
+      context.handle(
+        _refBaseMeta,
+        refBase.isAcceptableOrUnknown(data['ref_base']!, _refBaseMeta),
+      );
     } else if (isInserting) {
       context.missing(_refBaseMeta);
     }
     if (data.containsKey('ref_magic')) {
-      context.handle(_refMagicMeta,
-          refMagic.isAcceptableOrUnknown(data['ref_magic']!, _refMagicMeta));
+      context.handle(
+        _refMagicMeta,
+        refMagic.isAcceptableOrUnknown(data['ref_magic']!, _refMagicMeta),
+      );
     } else if (isInserting) {
       context.missing(_refMagicMeta);
     }
     if (data.containsKey('ref_misc')) {
-      context.handle(_refMiscMeta,
-          refMisc.isAcceptableOrUnknown(data['ref_misc']!, _refMiscMeta));
+      context.handle(
+        _refMiscMeta,
+        refMisc.isAcceptableOrUnknown(data['ref_misc']!, _refMiscMeta),
+      );
     } else if (isInserting) {
       context.missing(_refMiscMeta);
     }
     if (data.containsKey('ref_temp')) {
-      context.handle(_refTempMeta,
-          refTemp.isAcceptableOrUnknown(data['ref_temp']!, _refTempMeta));
+      context.handle(
+        _refTempMeta,
+        refTemp.isAcceptableOrUnknown(data['ref_temp']!, _refTempMeta),
+      );
     } else if (isInserting) {
       context.missing(_refTempMeta);
     }
     if (data.containsKey('will_base')) {
-      context.handle(_willBaseMeta,
-          willBase.isAcceptableOrUnknown(data['will_base']!, _willBaseMeta));
+      context.handle(
+        _willBaseMeta,
+        willBase.isAcceptableOrUnknown(data['will_base']!, _willBaseMeta),
+      );
     } else if (isInserting) {
       context.missing(_willBaseMeta);
     }
     if (data.containsKey('will_magic')) {
-      context.handle(_willMagicMeta,
-          willMagic.isAcceptableOrUnknown(data['will_magic']!, _willMagicMeta));
+      context.handle(
+        _willMagicMeta,
+        willMagic.isAcceptableOrUnknown(data['will_magic']!, _willMagicMeta),
+      );
     } else if (isInserting) {
       context.missing(_willMagicMeta);
     }
     if (data.containsKey('will_misc')) {
-      context.handle(_willMiscMeta,
-          willMisc.isAcceptableOrUnknown(data['will_misc']!, _willMiscMeta));
+      context.handle(
+        _willMiscMeta,
+        willMisc.isAcceptableOrUnknown(data['will_misc']!, _willMiscMeta),
+      );
     } else if (isInserting) {
       context.missing(_willMiscMeta);
     }
     if (data.containsKey('will_temp')) {
-      context.handle(_willTempMeta,
-          willTemp.isAcceptableOrUnknown(data['will_temp']!, _willTempMeta));
+      context.handle(
+        _willTempMeta,
+        willTemp.isAcceptableOrUnknown(data['will_temp']!, _willTempMeta),
+      );
     } else if (isInserting) {
       context.missing(_willTempMeta);
     }
@@ -844,8 +1272,10 @@ class $TableCharacterTable extends TableCharacter
       context.missing(_srMeta);
     }
     if (data.containsKey('is_magic')) {
-      context.handle(_isMagicMeta,
-          isMagic.isAcceptableOrUnknown(data['is_magic']!, _isMagicMeta));
+      context.handle(
+        _isMagicMeta,
+        isMagic.isAcceptableOrUnknown(data['is_magic']!, _isMagicMeta),
+      );
     } else if (isInserting) {
       context.missing(_isMagicMeta);
     }
@@ -858,130 +1288,260 @@ class $TableCharacterTable extends TableCharacter
   TableCharacterData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return TableCharacterData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      charName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}char_name'])!,
-      charClass: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}char_class'])!,
-      lvl: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}lvl'])!,
-      race: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}race'])!,
-      alignment: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}alignment'])!,
-      size: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}size'])!,
-      strength: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}strength'])!,
-      strengthTmp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}strength_tmp'])!,
-      dexterity: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}dexterity'])!,
-      dexterityTmp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}dexterity_tmp'])!,
-      constitution: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}constitution'])!,
-      constitutionTmp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}constitution_tmp'])!,
-      intelligence: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}intelligence'])!,
-      intelligenceTmp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}intelligence_tmp'])!,
-      wisdom: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}wisdom'])!,
-      wisdomTmp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}wisdom_tmp'])!,
-      charisma: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}charisma'])!,
-      charismaTmp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}charisma_tmp'])!,
-      maxHp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}max_hp'])!,
-      currentHp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}current_hp'])!,
-      maxStam: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}max_stam'])!,
-      currentStam: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}current_stam'])!,
-      maxResolve: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}max_resolve'])!,
-      currentResolve: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}current_resolve'])!,
-      damageLog: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}damage_log'])!,
-      eacArmor: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}eac_armor'])!,
-      eacDodger: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}eac_dodger'])!,
-      eacNatural: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}eac_natural'])!,
-      eacDeflect: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}eac_deflect'])!,
-      eacMisc: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}eac_misc'])!,
-      kacArmor: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}kac_armor'])!,
-      kacDodger: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}kac_dodger'])!,
-      kacNatural: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}kac_natural'])!,
-      kacDeflect: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}kac_deflect'])!,
-      kacMisc: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}kac_misc'])!,
-      moveSpeed: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}move_speed'])!,
-      flySpeed: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}fly_speed'])!,
-      swimSpeed: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}swim_speed'])!,
-      initMisc: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}init_misc'])!,
-      bab: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}bab'])!,
-      mabMisc: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}mab_misc'])!,
-      mabTemp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}mab_temp'])!,
-      tabMisc: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}tab_misc'])!,
-      tabTemp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}tab_temp'])!,
-      rabMisc: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}rab_misc'])!,
-      rabTemp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}rab_temp'])!,
-      fortBase: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}fort_base'])!,
-      fortMagic: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}fort_magic'])!,
-      fortMisc: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}fort_misc'])!,
-      fortTemp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}fort_temp'])!,
-      refBase: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}ref_base'])!,
-      refMagic: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}ref_magic'])!,
-      refMisc: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}ref_misc'])!,
-      refTemp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}ref_temp'])!,
-      willBase: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}will_base'])!,
-      willMagic: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}will_magic'])!,
-      willMisc: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}will_misc'])!,
-      willTemp: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}will_temp'])!,
-      dr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}dr'])!,
-      sr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}sr'])!,
-      isMagic: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_magic'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      charName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}char_name'],
+      )!,
+      charClass: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}char_class'],
+      )!,
+      lvl: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}lvl'],
+      )!,
+      race: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}race'],
+      )!,
+      alignment: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}alignment'],
+      )!,
+      size: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}size'],
+      )!,
+      strength: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}strength'],
+      )!,
+      strengthTmp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}strength_tmp'],
+      )!,
+      dexterity: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}dexterity'],
+      )!,
+      dexterityTmp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}dexterity_tmp'],
+      )!,
+      constitution: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}constitution'],
+      )!,
+      constitutionTmp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}constitution_tmp'],
+      )!,
+      intelligence: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}intelligence'],
+      )!,
+      intelligenceTmp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}intelligence_tmp'],
+      )!,
+      wisdom: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}wisdom'],
+      )!,
+      wisdomTmp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}wisdom_tmp'],
+      )!,
+      charisma: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}charisma'],
+      )!,
+      charismaTmp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}charisma_tmp'],
+      )!,
+      maxHp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}max_hp'],
+      )!,
+      currentHp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}current_hp'],
+      )!,
+      maxStam: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}max_stam'],
+      )!,
+      currentStam: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}current_stam'],
+      )!,
+      maxResolve: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}max_resolve'],
+      )!,
+      currentResolve: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}current_resolve'],
+      )!,
+      damageLog: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}damage_log'],
+      )!,
+      eacArmor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}eac_armor'],
+      )!,
+      eacDodger: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}eac_dodger'],
+      )!,
+      eacNatural: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}eac_natural'],
+      )!,
+      eacDeflect: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}eac_deflect'],
+      )!,
+      eacMisc: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}eac_misc'],
+      )!,
+      kacArmor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}kac_armor'],
+      )!,
+      kacDodger: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}kac_dodger'],
+      )!,
+      kacNatural: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}kac_natural'],
+      )!,
+      kacDeflect: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}kac_deflect'],
+      )!,
+      kacMisc: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}kac_misc'],
+      )!,
+      moveSpeed: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}move_speed'],
+      )!,
+      flySpeed: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}fly_speed'],
+      )!,
+      swimSpeed: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}swim_speed'],
+      )!,
+      initMisc: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}init_misc'],
+      )!,
+      bab: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}bab'],
+      )!,
+      mabMisc: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}mab_misc'],
+      )!,
+      mabTemp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}mab_temp'],
+      )!,
+      tabMisc: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}tab_misc'],
+      )!,
+      tabTemp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}tab_temp'],
+      )!,
+      rabMisc: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}rab_misc'],
+      )!,
+      rabTemp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}rab_temp'],
+      )!,
+      fortBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}fort_base'],
+      )!,
+      fortMagic: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}fort_magic'],
+      )!,
+      fortMisc: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}fort_misc'],
+      )!,
+      fortTemp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}fort_temp'],
+      )!,
+      refBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}ref_base'],
+      )!,
+      refMagic: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}ref_magic'],
+      )!,
+      refMisc: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}ref_misc'],
+      )!,
+      refTemp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}ref_temp'],
+      )!,
+      willBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}will_base'],
+      )!,
+      willMagic: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}will_magic'],
+      )!,
+      willMisc: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}will_misc'],
+      )!,
+      willTemp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}will_temp'],
+      )!,
+      dr: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}dr'],
+      )!,
+      sr: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sr'],
+      )!,
+      isMagic: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_magic'],
+      )!,
+      weapons: $TableCharacterTable.$converterweaponsn.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}weapons'],
+        ),
+      ),
     );
   }
 
@@ -989,6 +1549,11 @@ class $TableCharacterTable extends TableCharacter
   $TableCharacterTable createAlias(String alias) {
     return $TableCharacterTable(attachedDatabase, alias);
   }
+
+  static JsonTypeConverter2<WeaponList, String, Object?> $converterweapons =
+      WeaponList.converter;
+  static JsonTypeConverter2<WeaponList?, String?, Object?> $converterweaponsn =
+      JsonTypeConverter2.asNullable($converterweapons);
 }
 
 class TableCharacterData extends DataClass
@@ -1055,69 +1620,72 @@ class TableCharacterData extends DataClass
   final String dr;
   final String sr;
   final bool isMagic;
-  const TableCharacterData(
-      {required this.id,
-      required this.charName,
-      required this.charClass,
-      required this.lvl,
-      required this.race,
-      required this.alignment,
-      required this.size,
-      required this.strength,
-      required this.strengthTmp,
-      required this.dexterity,
-      required this.dexterityTmp,
-      required this.constitution,
-      required this.constitutionTmp,
-      required this.intelligence,
-      required this.intelligenceTmp,
-      required this.wisdom,
-      required this.wisdomTmp,
-      required this.charisma,
-      required this.charismaTmp,
-      required this.maxHp,
-      required this.currentHp,
-      required this.maxStam,
-      required this.currentStam,
-      required this.maxResolve,
-      required this.currentResolve,
-      required this.damageLog,
-      required this.eacArmor,
-      required this.eacDodger,
-      required this.eacNatural,
-      required this.eacDeflect,
-      required this.eacMisc,
-      required this.kacArmor,
-      required this.kacDodger,
-      required this.kacNatural,
-      required this.kacDeflect,
-      required this.kacMisc,
-      required this.moveSpeed,
-      required this.flySpeed,
-      required this.swimSpeed,
-      required this.initMisc,
-      required this.bab,
-      required this.mabMisc,
-      required this.mabTemp,
-      required this.tabMisc,
-      required this.tabTemp,
-      required this.rabMisc,
-      required this.rabTemp,
-      required this.fortBase,
-      required this.fortMagic,
-      required this.fortMisc,
-      required this.fortTemp,
-      required this.refBase,
-      required this.refMagic,
-      required this.refMisc,
-      required this.refTemp,
-      required this.willBase,
-      required this.willMagic,
-      required this.willMisc,
-      required this.willTemp,
-      required this.dr,
-      required this.sr,
-      required this.isMagic});
+  final WeaponList? weapons;
+  const TableCharacterData({
+    required this.id,
+    required this.charName,
+    required this.charClass,
+    required this.lvl,
+    required this.race,
+    required this.alignment,
+    required this.size,
+    required this.strength,
+    required this.strengthTmp,
+    required this.dexterity,
+    required this.dexterityTmp,
+    required this.constitution,
+    required this.constitutionTmp,
+    required this.intelligence,
+    required this.intelligenceTmp,
+    required this.wisdom,
+    required this.wisdomTmp,
+    required this.charisma,
+    required this.charismaTmp,
+    required this.maxHp,
+    required this.currentHp,
+    required this.maxStam,
+    required this.currentStam,
+    required this.maxResolve,
+    required this.currentResolve,
+    required this.damageLog,
+    required this.eacArmor,
+    required this.eacDodger,
+    required this.eacNatural,
+    required this.eacDeflect,
+    required this.eacMisc,
+    required this.kacArmor,
+    required this.kacDodger,
+    required this.kacNatural,
+    required this.kacDeflect,
+    required this.kacMisc,
+    required this.moveSpeed,
+    required this.flySpeed,
+    required this.swimSpeed,
+    required this.initMisc,
+    required this.bab,
+    required this.mabMisc,
+    required this.mabTemp,
+    required this.tabMisc,
+    required this.tabTemp,
+    required this.rabMisc,
+    required this.rabTemp,
+    required this.fortBase,
+    required this.fortMagic,
+    required this.fortMisc,
+    required this.fortTemp,
+    required this.refBase,
+    required this.refMagic,
+    required this.refMisc,
+    required this.refTemp,
+    required this.willBase,
+    required this.willMagic,
+    required this.willMisc,
+    required this.willTemp,
+    required this.dr,
+    required this.sr,
+    required this.isMagic,
+    this.weapons,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1183,6 +1751,11 @@ class TableCharacterData extends DataClass
     map['dr'] = Variable<String>(dr);
     map['sr'] = Variable<String>(sr);
     map['is_magic'] = Variable<bool>(isMagic);
+    if (!nullToAbsent || weapons != null) {
+      map['weapons'] = Variable<String>(
+        $TableCharacterTable.$converterweaponsn.toSql(weapons),
+      );
+    }
     return map;
   }
 
@@ -1250,11 +1823,16 @@ class TableCharacterData extends DataClass
       dr: Value(dr),
       sr: Value(sr),
       isMagic: Value(isMagic),
+      weapons: weapons == null && nullToAbsent
+          ? const Value.absent()
+          : Value(weapons),
     );
   }
 
-  factory TableCharacterData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory TableCharacterData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return TableCharacterData(
       id: serializer.fromJson<int>(json['id']),
@@ -1319,6 +1897,9 @@ class TableCharacterData extends DataClass
       dr: serializer.fromJson<String>(json['dr']),
       sr: serializer.fromJson<String>(json['sr']),
       isMagic: serializer.fromJson<bool>(json['isMagic']),
+      weapons: $TableCharacterTable.$converterweaponsn.fromJson(
+        serializer.fromJson<Object?>(json['weapons']),
+      ),
     );
   }
   @override
@@ -1387,136 +1968,141 @@ class TableCharacterData extends DataClass
       'dr': serializer.toJson<String>(dr),
       'sr': serializer.toJson<String>(sr),
       'isMagic': serializer.toJson<bool>(isMagic),
+      'weapons': serializer.toJson<Object?>(
+        $TableCharacterTable.$converterweaponsn.toJson(weapons),
+      ),
     };
   }
 
-  TableCharacterData copyWith(
-          {int? id,
-          String? charName,
-          String? charClass,
-          int? lvl,
-          String? race,
-          String? alignment,
-          String? size,
-          int? strength,
-          int? strengthTmp,
-          int? dexterity,
-          int? dexterityTmp,
-          int? constitution,
-          int? constitutionTmp,
-          int? intelligence,
-          int? intelligenceTmp,
-          int? wisdom,
-          int? wisdomTmp,
-          int? charisma,
-          int? charismaTmp,
-          int? maxHp,
-          int? currentHp,
-          int? maxStam,
-          int? currentStam,
-          int? maxResolve,
-          int? currentResolve,
-          String? damageLog,
-          int? eacArmor,
-          int? eacDodger,
-          int? eacNatural,
-          int? eacDeflect,
-          int? eacMisc,
-          int? kacArmor,
-          int? kacDodger,
-          int? kacNatural,
-          int? kacDeflect,
-          int? kacMisc,
-          int? moveSpeed,
-          int? flySpeed,
-          int? swimSpeed,
-          int? initMisc,
-          int? bab,
-          int? mabMisc,
-          int? mabTemp,
-          int? tabMisc,
-          int? tabTemp,
-          int? rabMisc,
-          int? rabTemp,
-          int? fortBase,
-          int? fortMagic,
-          int? fortMisc,
-          int? fortTemp,
-          int? refBase,
-          int? refMagic,
-          int? refMisc,
-          int? refTemp,
-          int? willBase,
-          int? willMagic,
-          int? willMisc,
-          int? willTemp,
-          String? dr,
-          String? sr,
-          bool? isMagic}) =>
-      TableCharacterData(
-        id: id ?? this.id,
-        charName: charName ?? this.charName,
-        charClass: charClass ?? this.charClass,
-        lvl: lvl ?? this.lvl,
-        race: race ?? this.race,
-        alignment: alignment ?? this.alignment,
-        size: size ?? this.size,
-        strength: strength ?? this.strength,
-        strengthTmp: strengthTmp ?? this.strengthTmp,
-        dexterity: dexterity ?? this.dexterity,
-        dexterityTmp: dexterityTmp ?? this.dexterityTmp,
-        constitution: constitution ?? this.constitution,
-        constitutionTmp: constitutionTmp ?? this.constitutionTmp,
-        intelligence: intelligence ?? this.intelligence,
-        intelligenceTmp: intelligenceTmp ?? this.intelligenceTmp,
-        wisdom: wisdom ?? this.wisdom,
-        wisdomTmp: wisdomTmp ?? this.wisdomTmp,
-        charisma: charisma ?? this.charisma,
-        charismaTmp: charismaTmp ?? this.charismaTmp,
-        maxHp: maxHp ?? this.maxHp,
-        currentHp: currentHp ?? this.currentHp,
-        maxStam: maxStam ?? this.maxStam,
-        currentStam: currentStam ?? this.currentStam,
-        maxResolve: maxResolve ?? this.maxResolve,
-        currentResolve: currentResolve ?? this.currentResolve,
-        damageLog: damageLog ?? this.damageLog,
-        eacArmor: eacArmor ?? this.eacArmor,
-        eacDodger: eacDodger ?? this.eacDodger,
-        eacNatural: eacNatural ?? this.eacNatural,
-        eacDeflect: eacDeflect ?? this.eacDeflect,
-        eacMisc: eacMisc ?? this.eacMisc,
-        kacArmor: kacArmor ?? this.kacArmor,
-        kacDodger: kacDodger ?? this.kacDodger,
-        kacNatural: kacNatural ?? this.kacNatural,
-        kacDeflect: kacDeflect ?? this.kacDeflect,
-        kacMisc: kacMisc ?? this.kacMisc,
-        moveSpeed: moveSpeed ?? this.moveSpeed,
-        flySpeed: flySpeed ?? this.flySpeed,
-        swimSpeed: swimSpeed ?? this.swimSpeed,
-        initMisc: initMisc ?? this.initMisc,
-        bab: bab ?? this.bab,
-        mabMisc: mabMisc ?? this.mabMisc,
-        mabTemp: mabTemp ?? this.mabTemp,
-        tabMisc: tabMisc ?? this.tabMisc,
-        tabTemp: tabTemp ?? this.tabTemp,
-        rabMisc: rabMisc ?? this.rabMisc,
-        rabTemp: rabTemp ?? this.rabTemp,
-        fortBase: fortBase ?? this.fortBase,
-        fortMagic: fortMagic ?? this.fortMagic,
-        fortMisc: fortMisc ?? this.fortMisc,
-        fortTemp: fortTemp ?? this.fortTemp,
-        refBase: refBase ?? this.refBase,
-        refMagic: refMagic ?? this.refMagic,
-        refMisc: refMisc ?? this.refMisc,
-        refTemp: refTemp ?? this.refTemp,
-        willBase: willBase ?? this.willBase,
-        willMagic: willMagic ?? this.willMagic,
-        willMisc: willMisc ?? this.willMisc,
-        willTemp: willTemp ?? this.willTemp,
-        dr: dr ?? this.dr,
-        sr: sr ?? this.sr,
-        isMagic: isMagic ?? this.isMagic,
-      );
+  TableCharacterData copyWith({
+    int? id,
+    String? charName,
+    String? charClass,
+    int? lvl,
+    String? race,
+    String? alignment,
+    String? size,
+    int? strength,
+    int? strengthTmp,
+    int? dexterity,
+    int? dexterityTmp,
+    int? constitution,
+    int? constitutionTmp,
+    int? intelligence,
+    int? intelligenceTmp,
+    int? wisdom,
+    int? wisdomTmp,
+    int? charisma,
+    int? charismaTmp,
+    int? maxHp,
+    int? currentHp,
+    int? maxStam,
+    int? currentStam,
+    int? maxResolve,
+    int? currentResolve,
+    String? damageLog,
+    int? eacArmor,
+    int? eacDodger,
+    int? eacNatural,
+    int? eacDeflect,
+    int? eacMisc,
+    int? kacArmor,
+    int? kacDodger,
+    int? kacNatural,
+    int? kacDeflect,
+    int? kacMisc,
+    int? moveSpeed,
+    int? flySpeed,
+    int? swimSpeed,
+    int? initMisc,
+    int? bab,
+    int? mabMisc,
+    int? mabTemp,
+    int? tabMisc,
+    int? tabTemp,
+    int? rabMisc,
+    int? rabTemp,
+    int? fortBase,
+    int? fortMagic,
+    int? fortMisc,
+    int? fortTemp,
+    int? refBase,
+    int? refMagic,
+    int? refMisc,
+    int? refTemp,
+    int? willBase,
+    int? willMagic,
+    int? willMisc,
+    int? willTemp,
+    String? dr,
+    String? sr,
+    bool? isMagic,
+    Value<WeaponList?> weapons = const Value.absent(),
+  }) => TableCharacterData(
+    id: id ?? this.id,
+    charName: charName ?? this.charName,
+    charClass: charClass ?? this.charClass,
+    lvl: lvl ?? this.lvl,
+    race: race ?? this.race,
+    alignment: alignment ?? this.alignment,
+    size: size ?? this.size,
+    strength: strength ?? this.strength,
+    strengthTmp: strengthTmp ?? this.strengthTmp,
+    dexterity: dexterity ?? this.dexterity,
+    dexterityTmp: dexterityTmp ?? this.dexterityTmp,
+    constitution: constitution ?? this.constitution,
+    constitutionTmp: constitutionTmp ?? this.constitutionTmp,
+    intelligence: intelligence ?? this.intelligence,
+    intelligenceTmp: intelligenceTmp ?? this.intelligenceTmp,
+    wisdom: wisdom ?? this.wisdom,
+    wisdomTmp: wisdomTmp ?? this.wisdomTmp,
+    charisma: charisma ?? this.charisma,
+    charismaTmp: charismaTmp ?? this.charismaTmp,
+    maxHp: maxHp ?? this.maxHp,
+    currentHp: currentHp ?? this.currentHp,
+    maxStam: maxStam ?? this.maxStam,
+    currentStam: currentStam ?? this.currentStam,
+    maxResolve: maxResolve ?? this.maxResolve,
+    currentResolve: currentResolve ?? this.currentResolve,
+    damageLog: damageLog ?? this.damageLog,
+    eacArmor: eacArmor ?? this.eacArmor,
+    eacDodger: eacDodger ?? this.eacDodger,
+    eacNatural: eacNatural ?? this.eacNatural,
+    eacDeflect: eacDeflect ?? this.eacDeflect,
+    eacMisc: eacMisc ?? this.eacMisc,
+    kacArmor: kacArmor ?? this.kacArmor,
+    kacDodger: kacDodger ?? this.kacDodger,
+    kacNatural: kacNatural ?? this.kacNatural,
+    kacDeflect: kacDeflect ?? this.kacDeflect,
+    kacMisc: kacMisc ?? this.kacMisc,
+    moveSpeed: moveSpeed ?? this.moveSpeed,
+    flySpeed: flySpeed ?? this.flySpeed,
+    swimSpeed: swimSpeed ?? this.swimSpeed,
+    initMisc: initMisc ?? this.initMisc,
+    bab: bab ?? this.bab,
+    mabMisc: mabMisc ?? this.mabMisc,
+    mabTemp: mabTemp ?? this.mabTemp,
+    tabMisc: tabMisc ?? this.tabMisc,
+    tabTemp: tabTemp ?? this.tabTemp,
+    rabMisc: rabMisc ?? this.rabMisc,
+    rabTemp: rabTemp ?? this.rabTemp,
+    fortBase: fortBase ?? this.fortBase,
+    fortMagic: fortMagic ?? this.fortMagic,
+    fortMisc: fortMisc ?? this.fortMisc,
+    fortTemp: fortTemp ?? this.fortTemp,
+    refBase: refBase ?? this.refBase,
+    refMagic: refMagic ?? this.refMagic,
+    refMisc: refMisc ?? this.refMisc,
+    refTemp: refTemp ?? this.refTemp,
+    willBase: willBase ?? this.willBase,
+    willMagic: willMagic ?? this.willMagic,
+    willMisc: willMisc ?? this.willMisc,
+    willTemp: willTemp ?? this.willTemp,
+    dr: dr ?? this.dr,
+    sr: sr ?? this.sr,
+    isMagic: isMagic ?? this.isMagic,
+    weapons: weapons.present ? weapons.value : this.weapons,
+  );
   TableCharacterData copyWithCompanion(TableCharacterCompanion data) {
     return TableCharacterData(
       id: data.id.present ? data.id.value : this.id,
@@ -1527,8 +2113,9 @@ class TableCharacterData extends DataClass
       alignment: data.alignment.present ? data.alignment.value : this.alignment,
       size: data.size.present ? data.size.value : this.size,
       strength: data.strength.present ? data.strength.value : this.strength,
-      strengthTmp:
-          data.strengthTmp.present ? data.strengthTmp.value : this.strengthTmp,
+      strengthTmp: data.strengthTmp.present
+          ? data.strengthTmp.value
+          : this.strengthTmp,
       dexterity: data.dexterity.present ? data.dexterity.value : this.dexterity,
       dexterityTmp: data.dexterityTmp.present
           ? data.dexterityTmp.value
@@ -1548,32 +2135,39 @@ class TableCharacterData extends DataClass
       wisdom: data.wisdom.present ? data.wisdom.value : this.wisdom,
       wisdomTmp: data.wisdomTmp.present ? data.wisdomTmp.value : this.wisdomTmp,
       charisma: data.charisma.present ? data.charisma.value : this.charisma,
-      charismaTmp:
-          data.charismaTmp.present ? data.charismaTmp.value : this.charismaTmp,
+      charismaTmp: data.charismaTmp.present
+          ? data.charismaTmp.value
+          : this.charismaTmp,
       maxHp: data.maxHp.present ? data.maxHp.value : this.maxHp,
       currentHp: data.currentHp.present ? data.currentHp.value : this.currentHp,
       maxStam: data.maxStam.present ? data.maxStam.value : this.maxStam,
-      currentStam:
-          data.currentStam.present ? data.currentStam.value : this.currentStam,
-      maxResolve:
-          data.maxResolve.present ? data.maxResolve.value : this.maxResolve,
+      currentStam: data.currentStam.present
+          ? data.currentStam.value
+          : this.currentStam,
+      maxResolve: data.maxResolve.present
+          ? data.maxResolve.value
+          : this.maxResolve,
       currentResolve: data.currentResolve.present
           ? data.currentResolve.value
           : this.currentResolve,
       damageLog: data.damageLog.present ? data.damageLog.value : this.damageLog,
       eacArmor: data.eacArmor.present ? data.eacArmor.value : this.eacArmor,
       eacDodger: data.eacDodger.present ? data.eacDodger.value : this.eacDodger,
-      eacNatural:
-          data.eacNatural.present ? data.eacNatural.value : this.eacNatural,
-      eacDeflect:
-          data.eacDeflect.present ? data.eacDeflect.value : this.eacDeflect,
+      eacNatural: data.eacNatural.present
+          ? data.eacNatural.value
+          : this.eacNatural,
+      eacDeflect: data.eacDeflect.present
+          ? data.eacDeflect.value
+          : this.eacDeflect,
       eacMisc: data.eacMisc.present ? data.eacMisc.value : this.eacMisc,
       kacArmor: data.kacArmor.present ? data.kacArmor.value : this.kacArmor,
       kacDodger: data.kacDodger.present ? data.kacDodger.value : this.kacDodger,
-      kacNatural:
-          data.kacNatural.present ? data.kacNatural.value : this.kacNatural,
-      kacDeflect:
-          data.kacDeflect.present ? data.kacDeflect.value : this.kacDeflect,
+      kacNatural: data.kacNatural.present
+          ? data.kacNatural.value
+          : this.kacNatural,
+      kacDeflect: data.kacDeflect.present
+          ? data.kacDeflect.value
+          : this.kacDeflect,
       kacMisc: data.kacMisc.present ? data.kacMisc.value : this.kacMisc,
       moveSpeed: data.moveSpeed.present ? data.moveSpeed.value : this.moveSpeed,
       flySpeed: data.flySpeed.present ? data.flySpeed.value : this.flySpeed,
@@ -1601,6 +2195,7 @@ class TableCharacterData extends DataClass
       dr: data.dr.present ? data.dr.value : this.dr,
       sr: data.sr.present ? data.sr.value : this.sr,
       isMagic: data.isMagic.present ? data.isMagic.value : this.isMagic,
+      weapons: data.weapons.present ? data.weapons.value : this.weapons,
     );
   }
 
@@ -1668,76 +2263,78 @@ class TableCharacterData extends DataClass
           ..write('willTemp: $willTemp, ')
           ..write('dr: $dr, ')
           ..write('sr: $sr, ')
-          ..write('isMagic: $isMagic')
+          ..write('isMagic: $isMagic, ')
+          ..write('weapons: $weapons')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hashAll([
-        id,
-        charName,
-        charClass,
-        lvl,
-        race,
-        alignment,
-        size,
-        strength,
-        strengthTmp,
-        dexterity,
-        dexterityTmp,
-        constitution,
-        constitutionTmp,
-        intelligence,
-        intelligenceTmp,
-        wisdom,
-        wisdomTmp,
-        charisma,
-        charismaTmp,
-        maxHp,
-        currentHp,
-        maxStam,
-        currentStam,
-        maxResolve,
-        currentResolve,
-        damageLog,
-        eacArmor,
-        eacDodger,
-        eacNatural,
-        eacDeflect,
-        eacMisc,
-        kacArmor,
-        kacDodger,
-        kacNatural,
-        kacDeflect,
-        kacMisc,
-        moveSpeed,
-        flySpeed,
-        swimSpeed,
-        initMisc,
-        bab,
-        mabMisc,
-        mabTemp,
-        tabMisc,
-        tabTemp,
-        rabMisc,
-        rabTemp,
-        fortBase,
-        fortMagic,
-        fortMisc,
-        fortTemp,
-        refBase,
-        refMagic,
-        refMisc,
-        refTemp,
-        willBase,
-        willMagic,
-        willMisc,
-        willTemp,
-        dr,
-        sr,
-        isMagic
-      ]);
+    id,
+    charName,
+    charClass,
+    lvl,
+    race,
+    alignment,
+    size,
+    strength,
+    strengthTmp,
+    dexterity,
+    dexterityTmp,
+    constitution,
+    constitutionTmp,
+    intelligence,
+    intelligenceTmp,
+    wisdom,
+    wisdomTmp,
+    charisma,
+    charismaTmp,
+    maxHp,
+    currentHp,
+    maxStam,
+    currentStam,
+    maxResolve,
+    currentResolve,
+    damageLog,
+    eacArmor,
+    eacDodger,
+    eacNatural,
+    eacDeflect,
+    eacMisc,
+    kacArmor,
+    kacDodger,
+    kacNatural,
+    kacDeflect,
+    kacMisc,
+    moveSpeed,
+    flySpeed,
+    swimSpeed,
+    initMisc,
+    bab,
+    mabMisc,
+    mabTemp,
+    tabMisc,
+    tabTemp,
+    rabMisc,
+    rabTemp,
+    fortBase,
+    fortMagic,
+    fortMisc,
+    fortTemp,
+    refBase,
+    refMagic,
+    refMisc,
+    refTemp,
+    willBase,
+    willMagic,
+    willMisc,
+    willTemp,
+    dr,
+    sr,
+    isMagic,
+    weapons,
+  ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1803,7 +2400,8 @@ class TableCharacterData extends DataClass
           other.willTemp == this.willTemp &&
           other.dr == this.dr &&
           other.sr == this.sr &&
-          other.isMagic == this.isMagic);
+          other.isMagic == this.isMagic &&
+          other.weapons == this.weapons);
 }
 
 class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
@@ -1869,6 +2467,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   final Value<String> dr;
   final Value<String> sr;
   final Value<bool> isMagic;
+  final Value<WeaponList?> weapons;
   const TableCharacterCompanion({
     this.id = const Value.absent(),
     this.charName = const Value.absent(),
@@ -1932,6 +2531,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     this.dr = const Value.absent(),
     this.sr = const Value.absent(),
     this.isMagic = const Value.absent(),
+    this.weapons = const Value.absent(),
   });
   TableCharacterCompanion.insert({
     this.id = const Value.absent(),
@@ -1996,67 +2596,68 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     required String dr,
     required String sr,
     required bool isMagic,
-  })  : charName = Value(charName),
-        charClass = Value(charClass),
-        lvl = Value(lvl),
-        race = Value(race),
-        alignment = Value(alignment),
-        size = Value(size),
-        strength = Value(strength),
-        strengthTmp = Value(strengthTmp),
-        dexterity = Value(dexterity),
-        dexterityTmp = Value(dexterityTmp),
-        constitution = Value(constitution),
-        constitutionTmp = Value(constitutionTmp),
-        intelligence = Value(intelligence),
-        intelligenceTmp = Value(intelligenceTmp),
-        wisdom = Value(wisdom),
-        wisdomTmp = Value(wisdomTmp),
-        charisma = Value(charisma),
-        charismaTmp = Value(charismaTmp),
-        maxHp = Value(maxHp),
-        currentHp = Value(currentHp),
-        maxStam = Value(maxStam),
-        currentStam = Value(currentStam),
-        maxResolve = Value(maxResolve),
-        currentResolve = Value(currentResolve),
-        damageLog = Value(damageLog),
-        eacArmor = Value(eacArmor),
-        eacDodger = Value(eacDodger),
-        eacNatural = Value(eacNatural),
-        eacDeflect = Value(eacDeflect),
-        eacMisc = Value(eacMisc),
-        kacArmor = Value(kacArmor),
-        kacDodger = Value(kacDodger),
-        kacNatural = Value(kacNatural),
-        kacDeflect = Value(kacDeflect),
-        kacMisc = Value(kacMisc),
-        moveSpeed = Value(moveSpeed),
-        flySpeed = Value(flySpeed),
-        swimSpeed = Value(swimSpeed),
-        initMisc = Value(initMisc),
-        bab = Value(bab),
-        mabMisc = Value(mabMisc),
-        mabTemp = Value(mabTemp),
-        tabMisc = Value(tabMisc),
-        tabTemp = Value(tabTemp),
-        rabMisc = Value(rabMisc),
-        rabTemp = Value(rabTemp),
-        fortBase = Value(fortBase),
-        fortMagic = Value(fortMagic),
-        fortMisc = Value(fortMisc),
-        fortTemp = Value(fortTemp),
-        refBase = Value(refBase),
-        refMagic = Value(refMagic),
-        refMisc = Value(refMisc),
-        refTemp = Value(refTemp),
-        willBase = Value(willBase),
-        willMagic = Value(willMagic),
-        willMisc = Value(willMisc),
-        willTemp = Value(willTemp),
-        dr = Value(dr),
-        sr = Value(sr),
-        isMagic = Value(isMagic);
+    this.weapons = const Value.absent(),
+  }) : charName = Value(charName),
+       charClass = Value(charClass),
+       lvl = Value(lvl),
+       race = Value(race),
+       alignment = Value(alignment),
+       size = Value(size),
+       strength = Value(strength),
+       strengthTmp = Value(strengthTmp),
+       dexterity = Value(dexterity),
+       dexterityTmp = Value(dexterityTmp),
+       constitution = Value(constitution),
+       constitutionTmp = Value(constitutionTmp),
+       intelligence = Value(intelligence),
+       intelligenceTmp = Value(intelligenceTmp),
+       wisdom = Value(wisdom),
+       wisdomTmp = Value(wisdomTmp),
+       charisma = Value(charisma),
+       charismaTmp = Value(charismaTmp),
+       maxHp = Value(maxHp),
+       currentHp = Value(currentHp),
+       maxStam = Value(maxStam),
+       currentStam = Value(currentStam),
+       maxResolve = Value(maxResolve),
+       currentResolve = Value(currentResolve),
+       damageLog = Value(damageLog),
+       eacArmor = Value(eacArmor),
+       eacDodger = Value(eacDodger),
+       eacNatural = Value(eacNatural),
+       eacDeflect = Value(eacDeflect),
+       eacMisc = Value(eacMisc),
+       kacArmor = Value(kacArmor),
+       kacDodger = Value(kacDodger),
+       kacNatural = Value(kacNatural),
+       kacDeflect = Value(kacDeflect),
+       kacMisc = Value(kacMisc),
+       moveSpeed = Value(moveSpeed),
+       flySpeed = Value(flySpeed),
+       swimSpeed = Value(swimSpeed),
+       initMisc = Value(initMisc),
+       bab = Value(bab),
+       mabMisc = Value(mabMisc),
+       mabTemp = Value(mabTemp),
+       tabMisc = Value(tabMisc),
+       tabTemp = Value(tabTemp),
+       rabMisc = Value(rabMisc),
+       rabTemp = Value(rabTemp),
+       fortBase = Value(fortBase),
+       fortMagic = Value(fortMagic),
+       fortMisc = Value(fortMisc),
+       fortTemp = Value(fortTemp),
+       refBase = Value(refBase),
+       refMagic = Value(refMagic),
+       refMisc = Value(refMisc),
+       refTemp = Value(refTemp),
+       willBase = Value(willBase),
+       willMagic = Value(willMagic),
+       willMisc = Value(willMisc),
+       willTemp = Value(willTemp),
+       dr = Value(dr),
+       sr = Value(sr),
+       isMagic = Value(isMagic);
   static Insertable<TableCharacterData> custom({
     Expression<int>? id,
     Expression<String>? charName,
@@ -2120,6 +2721,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     Expression<String>? dr,
     Expression<String>? sr,
     Expression<bool>? isMagic,
+    Expression<String>? weapons,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2184,72 +2786,75 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       if (dr != null) 'dr': dr,
       if (sr != null) 'sr': sr,
       if (isMagic != null) 'is_magic': isMagic,
+      if (weapons != null) 'weapons': weapons,
     });
   }
 
-  TableCharacterCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? charName,
-      Value<String>? charClass,
-      Value<int>? lvl,
-      Value<String>? race,
-      Value<String>? alignment,
-      Value<String>? size,
-      Value<int>? strength,
-      Value<int>? strengthTmp,
-      Value<int>? dexterity,
-      Value<int>? dexterityTmp,
-      Value<int>? constitution,
-      Value<int>? constitutionTmp,
-      Value<int>? intelligence,
-      Value<int>? intelligenceTmp,
-      Value<int>? wisdom,
-      Value<int>? wisdomTmp,
-      Value<int>? charisma,
-      Value<int>? charismaTmp,
-      Value<int>? maxHp,
-      Value<int>? currentHp,
-      Value<int>? maxStam,
-      Value<int>? currentStam,
-      Value<int>? maxResolve,
-      Value<int>? currentResolve,
-      Value<String>? damageLog,
-      Value<int>? eacArmor,
-      Value<int>? eacDodger,
-      Value<int>? eacNatural,
-      Value<int>? eacDeflect,
-      Value<int>? eacMisc,
-      Value<int>? kacArmor,
-      Value<int>? kacDodger,
-      Value<int>? kacNatural,
-      Value<int>? kacDeflect,
-      Value<int>? kacMisc,
-      Value<int>? moveSpeed,
-      Value<int>? flySpeed,
-      Value<int>? swimSpeed,
-      Value<int>? initMisc,
-      Value<int>? bab,
-      Value<int>? mabMisc,
-      Value<int>? mabTemp,
-      Value<int>? tabMisc,
-      Value<int>? tabTemp,
-      Value<int>? rabMisc,
-      Value<int>? rabTemp,
-      Value<int>? fortBase,
-      Value<int>? fortMagic,
-      Value<int>? fortMisc,
-      Value<int>? fortTemp,
-      Value<int>? refBase,
-      Value<int>? refMagic,
-      Value<int>? refMisc,
-      Value<int>? refTemp,
-      Value<int>? willBase,
-      Value<int>? willMagic,
-      Value<int>? willMisc,
-      Value<int>? willTemp,
-      Value<String>? dr,
-      Value<String>? sr,
-      Value<bool>? isMagic}) {
+  TableCharacterCompanion copyWith({
+    Value<int>? id,
+    Value<String>? charName,
+    Value<String>? charClass,
+    Value<int>? lvl,
+    Value<String>? race,
+    Value<String>? alignment,
+    Value<String>? size,
+    Value<int>? strength,
+    Value<int>? strengthTmp,
+    Value<int>? dexterity,
+    Value<int>? dexterityTmp,
+    Value<int>? constitution,
+    Value<int>? constitutionTmp,
+    Value<int>? intelligence,
+    Value<int>? intelligenceTmp,
+    Value<int>? wisdom,
+    Value<int>? wisdomTmp,
+    Value<int>? charisma,
+    Value<int>? charismaTmp,
+    Value<int>? maxHp,
+    Value<int>? currentHp,
+    Value<int>? maxStam,
+    Value<int>? currentStam,
+    Value<int>? maxResolve,
+    Value<int>? currentResolve,
+    Value<String>? damageLog,
+    Value<int>? eacArmor,
+    Value<int>? eacDodger,
+    Value<int>? eacNatural,
+    Value<int>? eacDeflect,
+    Value<int>? eacMisc,
+    Value<int>? kacArmor,
+    Value<int>? kacDodger,
+    Value<int>? kacNatural,
+    Value<int>? kacDeflect,
+    Value<int>? kacMisc,
+    Value<int>? moveSpeed,
+    Value<int>? flySpeed,
+    Value<int>? swimSpeed,
+    Value<int>? initMisc,
+    Value<int>? bab,
+    Value<int>? mabMisc,
+    Value<int>? mabTemp,
+    Value<int>? tabMisc,
+    Value<int>? tabTemp,
+    Value<int>? rabMisc,
+    Value<int>? rabTemp,
+    Value<int>? fortBase,
+    Value<int>? fortMagic,
+    Value<int>? fortMisc,
+    Value<int>? fortTemp,
+    Value<int>? refBase,
+    Value<int>? refMagic,
+    Value<int>? refMisc,
+    Value<int>? refTemp,
+    Value<int>? willBase,
+    Value<int>? willMagic,
+    Value<int>? willMisc,
+    Value<int>? willTemp,
+    Value<String>? dr,
+    Value<String>? sr,
+    Value<bool>? isMagic,
+    Value<WeaponList?>? weapons,
+  }) {
     return TableCharacterCompanion(
       id: id ?? this.id,
       charName: charName ?? this.charName,
@@ -2313,6 +2918,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       dr: dr ?? this.dr,
       sr: sr ?? this.sr,
       isMagic: isMagic ?? this.isMagic,
+      weapons: weapons ?? this.weapons,
     );
   }
 
@@ -2505,6 +3111,11 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     if (isMagic.present) {
       map['is_magic'] = Variable<bool>(isMagic.value);
     }
+    if (weapons.present) {
+      map['weapons'] = Variable<String>(
+        $TableCharacterTable.$converterweaponsn.toSql(weapons.value),
+      );
+    }
     return map;
   }
 
@@ -2572,7 +3183,8 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
           ..write('willTemp: $willTemp, ')
           ..write('dr: $dr, ')
           ..write('sr: $sr, ')
-          ..write('isMagic: $isMagic')
+          ..write('isMagic: $isMagic, ')
+          ..write('weapons: $weapons')
           ..write(')'))
         .toString();
   }
@@ -2589,136 +3201,138 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [tableCharacter];
 }
 
-typedef $$TableCharacterTableCreateCompanionBuilder = TableCharacterCompanion
-    Function({
-  Value<int> id,
-  required String charName,
-  required String charClass,
-  required int lvl,
-  required String race,
-  required String alignment,
-  required String size,
-  required int strength,
-  required int strengthTmp,
-  required int dexterity,
-  required int dexterityTmp,
-  required int constitution,
-  required int constitutionTmp,
-  required int intelligence,
-  required int intelligenceTmp,
-  required int wisdom,
-  required int wisdomTmp,
-  required int charisma,
-  required int charismaTmp,
-  required int maxHp,
-  required int currentHp,
-  required int maxStam,
-  required int currentStam,
-  required int maxResolve,
-  required int currentResolve,
-  required String damageLog,
-  required int eacArmor,
-  required int eacDodger,
-  required int eacNatural,
-  required int eacDeflect,
-  required int eacMisc,
-  required int kacArmor,
-  required int kacDodger,
-  required int kacNatural,
-  required int kacDeflect,
-  required int kacMisc,
-  required int moveSpeed,
-  required int flySpeed,
-  required int swimSpeed,
-  required int initMisc,
-  required int bab,
-  required int mabMisc,
-  required int mabTemp,
-  required int tabMisc,
-  required int tabTemp,
-  required int rabMisc,
-  required int rabTemp,
-  required int fortBase,
-  required int fortMagic,
-  required int fortMisc,
-  required int fortTemp,
-  required int refBase,
-  required int refMagic,
-  required int refMisc,
-  required int refTemp,
-  required int willBase,
-  required int willMagic,
-  required int willMisc,
-  required int willTemp,
-  required String dr,
-  required String sr,
-  required bool isMagic,
-});
-typedef $$TableCharacterTableUpdateCompanionBuilder = TableCharacterCompanion
-    Function({
-  Value<int> id,
-  Value<String> charName,
-  Value<String> charClass,
-  Value<int> lvl,
-  Value<String> race,
-  Value<String> alignment,
-  Value<String> size,
-  Value<int> strength,
-  Value<int> strengthTmp,
-  Value<int> dexterity,
-  Value<int> dexterityTmp,
-  Value<int> constitution,
-  Value<int> constitutionTmp,
-  Value<int> intelligence,
-  Value<int> intelligenceTmp,
-  Value<int> wisdom,
-  Value<int> wisdomTmp,
-  Value<int> charisma,
-  Value<int> charismaTmp,
-  Value<int> maxHp,
-  Value<int> currentHp,
-  Value<int> maxStam,
-  Value<int> currentStam,
-  Value<int> maxResolve,
-  Value<int> currentResolve,
-  Value<String> damageLog,
-  Value<int> eacArmor,
-  Value<int> eacDodger,
-  Value<int> eacNatural,
-  Value<int> eacDeflect,
-  Value<int> eacMisc,
-  Value<int> kacArmor,
-  Value<int> kacDodger,
-  Value<int> kacNatural,
-  Value<int> kacDeflect,
-  Value<int> kacMisc,
-  Value<int> moveSpeed,
-  Value<int> flySpeed,
-  Value<int> swimSpeed,
-  Value<int> initMisc,
-  Value<int> bab,
-  Value<int> mabMisc,
-  Value<int> mabTemp,
-  Value<int> tabMisc,
-  Value<int> tabTemp,
-  Value<int> rabMisc,
-  Value<int> rabTemp,
-  Value<int> fortBase,
-  Value<int> fortMagic,
-  Value<int> fortMisc,
-  Value<int> fortTemp,
-  Value<int> refBase,
-  Value<int> refMagic,
-  Value<int> refMisc,
-  Value<int> refTemp,
-  Value<int> willBase,
-  Value<int> willMagic,
-  Value<int> willMisc,
-  Value<int> willTemp,
-  Value<String> dr,
-  Value<String> sr,
-  Value<bool> isMagic,
-});
+typedef $$TableCharacterTableCreateCompanionBuilder =
+    TableCharacterCompanion Function({
+      Value<int> id,
+      required String charName,
+      required String charClass,
+      required int lvl,
+      required String race,
+      required String alignment,
+      required String size,
+      required int strength,
+      required int strengthTmp,
+      required int dexterity,
+      required int dexterityTmp,
+      required int constitution,
+      required int constitutionTmp,
+      required int intelligence,
+      required int intelligenceTmp,
+      required int wisdom,
+      required int wisdomTmp,
+      required int charisma,
+      required int charismaTmp,
+      required int maxHp,
+      required int currentHp,
+      required int maxStam,
+      required int currentStam,
+      required int maxResolve,
+      required int currentResolve,
+      required String damageLog,
+      required int eacArmor,
+      required int eacDodger,
+      required int eacNatural,
+      required int eacDeflect,
+      required int eacMisc,
+      required int kacArmor,
+      required int kacDodger,
+      required int kacNatural,
+      required int kacDeflect,
+      required int kacMisc,
+      required int moveSpeed,
+      required int flySpeed,
+      required int swimSpeed,
+      required int initMisc,
+      required int bab,
+      required int mabMisc,
+      required int mabTemp,
+      required int tabMisc,
+      required int tabTemp,
+      required int rabMisc,
+      required int rabTemp,
+      required int fortBase,
+      required int fortMagic,
+      required int fortMisc,
+      required int fortTemp,
+      required int refBase,
+      required int refMagic,
+      required int refMisc,
+      required int refTemp,
+      required int willBase,
+      required int willMagic,
+      required int willMisc,
+      required int willTemp,
+      required String dr,
+      required String sr,
+      required bool isMagic,
+      Value<WeaponList?> weapons,
+    });
+typedef $$TableCharacterTableUpdateCompanionBuilder =
+    TableCharacterCompanion Function({
+      Value<int> id,
+      Value<String> charName,
+      Value<String> charClass,
+      Value<int> lvl,
+      Value<String> race,
+      Value<String> alignment,
+      Value<String> size,
+      Value<int> strength,
+      Value<int> strengthTmp,
+      Value<int> dexterity,
+      Value<int> dexterityTmp,
+      Value<int> constitution,
+      Value<int> constitutionTmp,
+      Value<int> intelligence,
+      Value<int> intelligenceTmp,
+      Value<int> wisdom,
+      Value<int> wisdomTmp,
+      Value<int> charisma,
+      Value<int> charismaTmp,
+      Value<int> maxHp,
+      Value<int> currentHp,
+      Value<int> maxStam,
+      Value<int> currentStam,
+      Value<int> maxResolve,
+      Value<int> currentResolve,
+      Value<String> damageLog,
+      Value<int> eacArmor,
+      Value<int> eacDodger,
+      Value<int> eacNatural,
+      Value<int> eacDeflect,
+      Value<int> eacMisc,
+      Value<int> kacArmor,
+      Value<int> kacDodger,
+      Value<int> kacNatural,
+      Value<int> kacDeflect,
+      Value<int> kacMisc,
+      Value<int> moveSpeed,
+      Value<int> flySpeed,
+      Value<int> swimSpeed,
+      Value<int> initMisc,
+      Value<int> bab,
+      Value<int> mabMisc,
+      Value<int> mabTemp,
+      Value<int> tabMisc,
+      Value<int> tabTemp,
+      Value<int> rabMisc,
+      Value<int> rabTemp,
+      Value<int> fortBase,
+      Value<int> fortMagic,
+      Value<int> fortMisc,
+      Value<int> fortTemp,
+      Value<int> refBase,
+      Value<int> refMagic,
+      Value<int> refMisc,
+      Value<int> refTemp,
+      Value<int> willBase,
+      Value<int> willMagic,
+      Value<int> willMisc,
+      Value<int> willTemp,
+      Value<String> dr,
+      Value<String> sr,
+      Value<bool> isMagic,
+      Value<WeaponList?> weapons,
+    });
 
 class $$TableCharacterTableFilterComposer
     extends Composer<_$AppDatabase, $TableCharacterTable> {
@@ -2730,193 +3344,320 @@ class $$TableCharacterTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get charName => $composableBuilder(
-      column: $table.charName, builder: (column) => ColumnFilters(column));
+    column: $table.charName,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get charClass => $composableBuilder(
-      column: $table.charClass, builder: (column) => ColumnFilters(column));
+    column: $table.charClass,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get lvl => $composableBuilder(
-      column: $table.lvl, builder: (column) => ColumnFilters(column));
+    column: $table.lvl,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get race => $composableBuilder(
-      column: $table.race, builder: (column) => ColumnFilters(column));
+    column: $table.race,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get alignment => $composableBuilder(
-      column: $table.alignment, builder: (column) => ColumnFilters(column));
+    column: $table.alignment,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get size => $composableBuilder(
-      column: $table.size, builder: (column) => ColumnFilters(column));
+    column: $table.size,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get strength => $composableBuilder(
-      column: $table.strength, builder: (column) => ColumnFilters(column));
+    column: $table.strength,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get strengthTmp => $composableBuilder(
-      column: $table.strengthTmp, builder: (column) => ColumnFilters(column));
+    column: $table.strengthTmp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get dexterity => $composableBuilder(
-      column: $table.dexterity, builder: (column) => ColumnFilters(column));
+    column: $table.dexterity,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get dexterityTmp => $composableBuilder(
-      column: $table.dexterityTmp, builder: (column) => ColumnFilters(column));
+    column: $table.dexterityTmp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get constitution => $composableBuilder(
-      column: $table.constitution, builder: (column) => ColumnFilters(column));
+    column: $table.constitution,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get constitutionTmp => $composableBuilder(
-      column: $table.constitutionTmp,
-      builder: (column) => ColumnFilters(column));
+    column: $table.constitutionTmp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get intelligence => $composableBuilder(
-      column: $table.intelligence, builder: (column) => ColumnFilters(column));
+    column: $table.intelligence,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get intelligenceTmp => $composableBuilder(
-      column: $table.intelligenceTmp,
-      builder: (column) => ColumnFilters(column));
+    column: $table.intelligenceTmp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get wisdom => $composableBuilder(
-      column: $table.wisdom, builder: (column) => ColumnFilters(column));
+    column: $table.wisdom,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get wisdomTmp => $composableBuilder(
-      column: $table.wisdomTmp, builder: (column) => ColumnFilters(column));
+    column: $table.wisdomTmp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get charisma => $composableBuilder(
-      column: $table.charisma, builder: (column) => ColumnFilters(column));
+    column: $table.charisma,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get charismaTmp => $composableBuilder(
-      column: $table.charismaTmp, builder: (column) => ColumnFilters(column));
+    column: $table.charismaTmp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get maxHp => $composableBuilder(
-      column: $table.maxHp, builder: (column) => ColumnFilters(column));
+    column: $table.maxHp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get currentHp => $composableBuilder(
-      column: $table.currentHp, builder: (column) => ColumnFilters(column));
+    column: $table.currentHp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get maxStam => $composableBuilder(
-      column: $table.maxStam, builder: (column) => ColumnFilters(column));
+    column: $table.maxStam,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get currentStam => $composableBuilder(
-      column: $table.currentStam, builder: (column) => ColumnFilters(column));
+    column: $table.currentStam,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get maxResolve => $composableBuilder(
-      column: $table.maxResolve, builder: (column) => ColumnFilters(column));
+    column: $table.maxResolve,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get currentResolve => $composableBuilder(
-      column: $table.currentResolve,
-      builder: (column) => ColumnFilters(column));
+    column: $table.currentResolve,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get damageLog => $composableBuilder(
-      column: $table.damageLog, builder: (column) => ColumnFilters(column));
+    column: $table.damageLog,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get eacArmor => $composableBuilder(
-      column: $table.eacArmor, builder: (column) => ColumnFilters(column));
+    column: $table.eacArmor,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get eacDodger => $composableBuilder(
-      column: $table.eacDodger, builder: (column) => ColumnFilters(column));
+    column: $table.eacDodger,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get eacNatural => $composableBuilder(
-      column: $table.eacNatural, builder: (column) => ColumnFilters(column));
+    column: $table.eacNatural,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get eacDeflect => $composableBuilder(
-      column: $table.eacDeflect, builder: (column) => ColumnFilters(column));
+    column: $table.eacDeflect,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get eacMisc => $composableBuilder(
-      column: $table.eacMisc, builder: (column) => ColumnFilters(column));
+    column: $table.eacMisc,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get kacArmor => $composableBuilder(
-      column: $table.kacArmor, builder: (column) => ColumnFilters(column));
+    column: $table.kacArmor,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get kacDodger => $composableBuilder(
-      column: $table.kacDodger, builder: (column) => ColumnFilters(column));
+    column: $table.kacDodger,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get kacNatural => $composableBuilder(
-      column: $table.kacNatural, builder: (column) => ColumnFilters(column));
+    column: $table.kacNatural,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get kacDeflect => $composableBuilder(
-      column: $table.kacDeflect, builder: (column) => ColumnFilters(column));
+    column: $table.kacDeflect,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get kacMisc => $composableBuilder(
-      column: $table.kacMisc, builder: (column) => ColumnFilters(column));
+    column: $table.kacMisc,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get moveSpeed => $composableBuilder(
-      column: $table.moveSpeed, builder: (column) => ColumnFilters(column));
+    column: $table.moveSpeed,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get flySpeed => $composableBuilder(
-      column: $table.flySpeed, builder: (column) => ColumnFilters(column));
+    column: $table.flySpeed,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get swimSpeed => $composableBuilder(
-      column: $table.swimSpeed, builder: (column) => ColumnFilters(column));
+    column: $table.swimSpeed,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get initMisc => $composableBuilder(
-      column: $table.initMisc, builder: (column) => ColumnFilters(column));
+    column: $table.initMisc,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get bab => $composableBuilder(
-      column: $table.bab, builder: (column) => ColumnFilters(column));
+    column: $table.bab,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get mabMisc => $composableBuilder(
-      column: $table.mabMisc, builder: (column) => ColumnFilters(column));
+    column: $table.mabMisc,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get mabTemp => $composableBuilder(
-      column: $table.mabTemp, builder: (column) => ColumnFilters(column));
+    column: $table.mabTemp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get tabMisc => $composableBuilder(
-      column: $table.tabMisc, builder: (column) => ColumnFilters(column));
+    column: $table.tabMisc,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get tabTemp => $composableBuilder(
-      column: $table.tabTemp, builder: (column) => ColumnFilters(column));
+    column: $table.tabTemp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get rabMisc => $composableBuilder(
-      column: $table.rabMisc, builder: (column) => ColumnFilters(column));
+    column: $table.rabMisc,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get rabTemp => $composableBuilder(
-      column: $table.rabTemp, builder: (column) => ColumnFilters(column));
+    column: $table.rabTemp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get fortBase => $composableBuilder(
-      column: $table.fortBase, builder: (column) => ColumnFilters(column));
+    column: $table.fortBase,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get fortMagic => $composableBuilder(
-      column: $table.fortMagic, builder: (column) => ColumnFilters(column));
+    column: $table.fortMagic,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get fortMisc => $composableBuilder(
-      column: $table.fortMisc, builder: (column) => ColumnFilters(column));
+    column: $table.fortMisc,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get fortTemp => $composableBuilder(
-      column: $table.fortTemp, builder: (column) => ColumnFilters(column));
+    column: $table.fortTemp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get refBase => $composableBuilder(
-      column: $table.refBase, builder: (column) => ColumnFilters(column));
+    column: $table.refBase,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get refMagic => $composableBuilder(
-      column: $table.refMagic, builder: (column) => ColumnFilters(column));
+    column: $table.refMagic,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get refMisc => $composableBuilder(
-      column: $table.refMisc, builder: (column) => ColumnFilters(column));
+    column: $table.refMisc,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get refTemp => $composableBuilder(
-      column: $table.refTemp, builder: (column) => ColumnFilters(column));
+    column: $table.refTemp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get willBase => $composableBuilder(
-      column: $table.willBase, builder: (column) => ColumnFilters(column));
+    column: $table.willBase,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get willMagic => $composableBuilder(
-      column: $table.willMagic, builder: (column) => ColumnFilters(column));
+    column: $table.willMagic,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get willMisc => $composableBuilder(
-      column: $table.willMisc, builder: (column) => ColumnFilters(column));
+    column: $table.willMisc,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get willTemp => $composableBuilder(
-      column: $table.willTemp, builder: (column) => ColumnFilters(column));
+    column: $table.willTemp,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get dr => $composableBuilder(
-      column: $table.dr, builder: (column) => ColumnFilters(column));
+    column: $table.dr,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get sr => $composableBuilder(
-      column: $table.sr, builder: (column) => ColumnFilters(column));
+    column: $table.sr,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<bool> get isMagic => $composableBuilder(
-      column: $table.isMagic, builder: (column) => ColumnFilters(column));
+    column: $table.isMagic,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<WeaponList?, WeaponList, String> get weapons =>
+      $composableBuilder(
+        column: $table.weapons,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
 }
 
 class $$TableCharacterTableOrderingComposer
@@ -2929,196 +3670,319 @@ class $$TableCharacterTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get charName => $composableBuilder(
-      column: $table.charName, builder: (column) => ColumnOrderings(column));
+    column: $table.charName,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get charClass => $composableBuilder(
-      column: $table.charClass, builder: (column) => ColumnOrderings(column));
+    column: $table.charClass,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get lvl => $composableBuilder(
-      column: $table.lvl, builder: (column) => ColumnOrderings(column));
+    column: $table.lvl,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get race => $composableBuilder(
-      column: $table.race, builder: (column) => ColumnOrderings(column));
+    column: $table.race,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get alignment => $composableBuilder(
-      column: $table.alignment, builder: (column) => ColumnOrderings(column));
+    column: $table.alignment,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get size => $composableBuilder(
-      column: $table.size, builder: (column) => ColumnOrderings(column));
+    column: $table.size,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get strength => $composableBuilder(
-      column: $table.strength, builder: (column) => ColumnOrderings(column));
+    column: $table.strength,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get strengthTmp => $composableBuilder(
-      column: $table.strengthTmp, builder: (column) => ColumnOrderings(column));
+    column: $table.strengthTmp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get dexterity => $composableBuilder(
-      column: $table.dexterity, builder: (column) => ColumnOrderings(column));
+    column: $table.dexterity,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get dexterityTmp => $composableBuilder(
-      column: $table.dexterityTmp,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.dexterityTmp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get constitution => $composableBuilder(
-      column: $table.constitution,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.constitution,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get constitutionTmp => $composableBuilder(
-      column: $table.constitutionTmp,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.constitutionTmp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get intelligence => $composableBuilder(
-      column: $table.intelligence,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.intelligence,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get intelligenceTmp => $composableBuilder(
-      column: $table.intelligenceTmp,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.intelligenceTmp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get wisdom => $composableBuilder(
-      column: $table.wisdom, builder: (column) => ColumnOrderings(column));
+    column: $table.wisdom,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get wisdomTmp => $composableBuilder(
-      column: $table.wisdomTmp, builder: (column) => ColumnOrderings(column));
+    column: $table.wisdomTmp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get charisma => $composableBuilder(
-      column: $table.charisma, builder: (column) => ColumnOrderings(column));
+    column: $table.charisma,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get charismaTmp => $composableBuilder(
-      column: $table.charismaTmp, builder: (column) => ColumnOrderings(column));
+    column: $table.charismaTmp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get maxHp => $composableBuilder(
-      column: $table.maxHp, builder: (column) => ColumnOrderings(column));
+    column: $table.maxHp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get currentHp => $composableBuilder(
-      column: $table.currentHp, builder: (column) => ColumnOrderings(column));
+    column: $table.currentHp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get maxStam => $composableBuilder(
-      column: $table.maxStam, builder: (column) => ColumnOrderings(column));
+    column: $table.maxStam,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get currentStam => $composableBuilder(
-      column: $table.currentStam, builder: (column) => ColumnOrderings(column));
+    column: $table.currentStam,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get maxResolve => $composableBuilder(
-      column: $table.maxResolve, builder: (column) => ColumnOrderings(column));
+    column: $table.maxResolve,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get currentResolve => $composableBuilder(
-      column: $table.currentResolve,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.currentResolve,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get damageLog => $composableBuilder(
-      column: $table.damageLog, builder: (column) => ColumnOrderings(column));
+    column: $table.damageLog,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get eacArmor => $composableBuilder(
-      column: $table.eacArmor, builder: (column) => ColumnOrderings(column));
+    column: $table.eacArmor,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get eacDodger => $composableBuilder(
-      column: $table.eacDodger, builder: (column) => ColumnOrderings(column));
+    column: $table.eacDodger,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get eacNatural => $composableBuilder(
-      column: $table.eacNatural, builder: (column) => ColumnOrderings(column));
+    column: $table.eacNatural,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get eacDeflect => $composableBuilder(
-      column: $table.eacDeflect, builder: (column) => ColumnOrderings(column));
+    column: $table.eacDeflect,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get eacMisc => $composableBuilder(
-      column: $table.eacMisc, builder: (column) => ColumnOrderings(column));
+    column: $table.eacMisc,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get kacArmor => $composableBuilder(
-      column: $table.kacArmor, builder: (column) => ColumnOrderings(column));
+    column: $table.kacArmor,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get kacDodger => $composableBuilder(
-      column: $table.kacDodger, builder: (column) => ColumnOrderings(column));
+    column: $table.kacDodger,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get kacNatural => $composableBuilder(
-      column: $table.kacNatural, builder: (column) => ColumnOrderings(column));
+    column: $table.kacNatural,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get kacDeflect => $composableBuilder(
-      column: $table.kacDeflect, builder: (column) => ColumnOrderings(column));
+    column: $table.kacDeflect,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get kacMisc => $composableBuilder(
-      column: $table.kacMisc, builder: (column) => ColumnOrderings(column));
+    column: $table.kacMisc,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get moveSpeed => $composableBuilder(
-      column: $table.moveSpeed, builder: (column) => ColumnOrderings(column));
+    column: $table.moveSpeed,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get flySpeed => $composableBuilder(
-      column: $table.flySpeed, builder: (column) => ColumnOrderings(column));
+    column: $table.flySpeed,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get swimSpeed => $composableBuilder(
-      column: $table.swimSpeed, builder: (column) => ColumnOrderings(column));
+    column: $table.swimSpeed,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get initMisc => $composableBuilder(
-      column: $table.initMisc, builder: (column) => ColumnOrderings(column));
+    column: $table.initMisc,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get bab => $composableBuilder(
-      column: $table.bab, builder: (column) => ColumnOrderings(column));
+    column: $table.bab,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get mabMisc => $composableBuilder(
-      column: $table.mabMisc, builder: (column) => ColumnOrderings(column));
+    column: $table.mabMisc,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get mabTemp => $composableBuilder(
-      column: $table.mabTemp, builder: (column) => ColumnOrderings(column));
+    column: $table.mabTemp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get tabMisc => $composableBuilder(
-      column: $table.tabMisc, builder: (column) => ColumnOrderings(column));
+    column: $table.tabMisc,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get tabTemp => $composableBuilder(
-      column: $table.tabTemp, builder: (column) => ColumnOrderings(column));
+    column: $table.tabTemp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get rabMisc => $composableBuilder(
-      column: $table.rabMisc, builder: (column) => ColumnOrderings(column));
+    column: $table.rabMisc,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get rabTemp => $composableBuilder(
-      column: $table.rabTemp, builder: (column) => ColumnOrderings(column));
+    column: $table.rabTemp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get fortBase => $composableBuilder(
-      column: $table.fortBase, builder: (column) => ColumnOrderings(column));
+    column: $table.fortBase,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get fortMagic => $composableBuilder(
-      column: $table.fortMagic, builder: (column) => ColumnOrderings(column));
+    column: $table.fortMagic,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get fortMisc => $composableBuilder(
-      column: $table.fortMisc, builder: (column) => ColumnOrderings(column));
+    column: $table.fortMisc,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get fortTemp => $composableBuilder(
-      column: $table.fortTemp, builder: (column) => ColumnOrderings(column));
+    column: $table.fortTemp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get refBase => $composableBuilder(
-      column: $table.refBase, builder: (column) => ColumnOrderings(column));
+    column: $table.refBase,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get refMagic => $composableBuilder(
-      column: $table.refMagic, builder: (column) => ColumnOrderings(column));
+    column: $table.refMagic,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get refMisc => $composableBuilder(
-      column: $table.refMisc, builder: (column) => ColumnOrderings(column));
+    column: $table.refMisc,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get refTemp => $composableBuilder(
-      column: $table.refTemp, builder: (column) => ColumnOrderings(column));
+    column: $table.refTemp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get willBase => $composableBuilder(
-      column: $table.willBase, builder: (column) => ColumnOrderings(column));
+    column: $table.willBase,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get willMagic => $composableBuilder(
-      column: $table.willMagic, builder: (column) => ColumnOrderings(column));
+    column: $table.willMagic,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get willMisc => $composableBuilder(
-      column: $table.willMisc, builder: (column) => ColumnOrderings(column));
+    column: $table.willMisc,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get willTemp => $composableBuilder(
-      column: $table.willTemp, builder: (column) => ColumnOrderings(column));
+    column: $table.willTemp,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get dr => $composableBuilder(
-      column: $table.dr, builder: (column) => ColumnOrderings(column));
+    column: $table.dr,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get sr => $composableBuilder(
-      column: $table.sr, builder: (column) => ColumnOrderings(column));
+    column: $table.sr,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<bool> get isMagic => $composableBuilder(
-      column: $table.isMagic, builder: (column) => ColumnOrderings(column));
+    column: $table.isMagic,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get weapons => $composableBuilder(
+    column: $table.weapons,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$TableCharacterTableAnnotationComposer
@@ -3155,25 +4019,37 @@ class $$TableCharacterTableAnnotationComposer
       $composableBuilder(column: $table.strength, builder: (column) => column);
 
   GeneratedColumn<int> get strengthTmp => $composableBuilder(
-      column: $table.strengthTmp, builder: (column) => column);
+    column: $table.strengthTmp,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get dexterity =>
       $composableBuilder(column: $table.dexterity, builder: (column) => column);
 
   GeneratedColumn<int> get dexterityTmp => $composableBuilder(
-      column: $table.dexterityTmp, builder: (column) => column);
+    column: $table.dexterityTmp,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get constitution => $composableBuilder(
-      column: $table.constitution, builder: (column) => column);
+    column: $table.constitution,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get constitutionTmp => $composableBuilder(
-      column: $table.constitutionTmp, builder: (column) => column);
+    column: $table.constitutionTmp,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get intelligence => $composableBuilder(
-      column: $table.intelligence, builder: (column) => column);
+    column: $table.intelligence,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get intelligenceTmp => $composableBuilder(
-      column: $table.intelligenceTmp, builder: (column) => column);
+    column: $table.intelligenceTmp,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get wisdom =>
       $composableBuilder(column: $table.wisdom, builder: (column) => column);
@@ -3185,7 +4061,9 @@ class $$TableCharacterTableAnnotationComposer
       $composableBuilder(column: $table.charisma, builder: (column) => column);
 
   GeneratedColumn<int> get charismaTmp => $composableBuilder(
-      column: $table.charismaTmp, builder: (column) => column);
+    column: $table.charismaTmp,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get maxHp =>
       $composableBuilder(column: $table.maxHp, builder: (column) => column);
@@ -3197,13 +4075,19 @@ class $$TableCharacterTableAnnotationComposer
       $composableBuilder(column: $table.maxStam, builder: (column) => column);
 
   GeneratedColumn<int> get currentStam => $composableBuilder(
-      column: $table.currentStam, builder: (column) => column);
+    column: $table.currentStam,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get maxResolve => $composableBuilder(
-      column: $table.maxResolve, builder: (column) => column);
+    column: $table.maxResolve,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get currentResolve => $composableBuilder(
-      column: $table.currentResolve, builder: (column) => column);
+    column: $table.currentResolve,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get damageLog =>
       $composableBuilder(column: $table.damageLog, builder: (column) => column);
@@ -3215,10 +4099,14 @@ class $$TableCharacterTableAnnotationComposer
       $composableBuilder(column: $table.eacDodger, builder: (column) => column);
 
   GeneratedColumn<int> get eacNatural => $composableBuilder(
-      column: $table.eacNatural, builder: (column) => column);
+    column: $table.eacNatural,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get eacDeflect => $composableBuilder(
-      column: $table.eacDeflect, builder: (column) => column);
+    column: $table.eacDeflect,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get eacMisc =>
       $composableBuilder(column: $table.eacMisc, builder: (column) => column);
@@ -3230,10 +4118,14 @@ class $$TableCharacterTableAnnotationComposer
       $composableBuilder(column: $table.kacDodger, builder: (column) => column);
 
   GeneratedColumn<int> get kacNatural => $composableBuilder(
-      column: $table.kacNatural, builder: (column) => column);
+    column: $table.kacNatural,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get kacDeflect => $composableBuilder(
-      column: $table.kacDeflect, builder: (column) => column);
+    column: $table.kacDeflect,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get kacMisc =>
       $composableBuilder(column: $table.kacMisc, builder: (column) => column);
@@ -3315,26 +4207,38 @@ class $$TableCharacterTableAnnotationComposer
 
   GeneratedColumn<bool> get isMagic =>
       $composableBuilder(column: $table.isMagic, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<WeaponList?, String> get weapons =>
+      $composableBuilder(column: $table.weapons, builder: (column) => column);
 }
 
-class $$TableCharacterTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $TableCharacterTable,
-    TableCharacterData,
-    $$TableCharacterTableFilterComposer,
-    $$TableCharacterTableOrderingComposer,
-    $$TableCharacterTableAnnotationComposer,
-    $$TableCharacterTableCreateCompanionBuilder,
-    $$TableCharacterTableUpdateCompanionBuilder,
-    (
-      TableCharacterData,
-      BaseReferences<_$AppDatabase, $TableCharacterTable, TableCharacterData>
-    ),
-    TableCharacterData,
-    PrefetchHooks Function()> {
+class $$TableCharacterTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TableCharacterTable,
+          TableCharacterData,
+          $$TableCharacterTableFilterComposer,
+          $$TableCharacterTableOrderingComposer,
+          $$TableCharacterTableAnnotationComposer,
+          $$TableCharacterTableCreateCompanionBuilder,
+          $$TableCharacterTableUpdateCompanionBuilder,
+          (
+            TableCharacterData,
+            BaseReferences<
+              _$AppDatabase,
+              $TableCharacterTable,
+              TableCharacterData
+            >,
+          ),
+          TableCharacterData,
+          PrefetchHooks Function()
+        > {
   $$TableCharacterTableTableManager(
-      _$AppDatabase db, $TableCharacterTable table)
-      : super(TableManagerState(
+    _$AppDatabase db,
+    $TableCharacterTable table,
+  ) : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -3343,284 +4247,291 @@ class $$TableCharacterTableTableManager extends RootTableManager<
               $$TableCharacterTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$TableCharacterTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> charName = const Value.absent(),
-            Value<String> charClass = const Value.absent(),
-            Value<int> lvl = const Value.absent(),
-            Value<String> race = const Value.absent(),
-            Value<String> alignment = const Value.absent(),
-            Value<String> size = const Value.absent(),
-            Value<int> strength = const Value.absent(),
-            Value<int> strengthTmp = const Value.absent(),
-            Value<int> dexterity = const Value.absent(),
-            Value<int> dexterityTmp = const Value.absent(),
-            Value<int> constitution = const Value.absent(),
-            Value<int> constitutionTmp = const Value.absent(),
-            Value<int> intelligence = const Value.absent(),
-            Value<int> intelligenceTmp = const Value.absent(),
-            Value<int> wisdom = const Value.absent(),
-            Value<int> wisdomTmp = const Value.absent(),
-            Value<int> charisma = const Value.absent(),
-            Value<int> charismaTmp = const Value.absent(),
-            Value<int> maxHp = const Value.absent(),
-            Value<int> currentHp = const Value.absent(),
-            Value<int> maxStam = const Value.absent(),
-            Value<int> currentStam = const Value.absent(),
-            Value<int> maxResolve = const Value.absent(),
-            Value<int> currentResolve = const Value.absent(),
-            Value<String> damageLog = const Value.absent(),
-            Value<int> eacArmor = const Value.absent(),
-            Value<int> eacDodger = const Value.absent(),
-            Value<int> eacNatural = const Value.absent(),
-            Value<int> eacDeflect = const Value.absent(),
-            Value<int> eacMisc = const Value.absent(),
-            Value<int> kacArmor = const Value.absent(),
-            Value<int> kacDodger = const Value.absent(),
-            Value<int> kacNatural = const Value.absent(),
-            Value<int> kacDeflect = const Value.absent(),
-            Value<int> kacMisc = const Value.absent(),
-            Value<int> moveSpeed = const Value.absent(),
-            Value<int> flySpeed = const Value.absent(),
-            Value<int> swimSpeed = const Value.absent(),
-            Value<int> initMisc = const Value.absent(),
-            Value<int> bab = const Value.absent(),
-            Value<int> mabMisc = const Value.absent(),
-            Value<int> mabTemp = const Value.absent(),
-            Value<int> tabMisc = const Value.absent(),
-            Value<int> tabTemp = const Value.absent(),
-            Value<int> rabMisc = const Value.absent(),
-            Value<int> rabTemp = const Value.absent(),
-            Value<int> fortBase = const Value.absent(),
-            Value<int> fortMagic = const Value.absent(),
-            Value<int> fortMisc = const Value.absent(),
-            Value<int> fortTemp = const Value.absent(),
-            Value<int> refBase = const Value.absent(),
-            Value<int> refMagic = const Value.absent(),
-            Value<int> refMisc = const Value.absent(),
-            Value<int> refTemp = const Value.absent(),
-            Value<int> willBase = const Value.absent(),
-            Value<int> willMagic = const Value.absent(),
-            Value<int> willMisc = const Value.absent(),
-            Value<int> willTemp = const Value.absent(),
-            Value<String> dr = const Value.absent(),
-            Value<String> sr = const Value.absent(),
-            Value<bool> isMagic = const Value.absent(),
-          }) =>
-              TableCharacterCompanion(
-            id: id,
-            charName: charName,
-            charClass: charClass,
-            lvl: lvl,
-            race: race,
-            alignment: alignment,
-            size: size,
-            strength: strength,
-            strengthTmp: strengthTmp,
-            dexterity: dexterity,
-            dexterityTmp: dexterityTmp,
-            constitution: constitution,
-            constitutionTmp: constitutionTmp,
-            intelligence: intelligence,
-            intelligenceTmp: intelligenceTmp,
-            wisdom: wisdom,
-            wisdomTmp: wisdomTmp,
-            charisma: charisma,
-            charismaTmp: charismaTmp,
-            maxHp: maxHp,
-            currentHp: currentHp,
-            maxStam: maxStam,
-            currentStam: currentStam,
-            maxResolve: maxResolve,
-            currentResolve: currentResolve,
-            damageLog: damageLog,
-            eacArmor: eacArmor,
-            eacDodger: eacDodger,
-            eacNatural: eacNatural,
-            eacDeflect: eacDeflect,
-            eacMisc: eacMisc,
-            kacArmor: kacArmor,
-            kacDodger: kacDodger,
-            kacNatural: kacNatural,
-            kacDeflect: kacDeflect,
-            kacMisc: kacMisc,
-            moveSpeed: moveSpeed,
-            flySpeed: flySpeed,
-            swimSpeed: swimSpeed,
-            initMisc: initMisc,
-            bab: bab,
-            mabMisc: mabMisc,
-            mabTemp: mabTemp,
-            tabMisc: tabMisc,
-            tabTemp: tabTemp,
-            rabMisc: rabMisc,
-            rabTemp: rabTemp,
-            fortBase: fortBase,
-            fortMagic: fortMagic,
-            fortMisc: fortMisc,
-            fortTemp: fortTemp,
-            refBase: refBase,
-            refMagic: refMagic,
-            refMisc: refMisc,
-            refTemp: refTemp,
-            willBase: willBase,
-            willMagic: willMagic,
-            willMisc: willMisc,
-            willTemp: willTemp,
-            dr: dr,
-            sr: sr,
-            isMagic: isMagic,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String charName,
-            required String charClass,
-            required int lvl,
-            required String race,
-            required String alignment,
-            required String size,
-            required int strength,
-            required int strengthTmp,
-            required int dexterity,
-            required int dexterityTmp,
-            required int constitution,
-            required int constitutionTmp,
-            required int intelligence,
-            required int intelligenceTmp,
-            required int wisdom,
-            required int wisdomTmp,
-            required int charisma,
-            required int charismaTmp,
-            required int maxHp,
-            required int currentHp,
-            required int maxStam,
-            required int currentStam,
-            required int maxResolve,
-            required int currentResolve,
-            required String damageLog,
-            required int eacArmor,
-            required int eacDodger,
-            required int eacNatural,
-            required int eacDeflect,
-            required int eacMisc,
-            required int kacArmor,
-            required int kacDodger,
-            required int kacNatural,
-            required int kacDeflect,
-            required int kacMisc,
-            required int moveSpeed,
-            required int flySpeed,
-            required int swimSpeed,
-            required int initMisc,
-            required int bab,
-            required int mabMisc,
-            required int mabTemp,
-            required int tabMisc,
-            required int tabTemp,
-            required int rabMisc,
-            required int rabTemp,
-            required int fortBase,
-            required int fortMagic,
-            required int fortMisc,
-            required int fortTemp,
-            required int refBase,
-            required int refMagic,
-            required int refMisc,
-            required int refTemp,
-            required int willBase,
-            required int willMagic,
-            required int willMisc,
-            required int willTemp,
-            required String dr,
-            required String sr,
-            required bool isMagic,
-          }) =>
-              TableCharacterCompanion.insert(
-            id: id,
-            charName: charName,
-            charClass: charClass,
-            lvl: lvl,
-            race: race,
-            alignment: alignment,
-            size: size,
-            strength: strength,
-            strengthTmp: strengthTmp,
-            dexterity: dexterity,
-            dexterityTmp: dexterityTmp,
-            constitution: constitution,
-            constitutionTmp: constitutionTmp,
-            intelligence: intelligence,
-            intelligenceTmp: intelligenceTmp,
-            wisdom: wisdom,
-            wisdomTmp: wisdomTmp,
-            charisma: charisma,
-            charismaTmp: charismaTmp,
-            maxHp: maxHp,
-            currentHp: currentHp,
-            maxStam: maxStam,
-            currentStam: currentStam,
-            maxResolve: maxResolve,
-            currentResolve: currentResolve,
-            damageLog: damageLog,
-            eacArmor: eacArmor,
-            eacDodger: eacDodger,
-            eacNatural: eacNatural,
-            eacDeflect: eacDeflect,
-            eacMisc: eacMisc,
-            kacArmor: kacArmor,
-            kacDodger: kacDodger,
-            kacNatural: kacNatural,
-            kacDeflect: kacDeflect,
-            kacMisc: kacMisc,
-            moveSpeed: moveSpeed,
-            flySpeed: flySpeed,
-            swimSpeed: swimSpeed,
-            initMisc: initMisc,
-            bab: bab,
-            mabMisc: mabMisc,
-            mabTemp: mabTemp,
-            tabMisc: tabMisc,
-            tabTemp: tabTemp,
-            rabMisc: rabMisc,
-            rabTemp: rabTemp,
-            fortBase: fortBase,
-            fortMagic: fortMagic,
-            fortMisc: fortMisc,
-            fortTemp: fortTemp,
-            refBase: refBase,
-            refMagic: refMagic,
-            refMisc: refMisc,
-            refTemp: refTemp,
-            willBase: willBase,
-            willMagic: willMagic,
-            willMisc: willMisc,
-            willTemp: willTemp,
-            dr: dr,
-            sr: sr,
-            isMagic: isMagic,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> charName = const Value.absent(),
+                Value<String> charClass = const Value.absent(),
+                Value<int> lvl = const Value.absent(),
+                Value<String> race = const Value.absent(),
+                Value<String> alignment = const Value.absent(),
+                Value<String> size = const Value.absent(),
+                Value<int> strength = const Value.absent(),
+                Value<int> strengthTmp = const Value.absent(),
+                Value<int> dexterity = const Value.absent(),
+                Value<int> dexterityTmp = const Value.absent(),
+                Value<int> constitution = const Value.absent(),
+                Value<int> constitutionTmp = const Value.absent(),
+                Value<int> intelligence = const Value.absent(),
+                Value<int> intelligenceTmp = const Value.absent(),
+                Value<int> wisdom = const Value.absent(),
+                Value<int> wisdomTmp = const Value.absent(),
+                Value<int> charisma = const Value.absent(),
+                Value<int> charismaTmp = const Value.absent(),
+                Value<int> maxHp = const Value.absent(),
+                Value<int> currentHp = const Value.absent(),
+                Value<int> maxStam = const Value.absent(),
+                Value<int> currentStam = const Value.absent(),
+                Value<int> maxResolve = const Value.absent(),
+                Value<int> currentResolve = const Value.absent(),
+                Value<String> damageLog = const Value.absent(),
+                Value<int> eacArmor = const Value.absent(),
+                Value<int> eacDodger = const Value.absent(),
+                Value<int> eacNatural = const Value.absent(),
+                Value<int> eacDeflect = const Value.absent(),
+                Value<int> eacMisc = const Value.absent(),
+                Value<int> kacArmor = const Value.absent(),
+                Value<int> kacDodger = const Value.absent(),
+                Value<int> kacNatural = const Value.absent(),
+                Value<int> kacDeflect = const Value.absent(),
+                Value<int> kacMisc = const Value.absent(),
+                Value<int> moveSpeed = const Value.absent(),
+                Value<int> flySpeed = const Value.absent(),
+                Value<int> swimSpeed = const Value.absent(),
+                Value<int> initMisc = const Value.absent(),
+                Value<int> bab = const Value.absent(),
+                Value<int> mabMisc = const Value.absent(),
+                Value<int> mabTemp = const Value.absent(),
+                Value<int> tabMisc = const Value.absent(),
+                Value<int> tabTemp = const Value.absent(),
+                Value<int> rabMisc = const Value.absent(),
+                Value<int> rabTemp = const Value.absent(),
+                Value<int> fortBase = const Value.absent(),
+                Value<int> fortMagic = const Value.absent(),
+                Value<int> fortMisc = const Value.absent(),
+                Value<int> fortTemp = const Value.absent(),
+                Value<int> refBase = const Value.absent(),
+                Value<int> refMagic = const Value.absent(),
+                Value<int> refMisc = const Value.absent(),
+                Value<int> refTemp = const Value.absent(),
+                Value<int> willBase = const Value.absent(),
+                Value<int> willMagic = const Value.absent(),
+                Value<int> willMisc = const Value.absent(),
+                Value<int> willTemp = const Value.absent(),
+                Value<String> dr = const Value.absent(),
+                Value<String> sr = const Value.absent(),
+                Value<bool> isMagic = const Value.absent(),
+                Value<WeaponList?> weapons = const Value.absent(),
+              }) => TableCharacterCompanion(
+                id: id,
+                charName: charName,
+                charClass: charClass,
+                lvl: lvl,
+                race: race,
+                alignment: alignment,
+                size: size,
+                strength: strength,
+                strengthTmp: strengthTmp,
+                dexterity: dexterity,
+                dexterityTmp: dexterityTmp,
+                constitution: constitution,
+                constitutionTmp: constitutionTmp,
+                intelligence: intelligence,
+                intelligenceTmp: intelligenceTmp,
+                wisdom: wisdom,
+                wisdomTmp: wisdomTmp,
+                charisma: charisma,
+                charismaTmp: charismaTmp,
+                maxHp: maxHp,
+                currentHp: currentHp,
+                maxStam: maxStam,
+                currentStam: currentStam,
+                maxResolve: maxResolve,
+                currentResolve: currentResolve,
+                damageLog: damageLog,
+                eacArmor: eacArmor,
+                eacDodger: eacDodger,
+                eacNatural: eacNatural,
+                eacDeflect: eacDeflect,
+                eacMisc: eacMisc,
+                kacArmor: kacArmor,
+                kacDodger: kacDodger,
+                kacNatural: kacNatural,
+                kacDeflect: kacDeflect,
+                kacMisc: kacMisc,
+                moveSpeed: moveSpeed,
+                flySpeed: flySpeed,
+                swimSpeed: swimSpeed,
+                initMisc: initMisc,
+                bab: bab,
+                mabMisc: mabMisc,
+                mabTemp: mabTemp,
+                tabMisc: tabMisc,
+                tabTemp: tabTemp,
+                rabMisc: rabMisc,
+                rabTemp: rabTemp,
+                fortBase: fortBase,
+                fortMagic: fortMagic,
+                fortMisc: fortMisc,
+                fortTemp: fortTemp,
+                refBase: refBase,
+                refMagic: refMagic,
+                refMisc: refMisc,
+                refTemp: refTemp,
+                willBase: willBase,
+                willMagic: willMagic,
+                willMisc: willMisc,
+                willTemp: willTemp,
+                dr: dr,
+                sr: sr,
+                isMagic: isMagic,
+                weapons: weapons,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String charName,
+                required String charClass,
+                required int lvl,
+                required String race,
+                required String alignment,
+                required String size,
+                required int strength,
+                required int strengthTmp,
+                required int dexterity,
+                required int dexterityTmp,
+                required int constitution,
+                required int constitutionTmp,
+                required int intelligence,
+                required int intelligenceTmp,
+                required int wisdom,
+                required int wisdomTmp,
+                required int charisma,
+                required int charismaTmp,
+                required int maxHp,
+                required int currentHp,
+                required int maxStam,
+                required int currentStam,
+                required int maxResolve,
+                required int currentResolve,
+                required String damageLog,
+                required int eacArmor,
+                required int eacDodger,
+                required int eacNatural,
+                required int eacDeflect,
+                required int eacMisc,
+                required int kacArmor,
+                required int kacDodger,
+                required int kacNatural,
+                required int kacDeflect,
+                required int kacMisc,
+                required int moveSpeed,
+                required int flySpeed,
+                required int swimSpeed,
+                required int initMisc,
+                required int bab,
+                required int mabMisc,
+                required int mabTemp,
+                required int tabMisc,
+                required int tabTemp,
+                required int rabMisc,
+                required int rabTemp,
+                required int fortBase,
+                required int fortMagic,
+                required int fortMisc,
+                required int fortTemp,
+                required int refBase,
+                required int refMagic,
+                required int refMisc,
+                required int refTemp,
+                required int willBase,
+                required int willMagic,
+                required int willMisc,
+                required int willTemp,
+                required String dr,
+                required String sr,
+                required bool isMagic,
+                Value<WeaponList?> weapons = const Value.absent(),
+              }) => TableCharacterCompanion.insert(
+                id: id,
+                charName: charName,
+                charClass: charClass,
+                lvl: lvl,
+                race: race,
+                alignment: alignment,
+                size: size,
+                strength: strength,
+                strengthTmp: strengthTmp,
+                dexterity: dexterity,
+                dexterityTmp: dexterityTmp,
+                constitution: constitution,
+                constitutionTmp: constitutionTmp,
+                intelligence: intelligence,
+                intelligenceTmp: intelligenceTmp,
+                wisdom: wisdom,
+                wisdomTmp: wisdomTmp,
+                charisma: charisma,
+                charismaTmp: charismaTmp,
+                maxHp: maxHp,
+                currentHp: currentHp,
+                maxStam: maxStam,
+                currentStam: currentStam,
+                maxResolve: maxResolve,
+                currentResolve: currentResolve,
+                damageLog: damageLog,
+                eacArmor: eacArmor,
+                eacDodger: eacDodger,
+                eacNatural: eacNatural,
+                eacDeflect: eacDeflect,
+                eacMisc: eacMisc,
+                kacArmor: kacArmor,
+                kacDodger: kacDodger,
+                kacNatural: kacNatural,
+                kacDeflect: kacDeflect,
+                kacMisc: kacMisc,
+                moveSpeed: moveSpeed,
+                flySpeed: flySpeed,
+                swimSpeed: swimSpeed,
+                initMisc: initMisc,
+                bab: bab,
+                mabMisc: mabMisc,
+                mabTemp: mabTemp,
+                tabMisc: tabMisc,
+                tabTemp: tabTemp,
+                rabMisc: rabMisc,
+                rabTemp: rabTemp,
+                fortBase: fortBase,
+                fortMagic: fortMagic,
+                fortMisc: fortMisc,
+                fortTemp: fortTemp,
+                refBase: refBase,
+                refMagic: refMagic,
+                refMisc: refMisc,
+                refTemp: refTemp,
+                willBase: willBase,
+                willMagic: willMagic,
+                willMisc: willMisc,
+                willTemp: willTemp,
+                dr: dr,
+                sr: sr,
+                isMagic: isMagic,
+                weapons: weapons,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$TableCharacterTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $TableCharacterTable,
-    TableCharacterData,
-    $$TableCharacterTableFilterComposer,
-    $$TableCharacterTableOrderingComposer,
-    $$TableCharacterTableAnnotationComposer,
-    $$TableCharacterTableCreateCompanionBuilder,
-    $$TableCharacterTableUpdateCompanionBuilder,
-    (
+typedef $$TableCharacterTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TableCharacterTable,
       TableCharacterData,
-      BaseReferences<_$AppDatabase, $TableCharacterTable, TableCharacterData>
-    ),
-    TableCharacterData,
-    PrefetchHooks Function()>;
+      $$TableCharacterTableFilterComposer,
+      $$TableCharacterTableOrderingComposer,
+      $$TableCharacterTableAnnotationComposer,
+      $$TableCharacterTableCreateCompanionBuilder,
+      $$TableCharacterTableUpdateCompanionBuilder,
+      (
+        TableCharacterData,
+        BaseReferences<_$AppDatabase, $TableCharacterTable, TableCharacterData>,
+      ),
+      TableCharacterData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;

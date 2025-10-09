@@ -5,27 +5,29 @@ import 'package:pathfinder_sheet/models.dart/character.dart';
 class Mapper {
   Character toCharacter(TableCharacterData element) {
     final CharacterSavingThrows savingThrows = CharacterSavingThrows(
-        fortBase: element.fortBase,
-        fortMagic: element.fortMagic,
-        fortMisc: element.fortMisc,
-        fortTemp: element.fortTemp,
-        refBase: element.refBase,
-        refMagic: element.refMagic,
-        refMisc: element.refMisc,
-        refTemp: element.refTemp,
-        willBase: element.willBase,
-        willMagic: element.willMagic,
-        willMisc: element.willMisc,
-        willTemp: element.willTemp);
+      fortBase: element.fortBase,
+      fortMagic: element.fortMagic,
+      fortMisc: element.fortMisc,
+      fortTemp: element.fortTemp,
+      refBase: element.refBase,
+      refMagic: element.refMagic,
+      refMisc: element.refMisc,
+      refTemp: element.refTemp,
+      willBase: element.willBase,
+      willMagic: element.willMagic,
+      willMisc: element.willMisc,
+      willTemp: element.willTemp,
+    );
 
     final CharacterBab babBlock = CharacterBab(
-        bab: element.bab,
-        mabMisc: element.mabMisc,
-        mabTemp: element.mabTemp,
-        tabMisc: element.tabMisc,
-        tabTemp: element.tabTemp,
-        rabMisc: element.rabMisc,
-        rabTemp: element.rabTemp);
+      bab: element.bab,
+      mabMisc: element.mabMisc,
+      mabTemp: element.mabTemp,
+      tabMisc: element.tabMisc,
+      tabTemp: element.tabTemp,
+      rabMisc: element.rabMisc,
+      rabTemp: element.rabTemp,
+    );
 
     final CharacterAbility ability = CharacterAbility(
       strength: element.strength,
@@ -43,51 +45,56 @@ class Mapper {
     );
 
     final CharacterLiveBlock liveBlock = CharacterLiveBlock(
-        maxHp: element.maxHp,
-        currentHp: element.currentHp,
-        maxStam: element.maxStam,
-        currentStam: element.currentStam,
-        maxResolve: element.maxResolve,
-        currentResolve: element.currentResolve,
-        damageLog: element.damageLog);
+      maxHp: element.maxHp,
+      currentHp: element.currentHp,
+      maxStam: element.maxStam,
+      currentStam: element.currentStam,
+      maxResolve: element.maxResolve,
+      currentResolve: element.currentResolve,
+      damageLog: element.damageLog,
+    );
 
     final ACBLock eacBlock = ACBLock(
-        amror: element.eacArmor,
-        dodge: element.eacDodger,
-        natural: element.eacNatural,
-        deflect: element.eacDeflect,
-        misc: element.eacMisc);
+      amror: element.eacArmor,
+      dodge: element.eacDodger,
+      natural: element.eacNatural,
+      deflect: element.eacDeflect,
+      misc: element.eacMisc,
+    );
 
     final ACBLock kacBlock = ACBLock(
-        amror: element.kacArmor,
-        dodge: element.kacDodger,
-        natural: element.kacNatural,
-        deflect: element.kacDeflect,
-        misc: element.kacMisc);
+      amror: element.kacArmor,
+      dodge: element.kacDodger,
+      natural: element.kacNatural,
+      deflect: element.kacDeflect,
+      misc: element.kacMisc,
+    );
 
     return Character(
-        id: element.id,
-        charName: element.charName,
-        charClass: element.charClass,
-        lvl: element.lvl,
-        race: element.race,
-        alignment: CharAlignment.values
-            .firstWhere((e) => e.alignName == element.alignment),
-        size: CharSize.values.firstWhere((e) => e.sizeName == element.size),
-        ability: ability,
-        liveBlock: liveBlock,
-        eacBlock: eacBlock,
-        kacBlock: kacBlock,
-        moveSpeed: element.moveSpeed,
-        flySpeed: element.flySpeed,
-        swimSpeed: element.swimSpeed,
-        initMisc: element.initMisc,
-        babBlock: babBlock,
-        savingThrows: savingThrows,
-        dr: element.dr,
-        sr: element.sr,
-        isMagic: element.isMagic,
-        weaponList: []);
+      id: element.id,
+      charName: element.charName,
+      charClass: element.charClass,
+      lvl: element.lvl,
+      race: element.race,
+      alignment: CharAlignment.values.firstWhere(
+        (e) => e.alignName == element.alignment,
+      ),
+      size: CharSize.values.firstWhere((e) => e.sizeName == element.size),
+      ability: ability,
+      liveBlock: liveBlock,
+      eacBlock: eacBlock,
+      kacBlock: kacBlock,
+      moveSpeed: element.moveSpeed,
+      flySpeed: element.flySpeed,
+      swimSpeed: element.swimSpeed,
+      initMisc: element.initMisc,
+      babBlock: babBlock,
+      savingThrows: savingThrows,
+      dr: element.dr,
+      sr: element.sr,
+      isMagic: element.isMagic,
+      weaponList: element.weapons ?? const WeaponList.empty(),
+    );
   }
 
   TableCharacterData toTableCharacterData(Character character) {
@@ -154,6 +161,7 @@ class Mapper {
       dr: character.dr,
       sr: character.sr,
       isMagic: character.isMagic,
+      weapons: character.weaponList,
     );
   }
 
@@ -221,6 +229,7 @@ class Mapper {
       dr: Value(character.dr),
       sr: Value(character.sr),
       isMagic: Value(character.isMagic),
+      weapons: Value(character.weaponList),
     );
   }
 }

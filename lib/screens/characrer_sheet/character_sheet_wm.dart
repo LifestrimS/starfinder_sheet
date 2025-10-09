@@ -77,14 +77,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   CarouselSliderController get carouselController;
 }
 
-CharacterSheetWM createCharacterSheetWM(
-  BuildContext _,
-) =>
-    CharacterSheetWM(
-      CharacterSheetModel(
-        repository: GetIt.I.get(),
-      ),
-    );
+CharacterSheetWM createCharacterSheetWM(BuildContext _) =>
+    CharacterSheetWM(CharacterSheetModel(repository: GetIt.I.get()));
 
 class CharacterSheetWM
     extends WidgetModel<CharacterSheetView, CharacterSheetModel>
@@ -126,53 +120,60 @@ class CharacterSheetWM
   );
   final LiveBlockTextControllers _liveBlockTextControllers =
       LiveBlockTextControllers(
-          maxHpController: TextEditingController(),
-          maxStamController: TextEditingController(),
-          maxResolveController: TextEditingController());
+        maxHpController: TextEditingController(),
+        maxStamController: TextEditingController(),
+        maxResolveController: TextEditingController(),
+      );
   final AcControllers _eacControllers = AcControllers(
-      armorController: TextEditingController(),
-      dexController: TextEditingController(),
-      dodgeController: TextEditingController(),
-      naturalController: TextEditingController(),
-      deflectController: TextEditingController(),
-      miscController: TextEditingController());
+    armorController: TextEditingController(),
+    dexController: TextEditingController(),
+    dodgeController: TextEditingController(),
+    naturalController: TextEditingController(),
+    deflectController: TextEditingController(),
+    miscController: TextEditingController(),
+  );
   final AcControllers _kacControllers = AcControllers(
-      armorController: TextEditingController(),
-      dexController: TextEditingController(),
-      dodgeController: TextEditingController(),
-      naturalController: TextEditingController(),
-      deflectController: TextEditingController(),
-      miscController: TextEditingController());
+    armorController: TextEditingController(),
+    dexController: TextEditingController(),
+    dodgeController: TextEditingController(),
+    naturalController: TextEditingController(),
+    deflectController: TextEditingController(),
+    miscController: TextEditingController(),
+  );
   final MoveControllers _moveControllers = MoveControllers(
-      moveController: TextEditingController(),
-      flyController: TextEditingController(),
-      swimController: TextEditingController());
+    moveController: TextEditingController(),
+    flyController: TextEditingController(),
+    swimController: TextEditingController(),
+  );
   final TextEditingController _initMiscController = TextEditingController();
   final BabControllers _babControllers = BabControllers(
-      babController: TextEditingController(),
-      mabMiscController: TextEditingController(),
-      mabTempController: TextEditingController(),
-      tabMiscController: TextEditingController(),
-      tabTempController: TextEditingController(),
-      rabMiscController: TextEditingController(),
-      rabTempController: TextEditingController());
+    babController: TextEditingController(),
+    mabMiscController: TextEditingController(),
+    mabTempController: TextEditingController(),
+    tabMiscController: TextEditingController(),
+    tabTempController: TextEditingController(),
+    rabMiscController: TextEditingController(),
+    rabTempController: TextEditingController(),
+  );
   final STHRTexEditingControllers _sTHRTexEditingControllers =
       STHRTexEditingControllers(
-          fortBaseController: TextEditingController(),
-          fortMagicController: TextEditingController(),
-          fortMiscController: TextEditingController(),
-          fortTempController: TextEditingController(),
-          refBaseController: TextEditingController(),
-          refMagicController: TextEditingController(),
-          refMiscController: TextEditingController(),
-          refTempController: TextEditingController(),
-          willBaseController: TextEditingController(),
-          willMagicController: TextEditingController(),
-          willMiscController: TextEditingController(),
-          willTempController: TextEditingController());
+        fortBaseController: TextEditingController(),
+        fortMagicController: TextEditingController(),
+        fortMiscController: TextEditingController(),
+        fortTempController: TextEditingController(),
+        refBaseController: TextEditingController(),
+        refMagicController: TextEditingController(),
+        refMiscController: TextEditingController(),
+        refTempController: TextEditingController(),
+        willBaseController: TextEditingController(),
+        willMagicController: TextEditingController(),
+        willMiscController: TextEditingController(),
+        willTempController: TextEditingController(),
+      );
   final DrSrControllers _drSrControllers = DrSrControllers(
-      drController: TextEditingController(),
-      srController: TextEditingController());
+    drController: TextEditingController(),
+    srController: TextEditingController(),
+  );
 
   final CarouselSliderController _carouselController =
       CarouselSliderController();
@@ -321,8 +322,9 @@ class CharacterSheetWM
       await Future.delayed(const Duration(milliseconds: 300));
 
       if (isGoToCharacter) {
-        _character =
-            await model.getCharacter(charId ?? characterList.first!.id);
+        _character = await model.getCharacter(
+          charId ?? characterList.first!.id,
+        );
         await saveCharacterId(charId ?? characterList.first!.id);
       } else if (savedCharId != null) {
         _character = await model.getCharacter(savedCharId);
@@ -355,10 +357,12 @@ class CharacterSheetWM
     if (_abilityTextControllers.dexTmpController.text.isNotEmpty &&
         _abilityTextControllers.dexTmpController.text != '0') {
       _dexModificatorNotifier.value = CharacterAbility.getModifier(
-          parseIntFromString(_abilityTextControllers.dexTmpController.text));
+        parseIntFromString(_abilityTextControllers.dexTmpController.text),
+      );
     } else {
       _dexModificatorNotifier.value = CharacterAbility.getModifier(
-          parseIntFromString(_abilityTextControllers.dexController.text));
+        parseIntFromString(_abilityTextControllers.dexController.text),
+      );
     }
   }
 
@@ -366,10 +370,12 @@ class CharacterSheetWM
     if (_abilityTextControllers.strTmpController.text.isNotEmpty &&
         _abilityTextControllers.strTmpController.text != '0') {
       _strModificatorNotifier.value = CharacterAbility.getModifier(
-          parseIntFromString(_abilityTextControllers.strTmpController.text));
+        parseIntFromString(_abilityTextControllers.strTmpController.text),
+      );
     } else {
       _strModificatorNotifier.value = CharacterAbility.getModifier(
-          parseIntFromString(_abilityTextControllers.strController.text));
+        parseIntFromString(_abilityTextControllers.strController.text),
+      );
     }
   }
 
@@ -377,10 +383,12 @@ class CharacterSheetWM
     if (_abilityTextControllers.conTmpController.text.isNotEmpty &&
         _abilityTextControllers.conTmpController.text != '0') {
       _conModificatorNotifier.value = CharacterAbility.getModifier(
-          parseIntFromString(_abilityTextControllers.conTmpController.text));
+        parseIntFromString(_abilityTextControllers.conTmpController.text),
+      );
     } else {
       _conModificatorNotifier.value = CharacterAbility.getModifier(
-          parseIntFromString(_abilityTextControllers.conController.text));
+        parseIntFromString(_abilityTextControllers.conController.text),
+      );
     }
   }
 
@@ -388,21 +396,25 @@ class CharacterSheetWM
     if (_abilityTextControllers.wisTmpController.text.isNotEmpty &&
         _abilityTextControllers.wisTmpController.text != '0') {
       _wisModificatorNotifier.value = CharacterAbility.getModifier(
-          parseIntFromString(_abilityTextControllers.wisTmpController.text));
+        parseIntFromString(_abilityTextControllers.wisTmpController.text),
+      );
     } else {
       _wisModificatorNotifier.value = CharacterAbility.getModifier(
-          parseIntFromString(_abilityTextControllers.wisController.text));
+        parseIntFromString(_abilityTextControllers.wisController.text),
+      );
     }
   }
 
   @override
   void getDamage() {
     //always positive
-    int damage = parseIntFromString(damageTextController.text != ''
-        ? damageTextController.text.startsWith('-')
-            ? damageTextController.text.substring(1)
-            : damageTextController.text
-        : '0');
+    int damage = parseIntFromString(
+      damageTextController.text != ''
+          ? damageTextController.text.startsWith('-')
+                ? damageTextController.text.substring(1)
+                : damageTextController.text
+          : '0',
+    );
 
     if (damage < model.currentStam) {
       model.addStam(-damage);
@@ -496,87 +508,138 @@ class CharacterSheetWM
   void saveCharacter() async {
     try {
       final Character newCharacter = Character(
-          id: character.id,
-          charName: _nameTextController.text,
-          charClass: _classTextController.text,
-          lvl: parseIntFromString(_lvlTextController.text),
-          race: _raceTextController.text,
-          alignment: CharAlignment.values
-              .firstWhere((e) => e.alignName == model.alignment),
-          size: CharSize.values.firstWhere((e) => e.sizeName == model.size),
-          ability: CharacterAbility(
-            strength:
-                parseIntFromString(_abilityTextControllers.strController.text),
-            dexterity:
-                parseIntFromString(_abilityTextControllers.dexController.text),
-            constitution:
-                parseIntFromString(_abilityTextControllers.conController.text),
-            intelligence:
-                parseIntFromString(_abilityTextControllers.intController.text),
-            wisdom:
-                parseIntFromString(_abilityTextControllers.wisController.text),
-            charisma:
-                parseIntFromString(_abilityTextControllers.chaController.text),
-            strengthTmp: parseIntFromString(
-                _abilityTextControllers.strTmpController.text),
-            dexterityTmp: parseIntFromString(
-                _abilityTextControllers.dexTmpController.text),
-            constitutionTmp: parseIntFromString(
-                _abilityTextControllers.conTmpController.text),
-            intelligenceTmp: parseIntFromString(
-                _abilityTextControllers.intTmpController.text),
-            wisdomTmp: parseIntFromString(
-                _abilityTextControllers.wisTmpController.text),
-            charismaTmp: parseIntFromString(
-                _abilityTextControllers.chaTmpController.text),
+        id: character.id,
+        charName: _nameTextController.text,
+        charClass: _classTextController.text,
+        lvl: parseIntFromString(_lvlTextController.text),
+        race: _raceTextController.text,
+        alignment: CharAlignment.values.firstWhere(
+          (e) => e.alignName == model.alignment,
+        ),
+        size: CharSize.values.firstWhere((e) => e.sizeName == model.size),
+        ability: CharacterAbility(
+          strength: parseIntFromString(
+            _abilityTextControllers.strController.text,
           ),
-          liveBlock: CharacterLiveBlock(
-              maxHp: parseIntFromString(
-                  _liveBlockTextControllers.maxHpController.text),
-              currentHp: model.currentHp,
-              maxStam: parseIntFromString(
-                  _liveBlockTextControllers.maxStamController.text),
-              currentStam: model.currentStam,
-              maxResolve: parseIntFromString(
-                  _liveBlockTextControllers.maxResolveController.text),
-              currentResolve: model.currentResolve,
-              damageLog: model.damageLog),
-          eacBlock: ACBLock(
-              amror: parseIntFromString(_eacControllers.armorController.text),
-              dodge: parseIntFromString(_eacControllers.dodgeController.text),
-              natural:
-                  parseIntFromString(_eacControllers.naturalController.text),
-              deflect:
-                  parseIntFromString(_eacControllers.deflectController.text),
-              misc: parseIntFromString(_eacControllers.miscController.text)),
-          kacBlock: ACBLock(
-              amror: parseIntFromString(_kacControllers.armorController.text),
-              dodge: parseIntFromString(_kacControllers.dodgeController.text),
-              natural:
-                  parseIntFromString(_kacControllers.naturalController.text),
-              deflect:
-                  parseIntFromString(_kacControllers.deflectController.text),
-              misc: parseIntFromString(_kacControllers.miscController.text)),
-          moveSpeed: parseIntFromString(_moveControllers.moveController.text),
-          flySpeed: parseIntFromString(_moveControllers.flyController.text),
-          swimSpeed: parseIntFromString(_moveControllers.swimController.text),
-          initMisc: parseIntFromString(_initMiscController.text),
-          babBlock: CharacterBab(
-              bab: parseIntFromString(_babControllers.babController.text),
-              mabMisc:
-                  parseIntFromString(_babControllers.mabMiscController.text),
-              mabTemp:
-                  parseIntFromString(_babControllers.mabTempController.text),
-              tabMisc:
-                  parseIntFromString(_babControllers.tabMiscController.text),
-              tabTemp: parseIntFromString(_babControllers.tabTempController.text),
-              rabMisc: parseIntFromString(_babControllers.rabMiscController.text),
-              rabTemp: parseIntFromString(_babControllers.rabTempController.text)),
-          savingThrows: CharacterSavingThrows(fortBase: parseIntFromString(_sTHRTexEditingControllers.fortBaseController.text), fortMagic: parseIntFromString(_sTHRTexEditingControllers.fortMagicController.text), fortMisc: parseIntFromString(_sTHRTexEditingControllers.fortMiscController.text), fortTemp: parseIntFromString(_sTHRTexEditingControllers.fortTempController.text), refBase: parseIntFromString(_sTHRTexEditingControllers.refBaseController.text), refMagic: parseIntFromString(_sTHRTexEditingControllers.refMagicController.text), refMisc: parseIntFromString(_sTHRTexEditingControllers.refMiscController.text), refTemp: parseIntFromString(_sTHRTexEditingControllers.refTempController.text), willBase: parseIntFromString(_sTHRTexEditingControllers.willBaseController.text), willMagic: parseIntFromString(_sTHRTexEditingControllers.willMagicController.text), willMisc: parseIntFromString(_sTHRTexEditingControllers.willMiscController.text), willTemp: parseIntFromString(_sTHRTexEditingControllers.willTempController.text)),
-          dr: _drSrControllers.drController.text,
-          sr: _drSrControllers.srController.text,
-          isMagic: model.isMagic,
-          weaponList: []);
+          dexterity: parseIntFromString(
+            _abilityTextControllers.dexController.text,
+          ),
+          constitution: parseIntFromString(
+            _abilityTextControllers.conController.text,
+          ),
+          intelligence: parseIntFromString(
+            _abilityTextControllers.intController.text,
+          ),
+          wisdom: parseIntFromString(
+            _abilityTextControllers.wisController.text,
+          ),
+          charisma: parseIntFromString(
+            _abilityTextControllers.chaController.text,
+          ),
+          strengthTmp: parseIntFromString(
+            _abilityTextControllers.strTmpController.text,
+          ),
+          dexterityTmp: parseIntFromString(
+            _abilityTextControllers.dexTmpController.text,
+          ),
+          constitutionTmp: parseIntFromString(
+            _abilityTextControllers.conTmpController.text,
+          ),
+          intelligenceTmp: parseIntFromString(
+            _abilityTextControllers.intTmpController.text,
+          ),
+          wisdomTmp: parseIntFromString(
+            _abilityTextControllers.wisTmpController.text,
+          ),
+          charismaTmp: parseIntFromString(
+            _abilityTextControllers.chaTmpController.text,
+          ),
+        ),
+        liveBlock: CharacterLiveBlock(
+          maxHp: parseIntFromString(
+            _liveBlockTextControllers.maxHpController.text,
+          ),
+          currentHp: model.currentHp,
+          maxStam: parseIntFromString(
+            _liveBlockTextControllers.maxStamController.text,
+          ),
+          currentStam: model.currentStam,
+          maxResolve: parseIntFromString(
+            _liveBlockTextControllers.maxResolveController.text,
+          ),
+          currentResolve: model.currentResolve,
+          damageLog: model.damageLog,
+        ),
+        eacBlock: ACBLock(
+          amror: parseIntFromString(_eacControllers.armorController.text),
+          dodge: parseIntFromString(_eacControllers.dodgeController.text),
+          natural: parseIntFromString(_eacControllers.naturalController.text),
+          deflect: parseIntFromString(_eacControllers.deflectController.text),
+          misc: parseIntFromString(_eacControllers.miscController.text),
+        ),
+        kacBlock: ACBLock(
+          amror: parseIntFromString(_kacControllers.armorController.text),
+          dodge: parseIntFromString(_kacControllers.dodgeController.text),
+          natural: parseIntFromString(_kacControllers.naturalController.text),
+          deflect: parseIntFromString(_kacControllers.deflectController.text),
+          misc: parseIntFromString(_kacControllers.miscController.text),
+        ),
+        moveSpeed: parseIntFromString(_moveControllers.moveController.text),
+        flySpeed: parseIntFromString(_moveControllers.flyController.text),
+        swimSpeed: parseIntFromString(_moveControllers.swimController.text),
+        initMisc: parseIntFromString(_initMiscController.text),
+        babBlock: CharacterBab(
+          bab: parseIntFromString(_babControllers.babController.text),
+          mabMisc: parseIntFromString(_babControllers.mabMiscController.text),
+          mabTemp: parseIntFromString(_babControllers.mabTempController.text),
+          tabMisc: parseIntFromString(_babControllers.tabMiscController.text),
+          tabTemp: parseIntFromString(_babControllers.tabTempController.text),
+          rabMisc: parseIntFromString(_babControllers.rabMiscController.text),
+          rabTemp: parseIntFromString(_babControllers.rabTempController.text),
+        ),
+        savingThrows: CharacterSavingThrows(
+          fortBase: parseIntFromString(
+            _sTHRTexEditingControllers.fortBaseController.text,
+          ),
+          fortMagic: parseIntFromString(
+            _sTHRTexEditingControllers.fortMagicController.text,
+          ),
+          fortMisc: parseIntFromString(
+            _sTHRTexEditingControllers.fortMiscController.text,
+          ),
+          fortTemp: parseIntFromString(
+            _sTHRTexEditingControllers.fortTempController.text,
+          ),
+          refBase: parseIntFromString(
+            _sTHRTexEditingControllers.refBaseController.text,
+          ),
+          refMagic: parseIntFromString(
+            _sTHRTexEditingControllers.refMagicController.text,
+          ),
+          refMisc: parseIntFromString(
+            _sTHRTexEditingControllers.refMiscController.text,
+          ),
+          refTemp: parseIntFromString(
+            _sTHRTexEditingControllers.refTempController.text,
+          ),
+          willBase: parseIntFromString(
+            _sTHRTexEditingControllers.willBaseController.text,
+          ),
+          willMagic: parseIntFromString(
+            _sTHRTexEditingControllers.willMagicController.text,
+          ),
+          willMisc: parseIntFromString(
+            _sTHRTexEditingControllers.willMiscController.text,
+          ),
+          willTemp: parseIntFromString(
+            _sTHRTexEditingControllers.willTempController.text,
+          ),
+        ),
+        dr: _drSrControllers.drController.text,
+        sr: _drSrControllers.srController.text,
+        isMagic: model.isMagic,
+        weaponList: const WeaponList(weapons: []),
+      );
 
       model.saveCharacter(newCharacter);
 
@@ -610,54 +673,88 @@ class CharacterSheetWM
     _abilityTextControllers.conTmpController.addListener(conListener);
     _abilityTextControllers.wisTmpController.addListener(wisListener);
 
-    _abilityTextControllers.strController.text =
-        model.getAbility().strength.toString();
-    _abilityTextControllers.dexController.text =
-        model.getAbility().dexterity.toString();
-    _abilityTextControllers.conController.text =
-        model.getAbility().constitution.toString();
-    _abilityTextControllers.intController.text =
-        model.getAbility().intelligence.toString();
-    _abilityTextControllers.wisController.text =
-        model.getAbility().wisdom.toString();
-    _abilityTextControllers.chaController.text =
-        model.getAbility().charisma.toString();
-    _abilityTextControllers.strTmpController.text =
-        model.getAbility().strengthTmp.toString();
-    _abilityTextControllers.dexTmpController.text =
-        model.getAbility().dexterityTmp.toString();
-    _abilityTextControllers.conTmpController.text =
-        model.getAbility().constitutionTmp.toString();
-    _abilityTextControllers.intTmpController.text =
-        model.getAbility().intelligenceTmp.toString();
-    _abilityTextControllers.wisTmpController.text =
-        model.getAbility().wisdomTmp.toString();
-    _abilityTextControllers.chaTmpController.text =
-        model.getAbility().charismaTmp.toString();
+    _abilityTextControllers.strController.text = model
+        .getAbility()
+        .strength
+        .toString();
+    _abilityTextControllers.dexController.text = model
+        .getAbility()
+        .dexterity
+        .toString();
+    _abilityTextControllers.conController.text = model
+        .getAbility()
+        .constitution
+        .toString();
+    _abilityTextControllers.intController.text = model
+        .getAbility()
+        .intelligence
+        .toString();
+    _abilityTextControllers.wisController.text = model
+        .getAbility()
+        .wisdom
+        .toString();
+    _abilityTextControllers.chaController.text = model
+        .getAbility()
+        .charisma
+        .toString();
+    _abilityTextControllers.strTmpController.text = model
+        .getAbility()
+        .strengthTmp
+        .toString();
+    _abilityTextControllers.dexTmpController.text = model
+        .getAbility()
+        .dexterityTmp
+        .toString();
+    _abilityTextControllers.conTmpController.text = model
+        .getAbility()
+        .constitutionTmp
+        .toString();
+    _abilityTextControllers.intTmpController.text = model
+        .getAbility()
+        .intelligenceTmp
+        .toString();
+    _abilityTextControllers.wisTmpController.text = model
+        .getAbility()
+        .wisdomTmp
+        .toString();
+    _abilityTextControllers.chaTmpController.text = model
+        .getAbility()
+        .charismaTmp
+        .toString();
 
     _liveBlockTextControllers.maxHpController.text = model.maxHp.toString();
     _liveBlockTextControllers.maxStamController.text = model.maxStam.toString();
-    _liveBlockTextControllers.maxResolveController.text =
-        model.maxResolve.toString();
+    _liveBlockTextControllers.maxResolveController.text = model.maxResolve
+        .toString();
 
     _eacControllers.armorController.text = model.getEacBlock().amror.toString();
-    _eacControllers.dexController.text =
-        CharacterAbility.getModifier(model.getAbility().dexterity).toString();
+    _eacControllers.dexController.text = CharacterAbility.getModifier(
+      model.getAbility().dexterity,
+    ).toString();
     _eacControllers.dodgeController.text = model.getEacBlock().dodge.toString();
-    _eacControllers.naturalController.text =
-        model.getEacBlock().natural.toString();
-    _eacControllers.deflectController.text =
-        model.getEacBlock().deflect.toString();
+    _eacControllers.naturalController.text = model
+        .getEacBlock()
+        .natural
+        .toString();
+    _eacControllers.deflectController.text = model
+        .getEacBlock()
+        .deflect
+        .toString();
     _eacControllers.miscController.text = model.getEacBlock().misc.toString();
 
     _kacControllers.armorController.text = model.getKacBlock().amror.toString();
-    _kacControllers.dexController.text =
-        CharacterAbility.getModifier(model.getAbility().dexterity).toString();
+    _kacControllers.dexController.text = CharacterAbility.getModifier(
+      model.getAbility().dexterity,
+    ).toString();
     _kacControllers.dodgeController.text = model.getKacBlock().dodge.toString();
-    _kacControllers.naturalController.text =
-        model.getKacBlock().natural.toString();
-    _kacControllers.deflectController.text =
-        model.getKacBlock().deflect.toString();
+    _kacControllers.naturalController.text = model
+        .getKacBlock()
+        .natural
+        .toString();
+    _kacControllers.deflectController.text = model
+        .getKacBlock()
+        .deflect
+        .toString();
     _kacControllers.miscController.text = model.getKacBlock().misc.toString();
 
     _moveControllers.moveController.text = model.moveSpeed.toString();
@@ -667,43 +764,79 @@ class CharacterSheetWM
     _initMiscController.text = model.iniMisc.toString();
 
     _babControllers.babController.text = model.getBabBlock().bab.toString();
-    _babControllers.mabMiscController.text =
-        model.getBabBlock().mabMisc.toString();
-    _babControllers.mabTempController.text =
-        model.getBabBlock().mabTemp.toString();
-    _babControllers.tabMiscController.text =
-        model.getBabBlock().tabMisc.toString();
-    _babControllers.tabTempController.text =
-        model.getBabBlock().tabTemp.toString();
-    _babControllers.rabMiscController.text =
-        model.getBabBlock().rabMisc.toString();
-    _babControllers.rabTempController.text =
-        model.getBabBlock().rabTemp.toString();
+    _babControllers.mabMiscController.text = model
+        .getBabBlock()
+        .mabMisc
+        .toString();
+    _babControllers.mabTempController.text = model
+        .getBabBlock()
+        .mabTemp
+        .toString();
+    _babControllers.tabMiscController.text = model
+        .getBabBlock()
+        .tabMisc
+        .toString();
+    _babControllers.tabTempController.text = model
+        .getBabBlock()
+        .tabTemp
+        .toString();
+    _babControllers.rabMiscController.text = model
+        .getBabBlock()
+        .rabMisc
+        .toString();
+    _babControllers.rabTempController.text = model
+        .getBabBlock()
+        .rabTemp
+        .toString();
 
-    _sTHRTexEditingControllers.fortBaseController.text =
-        model.getSTHRBlock().fortBase.toString();
-    _sTHRTexEditingControllers.fortMagicController.text =
-        model.getSTHRBlock().fortMagic.toString();
-    _sTHRTexEditingControllers.fortMiscController.text =
-        model.getSTHRBlock().fortMisc.toString();
-    _sTHRTexEditingControllers.fortTempController.text =
-        model.getSTHRBlock().fortTemp.toString();
-    _sTHRTexEditingControllers.refBaseController.text =
-        model.getSTHRBlock().refBase.toString();
-    _sTHRTexEditingControllers.refMagicController.text =
-        model.getSTHRBlock().refMagic.toString();
-    _sTHRTexEditingControllers.refMiscController.text =
-        model.getSTHRBlock().refMisc.toString();
-    _sTHRTexEditingControllers.refTempController.text =
-        model.getSTHRBlock().refTemp.toString();
-    _sTHRTexEditingControllers.willBaseController.text =
-        model.getSTHRBlock().willBase.toString();
-    _sTHRTexEditingControllers.willMagicController.text =
-        model.getSTHRBlock().willMagic.toString();
-    _sTHRTexEditingControllers.willMiscController.text =
-        model.getSTHRBlock().willMisc.toString();
-    _sTHRTexEditingControllers.willTempController.text =
-        model.getSTHRBlock().willTemp.toString();
+    _sTHRTexEditingControllers.fortBaseController.text = model
+        .getSTHRBlock()
+        .fortBase
+        .toString();
+    _sTHRTexEditingControllers.fortMagicController.text = model
+        .getSTHRBlock()
+        .fortMagic
+        .toString();
+    _sTHRTexEditingControllers.fortMiscController.text = model
+        .getSTHRBlock()
+        .fortMisc
+        .toString();
+    _sTHRTexEditingControllers.fortTempController.text = model
+        .getSTHRBlock()
+        .fortTemp
+        .toString();
+    _sTHRTexEditingControllers.refBaseController.text = model
+        .getSTHRBlock()
+        .refBase
+        .toString();
+    _sTHRTexEditingControllers.refMagicController.text = model
+        .getSTHRBlock()
+        .refMagic
+        .toString();
+    _sTHRTexEditingControllers.refMiscController.text = model
+        .getSTHRBlock()
+        .refMisc
+        .toString();
+    _sTHRTexEditingControllers.refTempController.text = model
+        .getSTHRBlock()
+        .refTemp
+        .toString();
+    _sTHRTexEditingControllers.willBaseController.text = model
+        .getSTHRBlock()
+        .willBase
+        .toString();
+    _sTHRTexEditingControllers.willMagicController.text = model
+        .getSTHRBlock()
+        .willMagic
+        .toString();
+    _sTHRTexEditingControllers.willMiscController.text = model
+        .getSTHRBlock()
+        .willMisc
+        .toString();
+    _sTHRTexEditingControllers.willTempController.text = model
+        .getSTHRBlock()
+        .willTemp
+        .toString();
 
     _drSrControllers.drController.text = model.dr;
     _drSrControllers.srController.text = model.sr;
@@ -712,6 +845,8 @@ class CharacterSheetWM
   @override
   void goDebug() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const DebugScreen()));
+      context,
+      MaterialPageRoute(builder: (context) => const DebugScreen()),
+    );
   }
 }
