@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/equipment_page/weapons_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/first_page/ability_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/bab_block.dart';
@@ -27,6 +28,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   int get dexModificator;
   int get currentPage;
   bool get isMagic;
+  WeaponList get weapons;
 
   CharacterAbility getAbility();
   void onRefresh({int? pageIndex});
@@ -44,6 +46,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   void createNewCharacter();
   void setCurrentPage(int pageIndex);
   void setIsMagic(bool isMagic);
+  void addWeapon();
+  void deleteWeapon(int index);
 
   EntityStateNotifier<Character?> characterLoadNotifier();
   EntityStateNotifier<List<Character?>> listCharactersNotifier();
@@ -58,6 +62,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   ValueNotifier<int> conModificatorNotifier();
   ValueNotifier<int> wisModificatorNotifier();
   ValueNotifier<bool> isMagicNotifier();
+  ValueNotifier<int> weaponControllersNotifier();
 
   TextEditingController get damageTextController;
   TextEditingController get nameTextController;
@@ -73,6 +78,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   BabControllers get babControllers;
   STHRTexEditingControllers get sTHRTexEditingControllers;
   DrSrControllers get drSrControllers;
+  List<WeaponControllers> get weaponsControllers;
 
   CarouselSliderController get carouselController;
 }
@@ -98,6 +104,7 @@ class CharacterSheetWM
   final ValueNotifier<int> _conModificatorNotifier = ValueNotifier(0);
   final ValueNotifier<int> _wisModificatorNotifier = ValueNotifier(0);
   final ValueNotifier<bool> _isMagicNotifier = ValueNotifier(true);
+  final ValueNotifier<int> _weaponControllersNotifier = ValueNotifier(0);
 
   final TextEditingController _damageTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
@@ -181,6 +188,7 @@ class CharacterSheetWM
   Character? _character;
   List<Character?> characterList = [];
   int? _currentPage;
+  List<WeaponControllers> _weaponControllers = [];
 
   @override
   int get currentPage => _currentPage ?? 0;
@@ -211,6 +219,8 @@ class CharacterSheetWM
   ValueNotifier<int> wisModificatorNotifier() => _wisModificatorNotifier;
   @override
   ValueNotifier<bool> isMagicNotifier() => _isMagicNotifier;
+  @override
+  ValueNotifier<int> weaponControllersNotifier() => _weaponControllersNotifier;
 
   @override
   TextEditingController get damageTextController => _damageTextController;
@@ -247,6 +257,9 @@ class CharacterSheetWM
   CarouselSliderController get carouselController => _carouselController;
 
   @override
+  List<WeaponControllers> get weaponsControllers => _weaponControllers;
+
+  @override
   Character get character => _character ?? Character.empty();
   @override
   int get maxHp => model.maxHp;
@@ -261,6 +274,8 @@ class CharacterSheetWM
       CharacterAbility.getModifier(model.getAbility().dexterity);
   @override
   bool get isMagic => model.isMagic;
+  @override
+  WeaponList get weapons => model.weapon;
 
   CharacterSheetWM(super._model);
 
@@ -294,6 +309,7 @@ class CharacterSheetWM
     _conModificatorNotifier.dispose();
     _wisModificatorNotifier.dispose();
     _isMagicNotifier.dispose();
+    _weaponControllersNotifier.dispose();
     super.dispose();
   }
 
@@ -504,6 +520,64 @@ class CharacterSheetWM
     goToCharacter(id);
   }
 
+  void initWeaponControllers() {
+    _weaponControllers.clear();
+    List<Weapon> weapons = model.weapon.weapons;
+    for (int i = 0; i < weapons.length; i++) {
+      WeaponControllers controller = WeaponControllers(
+        nameController: TextEditingController(),
+        attackBonusController: TextEditingController(),
+        damageController: TextEditingController(),
+        critController: TextEditingController(),
+        specialController: TextEditingController(),
+        rangeController: TextEditingController(),
+        typeController: TextEditingController(),
+        sizeController: TextEditingController(),
+        capacityController: TextEditingController(),
+        usagesController: TextEditingController(),
+      );
+      _weaponControllers.add(controller);
+    }
+
+    for (int i = 0; i < weapons.length; i++) {
+      _weaponControllers[i].nameController.text = weapons[i].name;
+      _weaponControllers[i].attackBonusController.text = weapons[i].attackBonus;
+      _weaponControllers[i].damageController.text = weapons[i].damage;
+      _weaponControllers[i].critController.text = weapons[i].crit;
+      _weaponControllers[i].specialController.text = weapons[i].special;
+      _weaponControllers[i].rangeController.text = weapons[i].range;
+      _weaponControllers[i].typeController.text = weapons[i].type;
+      _weaponControllers[i].sizeController.text = weapons[i].size;
+      _weaponControllers[i].capacityController.text = weapons[i].capacity;
+      _weaponControllers[i].usagesController.text = weapons[i].usages;
+    }
+    _weaponControllersNotifier.value = _weaponControllers.length;
+  }
+
+  @override
+  void addWeapon() {
+    WeaponControllers controller = WeaponControllers(
+      nameController: TextEditingController(),
+      attackBonusController: TextEditingController(),
+      damageController: TextEditingController(),
+      critController: TextEditingController(),
+      specialController: TextEditingController(),
+      rangeController: TextEditingController(),
+      typeController: TextEditingController(),
+      sizeController: TextEditingController(),
+      capacityController: TextEditingController(),
+      usagesController: TextEditingController(),
+    );
+    _weaponControllers.add(controller);
+    _weaponControllersNotifier.value = _weaponControllers.length;
+  }
+
+  @override
+  void deleteWeapon(int index) {
+    _weaponControllers.removeAt(index);
+    _weaponControllersNotifier.value = _weaponControllers.length;
+  }
+
   @override
   void saveCharacter() async {
     try {
@@ -638,7 +712,7 @@ class CharacterSheetWM
         dr: _drSrControllers.drController.text,
         sr: _drSrControllers.srController.text,
         isMagic: model.isMagic,
-        weaponList: const WeaponList(weapons: []),
+        weaponList: saveWeapons(),
       );
 
       model.saveCharacter(newCharacter);
@@ -648,6 +722,29 @@ class CharacterSheetWM
     } catch (e) {
       log('Smth went wrong during save: $e');
     }
+  }
+
+  WeaponList saveWeapons() {
+    List<Weapon> weaponList = [];
+    for (int i = 0; i < _weaponControllers.length; i++) {
+      weaponList.add(
+        Weapon(
+          name: _weaponControllers[i].nameController.text,
+          attackBonus: _weaponControllers[i].attackBonusController.text,
+          crit: _weaponControllers[i].critController.text,
+          special: _weaponControllers[i].specialController.text,
+          range: _weaponControllers[i].rangeController.text,
+          damage: _weaponControllers[i].damageController.text,
+          size: _weaponControllers[i].sizeController.text,
+          type: _weaponControllers[i].typeController.text,
+          capacity: _weaponControllers[i].capacityController.text,
+          usages: _weaponControllers[i].usagesController.text,
+          isCollapsed: true,
+        ),
+      );
+    }
+
+    return WeaponList(weapons: weaponList);
   }
 
   void initNotifiersAndControllers() {
@@ -840,6 +937,8 @@ class CharacterSheetWM
 
     _drSrControllers.drController.text = model.dr;
     _drSrControllers.srController.text = model.sr;
+
+    initWeaponControllers();
   }
 
   @override

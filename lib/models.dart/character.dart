@@ -355,6 +355,7 @@ class Weapon {
   final String type;
   final String capacity;
   final String usages;
+  final bool isCollapsed;
 
   const Weapon({
     required this.name,
@@ -367,6 +368,7 @@ class Weapon {
     required this.type,
     required this.capacity,
     required this.usages,
+    required this.isCollapsed,
   });
 
   const Weapon.empty({
@@ -380,6 +382,7 @@ class Weapon {
     this.type = '',
     this.capacity = '',
     this.usages = '',
+    this.isCollapsed = true,
   });
 
   @override
@@ -397,7 +400,8 @@ class Weapon {
       size = json['size'] as String,
       type = json['type'] as String,
       capacity = json['capacity'] as String,
-      usages = json['usages'] as String;
+      usages = json['usages'] as String,
+      isCollapsed = json['isCollapsed'] as bool;
 
   Map<String, dynamic> toJson() => {
     'name': name,
@@ -410,6 +414,7 @@ class Weapon {
     'type': type,
     'capacity': capacity,
     'usages': usages,
+    'isCollapsed': isCollapsed,
   };
 }
 

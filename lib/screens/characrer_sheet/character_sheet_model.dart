@@ -30,9 +30,7 @@ class CharacterSheetModel extends ElementaryModel {
 
   bool _isMagic = true;
 
-  CharacterSheetModel({
-    required this.repository,
-  });
+  CharacterSheetModel({required this.repository});
 
   int get lvl => _lvl;
 
@@ -75,6 +73,8 @@ class CharacterSheetModel extends ElementaryModel {
   String get sr => character.sr;
 
   bool get isMagic => _isMagic;
+
+  WeaponList get weapon => character.weaponList;
 
   CharacterAbility getAbility() {
     return character.ability;

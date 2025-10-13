@@ -10,16 +10,22 @@ class EquipmentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageTemplate(wm: wm, content: [
-      WeaponsBlock(),
-      const SizedBox(
-        height: 16,
-      ),
-      Text(
-        'Equipment\nweapon, armor, equip',
-        textAlign: TextAlign.center,
-        style: AppStyles.commonPixel(),
-      ),
-    ]);
+    return PageTemplate(
+      wm: wm,
+      content: [
+        WeaponsBlock(
+          wm: wm,
+          weapons: wm.weapons,
+          controllers: wm.weaponsControllers,
+          controllersNotifier: wm.weaponControllersNotifier(),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Equipment\nweapon, armor, equip',
+          textAlign: TextAlign.center,
+          style: AppStyles.commonPixel(),
+        ),
+      ],
+    );
   }
 }
