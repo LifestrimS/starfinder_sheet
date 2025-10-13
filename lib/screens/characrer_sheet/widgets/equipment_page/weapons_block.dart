@@ -113,11 +113,13 @@ class ExpansionBlock extends StatefulWidget {
 
 class _ExpansionBlockState extends State<ExpansionBlock> {
   bool _isExpanded = false;
+  final ExpansibleController _controller = ExpansibleController();
 
   @override
-  void initState() {
-    widget.weapon.isCollapsed ? _isExpanded = false : _isExpanded = true;
-    super.initState();
+  void didUpdateWidget(covariant ExpansionBlock oldWidget) {
+    _controller.collapse();
+
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -128,6 +130,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
           tilePadding: EdgeInsets.zero,
+          controller: _controller,
           childrenPadding: const EdgeInsets.only(
             top: 8.0,
             right: 8.0,
