@@ -25,6 +25,7 @@ class Character {
   final String sr;
   final bool isMagic;
   final WeaponList weaponList;
+  final ArmorList armorList;
 
   Character({
     required this.id,
@@ -48,6 +49,7 @@ class Character {
     required this.sr,
     required this.isMagic,
     required this.weaponList,
+    required this.armorList,
   });
 
   Character.empty({
@@ -72,6 +74,7 @@ class Character {
     this.sr = '',
     this.isMagic = true,
     this.weaponList = const WeaponList.empty(),
+    this.armorList = const ArmorList.empty(),
   });
 
   Character copyWith({
@@ -96,6 +99,7 @@ class Character {
     String? sr,
     bool? isMagic,
     WeaponList? weaponList,
+    ArmorList? armorList,
   }) {
     return Character(
       id: id ?? this.id,
@@ -119,6 +123,7 @@ class Character {
       sr: sr ?? this.sr,
       isMagic: isMagic ?? this.isMagic,
       weaponList: weaponList ?? this.weaponList,
+      armorList: armorList ?? this.armorList,
     );
   }
 
@@ -355,7 +360,6 @@ class Weapon {
   final String type;
   final String capacity;
   final String usages;
-  final bool isCollapsed;
 
   const Weapon({
     required this.name,
@@ -368,7 +372,6 @@ class Weapon {
     required this.type,
     required this.capacity,
     required this.usages,
-    required this.isCollapsed,
   });
 
   const Weapon.empty({
@@ -382,7 +385,6 @@ class Weapon {
     this.type = '',
     this.capacity = '',
     this.usages = '',
-    this.isCollapsed = true,
   });
 
   @override
@@ -400,8 +402,7 @@ class Weapon {
       size = json['size'] as String,
       type = json['type'] as String,
       capacity = json['capacity'] as String,
-      usages = json['usages'] as String,
-      isCollapsed = json['isCollapsed'] as bool;
+      usages = json['usages'] as String;
 
   Map<String, dynamic> toJson() => {
     'name': name,
@@ -414,7 +415,6 @@ class Weapon {
     'type': type,
     'capacity': capacity,
     'usages': usages,
-    'isCollapsed': isCollapsed,
   };
 }
 
@@ -435,5 +435,84 @@ class WeaponList {
       TypeConverter.json2(
         fromJson: (json) => WeaponList.fromJson(json as Map<String, Object?>),
         toJson: (weaponList) => weaponList.toJson(),
+      );
+}
+
+class Armor {
+  final String name;
+  final String type;
+  final int armorKac;
+  final int armorEac;
+  final int chkPenalty;
+  final int maxDex;
+  final String spd;
+  final int upgrades;
+
+  const Armor({
+    required this.name,
+    required this.type,
+    required this.armorKac,
+    required this.armorEac,
+    required this.chkPenalty,
+    required this.maxDex,
+    required this.spd,
+    required this.upgrades,
+  });
+
+  const Armor.empty({
+    this.name = '',
+    this.type = '',
+    this.armorKac = 0,
+    this.armorEac = 0,
+    this.chkPenalty = 0,
+    this.maxDex = 0,
+    this.spd = '0',
+    this.upgrades = 0,
+  });
+
+  @override
+  String toString() {
+    return '\nName: $name';
+  }
+
+  Armor.fromJson(Map<String, dynamic> json)
+    : name = json['name'] as String,
+      type = json['type'] as String,
+      armorKac = json['armorKac'] as int,
+      armorEac = json['armorEac'] as int,
+      chkPenalty = json['chkPenalty'] as int,
+      maxDex = json['maxDex'] as int,
+      spd = json['spd'] as String,
+      upgrades = json['upgrades'] as int;
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'type': type,
+    'armorKac': armorKac,
+    'armorEac': armorEac,
+    'chkPenalty': chkPenalty,
+    'maxDex': maxDex,
+    'spd': spd,
+    'upgrades': upgrades,
+  };
+}
+
+@JsonSerializable()
+class ArmorList {
+  final List<Armor> armors;
+
+  const ArmorList({required this.armors});
+
+  const ArmorList.empty({this.armors = const []});
+
+  factory ArmorList.fromJson(Map<String, dynamic> json) =>
+      _$ArmorListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ArmorListToJson(this);
+
+  static JsonTypeConverter2<ArmorList, String, Object?> converter =
+      TypeConverter.json2(
+        fromJson: (json) => ArmorList.fromJson(json as Map<String, Object?>),
+        toJson: (armorList) => armorList.toJson(),
       );
 }

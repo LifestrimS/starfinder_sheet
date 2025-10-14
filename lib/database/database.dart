@@ -127,29 +127,6 @@ class TableCharacter extends Table {
   BoolColumn get isMagic => boolean()();
 
   TextColumn get weapons => text().map(WeaponList.converter).nullable()();
+
+  TextColumn get armors => text().map(ArmorList.converter).nullable()();
 }
-
-// class WeaponListConverter extends TypeConverter<WeaponList, String>
-//     with JsonTypeConverter2<WeaponList, String, Map<String, Object?>> {
-//   const WeaponListConverter();
-
-//   @override
-//   WeaponList fromSql(String fromDb) {
-//     return fromJson(conv.json.decode(fromDb) as Map<String, dynamic>);
-//   }
-
-//   @override
-//   String toSql(WeaponList value) {
-//     return conv.json.encode(toJson(value));
-//   }
-
-//   @override
-//   WeaponList fromJson(Map<String, Object?> json) {
-//     return WeaponList.fromJson(json);
-//   }
-
-//   @override
-//   Map<String, Object?> toJson(WeaponList value) {
-//     return value.toJson();
-//   }
-// }

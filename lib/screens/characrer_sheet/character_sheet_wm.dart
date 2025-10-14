@@ -713,6 +713,7 @@ class CharacterSheetWM
         sr: _drSrControllers.srController.text,
         isMagic: model.isMagic,
         weaponList: saveWeapons(),
+        armorList: const ArmorList.empty(),
       );
 
       model.saveCharacter(newCharacter);
@@ -739,7 +740,6 @@ class CharacterSheetWM
           type: _weaponControllers[i].typeController.text,
           capacity: _weaponControllers[i].capacityController.text,
           usages: _weaponControllers[i].usagesController.text,
-          isCollapsed: true,
         ),
       );
     }

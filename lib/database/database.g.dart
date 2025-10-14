@@ -690,6 +690,15 @@ class $TableCharacterTable extends TableCharacter
         requiredDuringInsert: false,
       ).withConverter<WeaponList?>($TableCharacterTable.$converterweaponsn);
   @override
+  late final GeneratedColumnWithTypeConverter<ArmorList?, String> armors =
+      GeneratedColumn<String>(
+        'armors',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<ArmorList?>($TableCharacterTable.$converterarmorsn);
+  @override
   List<GeneratedColumn> get $columns => [
     id,
     charName,
@@ -754,6 +763,7 @@ class $TableCharacterTable extends TableCharacter
     sr,
     isMagic,
     weapons,
+    armors,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1542,6 +1552,12 @@ class $TableCharacterTable extends TableCharacter
           data['${effectivePrefix}weapons'],
         ),
       ),
+      armors: $TableCharacterTable.$converterarmorsn.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}armors'],
+        ),
+      ),
     );
   }
 
@@ -1554,6 +1570,10 @@ class $TableCharacterTable extends TableCharacter
       WeaponList.converter;
   static JsonTypeConverter2<WeaponList?, String?, Object?> $converterweaponsn =
       JsonTypeConverter2.asNullable($converterweapons);
+  static JsonTypeConverter2<ArmorList, String, Object?> $converterarmors =
+      ArmorList.converter;
+  static JsonTypeConverter2<ArmorList?, String?, Object?> $converterarmorsn =
+      JsonTypeConverter2.asNullable($converterarmors);
 }
 
 class TableCharacterData extends DataClass
@@ -1621,6 +1641,7 @@ class TableCharacterData extends DataClass
   final String sr;
   final bool isMagic;
   final WeaponList? weapons;
+  final ArmorList? armors;
   const TableCharacterData({
     required this.id,
     required this.charName,
@@ -1685,6 +1706,7 @@ class TableCharacterData extends DataClass
     required this.sr,
     required this.isMagic,
     this.weapons,
+    this.armors,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1754,6 +1776,11 @@ class TableCharacterData extends DataClass
     if (!nullToAbsent || weapons != null) {
       map['weapons'] = Variable<String>(
         $TableCharacterTable.$converterweaponsn.toSql(weapons),
+      );
+    }
+    if (!nullToAbsent || armors != null) {
+      map['armors'] = Variable<String>(
+        $TableCharacterTable.$converterarmorsn.toSql(armors),
       );
     }
     return map;
@@ -1826,6 +1853,9 @@ class TableCharacterData extends DataClass
       weapons: weapons == null && nullToAbsent
           ? const Value.absent()
           : Value(weapons),
+      armors: armors == null && nullToAbsent
+          ? const Value.absent()
+          : Value(armors),
     );
   }
 
@@ -1900,6 +1930,9 @@ class TableCharacterData extends DataClass
       weapons: $TableCharacterTable.$converterweaponsn.fromJson(
         serializer.fromJson<Object?>(json['weapons']),
       ),
+      armors: $TableCharacterTable.$converterarmorsn.fromJson(
+        serializer.fromJson<Object?>(json['armors']),
+      ),
     );
   }
   @override
@@ -1971,6 +2004,9 @@ class TableCharacterData extends DataClass
       'weapons': serializer.toJson<Object?>(
         $TableCharacterTable.$converterweaponsn.toJson(weapons),
       ),
+      'armors': serializer.toJson<Object?>(
+        $TableCharacterTable.$converterarmorsn.toJson(armors),
+      ),
     };
   }
 
@@ -2038,6 +2074,7 @@ class TableCharacterData extends DataClass
     String? sr,
     bool? isMagic,
     Value<WeaponList?> weapons = const Value.absent(),
+    Value<ArmorList?> armors = const Value.absent(),
   }) => TableCharacterData(
     id: id ?? this.id,
     charName: charName ?? this.charName,
@@ -2102,6 +2139,7 @@ class TableCharacterData extends DataClass
     sr: sr ?? this.sr,
     isMagic: isMagic ?? this.isMagic,
     weapons: weapons.present ? weapons.value : this.weapons,
+    armors: armors.present ? armors.value : this.armors,
   );
   TableCharacterData copyWithCompanion(TableCharacterCompanion data) {
     return TableCharacterData(
@@ -2196,6 +2234,7 @@ class TableCharacterData extends DataClass
       sr: data.sr.present ? data.sr.value : this.sr,
       isMagic: data.isMagic.present ? data.isMagic.value : this.isMagic,
       weapons: data.weapons.present ? data.weapons.value : this.weapons,
+      armors: data.armors.present ? data.armors.value : this.armors,
     );
   }
 
@@ -2264,7 +2303,8 @@ class TableCharacterData extends DataClass
           ..write('dr: $dr, ')
           ..write('sr: $sr, ')
           ..write('isMagic: $isMagic, ')
-          ..write('weapons: $weapons')
+          ..write('weapons: $weapons, ')
+          ..write('armors: $armors')
           ..write(')'))
         .toString();
   }
@@ -2334,6 +2374,7 @@ class TableCharacterData extends DataClass
     sr,
     isMagic,
     weapons,
+    armors,
   ]);
   @override
   bool operator ==(Object other) =>
@@ -2401,7 +2442,8 @@ class TableCharacterData extends DataClass
           other.dr == this.dr &&
           other.sr == this.sr &&
           other.isMagic == this.isMagic &&
-          other.weapons == this.weapons);
+          other.weapons == this.weapons &&
+          other.armors == this.armors);
 }
 
 class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
@@ -2468,6 +2510,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
   final Value<String> sr;
   final Value<bool> isMagic;
   final Value<WeaponList?> weapons;
+  final Value<ArmorList?> armors;
   const TableCharacterCompanion({
     this.id = const Value.absent(),
     this.charName = const Value.absent(),
@@ -2532,6 +2575,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     this.sr = const Value.absent(),
     this.isMagic = const Value.absent(),
     this.weapons = const Value.absent(),
+    this.armors = const Value.absent(),
   });
   TableCharacterCompanion.insert({
     this.id = const Value.absent(),
@@ -2597,6 +2641,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     required String sr,
     required bool isMagic,
     this.weapons = const Value.absent(),
+    this.armors = const Value.absent(),
   }) : charName = Value(charName),
        charClass = Value(charClass),
        lvl = Value(lvl),
@@ -2722,6 +2767,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     Expression<String>? sr,
     Expression<bool>? isMagic,
     Expression<String>? weapons,
+    Expression<String>? armors,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2787,6 +2833,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       if (sr != null) 'sr': sr,
       if (isMagic != null) 'is_magic': isMagic,
       if (weapons != null) 'weapons': weapons,
+      if (armors != null) 'armors': armors,
     });
   }
 
@@ -2854,6 +2901,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
     Value<String>? sr,
     Value<bool>? isMagic,
     Value<WeaponList?>? weapons,
+    Value<ArmorList?>? armors,
   }) {
     return TableCharacterCompanion(
       id: id ?? this.id,
@@ -2919,6 +2967,7 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
       sr: sr ?? this.sr,
       isMagic: isMagic ?? this.isMagic,
       weapons: weapons ?? this.weapons,
+      armors: armors ?? this.armors,
     );
   }
 
@@ -3116,6 +3165,11 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
         $TableCharacterTable.$converterweaponsn.toSql(weapons.value),
       );
     }
+    if (armors.present) {
+      map['armors'] = Variable<String>(
+        $TableCharacterTable.$converterarmorsn.toSql(armors.value),
+      );
+    }
     return map;
   }
 
@@ -3184,7 +3238,8 @@ class TableCharacterCompanion extends UpdateCompanion<TableCharacterData> {
           ..write('dr: $dr, ')
           ..write('sr: $sr, ')
           ..write('isMagic: $isMagic, ')
-          ..write('weapons: $weapons')
+          ..write('weapons: $weapons, ')
+          ..write('armors: $armors')
           ..write(')'))
         .toString();
   }
@@ -3266,6 +3321,7 @@ typedef $$TableCharacterTableCreateCompanionBuilder =
       required String sr,
       required bool isMagic,
       Value<WeaponList?> weapons,
+      Value<ArmorList?> armors,
     });
 typedef $$TableCharacterTableUpdateCompanionBuilder =
     TableCharacterCompanion Function({
@@ -3332,6 +3388,7 @@ typedef $$TableCharacterTableUpdateCompanionBuilder =
       Value<String> sr,
       Value<bool> isMagic,
       Value<WeaponList?> weapons,
+      Value<ArmorList?> armors,
     });
 
 class $$TableCharacterTableFilterComposer
@@ -3656,6 +3713,12 @@ class $$TableCharacterTableFilterComposer
   ColumnWithTypeConverterFilters<WeaponList?, WeaponList, String> get weapons =>
       $composableBuilder(
         column: $table.weapons,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnWithTypeConverterFilters<ArmorList?, ArmorList, String> get armors =>
+      $composableBuilder(
+        column: $table.armors,
         builder: (column) => ColumnWithTypeConverterFilters(column),
       );
 }
@@ -3983,6 +4046,11 @@ class $$TableCharacterTableOrderingComposer
     column: $table.weapons,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get armors => $composableBuilder(
+    column: $table.armors,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$TableCharacterTableAnnotationComposer
@@ -4210,6 +4278,9 @@ class $$TableCharacterTableAnnotationComposer
 
   GeneratedColumnWithTypeConverter<WeaponList?, String> get weapons =>
       $composableBuilder(column: $table.weapons, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<ArmorList?, String> get armors =>
+      $composableBuilder(column: $table.armors, builder: (column) => column);
 }
 
 class $$TableCharacterTableTableManager
@@ -4312,6 +4383,7 @@ class $$TableCharacterTableTableManager
                 Value<String> sr = const Value.absent(),
                 Value<bool> isMagic = const Value.absent(),
                 Value<WeaponList?> weapons = const Value.absent(),
+                Value<ArmorList?> armors = const Value.absent(),
               }) => TableCharacterCompanion(
                 id: id,
                 charName: charName,
@@ -4376,6 +4448,7 @@ class $$TableCharacterTableTableManager
                 sr: sr,
                 isMagic: isMagic,
                 weapons: weapons,
+                armors: armors,
               ),
           createCompanionCallback:
               ({
@@ -4442,6 +4515,7 @@ class $$TableCharacterTableTableManager
                 required String sr,
                 required bool isMagic,
                 Value<WeaponList?> weapons = const Value.absent(),
+                Value<ArmorList?> armors = const Value.absent(),
               }) => TableCharacterCompanion.insert(
                 id: id,
                 charName: charName,
@@ -4506,6 +4580,7 @@ class $$TableCharacterTableTableManager
                 sr: sr,
                 isMagic: isMagic,
                 weapons: weapons,
+                armors: armors,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
