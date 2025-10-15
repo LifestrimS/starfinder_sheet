@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
+import 'package:pathfinder_sheet/screens/util_widgets/custom_text_form_field.dart'
+    as inf;
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class ArmorsBlock extends StatefulWidget {
@@ -146,11 +148,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
         child: ExpansionTile(
           tilePadding: EdgeInsets.zero,
           controller: _controller,
-          childrenPadding: const EdgeInsets.only(
-            top: 1.0,
-            right: 36.0,
-            left: 38.0,
-          ),
+          childrenPadding: const EdgeInsets.only(top: 1.0, right: 36.0),
           onExpansionChanged: (value) {
             setState(() {
               _isExpanded = value;
@@ -194,7 +192,6 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(width: 38.0),
               Expanded(
                 child: CustomTextField(
                   hintText: 'KAC',
@@ -227,7 +224,6 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                     controller: widget.controllers.typeController,
                   ),
                 ),
-
                 const SizedBox(width: 8.0),
                 Expanded(
                   child: CustomTextField(
@@ -235,26 +231,31 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                     controller: widget.controllers.maxDexController,
                   ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 8.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
+                const SizedBox(width: 8.0),
                 Expanded(
                   child: CustomTextField(
                     hintText: 'Speed',
                     controller: widget.controllers.speedController,
                   ),
                 ),
-                const SizedBox(width: 8.0),
-                Expanded(
-                  child: CustomTextField(
-                    hintText: 'Upgrades',
-                    controller: widget.controllers.upgradesController,
-                  ),
-                ),
               ],
+            ),
+            const SizedBox(height: 8.0),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   children: [
+            //     Expanded(
+            //       child: CustomTextField(
+            //         hintText: 'Upgrades',
+            //         controller: widget.controllers.upgradesController,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            const SizedBox(height: 8.0),
+            inf.CustomTextField(
+              controller: TextEditingController(),
+              borderColorAlpha: 150,
             ),
 
             const SizedBox(height: 12.0),

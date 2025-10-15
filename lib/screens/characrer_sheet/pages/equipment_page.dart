@@ -45,6 +45,7 @@ class EquipmentPage extends StatelessWidget {
           controllersNotifier: wm.weaponControllersNotifier(),
         ),
         const SizedBox(height: 16),
+
         Row(
           children: [
             const SizedBox(

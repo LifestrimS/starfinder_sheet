@@ -33,14 +33,15 @@ Color getColorFromString(String stringColor) {
       tmpStringList[1].substring(0, tmpStringList[1].indexOf(',')),
       tmpStringList[2].substring(0, tmpStringList[1].indexOf(',')),
       tmpStringList[3].substring(0, tmpStringList[1].indexOf(',')),
-      tmpStringList[4].substring(0, tmpStringList[1].indexOf(','))
+      tmpStringList[4].substring(0, tmpStringList[1].indexOf(',')),
     ];
 
     Color color = Color.from(
-        alpha: double.parse(splittedColor[0]),
-        red: double.parse(splittedColor[1]),
-        green: double.parse(splittedColor[2]),
-        blue: double.parse(splittedColor[3]));
+      alpha: double.parse(splittedColor[0]),
+      red: double.parse(splittedColor[1]),
+      green: double.parse(splittedColor[2]),
+      blue: double.parse(splittedColor[3]),
+    );
 
     return color;
   }

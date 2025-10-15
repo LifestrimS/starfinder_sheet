@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
+import 'package:pathfinder_sheet/screens/util_widgets/border.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
+import 'package:pathfinder_sheet/screens/util_widgets/custom_text_form_field.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class WeaponsBlock extends StatefulWidget {
@@ -42,7 +44,7 @@ class _WeaponsBlockState extends State<WeaponsBlock> {
                     setState(() {});
                   },
                   child: CustomPaint(
-                    painter: ButtonBorderPainter(),
+                    painter: const FullBorderPainter(),
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -142,7 +144,8 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
           childrenPadding: const EdgeInsets.only(
             top: 1.0,
             right: 36.0,
-            left: 15.0,
+            left: 1.0,
+            bottom: 1.0,
           ),
           onExpansionChanged: (value) {
             setState(() {
@@ -172,12 +175,9 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                   ),
                   const SizedBox(width: 8.0),
                   Expanded(
-                    child: CustomTextField(
-                      hintText: 'Name',
-                      height: 35.0,
+                    child: getMainTextField(
+                      title: 'Name',
                       controller: widget.controllers.nameController,
-                      borderColorAlpha: 255,
-                      borderWidth: 2.5,
                     ),
                   ),
                 ],
@@ -187,64 +187,60 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
           ),
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(width: 15.0),
-              Expanded(
-                child: CustomTextField(
-                  hintText: 'Attack bonus',
+              Flexible(
+                flex: 1,
+                child: getTextField(
+                  title: 'ATK',
                   controller: widget.controllers.attackBonusController,
                 ),
               ),
               const SizedBox(width: 8.0),
-              Expanded(
+              Flexible(
+                flex: 2,
                 child: CustomTextField(
-                  hintText: 'Damage',
+                  title: 'Damage',
                   controller: widget.controllers.damageController,
+                  height: null,
+                  fontSize: 10.0,
+                  textAlign: TextAlign.left,
+                  textAlignVertical: TextAlignVertical.center,
+                  contentPadding: const EdgeInsets.only(
+                    left: 8.0,
+                    right: 8.0,
+                    top: 14.0,
+                    bottom: 4.0,
+                  ),
                 ),
+
+                // getTextField(
+                //   title: 'Damage',
+                //   controller: widget.controllers.damageController,
+                //   height: null,
+                // ),
               ),
             ],
           ),
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: CustomTextField(
-                    hintText: 'Crit',
-                    controller: widget.controllers.critController,
-                  ),
-                ),
-                const SizedBox(width: 8.0),
-                Expanded(
-                  child: CustomTextField(
-                    hintText: 'Special',
-                    controller: widget.controllers.specialController,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: CustomTextField(
-                    hintText: 'Range',
+                Flexible(
+                  flex: 1,
+                  child: getTextField(
+                    title: 'Range',
                     controller: widget.controllers.rangeController,
                   ),
                 ),
+
                 const SizedBox(width: 8.0),
-                Expanded(
-                  child: CustomTextField(
-                    hintText: 'Type',
+                Flexible(
+                  flex: 2,
+                  child: getTextField(
+                    title: 'Type',
                     controller: widget.controllers.typeController,
-                  ),
-                ),
-                const SizedBox(width: 8.0),
-                Expanded(
-                  child: CustomTextField(
-                    hintText: 'Size',
-                    controller: widget.controllers.sizeController,
                   ),
                 ),
               ],
@@ -254,19 +250,64 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
-                  child: CustomTextField(
-                    hintText: 'Capacity',
+                  child: getTextField(
+                    title: 'Crit',
+                    controller: widget.controllers.critController,
+                    fontSize: 10.0,
+                    height: 100.0,
+                  ),
+                ),
+                const SizedBox(width: 8.0),
+                Expanded(
+                  child: getTextField(
+                    title: 'Special',
+                    controller: widget.controllers.specialController,
+                    fontSize: 10.0,
+                    height: 100.0,
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: getTextField(
+                    title: 'Size',
+                    controller: widget.controllers.sizeController,
+                  ),
+                ),
+                const SizedBox(width: 8.0),
+                Expanded(
+                  child: getTextField(
+                    title: 'Capacity',
                     controller: widget.controllers.capacityController,
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
-                  child: CustomTextField(
-                    hintText: 'Usages',
+                  child: getTextField(
+                    title: 'Usages',
                     controller: widget.controllers.usagesController,
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: 8.0),
+            CustomTextField(
+              title: 'Notes',
+              controller: TextEditingController(),
+              fontSize: 10.0,
+              textAlign: TextAlign.left,
+              textAlignVertical: TextAlignVertical.center,
+              contentPadding: const EdgeInsets.only(
+                left: 8.0,
+                right: 8.0,
+                top: 14.0,
+                bottom: 4.0,
+              ),
             ),
             const SizedBox(height: 12.0),
             Row(
@@ -278,7 +319,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                     setState(() {});
                   },
                   child: CustomPaint(
-                    painter: ButtonBorderPainter(),
+                    painter: const FullBorderPainter(customCut: 0.1),
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -299,112 +340,44 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
       ),
     );
   }
-}
 
-class CustomTextField extends StatelessWidget {
-  final String hintText;
-  final TextEditingController controller;
-  final double? height;
-  final int? borderColorAlpha;
-  final double? borderWidth;
+  Widget getMainTextField({
+    required String title,
+    required TextEditingController controller,
+  }) {
+    return CustomTextField(
+      title: title,
+      controller: controller,
+      height: 35.0,
+      borderColorAlpha: 255,
+      customCut: 0.03,
+      fontSize: 10.0,
+      textAlign: TextAlign.center,
+      textAlignVertical: TextAlignVertical.center,
+    );
+  }
 
-  const CustomTextField({
-    required this.hintText,
-    required this.controller,
-    this.height,
-    this.borderColorAlpha,
-    this.borderWidth,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
+  Widget getTextField({
+    required String title,
+    required TextEditingController controller,
+    double? fontSize,
+    double? height,
+  }) {
+    return CustomTextField(
+      title: title,
+      controller: controller,
       height: height ?? 50.0,
-      width: 50.0,
-      child: CustomPaint(
-        painter: TextFieldBorderPainter(
-          borderColorAlpha: borderColorAlpha,
-          width: borderWidth,
-        ),
-        child: TextFormField(
-          controller: controller,
-          expands: true,
-          maxLines: null,
-          cursorColor: AppColors.darkPink,
-          style: AppStyles.commonPixel(),
-          textAlign: TextAlign.left,
-          textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
-            isDense: true,
-            border: InputBorder.none,
-            hintText: hintText,
-            contentPadding: const EdgeInsets.only(left: 8.0),
-          ),
-        ),
+      fontSize: 10.0,
+      textAlign: TextAlign.left,
+      textAlignVertical: TextAlignVertical.center,
+      contentPadding: const EdgeInsets.only(
+        left: 8.0,
+        right: 8.0,
+        top: 14.0,
+        bottom: 4.0,
       ),
     );
   }
-}
-
-class TextFieldBorderPainter extends CustomPainter {
-  final int? borderColorAlpha;
-  final double? width;
-
-  const TextFieldBorderPainter({
-    this.borderColorAlpha,
-    this.width,
-    Listenable? repaint,
-  });
-  @override
-  void paint(Canvas canvas, Size size) {
-    const cut = 0.04;
-    final widthCut = size.width * cut;
-
-    Paint paintFrame = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = width ?? 2.0
-      ..color = AppColors.teal.withAlpha(borderColorAlpha ?? 120);
-    Path pathFrame = Path();
-
-    pathFrame.moveTo(0.0, 0.0);
-    pathFrame.lineTo(size.width - widthCut, 0.0);
-    pathFrame.lineTo(size.width, 0.0 + widthCut);
-    pathFrame.lineTo(size.width, size.height);
-    pathFrame.lineTo(0.0 + widthCut, size.height);
-    pathFrame.lineTo(0.0, size.height - widthCut);
-    pathFrame.close();
-    canvas.drawPath(pathFrame, paintFrame);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
-}
-
-class ButtonBorderPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    const cut = 0.05;
-    final widthCut = size.width * cut;
-
-    Paint paintFrame = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0
-      ..color = AppColors.teal;
-    Path pathFrame = Path();
-
-    pathFrame.moveTo(0.0, 0.0);
-    pathFrame.lineTo(size.width - widthCut, 0.0);
-    pathFrame.lineTo(size.width, 0.0 + widthCut);
-    pathFrame.lineTo(size.width, size.height);
-    pathFrame.lineTo(0.0 + widthCut, size.height);
-    pathFrame.lineTo(0.0, size.height - widthCut);
-    pathFrame.close();
-    canvas.drawPath(pathFrame, paintFrame);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
 class WeaponControllers {

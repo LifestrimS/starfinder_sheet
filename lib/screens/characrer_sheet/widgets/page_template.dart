@@ -16,17 +16,22 @@ class PageTemplate extends StatelessWidget {
         int? index = wm.currentPage;
         wm.onRefresh(pageIndex: index);
       },
-      child: ListView(children: [
-        SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [...content],
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+
+            child: Container(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [...content],
+              ),
             ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }
