@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final double? fontSize;
   final EdgeInsets? contentPadding;
   final Color? customColor;
+  final int? minLines;
 
   const CustomTextField({
     required this.controller,
@@ -30,6 +31,7 @@ class CustomTextField extends StatelessWidget {
     this.fontSize,
     this.contentPadding,
     this.customColor,
+    this.minLines,
     super.key,
   });
 
@@ -75,6 +77,7 @@ class CustomTextField extends StatelessWidget {
                     style: AppStyles.commonPixel().copyWith(
                       fontSize: fontSize ?? 14.0,
                     ),
+                    minLines: minLines ?? 2,
                     textAlign: textAlign ?? TextAlign.left,
                     textAlignVertical:
                         textAlignVertical ?? TextAlignVertical.center,

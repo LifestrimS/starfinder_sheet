@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/equipment_page/armor_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/equipment_page/weapons_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/first_page/ability_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/ac_block.dart';
@@ -29,6 +30,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   int get currentPage;
   bool get isMagic;
   WeaponList get weapons;
+  ArmorList get armors;
 
   CharacterAbility getAbility();
   void onRefresh({int? pageIndex});
@@ -48,6 +50,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   void setIsMagic(bool isMagic);
   void addWeapon();
   void deleteWeapon(int index);
+  void addArmor();
+  void deleteArmor(int index);
 
   EntityStateNotifier<Character?> characterLoadNotifier();
   EntityStateNotifier<List<Character?>> listCharactersNotifier();
@@ -63,6 +67,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   ValueNotifier<int> wisModificatorNotifier();
   ValueNotifier<bool> isMagicNotifier();
   ValueNotifier<int> weaponControllersNotifier();
+  ValueNotifier<int> armorControllersNotifier();
 
   TextEditingController get damageTextController;
   TextEditingController get nameTextController;
@@ -79,6 +84,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   STHRTexEditingControllers get sTHRTexEditingControllers;
   DrSrControllers get drSrControllers;
   List<WeaponControllers> get weaponsControllers;
+  List<ArmorControllers> get armorControllers;
 
   CarouselSliderController get carouselController;
 }
@@ -105,6 +111,7 @@ class CharacterSheetWM
   final ValueNotifier<int> _wisModificatorNotifier = ValueNotifier(0);
   final ValueNotifier<bool> _isMagicNotifier = ValueNotifier(true);
   final ValueNotifier<int> _weaponControllersNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _armorControllersNotifier = ValueNotifier(0);
 
   final TextEditingController _damageTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
@@ -189,6 +196,7 @@ class CharacterSheetWM
   List<Character?> characterList = [];
   int? _currentPage;
   List<WeaponControllers> _weaponControllers = [];
+  List<ArmorControllers> _armorControllers = [];
 
   @override
   int get currentPage => _currentPage ?? 0;
@@ -221,6 +229,8 @@ class CharacterSheetWM
   ValueNotifier<bool> isMagicNotifier() => _isMagicNotifier;
   @override
   ValueNotifier<int> weaponControllersNotifier() => _weaponControllersNotifier;
+  @override
+  ValueNotifier<int> armorControllersNotifier() => _armorControllersNotifier;
 
   @override
   TextEditingController get damageTextController => _damageTextController;
@@ -258,6 +268,8 @@ class CharacterSheetWM
 
   @override
   List<WeaponControllers> get weaponsControllers => _weaponControllers;
+  @override
+  List<ArmorControllers> get armorControllers => _armorControllers;
 
   @override
   Character get character => _character ?? Character.empty();
@@ -276,6 +288,8 @@ class CharacterSheetWM
   bool get isMagic => model.isMagic;
   @override
   WeaponList get weapons => model.weapon;
+  @override
+  ArmorList get armors => model.armor;
 
   CharacterSheetWM(super._model);
 
@@ -310,6 +324,7 @@ class CharacterSheetWM
     _wisModificatorNotifier.dispose();
     _isMagicNotifier.dispose();
     _weaponControllersNotifier.dispose();
+    _armorControllersNotifier.dispose();
     super.dispose();
   }
 
@@ -535,6 +550,7 @@ class CharacterSheetWM
         sizeController: TextEditingController(),
         capacityController: TextEditingController(),
         usagesController: TextEditingController(),
+        notesController: TextEditingController(),
       );
       _weaponControllers.add(controller);
     }
@@ -567,6 +583,7 @@ class CharacterSheetWM
       sizeController: TextEditingController(),
       capacityController: TextEditingController(),
       usagesController: TextEditingController(),
+      notesController: TextEditingController(),
     );
     _weaponControllers.add(controller);
     _weaponControllersNotifier.value = _weaponControllers.length;
@@ -576,6 +593,63 @@ class CharacterSheetWM
   void deleteWeapon(int index) {
     _weaponControllers.removeAt(index);
     _weaponControllersNotifier.value = _weaponControllers.length;
+  }
+
+  void initArmorControllers() {
+    _armorControllers.clear();
+    List<Armor> armors = model.armor.armors;
+    for (int i = 0; i < armors.length; i++) {
+      ArmorControllers controller = ArmorControllers(
+        nameController: TextEditingController(),
+        typeController: TextEditingController(),
+        kacController: TextEditingController(),
+        eacController: TextEditingController(),
+        chkPenaltyController: TextEditingController(),
+        maxDexController: TextEditingController(),
+        speedController: TextEditingController(),
+        upgradesController: TextEditingController(),
+        notesController: TextEditingController(),
+      );
+      _armorControllers.add(controller);
+    }
+
+    for (int i = 0; i < armors.length; i++) {
+      _armorControllers[i].nameController.text = armors[i].name;
+      _armorControllers[i].typeController.text = armors[i].type;
+      _armorControllers[i].kacController.text = armors[i].armorKac.toString();
+      _armorControllers[i].eacController.text = armors[i].armorEac.toString();
+      _armorControllers[i].chkPenaltyController.text = armors[i].chkPenalty
+          .toString();
+      _armorControllers[i].maxDexController.text = armors[i].maxDex.toString();
+      _armorControllers[i].speedController.text = armors[i].spd;
+      _armorControllers[i].upgradesController.text = armors[i].upgrades
+          .toString();
+      _armorControllers[i].notesController.text = armors[i].notes;
+    }
+    _armorControllersNotifier.value = _armorControllers.length;
+  }
+
+  @override
+  void addArmor() {
+    ArmorControllers controller = ArmorControllers(
+      nameController: TextEditingController(),
+      typeController: TextEditingController(),
+      kacController: TextEditingController(),
+      eacController: TextEditingController(),
+      chkPenaltyController: TextEditingController(),
+      maxDexController: TextEditingController(),
+      speedController: TextEditingController(),
+      upgradesController: TextEditingController(),
+      notesController: TextEditingController(),
+    );
+    _armorControllers.add(controller);
+    _armorControllersNotifier.value = _armorControllers.length;
+  }
+
+  @override
+  void deleteArmor(int index) {
+    _armorControllers.removeAt(index);
+    _armorControllersNotifier.value = _armorControllers.length;
   }
 
   @override
@@ -713,7 +787,7 @@ class CharacterSheetWM
         sr: _drSrControllers.srController.text,
         isMagic: model.isMagic,
         weaponList: saveWeapons(),
-        armorList: const ArmorList.empty(),
+        armorList: saveArmors(),
       );
 
       model.saveCharacter(newCharacter);
@@ -740,11 +814,39 @@ class CharacterSheetWM
           type: _weaponControllers[i].typeController.text,
           capacity: _weaponControllers[i].capacityController.text,
           usages: _weaponControllers[i].usagesController.text,
+          notes: _weaponControllers[i].notesController.text,
         ),
       );
     }
 
     return WeaponList(weapons: weaponList);
+  }
+
+  ArmorList saveArmors() {
+    List<Armor> armorList = [];
+    for (int i = 0; i < _armorControllers.length; i++) {
+      armorList.add(
+        Armor(
+          name: _armorControllers[i].nameController.text,
+          type: _armorControllers[i].typeController.text,
+          armorKac: parseIntFromString(_armorControllers[i].kacController.text),
+          armorEac: parseIntFromString(_armorControllers[i].eacController.text),
+          chkPenalty: parseIntFromString(
+            _armorControllers[i].chkPenaltyController.text,
+          ),
+          maxDex: parseIntFromString(
+            _armorControllers[i].maxDexController.text,
+          ),
+          spd: _armorControllers[i].speedController.text,
+          upgrades: parseIntFromString(
+            _armorControllers[i].upgradesController.text,
+          ),
+          notes: _armorControllers[i].notesController.text,
+        ),
+      );
+    }
+
+    return ArmorList(armors: armorList);
   }
 
   void initNotifiersAndControllers() {
@@ -939,6 +1041,7 @@ class CharacterSheetWM
     _drSrControllers.srController.text = model.sr;
 
     initWeaponControllers();
+    initArmorControllers();
   }
 
   @override

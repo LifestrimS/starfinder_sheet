@@ -194,31 +194,16 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                 child: getTextField(
                   title: 'ATK',
                   controller: widget.controllers.attackBonusController,
+                  isCentered: true,
                 ),
               ),
               const SizedBox(width: 8.0),
               Flexible(
                 flex: 2,
-                child: CustomTextField(
+                child: getTextField(
                   title: 'Damage',
                   controller: widget.controllers.damageController,
-                  height: null,
-                  fontSize: 10.0,
-                  textAlign: TextAlign.left,
-                  textAlignVertical: TextAlignVertical.center,
-                  contentPadding: const EdgeInsets.only(
-                    left: 8.0,
-                    right: 8.0,
-                    top: 14.0,
-                    bottom: 4.0,
-                  ),
                 ),
-
-                // getTextField(
-                //   title: 'Damage',
-                //   controller: widget.controllers.damageController,
-                //   height: null,
-                // ),
               ),
             ],
           ),
@@ -232,6 +217,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                   child: getTextField(
                     title: 'Range',
                     controller: widget.controllers.rangeController,
+                    isCentered: true,
                   ),
                 ),
 
@@ -253,8 +239,6 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                   child: getTextField(
                     title: 'Crit',
                     controller: widget.controllers.critController,
-                    fontSize: 10.0,
-                    height: 100.0,
                   ),
                 ),
                 const SizedBox(width: 8.0),
@@ -262,8 +246,6 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                   child: getTextField(
                     title: 'Special',
                     controller: widget.controllers.specialController,
-                    fontSize: 10.0,
-                    height: 100.0,
                   ),
                 ),
               ],
@@ -277,6 +259,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                   child: getTextField(
                     title: 'Size',
                     controller: widget.controllers.sizeController,
+                    isCentered: true,
                   ),
                 ),
                 const SizedBox(width: 8.0),
@@ -284,6 +267,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                   child: getTextField(
                     title: 'Capacity',
                     controller: widget.controllers.capacityController,
+                    isCentered: true,
                   ),
                 ),
                 const SizedBox(width: 8.0),
@@ -291,24 +275,29 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                   child: getTextField(
                     title: 'Usages',
                     controller: widget.controllers.usagesController,
+                    isCentered: true,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 8.0),
-            CustomTextField(
+            getTextField(
               title: 'Notes',
-              controller: TextEditingController(),
-              fontSize: 10.0,
-              textAlign: TextAlign.left,
-              textAlignVertical: TextAlignVertical.center,
-              contentPadding: const EdgeInsets.only(
-                left: 8.0,
-                right: 8.0,
-                top: 14.0,
-                bottom: 4.0,
-              ),
+              controller: widget.controllers.notesController,
             ),
+            // CustomTextField(
+            //   title: 'Notes',
+            //   controller: widget.controllers.notesController,
+            //   fontSize: 10.0,
+            //   textAlign: TextAlign.left,
+            //   textAlignVertical: TextAlignVertical.center,
+            //   contentPadding: const EdgeInsets.only(
+            //     left: 8.0,
+            //     right: 8.0,
+            //     top: 14.0,
+            //     bottom: 4.0,
+            //   ),
+            // ),
             const SizedBox(height: 12.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -348,7 +337,8 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
     return CustomTextField(
       title: title,
       controller: controller,
-      height: 35.0,
+      height: null,
+      minLines: 1,
       borderColorAlpha: 255,
       customCut: 0.03,
       fontSize: 10.0,
@@ -360,21 +350,21 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
   Widget getTextField({
     required String title,
     required TextEditingController controller,
-    double? fontSize,
-    double? height,
+    bool isCentered = false,
   }) {
     return CustomTextField(
       title: title,
       controller: controller,
-      height: height ?? 50.0,
-      fontSize: 10.0,
-      textAlign: TextAlign.left,
+      height: null,
+      fontSize: isCentered ? 14.0 : 10.0,
+      textAlign: isCentered ? TextAlign.center : TextAlign.left,
       textAlignVertical: TextAlignVertical.center,
-      contentPadding: const EdgeInsets.only(
+      minLines: isCentered ? 1 : 2,
+      contentPadding: EdgeInsets.only(
         left: 8.0,
         right: 8.0,
         top: 14.0,
-        bottom: 4.0,
+        bottom: isCentered ? 14.0 : 4.0,
       ),
     );
   }
@@ -391,6 +381,7 @@ class WeaponControllers {
   final TextEditingController sizeController;
   final TextEditingController capacityController;
   final TextEditingController usagesController;
+  final TextEditingController notesController;
 
   const WeaponControllers({
     required this.nameController,
@@ -403,5 +394,6 @@ class WeaponControllers {
     required this.sizeController,
     required this.capacityController,
     required this.usagesController,
+    required this.notesController,
   });
 }

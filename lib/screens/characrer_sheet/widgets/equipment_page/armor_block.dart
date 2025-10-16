@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
+import 'package:pathfinder_sheet/screens/util_widgets/border.dart';
+import 'package:pathfinder_sheet/screens/util_widgets/custom_text_form_field.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/custom_text_form_field.dart'
-    as inf;
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class ArmorsBlock extends StatefulWidget {
   final ICharacterSheetWM wm;
-  // final ArmorList weapons;
-  // final List<ArmorControllers> controllers;
-  // final ValueNotifier<int> controllersNotifier;
+  final ArmorList armors;
+  final List<ArmorControllers> controllers;
+  final ValueNotifier<int> controllersNotifier;
 
   const ArmorsBlock({
     required this.wm,
-    // required this.weapons,
-    // required this.controllers,
-    // required this.controllersNotifier,
+    required this.armors,
+    required this.controllers,
+    required this.controllersNotifier,
     super.key,
   });
 
@@ -27,100 +28,86 @@ class ArmorsBlock extends StatefulWidget {
 class _ArmorsBlockkState extends State<ArmorsBlock> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // ...weaponWidgets(notifiersCount: 2),
-        ExpansionBlock(controllers: getControllers()),
-        ExpansionBlock(controllers: getControllers()),
-        ExpansionBlock(controllers: getControllers()),
-        const SizedBox(height: 12.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+    return ValueListenableBuilder(
+      valueListenable: widget.controllersNotifier,
+      builder: (context, value, child) {
+        return Column(
           children: [
-            GestureDetector(
-              onTap: () {
-                // widget.wm.addWeapon();
-                setState(() {});
-              },
-              child: CustomPaint(
-                painter: ButtonBorderPainter(),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Add armor', style: AppStyles.commonPixel()),
+            ...armorWidgets(notifiersCount: value),
+            const SizedBox(height: 12.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    widget.wm.addArmor();
+                    setState(() {});
+                  },
+                  child: CustomPaint(
+                    painter: const FullBorderPainter(),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Add armor',
+                          style: AppStyles.commonPixel(),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 
-  ArmorControllers getControllers() {
-    return ArmorControllers(
-      nameController: TextEditingController(),
-      typeController: TextEditingController(),
-      kacController: TextEditingController(),
-      eacController: TextEditingController(),
-      chkPenaltyController: TextEditingController(),
-      maxDexController: TextEditingController(),
-      speedController: TextEditingController(),
-      upgradesController: TextEditingController(),
-    );
+  List<Widget> armorWidgets({required int notifiersCount}) {
+    List<Widget> armorWidgetList = [];
+    if (notifiersCount == 0) {
+      armorWidgetList.add(const SizedBox());
+    } else {
+      int max = notifiersCount < widget.armors.armors.length
+          ? notifiersCount
+          : widget.armors.armors.length;
+      for (int i = 0; i < max; i++) {
+        armorWidgetList.add(
+          ExpansionBlock(
+            armor: widget.armors.armors[i],
+            deleteArmor: () => widget.wm.deleteArmor(i),
+            controllers: widget.controllers[i],
+          ),
+        );
+      }
+      if (notifiersCount > widget.armors.armors.length) {
+        for (int i = 0; i < notifiersCount - widget.armors.armors.length; i++) {
+          armorWidgetList.add(
+            ExpansionBlock(
+              armor: const Armor.empty(),
+              deleteArmor: () =>
+                  widget.wm.deleteArmor(widget.armors.armors.length + i),
+              controllers: widget.controllers[widget.armors.armors.length + i],
+            ),
+          );
+        }
+      }
+    }
+
+    return armorWidgetList;
   }
-
-  // List<Widget> weaponWidgets({required int notifiersCount}) {
-  //   List<Widget> weaponWidgetList = [];
-  //   if (notifiersCount == 0) {
-  //     weaponWidgetList.add(const SizedBox());
-  //   } else {
-  //     int max = notifiersCount < widget.weapons.weapons.length
-  //         ? notifiersCount
-  //         : widget.weapons.weapons.length;
-  //     for (int i = 0; i < max; i++) {
-  //       weaponWidgetList.add(
-  //         ExpansionBlock(
-  //           weapon: widget.weapons.weapons[i],
-  //           deleteWeapon: () => widget.wm.deleteWeapon(i),
-  //           controllers: widget.controllers[i],
-  //         ),
-  //       );
-  //     }
-  //     if (notifiersCount > widget.weapons.weapons.length) {
-  //       for (
-  //         int i = 0;
-  //         i < notifiersCount - widget.weapons.weapons.length;
-  //         i++
-  //       ) {
-  //         weaponWidgetList.add(
-  //           ExpansionBlock(
-  //             weapon: const Weapon.empty(),
-  //             deleteWeapon: () =>
-  //                 widget.wm.deleteWeapon(widget.weapons.weapons.length + i),
-  //             controllers:
-  //                 widget.controllers[widget.weapons.weapons.length + i],
-  //           ),
-  //         );
-  //       }
-  //     }
-  //   }
-
-  //   return weaponWidgetList;
-  // }
 }
 
 class ExpansionBlock extends StatefulWidget {
-  // final Weapon weapon;
+  final Armor armor;
   final ArmorControllers controllers;
-  // final VoidCallback deleteWeapon;
+  final VoidCallback deleteArmor;
 
   const ExpansionBlock({
-    // required this.weapon,
+    required this.armor,
     required this.controllers,
-
-    // required this.deleteWeapon,
+    required this.deleteArmor,
     super.key,
   });
 
@@ -148,7 +135,12 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
         child: ExpansionTile(
           tilePadding: EdgeInsets.zero,
           controller: _controller,
-          childrenPadding: const EdgeInsets.only(top: 1.0, right: 36.0),
+          childrenPadding: const EdgeInsets.only(
+            top: 1.0,
+            right: 36.0,
+            left: 1.0,
+            bottom: 1.0,
+          ),
           onExpansionChanged: (value) {
             setState(() {
               _isExpanded = value;
@@ -177,11 +169,9 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                   ),
                   const SizedBox(width: 8.0),
                   Expanded(
-                    child: CustomTextField(
-                      hintText: 'Name',
-                      height: 35.0,
+                    child: getMainTextField(
+                      title: 'Name',
                       controller: widget.controllers.nameController,
-                      borderColorAlpha: 255,
                     ),
                   ),
                 ],
@@ -191,25 +181,29 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
           ),
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: CustomTextField(
-                  hintText: 'KAC',
+                child: getTextField(
+                  title: 'KAC',
                   controller: widget.controllers.kacController,
+                  isCentered: true,
                 ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
-                child: CustomTextField(
-                  hintText: 'EAC',
+                child: getTextField(
+                  title: 'EAC',
                   controller: widget.controllers.eacController,
+                  isCentered: true,
                 ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
-                child: CustomTextField(
-                  hintText: 'ChkPenalty',
+                child: getTextField(
+                  title: 'ChkPenaltie',
                   controller: widget.controllers.chkPenaltyController,
+                  isCentered: true,
                 ),
               ),
             ],
@@ -219,23 +213,26 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
-                  child: CustomTextField(
-                    hintText: 'Type',
+                  child: getTextField(
+                    title: 'Type',
                     controller: widget.controllers.typeController,
+                    isCentered: true,
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
-                  child: CustomTextField(
-                    hintText: 'maxDex',
+                  child: getTextField(
+                    title: 'maxDex',
                     controller: widget.controllers.maxDexController,
+                    isCentered: true,
                   ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
-                  child: CustomTextField(
-                    hintText: 'Speed',
+                  child: getTextField(
+                    title: 'Speed',
                     controller: widget.controllers.speedController,
+                    isCentered: true,
                   ),
                 ),
               ],
@@ -253,9 +250,9 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
             //   ],
             // ),
             const SizedBox(height: 8.0),
-            inf.CustomTextField(
-              controller: TextEditingController(),
-              borderColorAlpha: 150,
+            getTextField(
+              title: 'Notes',
+              controller: widget.controllers.notesController,
             ),
 
             const SizedBox(height: 12.0),
@@ -264,11 +261,11 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    //widget.deleteWeapon();
+                    widget.deleteArmor();
                     setState(() {});
                   },
                   child: CustomPaint(
-                    painter: ButtonBorderPainter(),
+                    painter: const FullBorderPainter(customCut: 0.1),
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -289,102 +286,45 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
       ),
     );
   }
-}
 
-class CustomTextField extends StatelessWidget {
-  final String hintText;
-  final TextEditingController controller;
-  final double? height;
-  final int? borderColorAlpha;
+  Widget getMainTextField({
+    required String title,
+    required TextEditingController controller,
+  }) {
+    return CustomTextField(
+      title: title,
+      controller: controller,
+      height: null,
+      minLines: 1,
+      borderColorAlpha: 255,
+      customCut: 0.03,
+      fontSize: 10.0,
+      textAlign: TextAlign.center,
+      textAlignVertical: TextAlignVertical.center,
+    );
+  }
 
-  const CustomTextField({
-    required this.hintText,
-    required this.controller,
-    this.height,
-    this.borderColorAlpha,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: height ?? 50.0,
-      width: 50.0,
-      child: CustomPaint(
-        painter: TextFieldBorderPainter(borderColorAlpha: borderColorAlpha),
-        child: TextFormField(
-          controller: controller,
-          expands: true,
-          maxLines: null,
-          cursorColor: AppColors.darkPink,
-          style: AppStyles.commonPixel(),
-          textAlign: TextAlign.left,
-          textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
-            isDense: true,
-            border: InputBorder.none,
-            hintText: hintText,
-            contentPadding: const EdgeInsets.only(left: 8.0),
-          ),
-        ),
+  Widget getTextField({
+    required String title,
+    required TextEditingController controller,
+    bool isCentered = false,
+  }) {
+    return CustomTextField(
+      title: title,
+      controller: controller,
+      height: null,
+      fontSize: isCentered ? 14.0 : 10.0,
+      textAlign: isCentered ? TextAlign.center : TextAlign.left,
+      textAlignVertical: TextAlignVertical.center,
+      minLines: isCentered ? 1 : 2,
+      contentPadding: EdgeInsets.only(
+        left: 8.0,
+        right: 8.0,
+        top: 14.0,
+        bottom: isCentered ? 14.0 : 4.0,
       ),
     );
   }
-}
-
-class TextFieldBorderPainter extends CustomPainter {
-  final int? borderColorAlpha;
-
-  const TextFieldBorderPainter({this.borderColorAlpha, Listenable? repaint});
-  @override
-  void paint(Canvas canvas, Size size) {
-    const cut = 0.04;
-    final widthCut = size.width * cut;
-
-    Paint paintFrame = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0
-      ..color = AppColors.teal.withAlpha(borderColorAlpha ?? 150);
-    Path pathFrame = Path();
-
-    pathFrame.moveTo(0.0, 0.0);
-    pathFrame.lineTo(size.width - widthCut, 0.0);
-    pathFrame.lineTo(size.width, 0.0 + widthCut);
-    pathFrame.lineTo(size.width, size.height);
-    pathFrame.lineTo(0.0 + widthCut, size.height);
-    pathFrame.lineTo(0.0, size.height - widthCut);
-    pathFrame.close();
-    canvas.drawPath(pathFrame, paintFrame);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
-}
-
-class ButtonBorderPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    const cut = 0.05;
-    final widthCut = size.width * cut;
-
-    Paint paintFrame = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0
-      ..color = AppColors.teal;
-    Path pathFrame = Path();
-
-    pathFrame.moveTo(0.0, 0.0);
-    pathFrame.lineTo(size.width - widthCut, 0.0);
-    pathFrame.lineTo(size.width, 0.0 + widthCut);
-    pathFrame.lineTo(size.width, size.height);
-    pathFrame.lineTo(0.0 + widthCut, size.height);
-    pathFrame.lineTo(0.0, size.height - widthCut);
-    pathFrame.close();
-    canvas.drawPath(pathFrame, paintFrame);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
 class ArmorControllers {
@@ -396,6 +336,7 @@ class ArmorControllers {
   final TextEditingController maxDexController;
   final TextEditingController speedController;
   final TextEditingController upgradesController;
+  final TextEditingController notesController;
 
   const ArmorControllers({
     required this.nameController,
@@ -406,5 +347,6 @@ class ArmorControllers {
     required this.maxDexController,
     required this.speedController,
     required this.upgradesController,
+    required this.notesController,
   });
 }

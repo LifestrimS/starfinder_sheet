@@ -13,7 +13,7 @@ abstract class AppStyles {
 
   static TextStyle commonPixel() {
     return const TextStyle(
-      fontFamily: 'DigitalPixelV18',
+      fontFamily: 'DigitalPixelV123',
       fontSize: 10.0,
       height: 1.8,
       fontWeight: FontWeight.w600,

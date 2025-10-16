@@ -70,7 +70,12 @@ class EquipmentPage extends StatelessWidget {
           ],
         ),
 
-        ArmorsBlock(wm: wm),
+        ArmorsBlock(
+          wm: wm,
+          armors: wm.armors,
+          controllers: wm.armorControllers,
+          controllersNotifier: wm.armorControllersNotifier(),
+        ),
       ],
     );
   }

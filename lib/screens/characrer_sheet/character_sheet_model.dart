@@ -76,6 +76,8 @@ class CharacterSheetModel extends ElementaryModel {
 
   WeaponList get weapon => character.weaponList;
 
+  ArmorList get armor => character.armorList;
+
   CharacterAbility getAbility() {
     return character.ability;
   }

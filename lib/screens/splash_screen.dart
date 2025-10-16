@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/splash_text.dart';
+import 'package:pathfinder_sheet/utils/styles.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,9 +17,12 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3)).then((value) => Navigator.push(
+    Future.delayed(const Duration(seconds: 3)).then(
+      (value) => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => CharacterSheetView())));
+        MaterialPageRoute(builder: (context) => CharacterSheetView()),
+      ),
+    );
     super.initState();
   }
 
@@ -37,8 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 getRandomText(),
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                    color: AppColors.textContrastDark, fontSize: 56.0),
+                style: AppStyles.commonPixel().copyWith(fontSize: 25.0),
               ),
             ),
             const Spacer(),
@@ -46,8 +49,10 @@ class _SplashScreenState extends State<SplashScreen> {
               'assets/images/icons/dice_vector.svg',
               width: screenWidth, //left + right paddings
               colorFilter: const ColorFilter.mode(
-                  AppColors.textContrastDark, BlendMode.srcIn),
-            )
+                AppColors.textContrastDark,
+                BlendMode.srcIn,
+              ),
+            ),
           ],
         ),
       ),

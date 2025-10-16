@@ -32,9 +32,7 @@ class LiveBlock extends StatelessWidget {
                     const Spacer(),
                     Text(
                       '$value/',
-                      style: AppStyles.commonPixel().copyWith(
-                        fontSize: 8.0,
-                      ),
+                      style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
                     ),
                     SizedBox(
                       width: 35.0,
@@ -43,9 +41,7 @@ class LiveBlock extends StatelessWidget {
                         controller: controllers.maxHpController,
                         expands: true,
                         maxLines: null,
-                        style: AppStyles.commonPixel().copyWith(
-                          fontSize: 8.0,
-                        ),
+                        style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
                         textAlign: TextAlign.left,
                         textAlignVertical: TextAlignVertical.center,
                         keyboardType: TextInputType.number,
@@ -60,9 +56,7 @@ class LiveBlock extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 4.0,
-                ),
+                const SizedBox(height: 4.0),
                 Row(
                   children: [
                     Expanded(
@@ -71,7 +65,9 @@ class LiveBlock extends StatelessWidget {
                         width: double.infinity,
                         child: CustomPaint(
                           painter: LiveCounterPainer(
-                              current: value, total: wm.maxHp),
+                            current: value,
+                            total: wm.maxHp,
+                          ),
                         ),
                       ),
                     ),
@@ -80,7 +76,8 @@ class LiveBlock extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (context) => CustomDialog(
-                              content: dialogContent(context, true)),
+                            content: dialogContent(context, true),
+                          ),
                         );
                       },
                       child: const Padding(
@@ -90,16 +87,14 @@ class LiveBlock extends StatelessWidget {
                           color: AppColors.teal,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],
             );
           },
         ),
-        const SizedBox(
-          height: 8.0,
-        ),
+        const SizedBox(height: 8.0),
         ValueListenableBuilder(
           valueListenable: wm.currentStamNotifier(),
           builder: (context, value, child) {
@@ -124,9 +119,7 @@ class LiveBlock extends StatelessWidget {
                         controller: controllers.maxStamController,
                         expands: true,
                         maxLines: null,
-                        style: AppStyles.commonPixel().copyWith(
-                          fontSize: 8.0,
-                        ),
+                        style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
                         textAlign: TextAlign.left,
                         textAlignVertical: TextAlignVertical.center,
                         keyboardType: TextInputType.number,
@@ -149,16 +142,21 @@ class LiveBlock extends StatelessWidget {
                         width: double.infinity,
                         child: CustomPaint(
                           painter: LiveCounterPainer(
-                              current: value, total: wm.maxStam, isHP: false),
+                            current: value,
+                            total: wm.maxStam,
+                            isHP: false,
+                          ),
                         ),
                       ),
                     ),
                     GestureDetector(
                       onTap: () {
                         showDialog(
-                            context: context,
-                            builder: (context) => CustomDialog(
-                                content: dialogContent(context, false)));
+                          context: context,
+                          builder: (context) => CustomDialog(
+                            content: dialogContent(context, false),
+                          ),
+                        );
                       },
                       child: const Padding(
                         padding: EdgeInsets.only(left: 8.0),
@@ -167,16 +165,14 @@ class LiveBlock extends StatelessWidget {
                           color: AppColors.teal,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],
             );
           },
         ),
-        const SizedBox(
-          height: 12.0,
-        ),
+        const SizedBox(height: 12.0),
         Row(
           children: [
             SizedBox(
@@ -210,19 +206,17 @@ class LiveBlock extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   '= $value',
-                  style: AppStyles.commonPixel()
-                      .copyWith(color: AppColors.darkPink),
+                  style: AppStyles.commonPixel().copyWith(
+                    color: AppColors.darkPink,
+                  ),
                 ),
               ),
             ),
             const Spacer(),
             GestureDetector(
               onTap: wm.getDamage,
-              child: Text(
-                'Hit',
-                style: AppStyles.commonPixel(),
-              ),
-            )
+              child: Text('Hit', style: AppStyles.commonPixel()),
+            ),
           ],
         ),
         SizedBox(
@@ -255,14 +249,11 @@ class LiveBlock extends StatelessWidget {
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 4.0, top: 4.0),
-                          child: Text(
-                            'Clear',
-                            style: AppStyles.commonPixel(),
-                          ),
+                          child: Text('Clear', style: AppStyles.commonPixel()),
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -288,10 +279,7 @@ class LiveBlock extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
-                child: Text(
-                  'Heal value: ',
-                  style: AppStyles.commonPixel(),
-                ),
+                child: Text('Heal value: ', style: AppStyles.commonPixel()),
               ),
               Expanded(
                 child: SizedBox(
@@ -308,19 +296,18 @@ class LiveBlock extends StatelessWidget {
                     decoration: const InputDecoration(
                       focusColor: AppColors.darkPink,
                       focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.darkPink)),
+                        borderSide: BorderSide(color: AppColors.darkPink),
+                      ),
                     ),
                     inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                      FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
                     ],
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 16.0,
-          ),
+          const SizedBox(height: 16.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -331,10 +318,7 @@ class LiveBlock extends StatelessWidget {
                       : wm.healStam(parseIntFromString(controller.text));
                   Navigator.of(context).pop();
                 },
-                child: Text(
-                  "Heal",
-                  style: AppStyles.commonPixel(),
-                ),
+                child: Text("Heal", style: AppStyles.commonPixel()),
               ),
             ],
           ),
@@ -425,11 +409,12 @@ class LiveCounterPainer extends CustomPainter {
   final int total;
   final bool isHP;
 
-  const LiveCounterPainer(
-      {required this.current,
-      required this.total,
-      Listenable? repaint,
-      this.isHP = true});
+  const LiveCounterPainer({
+    required this.current,
+    required this.total,
+    Listenable? repaint,
+    this.isHP = true,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -508,8 +493,9 @@ class LiveBlockTextControllers {
   final TextEditingController maxStamController;
   final TextEditingController maxResolveController;
 
-  const LiveBlockTextControllers(
-      {required this.maxHpController,
-      required this.maxStamController,
-      required this.maxResolveController});
+  const LiveBlockTextControllers({
+    required this.maxHpController,
+    required this.maxStamController,
+    required this.maxResolveController,
+  });
 }

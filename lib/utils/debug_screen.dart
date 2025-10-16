@@ -120,6 +120,7 @@ class DebugScreen extends StatelessWidget {
           type: 'type',
           capacity: 'capacity',
           usages: 'usages',
+          notes: 'notes',
         ),
         Weapon(
           name: 'name2',
@@ -132,6 +133,7 @@ class DebugScreen extends StatelessWidget {
           type: 'type',
           capacity: 'capacity',
           usages: 'usages',
+          notes: 'notes',
         ),
       ],
     );

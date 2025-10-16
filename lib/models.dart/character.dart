@@ -360,6 +360,7 @@ class Weapon {
   final String type;
   final String capacity;
   final String usages;
+  final String notes;
 
   const Weapon({
     required this.name,
@@ -372,6 +373,7 @@ class Weapon {
     required this.type,
     required this.capacity,
     required this.usages,
+    required this.notes,
   });
 
   const Weapon.empty({
@@ -385,6 +387,7 @@ class Weapon {
     this.type = '',
     this.capacity = '',
     this.usages = '',
+    this.notes = '',
   });
 
   @override
@@ -402,7 +405,8 @@ class Weapon {
       size = json['size'] as String,
       type = json['type'] as String,
       capacity = json['capacity'] as String,
-      usages = json['usages'] as String;
+      usages = json['usages'] as String,
+      notes = json['notes'] as String;
 
   Map<String, dynamic> toJson() => {
     'name': name,
@@ -415,6 +419,7 @@ class Weapon {
     'type': type,
     'capacity': capacity,
     'usages': usages,
+    'notes': notes,
   };
 }
 
@@ -447,6 +452,7 @@ class Armor {
   final int maxDex;
   final String spd;
   final int upgrades;
+  final String notes;
 
   const Armor({
     required this.name,
@@ -457,6 +463,7 @@ class Armor {
     required this.maxDex,
     required this.spd,
     required this.upgrades,
+    required this.notes,
   });
 
   const Armor.empty({
@@ -468,6 +475,7 @@ class Armor {
     this.maxDex = 0,
     this.spd = '0',
     this.upgrades = 0,
+    this.notes = '',
   });
 
   @override
@@ -483,7 +491,8 @@ class Armor {
       chkPenalty = json['chkPenalty'] as int,
       maxDex = json['maxDex'] as int,
       spd = json['spd'] as String,
-      upgrades = json['upgrades'] as int;
+      upgrades = json['upgrades'] as int,
+      notes = json['notes'] as String;
 
   Map<String, dynamic> toJson() => {
     'name': name,
@@ -494,6 +503,7 @@ class Armor {
     'maxDex': maxDex,
     'spd': spd,
     'upgrades': upgrades,
+    'notes': notes,
   };
 }
 
