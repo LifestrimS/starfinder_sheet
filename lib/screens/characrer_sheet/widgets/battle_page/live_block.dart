@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
+import 'package:pathfinder_sheet/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/utils/utils.dart';

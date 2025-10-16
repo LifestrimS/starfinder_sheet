@@ -10,7 +10,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/pages/first_page.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/pages/magic_page.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/pages/skill_page.dart';
 import 'package:pathfinder_sheet/screens/side_bar.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/loading_indicator.dart';
+import 'package:pathfinder_sheet/util_widgets/loading_indicator.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 

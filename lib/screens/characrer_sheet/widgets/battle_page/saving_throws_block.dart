@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
+import 'package:pathfinder_sheet/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/utils/utils.dart';
@@ -13,13 +13,14 @@ class SavingThrowsBlock extends StatelessWidget {
   final ValueNotifier<int> conModificatorNotifier;
   final ValueNotifier<int> wisModificatorNotifier;
 
-  const SavingThrowsBlock(
-      {required this.wm,
-      required this.controllers,
-      required this.dexModificatorNotifier,
-      required this.conModificatorNotifier,
-      required this.wisModificatorNotifier,
-      super.key});
+  const SavingThrowsBlock({
+    required this.wm,
+    required this.controllers,
+    required this.dexModificatorNotifier,
+    required this.conModificatorNotifier,
+    required this.wisModificatorNotifier,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +46,14 @@ class SavingThrowsBlock extends StatelessWidget {
           modificatorNotifier: dexModificatorNotifier,
         ),
         STHRBlock(
-            title: 'WILL',
-            type: STHREnum.will,
-            baseController: controllers.willBaseController,
-            magicController: controllers.willMagicController,
-            miscController: controllers.willMiscController,
-            tmpController: controllers.willTempController,
-            modificatorNotifier: wisModificatorNotifier),
+          title: 'WILL',
+          type: STHREnum.will,
+          baseController: controllers.willBaseController,
+          magicController: controllers.willMagicController,
+          miscController: controllers.willMiscController,
+          tmpController: controllers.willTempController,
+          modificatorNotifier: wisModificatorNotifier,
+        ),
       ],
     );
   }
@@ -65,15 +67,16 @@ class STHRBlock extends StatefulWidget {
   final TextEditingController miscController;
   final TextEditingController tmpController;
   final ValueNotifier<int> modificatorNotifier;
-  const STHRBlock(
-      {required this.title,
-      required this.type,
-      required this.baseController,
-      required this.magicController,
-      required this.miscController,
-      required this.tmpController,
-      required this.modificatorNotifier,
-      super.key});
+  const STHRBlock({
+    required this.title,
+    required this.type,
+    required this.baseController,
+    required this.magicController,
+    required this.miscController,
+    required this.tmpController,
+    required this.modificatorNotifier,
+    super.key,
+  });
 
   @override
   State<STHRBlock> createState() => _STHRBlockState();
@@ -88,13 +91,14 @@ class _STHRBlockState extends State<STHRBlock> {
           context: context,
           builder: (context) => CustomDialog(
             content: dialogContent(
-                context,
-                widget.title,
-                widget.modificatorNotifier.value,
-                widget.baseController,
-                widget.magicController,
-                widget.miscController,
-                widget.tmpController),
+              context,
+              widget.title,
+              widget.modificatorNotifier.value,
+              widget.baseController,
+              widget.magicController,
+              widget.miscController,
+              widget.tmpController,
+            ),
           ),
         );
         setState(() {});
@@ -102,46 +106,53 @@ class _STHRBlockState extends State<STHRBlock> {
       child: SizedBox(
         height: 55.0,
         width: 75.0,
-        child: Stack(children: [
-          Align(
-            alignment: Alignment.bottomRight,
-            child: SizedBox(
-              height: 50.0,
-              width: 70.0,
-              child: CustomPaint(
-                painter: STHRBorderPainter(),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 4.0),
-                  child: Center(
-                    child: ValueListenableBuilder(
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomRight,
+              child: SizedBox(
+                height: 50.0,
+                width: 70.0,
+                child: CustomPaint(
+                  painter: STHRBorderPainter(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 4.0),
+                    child: Center(
+                      child: ValueListenableBuilder(
                         valueListenable: widget.modificatorNotifier,
                         builder: (context, modValue, child) {
                           return Text(
                             countTHR(modValue),
-                            style: AppStyles.commonPixel()
-                                .copyWith(fontSize: 14.0),
+                            style: AppStyles.commonPixel().copyWith(
+                              fontSize: 14.0,
+                            ),
                           );
-                        }),
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              widget.title,
-              style: AppStyles.commonPixel()
-                  .copyWith(color: AppColors.darkPink, fontSize: 6.0),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                widget.title,
+                style: AppStyles.commonPixel().copyWith(
+                  color: AppColors.darkPink,
+                  fontSize: 6.0,
+                ),
+              ),
             ),
-          )
-        ]),
+          ],
+        ),
       ),
     );
   }
 
   String countTHR(int modValue) {
-    int value = parseIntFromString(widget.baseController.text) +
+    int value =
+        parseIntFromString(widget.baseController.text) +
         modValue +
         parseIntFromString(widget.magicController.text) +
         parseIntFromString(widget.miscController.text) +
@@ -150,13 +161,14 @@ class _STHRBlockState extends State<STHRBlock> {
   }
 
   Widget dialogContent(
-      BuildContext context,
-      String title,
-      int modValue,
-      TextEditingController baseController,
-      TextEditingController magicController,
-      TextEditingController miscController,
-      TextEditingController tmpController) {
+    BuildContext context,
+    String title,
+    int modValue,
+    TextEditingController baseController,
+    TextEditingController magicController,
+    TextEditingController miscController,
+    TextEditingController tmpController,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -167,9 +179,7 @@ class _STHRBlockState extends State<STHRBlock> {
             title,
             style: AppStyles.commonPixel().copyWith(color: AppColors.darkPink),
           ),
-          const SizedBox(
-            height: 12.0,
-          ),
+          const SizedBox(height: 12.0),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -177,28 +187,17 @@ class _STHRBlockState extends State<STHRBlock> {
               DialogBox(title: 'Base', controller: baseController),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  '+',
-                  style: AppStyles.commonPixel(),
-                ),
+                child: Text('+', style: AppStyles.commonPixel()),
               ),
-              DialogBox(
-                title: 'Abil',
-                value: modValue,
-              ),
+              DialogBox(title: 'Abil', value: modValue),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  '+',
-                  style: AppStyles.commonPixel(),
-                ),
+                child: Text('+', style: AppStyles.commonPixel()),
               ),
               DialogBox(title: 'Magic', controller: magicController),
             ],
           ),
-          const SizedBox(
-            height: 12.0,
-          ),
+          const SizedBox(height: 12.0),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -206,17 +205,12 @@ class _STHRBlockState extends State<STHRBlock> {
               DialogBox(title: 'Misc', controller: miscController),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  '+',
-                  style: AppStyles.commonPixel(),
-                ),
+                child: Text('+', style: AppStyles.commonPixel()),
               ),
               DialogBox(title: 'Temp', controller: tmpController),
             ],
           ),
-          const SizedBox(
-            height: 16.0,
-          ),
+          const SizedBox(height: 16.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -224,10 +218,7 @@ class _STHRBlockState extends State<STHRBlock> {
                 onTap: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(
-                  "Done",
-                  style: AppStyles.commonPixel(),
-                ),
+                child: Text("Done", style: AppStyles.commonPixel()),
               ),
             ],
           ),
@@ -241,58 +232,66 @@ class DialogBox extends StatelessWidget {
   final String title;
   final TextEditingController? controller;
   final int? value;
-  const DialogBox(
-      {required this.title, this.controller, this.value, super.key});
+  const DialogBox({
+    required this.title,
+    this.controller,
+    this.value,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 55.0,
       width: 75.0,
-      child: Stack(children: [
-        Align(
-          alignment: Alignment.bottomRight,
-          child: SizedBox(
-            height: 50.0,
-            width: 70.0,
-            child: CustomPaint(
-              painter: STHRBorderPainter(),
-              child: controller != null
-                  ? TextFormField(
-                      controller: controller,
-                      expands: true,
-                      maxLines: null,
-                      style: AppStyles.commonPixel(),
-                      textAlign: TextAlign.center,
-                      cursorColor: AppColors.darkPink,
-                      textAlignVertical: TextAlignVertical.center,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(left: 4.0),
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
-                      ],
-                    )
-                  : Center(
-                      child: Text(
-                        value.toString(),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomRight,
+            child: SizedBox(
+              height: 50.0,
+              width: 70.0,
+              child: CustomPaint(
+                painter: STHRBorderPainter(),
+                child: controller != null
+                    ? TextFormField(
+                        controller: controller,
+                        expands: true,
+                        maxLines: null,
                         style: AppStyles.commonPixel(),
+                        textAlign: TextAlign.center,
+                        cursorColor: AppColors.darkPink,
+                        textAlignVertical: TextAlignVertical.center,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(left: 4.0),
+                        ),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                        ],
+                      )
+                    : Center(
+                        child: Text(
+                          value.toString(),
+                          style: AppStyles.commonPixel(),
+                        ),
                       ),
-                    ),
+              ),
             ),
           ),
-        ),
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            title,
-            style: AppStyles.commonPixel()
-                .copyWith(color: AppColors.darkPink, fontSize: 6.0),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              title,
+              style: AppStyles.commonPixel().copyWith(
+                color: AppColors.darkPink,
+                fontSize: 6.0,
+              ),
+            ),
           ),
-        )
-      ]),
+        ],
+      ),
     );
   }
 }
@@ -336,19 +335,20 @@ class STHRTexEditingControllers {
   final TextEditingController willMiscController;
   final TextEditingController willTempController;
 
-  const STHRTexEditingControllers(
-      {required this.fortBaseController,
-      required this.fortMagicController,
-      required this.fortMiscController,
-      required this.fortTempController,
-      required this.refBaseController,
-      required this.refMagicController,
-      required this.refMiscController,
-      required this.refTempController,
-      required this.willBaseController,
-      required this.willMagicController,
-      required this.willMiscController,
-      required this.willTempController});
+  const STHRTexEditingControllers({
+    required this.fortBaseController,
+    required this.fortMagicController,
+    required this.fortMiscController,
+    required this.fortTempController,
+    required this.refBaseController,
+    required this.refMagicController,
+    required this.refMiscController,
+    required this.refTempController,
+    required this.willBaseController,
+    required this.willMagicController,
+    required this.willMiscController,
+    required this.willTempController,
+  });
 }
 
 enum STHREnum { fort, ref, will }

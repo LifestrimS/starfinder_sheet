@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/pull_to_refresh.dart';
+import 'package:pathfinder_sheet/util_widgets/pull_to_refresh.dart';
 
 class PageTemplate extends StatelessWidget {
   final ICharacterSheetWM wm;
@@ -23,7 +23,11 @@ class PageTemplate extends StatelessWidget {
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
 
             child: Container(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                right: 16.0,
+                bottom: 16.0,
+              ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [...content],

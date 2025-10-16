@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
+import 'package:pathfinder_sheet/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/utils/utils.dart';
@@ -10,11 +10,12 @@ class ACBlock extends StatefulWidget {
   final AcControllers kacControllers;
   final ValueNotifier<int> dexModificatorNotifier;
 
-  const ACBlock(
-      {required this.eacControllers,
-      required this.kacControllers,
-      required this.dexModificatorNotifier,
-      super.key});
+  const ACBlock({
+    required this.eacControllers,
+    required this.kacControllers,
+    required this.dexModificatorNotifier,
+    super.key,
+  });
 
   @override
   State<ACBlock> createState() => _ACBlockState();
@@ -35,24 +36,31 @@ class _ACBlockState extends State<ACBlock> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: widget.dexModificatorNotifier,
-        builder: (context, dexModificator, child) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () async {
-                  await showDialog(
-                      context: context,
-                      builder: (context) => CustomDialog(
-                          content: dialogContent(context, true, dexModificator,
-                              widget.eacControllers)));
-                  update(isEac: true);
-                },
-                child: SizedBox(
-                  height: 57.0,
-                  width: 75.0,
-                  child: Stack(children: [
+      valueListenable: widget.dexModificatorNotifier,
+      builder: (context, dexModificator, child) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => CustomDialog(
+                    content: dialogContent(
+                      context,
+                      true,
+                      dexModificator,
+                      widget.eacControllers,
+                    ),
+                  ),
+                );
+                update(isEac: true);
+              },
+              child: SizedBox(
+                height: 57.0,
+                width: 75.0,
+                child: Stack(
+                  children: [
                     ValueListenableBuilder(
                       valueListenable: eacNotifier,
                       builder: (context, value, child) {
@@ -68,8 +76,9 @@ class _ACBlockState extends State<ACBlock> {
                                 child: Center(
                                   child: Text(
                                     value.toString(),
-                                    style: AppStyles.commonPixel()
-                                        .copyWith(fontSize: 14.0),
+                                    style: AppStyles.commonPixel().copyWith(
+                                      fontSize: 14.0,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -82,26 +91,36 @@ class _ACBlockState extends State<ACBlock> {
                       alignment: Alignment.topLeft,
                       child: Text(
                         'EAC',
-                        style: AppStyles.commonPixel()
-                            .copyWith(color: AppColors.darkPink, fontSize: 6.0),
+                        style: AppStyles.commonPixel().copyWith(
+                          color: AppColors.darkPink,
+                          fontSize: 6.0,
+                        ),
                       ),
-                    )
-                  ]),
+                    ),
+                  ],
                 ),
               ),
-              GestureDetector(
-                onTap: () async {
-                  await showDialog(
-                      context: context,
-                      builder: (context) => CustomDialog(
-                          content: dialogContent(context, false, dexModificator,
-                              widget.kacControllers)));
-                  update(isEac: false);
-                },
-                child: SizedBox(
-                  height: 55.0,
-                  width: 75.0,
-                  child: Stack(children: [
+            ),
+            GestureDetector(
+              onTap: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => CustomDialog(
+                    content: dialogContent(
+                      context,
+                      false,
+                      dexModificator,
+                      widget.kacControllers,
+                    ),
+                  ),
+                );
+                update(isEac: false);
+              },
+              child: SizedBox(
+                height: 55.0,
+                width: 75.0,
+                child: Stack(
+                  children: [
                     Align(
                       alignment: Alignment.bottomRight,
                       child: SizedBox(
@@ -114,8 +133,9 @@ class _ACBlockState extends State<ACBlock> {
                             child: Center(
                               child: Text(
                                 countAC(widget.kacControllers).toString(),
-                                style: AppStyles.commonPixel()
-                                    .copyWith(fontSize: 14.0),
+                                style: AppStyles.commonPixel().copyWith(
+                                  fontSize: 14.0,
+                                ),
                               ),
                             ),
                           ),
@@ -126,16 +146,20 @@ class _ACBlockState extends State<ACBlock> {
                       alignment: Alignment.topLeft,
                       child: Text(
                         'KAC',
-                        style: AppStyles.commonPixel()
-                            .copyWith(color: AppColors.darkPink, fontSize: 6.0),
+                        style: AppStyles.commonPixel().copyWith(
+                          color: AppColors.darkPink,
+                          fontSize: 6.0,
+                        ),
                       ),
-                    )
-                  ]),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    );
   }
 
   int countAC(AcControllers controllers) {
@@ -173,17 +197,12 @@ class _ACBlockState extends State<ACBlock> {
             isEAC ? 'EAC' : 'KAC',
             style: AppStyles.commonPixel().copyWith(color: AppColors.darkPink),
           ),
-          const SizedBox(
-            height: 12.0,
-          ),
+          const SizedBox(height: 12.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const DialogBox(
-                title: 'Base',
-                value: 10,
-              ),
+              const DialogBox(title: 'Base', value: 10),
               plusSymbol(),
               DialogBox(
                 title: 'Dex',
@@ -205,9 +224,7 @@ class _ACBlockState extends State<ACBlock> {
               plusSymbol(),
             ],
           ),
-          const SizedBox(
-            height: 12.0,
-          ),
+          const SizedBox(height: 12.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,15 +242,10 @@ class _ACBlockState extends State<ACBlock> {
                 widthCutCount: 5,
               ),
               plusSymbol(),
-              DialogBox(
-                title: 'Misc',
-                controller: controllers.miscController,
-              )
+              DialogBox(title: 'Misc', controller: controllers.miscController),
             ],
           ),
-          const SizedBox(
-            height: 16.0,
-          ),
+          const SizedBox(height: 16.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -241,10 +253,7 @@ class _ACBlockState extends State<ACBlock> {
                 onTap: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(
-                  "Done",
-                  style: AppStyles.commonPixel(),
-                ),
+                child: Text("Done", style: AppStyles.commonPixel()),
               ),
             ],
           ),
@@ -256,10 +265,7 @@ class _ACBlockState extends State<ACBlock> {
   Widget plusSymbol() {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 6.0),
-      child: Text(
-        '+',
-        style: AppStyles.commonPixel(),
-      ),
+      child: Text('+', style: AppStyles.commonPixel()),
     );
   }
 }
@@ -270,65 +276,72 @@ class DialogBox extends StatelessWidget {
   final int? value;
   final double widthCutCount;
 
-  const DialogBox(
-      {required this.title,
-      this.controller,
-      this.value,
-      this.widthCutCount = 3,
-      super.key});
+  const DialogBox({
+    required this.title,
+    this.controller,
+    this.value,
+    this.widthCutCount = 3,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 45.0,
       width: 55.0,
-      child: Stack(children: [
-        Align(
-          alignment: Alignment.bottomRight,
-          child: SizedBox(
-            height: 40.0,
-            width: 50.0,
-            child: CustomPaint(
-              painter: DialogFramePainter(widthCutCount: widthCutCount),
-              child: controller != null
-                  ? TextFormField(
-                      controller: controller,
-                      //initialValue: '13',
-                      expands: true,
-                      maxLines: null,
-                      style: AppStyles.commonPixel(),
-                      textAlign: TextAlign.center,
-                      textAlignVertical: TextAlignVertical.center,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
-                        border: InputBorder.none,
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
-                      ],
-                    )
-                  : Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          value.toString(),
-                          style: AppStyles.commonPixel(),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomRight,
+            child: SizedBox(
+              height: 40.0,
+              width: 50.0,
+              child: CustomPaint(
+                painter: DialogFramePainter(widthCutCount: widthCutCount),
+                child: controller != null
+                    ? TextFormField(
+                        controller: controller,
+                        //initialValue: '13',
+                        expands: true,
+                        maxLines: null,
+                        style: AppStyles.commonPixel(),
+                        textAlign: TextAlign.center,
+                        textAlignVertical: TextAlignVertical.center,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
+                          border: InputBorder.none,
+                        ),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r'^-?[0-9]*'),
+                          ),
+                        ],
+                      )
+                    : Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Text(
+                            value.toString(),
+                            style: AppStyles.commonPixel(),
+                          ),
                         ),
                       ),
-                    ),
+              ),
             ),
           ),
-        ),
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            title,
-            style: AppStyles.commonPixel()
-                .copyWith(color: AppColors.darkPink, fontSize: 6.0),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              title,
+              style: AppStyles.commonPixel().copyWith(
+                color: AppColors.darkPink,
+                fontSize: 6.0,
+              ),
+            ),
           ),
-        )
-      ]),
+        ],
+      ),
     );
   }
 }
@@ -396,11 +409,12 @@ class AcControllers {
   final TextEditingController deflectController;
   final TextEditingController miscController;
 
-  const AcControllers(
-      {required this.armorController,
-      required this.dexController,
-      required this.dodgeController,
-      required this.naturalController,
-      required this.deflectController,
-      required this.miscController});
+  const AcControllers({
+    required this.armorController,
+    required this.dexController,
+    required this.dodgeController,
+    required this.naturalController,
+    required this.deflectController,
+    required this.miscController,
+  });
 }

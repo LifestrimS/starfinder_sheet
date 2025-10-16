@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/border.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/custom_text_form_field.dart';
+import 'package:pathfinder_sheet/util_widgets/border.dart';
+import 'package:pathfinder_sheet/util_widgets/custom_text_form_field.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
@@ -75,6 +76,7 @@ class _ArmorsBlockkState extends State<ArmorsBlock> {
       for (int i = 0; i < max; i++) {
         armorWidgetList.add(
           ExpansionBlock(
+            wm: widget.wm,
             armor: widget.armors.armors[i],
             deleteArmor: () => widget.wm.deleteArmor(i),
             controllers: widget.controllers[i],
@@ -85,6 +87,7 @@ class _ArmorsBlockkState extends State<ArmorsBlock> {
         for (int i = 0; i < notifiersCount - widget.armors.armors.length; i++) {
           armorWidgetList.add(
             ExpansionBlock(
+              wm: widget.wm,
               armor: const Armor.empty(),
               deleteArmor: () =>
                   widget.wm.deleteArmor(widget.armors.armors.length + i),
@@ -100,11 +103,13 @@ class _ArmorsBlockkState extends State<ArmorsBlock> {
 }
 
 class ExpansionBlock extends StatefulWidget {
+  final ICharacterSheetWM wm;
   final Armor armor;
   final ArmorControllers controllers;
   final VoidCallback deleteArmor;
 
   const ExpansionBlock({
+    required this.wm,
     required this.armor,
     required this.controllers,
     required this.deleteArmor,
@@ -162,11 +167,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Icon(
-                    Icons.check_box,
-                    color: AppColors.white,
-                    size: 30.0,
-                  ),
+                  ArmorCheckBox(wm: widget.wm),
                   const SizedBox(width: 8.0),
                   Expanded(
                     child: getMainTextField(
@@ -188,6 +189,9 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                   title: 'KAC',
                   controller: widget.controllers.kacController,
                   isCentered: true,
+                  formatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                  ],
                 ),
               ),
               const SizedBox(width: 8.0),
@@ -196,6 +200,9 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                   title: 'EAC',
                   controller: widget.controllers.eacController,
                   isCentered: true,
+                  formatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                  ],
                 ),
               ),
               const SizedBox(width: 8.0),
@@ -237,18 +244,6 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
                 ),
               ],
             ),
-            const SizedBox(height: 8.0),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //   children: [
-            //     Expanded(
-            //       child: CustomTextField(
-            //         hintText: 'Upgrades',
-            //         controller: widget.controllers.upgradesController,
-            //       ),
-            //     ),
-            //   ],
-            // ),
             const SizedBox(height: 8.0),
             getTextField(
               title: 'Notes',
@@ -308,6 +303,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
     required String title,
     required TextEditingController controller,
     bool isCentered = false,
+    List<TextInputFormatter>? formatters,
   }) {
     return CustomTextField(
       title: title,
@@ -317,6 +313,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
       textAlign: isCentered ? TextAlign.center : TextAlign.left,
       textAlignVertical: TextAlignVertical.center,
       minLines: isCentered ? 1 : 2,
+      formatters: formatters,
       contentPadding: EdgeInsets.only(
         left: 8.0,
         right: 8.0,
@@ -325,6 +322,77 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
       ),
     );
   }
+}
+
+class ArmorCheckBox extends StatefulWidget {
+  final ICharacterSheetWM wm;
+  const ArmorCheckBox({required this.wm, super.key});
+
+  @override
+  State<ArmorCheckBox> createState() => _ArmorCheckBoxState();
+}
+
+class _ArmorCheckBoxState extends State<ArmorCheckBox> {
+  bool isChecked = true;
+
+  @override
+  void initState() {
+    isChecked = widget.wm.isMagic;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        isChecked = !isChecked;
+        //widget.wm.setIsMagic(isChecked);
+        setState(() {});
+      },
+      child: SizedBox(
+        height: 20.0,
+        width: 20.0,
+        child: CustomPaint(
+          painter: const CheckBoxPainter(),
+          child: isChecked
+              ? const Icon(
+                  size: 20.0,
+                  Icons.accessible_forward,
+                  color: AppColors.darkPink,
+                )
+              : const SizedBox(),
+        ),
+      ),
+    );
+  }
+}
+
+class CheckBoxPainter extends CustomPainter {
+  const CheckBoxPainter({Listenable? repaint});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const cut = 0.2;
+    final widthCut = size.width * cut;
+
+    Paint paintFrame = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0
+      ..color = AppColors.white;
+    Path pathFrame = Path();
+
+    pathFrame.moveTo(0.0, 0.0);
+    pathFrame.lineTo(size.width - widthCut, 0.0);
+    pathFrame.lineTo(size.width, 0.0 + widthCut);
+    pathFrame.lineTo(size.width, size.height);
+    pathFrame.lineTo(0.0 + widthCut, size.height);
+    pathFrame.lineTo(0.0, size.height - widthCut);
+    pathFrame.close();
+    canvas.drawPath(pathFrame, paintFrame);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
 class ArmorControllers {

@@ -453,6 +453,7 @@ class Armor {
   final String spd;
   final int upgrades;
   final String notes;
+  final bool isChecked;
 
   const Armor({
     required this.name,
@@ -464,6 +465,7 @@ class Armor {
     required this.spd,
     required this.upgrades,
     required this.notes,
+    required this.isChecked,
   });
 
   const Armor.empty({
@@ -476,6 +478,7 @@ class Armor {
     this.spd = '0',
     this.upgrades = 0,
     this.notes = '',
+    this.isChecked = false,
   });
 
   @override
@@ -492,7 +495,8 @@ class Armor {
       maxDex = json['maxDex'] as int,
       spd = json['spd'] as String,
       upgrades = json['upgrades'] as int,
-      notes = json['notes'] as String;
+      notes = json['notes'] as String,
+      isChecked = json['isChecked'] as bool;
 
   Map<String, dynamic> toJson() => {
     'name': name,
@@ -504,6 +508,7 @@ class Armor {
     'spd': spd,
     'upgrades': upgrades,
     'notes': notes,
+    'isChecked': isChecked,
   };
 }
 

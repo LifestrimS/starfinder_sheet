@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Color getColorFromString(String stringColor) {
@@ -72,4 +73,18 @@ Future<void> saveCharacterId(int charId) async {
 
 int parseIntFromString(String str) {
   return int.tryParse(str) ?? 0;
+}
+
+double getTextSize(String text, BuildContext context) {
+  final Size size = (TextPainter(
+    text: TextSpan(
+      text: text,
+      style: AppStyles.commonPixel().copyWith(fontSize: 6.0),
+    ),
+    maxLines: 1,
+    textScaler: MediaQuery.of(context).textScaler,
+    textDirection: TextDirection.ltr,
+  )..layout()).size;
+
+  return size.width;
 }

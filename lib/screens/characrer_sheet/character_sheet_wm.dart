@@ -842,6 +842,7 @@ class CharacterSheetWM
             _armorControllers[i].upgradesController.text,
           ),
           notes: _armorControllers[i].notesController.text,
+          isChecked: false,
         ),
       );
     }

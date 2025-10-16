@@ -7,6 +7,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/liv
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/resolve_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/saving_throws_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/page_template.dart';
+import 'package:pathfinder_sheet/util_widgets/devider.dart';
 
 class BattlePage extends StatelessWidget {
   final ICharacterSheetWM wm;
@@ -17,36 +18,27 @@ class BattlePage extends StatelessWidget {
     return PageTemplate(
       wm: wm,
       content: [
+        const Devider(title: 'AC', topPadding: 16.0),
         ACBlock(
           eacControllers: wm.eacControllers,
           kacControllers: wm.kacControllers,
           dexModificatorNotifier: wm.dexModificatorNotifier(),
         ),
-        const SizedBox(
-          height: 12.0,
-        ),
+        const Devider(title: 'Vitals'),
         ResolveBlock(
           wm: wm,
           controller: wm.liveBlockTextControllers.maxResolveController,
         ),
-        const SizedBox(
-          height: 12.0,
-        ),
-        LiveBlock(
-          wm: wm,
-          controllers: wm.liveBlockTextControllers,
-        ),
-        const SizedBox(
-          height: 18.0,
-        ),
+        const SizedBox(height: 12.0),
+        LiveBlock(wm: wm, controllers: wm.liveBlockTextControllers),
+
+        const Devider(title: 'BAB'),
         BabBlock(
           controllers: wm.babControllers,
           dexModificatorNotifier: wm.dexModificatorNotifier(),
           strModificatorNotifier: wm.strModificatorNotifier(),
         ),
-        const SizedBox(
-          height: 18.0,
-        ),
+        const Devider(title: 'Saving throws'),
         SavingThrowsBlock(
           wm: wm,
           controllers: wm.sTHRTexEditingControllers,
@@ -54,10 +46,8 @@ class BattlePage extends StatelessWidget {
           conModificatorNotifier: wm.conModificatorNotifier(),
           wisModificatorNotifier: wm.wisModificatorNotifier(),
         ),
-        const SizedBox(
-          height: 18.0,
-        ),
-        DrBlock(wm: wm, controllers: wm.drSrControllers)
+        const SizedBox(height: 18.0),
+        DrBlock(wm: wm, controllers: wm.drSrControllers),
       ],
     );
   }

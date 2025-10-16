@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/border_with_text.dart';
+import 'package:flutter/services.dart';
+import 'package:pathfinder_sheet/util_widgets/border_with_text.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -17,6 +19,7 @@ class CustomTextField extends StatelessWidget {
   final EdgeInsets? contentPadding;
   final Color? customColor;
   final int? minLines;
+  final List<TextInputFormatter>? formatters;
 
   const CustomTextField({
     required this.controller,
@@ -32,6 +35,7 @@ class CustomTextField extends StatelessWidget {
     this.contentPadding,
     this.customColor,
     this.minLines,
+    this.formatters,
     super.key,
   });
 
@@ -61,7 +65,7 @@ class CustomTextField extends StatelessWidget {
                 height: height,
                 width: width,
                 child: CustomPaint(
-                  painter: TextFieldBorderPainter(
+                  painter: BorderWithTextPainter(
                     borderColorAlpha: borderColorAlpha,
                     textWidth: title != null
                         ? getTextSize(title ?? '', context)
@@ -81,7 +85,7 @@ class CustomTextField extends StatelessWidget {
                     textAlign: textAlign ?? TextAlign.left,
                     textAlignVertical:
                         textAlignVertical ?? TextAlignVertical.center,
-
+                    inputFormatters: formatters,
                     decoration: InputDecoration(
                       isDense: true,
                       border: InputBorder.none,
@@ -96,19 +100,5 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  double getTextSize(String text, BuildContext context) {
-    final Size size = (TextPainter(
-      text: TextSpan(
-        text: text,
-        style: AppStyles.commonPixel().copyWith(fontSize: 6.0),
-      ),
-      maxLines: 1,
-      textScaler: MediaQuery.of(context).textScaler,
-      textDirection: TextDirection.ltr,
-    )..layout()).size;
-
-    return size.width;
   }
 }

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/border.dart';
+import 'package:pathfinder_sheet/util_widgets/border.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/custom_text_form_field.dart';
+import 'package:pathfinder_sheet/util_widgets/custom_text_form_field.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
 class WeaponsBlock extends StatefulWidget {

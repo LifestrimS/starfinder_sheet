@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
-import 'package:pathfinder_sheet/screens/util_widgets/dialog.dart';
+import 'package:pathfinder_sheet/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/utils/utils.dart';
@@ -9,8 +9,11 @@ import 'package:pathfinder_sheet/utils/utils.dart';
 class AbilityBlock extends StatefulWidget {
   final CharacterAbility ability;
   final AbilityTextControllers controllers;
-  const AbilityBlock(
-      {required this.ability, required this.controllers, super.key});
+  const AbilityBlock({
+    required this.ability,
+    required this.controllers,
+    super.key,
+  });
 
   @override
   State<AbilityBlock> createState() => _AbilityBlockState();
@@ -19,51 +22,51 @@ class AbilityBlock extends StatefulWidget {
 class _AbilityBlockState extends State<AbilityBlock> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          AbilityCell(
-            ability: AbilityEnum.str,
-            controller: widget.controllers.strController,
-            tmpController: widget.controllers.strTmpController,
-          ),
-          AbilityCell(
-            ability: AbilityEnum.dex,
-            controller: widget.controllers.dexController,
-            tmpController: widget.controllers.dexTmpController,
-          ),
-          AbilityCell(
-            ability: AbilityEnum.con,
-            controller: widget.controllers.conController,
-            tmpController: widget.controllers.conTmpController,
-          ),
-        ],
-      ),
-      const SizedBox(
-        height: 12.0,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          AbilityCell(
-            ability: AbilityEnum.charint,
-            controller: widget.controllers.intController,
-            tmpController: widget.controllers.intTmpController,
-          ),
-          AbilityCell(
-            ability: AbilityEnum.wis,
-            controller: widget.controllers.wisController,
-            tmpController: widget.controllers.wisTmpController,
-          ),
-          AbilityCell(
-            ability: AbilityEnum.cha,
-            controller: widget.controllers.chaController,
-            tmpController: widget.controllers.chaTmpController,
-          ),
-        ],
-      ),
-    ]);
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            AbilityCell(
+              ability: AbilityEnum.str,
+              controller: widget.controllers.strController,
+              tmpController: widget.controllers.strTmpController,
+            ),
+            AbilityCell(
+              ability: AbilityEnum.dex,
+              controller: widget.controllers.dexController,
+              tmpController: widget.controllers.dexTmpController,
+            ),
+            AbilityCell(
+              ability: AbilityEnum.con,
+              controller: widget.controllers.conController,
+              tmpController: widget.controllers.conTmpController,
+            ),
+          ],
+        ),
+        const SizedBox(height: 12.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            AbilityCell(
+              ability: AbilityEnum.charint,
+              controller: widget.controllers.intController,
+              tmpController: widget.controllers.intTmpController,
+            ),
+            AbilityCell(
+              ability: AbilityEnum.wis,
+              controller: widget.controllers.wisController,
+              tmpController: widget.controllers.wisTmpController,
+            ),
+            AbilityCell(
+              ability: AbilityEnum.cha,
+              controller: widget.controllers.chaController,
+              tmpController: widget.controllers.chaTmpController,
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
 
@@ -72,11 +75,12 @@ class AbilityCell extends StatefulWidget {
   final TextEditingController controller;
   final TextEditingController tmpController;
 
-  const AbilityCell(
-      {required this.ability,
-      required this.controller,
-      required this.tmpController,
-      super.key});
+  const AbilityCell({
+    required this.ability,
+    required this.controller,
+    required this.tmpController,
+    super.key,
+  });
 
   @override
   State<AbilityCell> createState() => _AbilityCellState();
@@ -122,14 +126,24 @@ class _AbilityCellState extends State<AbilityCell> {
                     height: 80.0,
                     width: 80.0,
                     child: CustomPaint(
-                      painter: StatBorderPainter(isTmp: isHaveTmpValue()),
+                      painter: StatBorderPainter(
+                        isTmp: isHaveTmpValue(),
+                        nameWidth: getTextSize(getName(), context),
+                        numbersCount: widget.controller.text.length,
+                        // valueWidth: getTextSize(
+                        //   widget.controller.text,
+                        //   context,
+                        // ),
+                      ),
                       child: Stack(
                         children: [
                           Align(
                             alignment: Alignment.center,
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 10.0, left: 3.0),
+                              padding: const EdgeInsets.only(
+                                top: 10.0,
+                                left: 3.0,
+                              ),
                               child: isHaveTmpValue()
                                   ? Column(
                                       mainAxisAlignment:
@@ -144,7 +158,8 @@ class _AbilityCellState extends State<AbilityCell> {
                                           width: 10.0,
                                           height: 2.0,
                                           margin: const EdgeInsets.symmetric(
-                                              vertical: 6.0),
+                                            vertical: 6.0,
+                                          ),
                                           color: AppColors.darkPink,
                                         ),
                                         Text(
@@ -156,8 +171,9 @@ class _AbilityCellState extends State<AbilityCell> {
                                     )
                                   : Text(
                                       getModifierValue(value),
-                                      style: AppStyles.commonPixel()
-                                          .copyWith(fontSize: 20.0),
+                                      style: AppStyles.commonPixel().copyWith(
+                                        fontSize: 20.0,
+                                      ),
                                     ),
                             ),
                           ),
@@ -176,9 +192,7 @@ class _AbilityCellState extends State<AbilityCell> {
                   controller: widget.controller,
                   expands: true,
                   maxLines: null,
-                  style: AppStyles.commonPixel().copyWith(
-                    fontSize: 10.0,
-                  ),
+                  style: AppStyles.commonPixel().copyWith(fontSize: 10.0),
                   textAlign: TextAlign.left,
                   textAlignVertical: TextAlignVertical.center,
                   keyboardType: TextInputType.number,
@@ -198,10 +212,12 @@ class _AbilityCellState extends State<AbilityCell> {
               alignment: Alignment.bottomRight,
               child: Text(
                 getName(),
-                style: AppStyles.commonPixel()
-                    .copyWith(fontSize: 6.0, color: AppColors.darkPink),
+                style: AppStyles.commonPixel().copyWith(
+                  fontSize: 6.0,
+                  color: AppColors.darkPink,
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -213,10 +229,12 @@ class _AbilityCellState extends State<AbilityCell> {
 
     if (isHaveTmpValue()) {
       modificator = CharacterAbility.getModifier(
-          parseIntFromString(widget.tmpController.text));
+        parseIntFromString(widget.tmpController.text),
+      );
     } else {
       modificator = CharacterAbility.getModifier(
-          parseIntFromString(widget.controller.text));
+        parseIntFromString(widget.controller.text),
+      );
     }
 
     statValueNotifier.value = modificator;
@@ -288,8 +306,11 @@ class _AbilityCellState extends State<AbilityCell> {
     }
   }
 
-  Widget dialogContent(BuildContext context, String title,
-      TextEditingController abilityTmpController) {
+  Widget dialogContent(
+    BuildContext context,
+    String title,
+    TextEditingController abilityTmpController,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -304,10 +325,7 @@ class _AbilityCellState extends State<AbilityCell> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
-                child: Text(
-                  'Tmp value: ',
-                  style: AppStyles.commonPixel(),
-                ),
+                child: Text('Tmp value: ', style: AppStyles.commonPixel()),
               ),
               Expanded(
                 child: SizedBox(
@@ -324,7 +342,8 @@ class _AbilityCellState extends State<AbilityCell> {
                     decoration: const InputDecoration(
                       focusColor: AppColors.darkPink,
                       focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.darkPink)),
+                        borderSide: BorderSide(color: AppColors.darkPink),
+                      ),
                     ),
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
@@ -334,9 +353,7 @@ class _AbilityCellState extends State<AbilityCell> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 16.0,
-          ),
+          const SizedBox(height: 16.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -344,10 +361,7 @@ class _AbilityCellState extends State<AbilityCell> {
                 onTap: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(
-                  "Done",
-                  style: AppStyles.commonPixel(),
-                ),
+                child: Text("Done", style: AppStyles.commonPixel()),
               ),
             ],
           ),
@@ -359,8 +373,13 @@ class _AbilityCellState extends State<AbilityCell> {
 
 class StatBorderPainter extends CustomPainter {
   final bool isTmp;
+  final double nameWidth;
+  final int numbersCount;
+
   const StatBorderPainter({
     required this.isTmp,
+    required this.nameWidth,
+    required this.numbersCount,
     Listenable? repaint,
   });
   @override
@@ -373,16 +392,15 @@ class StatBorderPainter extends CustomPainter {
       ..color = isTmp ? AppColors.darkPink : AppColors.teal;
     Path path = Path();
 
-    path.moveTo(size.width * (cut * 2), 0.0);
+    path.moveTo(numbersCount * 11, 0.0);
 
     path.lineTo(size.width * (1 - cut), 0.0);
     path.lineTo(size.width, size.height * cut);
-    path.lineTo(size.width, size.height * (1 - cut));
-    path.moveTo(size.width * (1 - cut * 2), size.height);
+    path.lineTo(size.width, size.height - 10.0);
+    path.moveTo(size.width - nameWidth, size.height);
     path.lineTo(size.width * cut, size.height);
     path.lineTo(0.0, size.height * (1 - cut));
-    path.lineTo(0.0, size.height * cut * 1.2);
-    //path.close();
+    path.lineTo(0.0, 14.0);
     canvas.drawPath(path, paint);
   }
 

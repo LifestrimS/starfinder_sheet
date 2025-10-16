@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 
-class TextFieldBorderPainter extends CustomPainter {
+class BorderWithTextPainter extends CustomPainter {
   final int? borderColorAlpha;
   final double? width;
   final double? customCut;
   final double? textWidth;
   final Color? customColor;
 
-  const TextFieldBorderPainter({
+  const BorderWithTextPainter({
     this.borderColorAlpha,
     this.width,
     this.customCut,
