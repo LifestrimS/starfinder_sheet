@@ -5,8 +5,14 @@ import 'package:pathfinder_sheet/utils/styles.dart';
 class Devider extends StatelessWidget {
   final String title;
   final double? topPadding;
+  final double? fontSize;
 
-  const Devider({required this.title, this.topPadding, super.key});
+  const Devider({
+    required this.title,
+    this.topPadding,
+    this.fontSize,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,9 @@ class Devider extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 4.0),
             child: Text(
               title,
-              style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+              style: AppStyles.commonPixel().copyWith(
+                fontSize: fontSize ?? 8.0,
+              ),
             ),
           ),
           const Expanded(
