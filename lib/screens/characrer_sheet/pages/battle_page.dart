@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/bab_block.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/dr_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/live_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/resolve_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/saving_throws_block.dart';
@@ -18,11 +17,12 @@ class BattlePage extends StatelessWidget {
     return PageTemplate(
       wm: wm,
       content: [
-        const Devider(title: 'AC', topPadding: 16.0),
+        const Devider(title: 'Defence', topPadding: 16.0),
         ACBlock(
           eacControllers: wm.eacControllers,
           kacControllers: wm.kacControllers,
           dexModificatorNotifier: wm.dexModificatorNotifier(),
+          drSrControllers: wm.drSrControllers,
         ),
         const Devider(title: 'Vitals'),
         ResolveBlock(
@@ -46,8 +46,6 @@ class BattlePage extends StatelessWidget {
           conModificatorNotifier: wm.conModificatorNotifier(),
           wisModificatorNotifier: wm.wisModificatorNotifier(),
         ),
-        const SizedBox(height: 18.0),
-        DrBlock(wm: wm, controllers: wm.drSrControllers),
       ],
     );
   }
