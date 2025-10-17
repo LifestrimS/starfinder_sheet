@@ -111,6 +111,8 @@ class CharacterSheetModel extends ElementaryModel {
 
   void setIsMagic(bool value) => _isMagic = value;
 
+  void setMaxResolve(int value) => _maxResolve = value;
+
   Future<List<Character?>> getCharacterList() async {
     try {
       List<Character> characterList = await repository.getAllCharacter();

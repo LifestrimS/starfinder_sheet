@@ -7,15 +7,28 @@ import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/utils/utils.dart';
 
-class ResolveBlock extends StatelessWidget {
+class ResolveBlock extends StatefulWidget {
   final ICharacterSheetWM wm;
   final TextEditingController controller;
   const ResolveBlock({required this.wm, required this.controller, super.key});
 
   @override
+  State<ResolveBlock> createState() => _ResolveBlockState();
+}
+
+class _ResolveBlockState extends State<ResolveBlock> {
+  final ValueNotifier<int> maxResolveNotifier = ValueNotifier(0);
+
+  @override
+  void initState() {
+    maxResolveNotifier.value = widget.wm.maxResolve;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: wm.currentResolveNotifier(),
+      valueListenable: widget.wm.currentResolveNotifier(),
       builder: (context, currentResolve, child) {
         return Column(
           children: [
@@ -29,20 +42,16 @@ class ResolveBlock extends StatelessWidget {
                 const Spacer(),
                 Text(
                   '$currentResolve/',
-                  style: AppStyles.commonPixel().copyWith(
-                    fontSize: 8.0,
-                  ),
+                  style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
                 ),
                 SizedBox(
                   width: 35.0,
                   height: 15.0,
                   child: TextFormField(
-                    controller: controller,
+                    controller: widget.controller,
                     expands: true,
                     maxLines: null,
-                    style: AppStyles.commonPixel().copyWith(
-                      fontSize: 8.0,
-                    ),
+                    style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
                     textAlign: TextAlign.left,
                     textAlignVertical: TextAlignVertical.center,
                     keyboardType: TextInputType.number,
@@ -53,25 +62,33 @@ class ResolveBlock extends StatelessWidget {
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
                     ],
+                    onChanged: (value) {
+                      maxResolveNotifier.value = parseIntFromString(value);
+                      widget.wm.setMaxResolve(parseIntFromString(value));
+                    },
                   ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 4.0,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: resolveGrid(currentResolve)),
-                wm.maxResolve > 8
-                    ? Column(
-                        children: buttons(context),
-                      )
-                    : Row(
-                        children: buttons(context, isVertical: false),
-                      )
-              ],
+            const SizedBox(height: 4.0),
+            ValueListenableBuilder(
+              valueListenable: maxResolveNotifier,
+              builder: (context, maxResolve, child) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: resolveGrid(
+                        currentResolve: currentResolve,
+                        maxResolve: maxResolve,
+                      ),
+                    ),
+                    widget.wm.maxResolve > 8
+                        ? Column(children: buttons(context))
+                        : Row(children: buttons(context, isVertical: false)),
+                  ],
+                );
+              },
             ),
           ],
         );
@@ -82,13 +99,14 @@ class ResolveBlock extends StatelessWidget {
   List<Widget> buttons(BuildContext context, {bool isVertical = true}) {
     return [
       GestureDetector(
-        onTap: wm.addResolve,
+        onTap: widget.wm.addResolve,
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0, top: 4.0),
           child: Container(
             decoration: BoxDecoration(
-                border: Border.all(color: AppColors.teal, width: 2.0),
-                borderRadius: const BorderRadius.all(Radius.circular(2.0))),
+              border: Border.all(color: AppColors.teal, width: 2.0),
+              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+            ),
             child: const Icon(
               size: 16.0,
               Icons.add_sharp,
@@ -98,14 +116,17 @@ class ResolveBlock extends StatelessWidget {
         ),
       ),
       GestureDetector(
-        onTap: wm.removeResolve,
+        onTap: widget.wm.removeResolve,
         child: Padding(
           padding: EdgeInsets.only(
-              left: isVertical ? 8.0 : 4.0, top: isVertical ? 8.0 : 4.0),
+            left: isVertical ? 8.0 : 4.0,
+            top: isVertical ? 8.0 : 4.0,
+          ),
           child: Container(
             decoration: BoxDecoration(
-                border: Border.all(color: AppColors.teal, width: 2.0),
-                borderRadius: const BorderRadius.all(Radius.circular(2.0))),
+              border: Border.all(color: AppColors.teal, width: 2.0),
+              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+            ),
             child: const Icon(
               size: 16.0,
               Icons.remove_sharp,
@@ -113,13 +134,13 @@ class ResolveBlock extends StatelessWidget {
             ),
           ),
         ),
-      )
+      ),
     ];
   }
 
-  Widget resolveGrid(int currentResolve) {
+  Widget resolveGrid({required int currentResolve, required int maxResolve}) {
     return GridView.builder(
-      itemCount: wm.maxResolve,
+      itemCount: maxResolve,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -130,8 +151,7 @@ class ResolveBlock extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            addResolveByTap(
-                index, currentResolve, parseIntFromString(controller.text));
+            addResolveByTap(index, currentResolve, maxResolve);
           },
           child: CustomPaint(
             painter: ResolveCounterPainer(isFilled: index < currentResolve),
@@ -143,16 +163,18 @@ class ResolveBlock extends StatelessWidget {
 
   void addResolveByTap(int tapedIndex, int currentResolve, int maxResolve) {
     if (tapedIndex + 1 > currentResolve && tapedIndex + 1 <= maxResolve) {
-      log('add current: $currentResolve index: ${tapedIndex + 1}');
+      log(
+        'add current: $currentResolve index: ${tapedIndex + 1} maxResolve: $maxResolve',
+      );
       for (int i = 0; i <= tapedIndex - currentResolve; i++) {
-        wm.addResolve();
+        widget.wm.addResolve();
       }
     }
 
-    if (tapedIndex + 1 < currentResolve && tapedIndex + 1 > 0) {
+    if (tapedIndex + 1 <= currentResolve && tapedIndex + 1 >= 0) {
       log('remove current: $currentResolve index: ${tapedIndex + 1}');
-      for (int i = 1; i < currentResolve - tapedIndex; i++) {
-        wm.removeResolve();
+      for (int i = 1; i <= currentResolve - tapedIndex; i++) {
+        widget.wm.removeResolve();
       }
     }
   }

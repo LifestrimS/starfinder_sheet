@@ -27,6 +27,7 @@ class EquipmentPage extends StatelessWidget {
           armors: wm.armors,
           controllers: wm.armorControllers,
           controllersNotifier: wm.armorControllersNotifier(),
+          checkedArmorIndexNotifier: wm.checkedArmorId(),
         ),
       ],
     );

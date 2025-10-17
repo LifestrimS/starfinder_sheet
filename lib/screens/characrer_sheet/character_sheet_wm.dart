@@ -41,6 +41,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   void healStam(int value);
   void addResolve();
   void removeResolve();
+  void setMaxResolve(int value);
   void setAlignment(String alignment);
   void setSize(String size);
   void saveCharacter();
@@ -68,6 +69,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   ValueNotifier<bool> isMagicNotifier();
   ValueNotifier<int> weaponControllersNotifier();
   ValueNotifier<int> armorControllersNotifier();
+  ValueNotifier<int> checkedArmorId();
 
   TextEditingController get damageTextController;
   TextEditingController get nameTextController;
@@ -112,6 +114,7 @@ class CharacterSheetWM
   final ValueNotifier<bool> _isMagicNotifier = ValueNotifier(true);
   final ValueNotifier<int> _weaponControllersNotifier = ValueNotifier(0);
   final ValueNotifier<int> _armorControllersNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _checkedArmorIndexNotifier = ValueNotifier(-1);
 
   final TextEditingController _damageTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
@@ -139,7 +142,7 @@ class CharacterSheetWM
         maxResolveController: TextEditingController(),
       );
   final AcControllers _eacControllers = AcControllers(
-    armorController: TextEditingController(),
+    armorNotifier: ValueNotifier(0),
     dexController: TextEditingController(),
     dodgeController: TextEditingController(),
     naturalController: TextEditingController(),
@@ -147,7 +150,7 @@ class CharacterSheetWM
     miscController: TextEditingController(),
   );
   final AcControllers _kacControllers = AcControllers(
-    armorController: TextEditingController(),
+    armorNotifier: ValueNotifier(0),
     dexController: TextEditingController(),
     dodgeController: TextEditingController(),
     naturalController: TextEditingController(),
@@ -231,6 +234,8 @@ class CharacterSheetWM
   ValueNotifier<int> weaponControllersNotifier() => _weaponControllersNotifier;
   @override
   ValueNotifier<int> armorControllersNotifier() => _armorControllersNotifier;
+  @override
+  ValueNotifier<int> checkedArmorId() => _checkedArmorIndexNotifier;
 
   @override
   TextEditingController get damageTextController => _damageTextController;
@@ -318,6 +323,8 @@ class CharacterSheetWM
     _abilityTextControllers.conTmpController.removeListener(conListener);
     _abilityTextControllers.wisTmpController.removeListener(wisListener);
 
+    _checkedArmorIndexNotifier.removeListener(armorListener);
+
     _dexModificatorNotifier.dispose();
     _strModificatorNotifier.dispose();
     _conModificatorNotifier.dispose();
@@ -325,6 +332,7 @@ class CharacterSheetWM
     _isMagicNotifier.dispose();
     _weaponControllersNotifier.dispose();
     _armorControllersNotifier.dispose();
+    _checkedArmorIndexNotifier.dispose();
     super.dispose();
   }
 
@@ -436,6 +444,44 @@ class CharacterSheetWM
     }
   }
 
+  void armorListener() {
+    for (int i = 0; i < _armorControllers.length; i++) {
+      if (_checkedArmorIndexNotifier.value == i) {
+        _armorControllers[i].eacController.addListener(armorBonusEacListener);
+        armorBonusEacListener();
+        _armorControllers[i].kacController.addListener(armorBonusKacListener);
+        armorBonusKacListener();
+      } else {
+        _armorControllers[i].eacController.removeListener(
+          armorBonusEacListener,
+        );
+        _armorControllers[i].kacController.removeListener(
+          armorBonusKacListener,
+        );
+      }
+    }
+  }
+
+  void armorBonusEacListener() {
+    if (_checkedArmorIndexNotifier.value == -1) {
+      _eacControllers.armorNotifier.value = 0;
+      return;
+    }
+    _eacControllers.armorNotifier.value = parseIntFromString(
+      _armorControllers[_checkedArmorIndexNotifier.value].eacController.text,
+    );
+  }
+
+  void armorBonusKacListener() {
+    if (_checkedArmorIndexNotifier.value == -1) {
+      _kacControllers.armorNotifier.value = 0;
+      return;
+    }
+    _kacControllers.armorNotifier.value = parseIntFromString(
+      _armorControllers[_checkedArmorIndexNotifier.value].kacController.text,
+    );
+  }
+
   @override
   void getDamage() {
     //always positive
@@ -506,6 +552,11 @@ class CharacterSheetWM
   void removeResolve() {
     model.removeResolve();
     _currentResolveNotifier.value = model.currentResolve;
+  }
+
+  @override
+  void setMaxResolve(int value) {
+    model.setMaxResolve(value);
   }
 
   @override
@@ -629,6 +680,31 @@ class CharacterSheetWM
     _armorControllersNotifier.value = _armorControllers.length;
   }
 
+  void initCheckedArmorNotifier() {
+    List<Armor> armors = model.armor.armors;
+    for (int i = 0; i < armors.length; i++) {
+      if (armors[i].isChecked) {
+        _checkedArmorIndexNotifier.value = i;
+        _checkedArmorIndexNotifier.addListener(armorListener);
+
+        _eacControllers.armorNotifier.value = parseIntFromString(
+          _armorControllers[_checkedArmorIndexNotifier.value]
+              .eacController
+              .text,
+        );
+        _kacControllers.armorNotifier.value = parseIntFromString(
+          _armorControllers[_checkedArmorIndexNotifier.value]
+              .kacController
+              .text,
+        );
+        _armorControllers[i].eacController.addListener(armorBonusEacListener);
+        _armorControllers[i].kacController.addListener(armorBonusKacListener);
+
+        return;
+      }
+    }
+  }
+
   @override
   void addArmor() {
     ArmorControllers controller = ArmorControllers(
@@ -715,18 +791,30 @@ class CharacterSheetWM
           maxResolve: parseIntFromString(
             _liveBlockTextControllers.maxResolveController.text,
           ),
-          currentResolve: model.currentResolve,
+          currentResolve:
+              model.currentResolve <
+                  parseIntFromString(
+                    _liveBlockTextControllers.maxResolveController.text,
+                  )
+              ? model.currentResolve
+              : parseIntFromString(
+                  _liveBlockTextControllers.maxResolveController.text,
+                ),
           damageLog: model.damageLog,
         ),
         eacBlock: ACBLock(
-          amror: parseIntFromString(_eacControllers.armorController.text),
+          amror: getArmorBonus(
+            isEac: true,
+          ), //parseIntFromString(_eacControllers.armorController.text),
           dodge: parseIntFromString(_eacControllers.dodgeController.text),
           natural: parseIntFromString(_eacControllers.naturalController.text),
           deflect: parseIntFromString(_eacControllers.deflectController.text),
           misc: parseIntFromString(_eacControllers.miscController.text),
         ),
         kacBlock: ACBLock(
-          amror: parseIntFromString(_kacControllers.armorController.text),
+          amror: getArmorBonus(
+            isEac: false,
+          ), //parseIntFromString(_kacControllers.armorController.text),
           dodge: parseIntFromString(_kacControllers.dodgeController.text),
           natural: parseIntFromString(_kacControllers.naturalController.text),
           deflect: parseIntFromString(_kacControllers.deflectController.text),
@@ -799,6 +887,16 @@ class CharacterSheetWM
     }
   }
 
+  int getArmorBonus({required bool isEac}) {
+    List<Armor> armors = model.armor.armors;
+    for (int i = 0; i < armors.length; i++) {
+      if (armors[i].isChecked) {
+        return isEac ? armors[i].armorEac : armors[i].armorKac;
+      }
+    }
+    return 0;
+  }
+
   WeaponList saveWeapons() {
     List<Weapon> weaponList = [];
     for (int i = 0; i < _weaponControllers.length; i++) {
@@ -842,7 +940,7 @@ class CharacterSheetWM
             _armorControllers[i].upgradesController.text,
           ),
           notes: _armorControllers[i].notesController.text,
-          isChecked: false,
+          isChecked: _checkedArmorIndexNotifier.value == i,
         ),
       );
     }
@@ -927,7 +1025,7 @@ class CharacterSheetWM
     _liveBlockTextControllers.maxResolveController.text = model.maxResolve
         .toString();
 
-    _eacControllers.armorController.text = model.getEacBlock().amror.toString();
+    //_eacControllers.armorController.text = model.getEacBlock().amror.toString();
     _eacControllers.dexController.text = CharacterAbility.getModifier(
       model.getAbility().dexterity,
     ).toString();
@@ -942,7 +1040,7 @@ class CharacterSheetWM
         .toString();
     _eacControllers.miscController.text = model.getEacBlock().misc.toString();
 
-    _kacControllers.armorController.text = model.getKacBlock().amror.toString();
+    //_kacControllers.armorController.text = model.getKacBlock().amror.toString();
     _kacControllers.dexController.text = CharacterAbility.getModifier(
       model.getAbility().dexterity,
     ).toString();
@@ -1043,6 +1141,7 @@ class CharacterSheetWM
 
     initWeaponControllers();
     initArmorControllers();
+    initCheckedArmorNotifier();
   }
 
   @override

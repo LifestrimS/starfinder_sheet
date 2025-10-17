@@ -13,12 +13,14 @@ class ArmorsBlock extends StatefulWidget {
   final ArmorList armors;
   final List<ArmorControllers> controllers;
   final ValueNotifier<int> controllersNotifier;
+  final ValueNotifier<int> checkedArmorIndexNotifier;
 
   const ArmorsBlock({
     required this.wm,
     required this.armors,
     required this.controllers,
     required this.controllersNotifier,
+    required this.checkedArmorIndexNotifier,
     super.key,
   });
 
@@ -32,40 +34,51 @@ class _ArmorsBlockkState extends State<ArmorsBlock> {
     return ValueListenableBuilder(
       valueListenable: widget.controllersNotifier,
       builder: (context, value, child) {
-        return Column(
-          children: [
-            ...armorWidgets(notifiersCount: value),
-            const SizedBox(height: 12.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+        return ValueListenableBuilder(
+          valueListenable: widget.checkedArmorIndexNotifier,
+          builder: (context, checkedArmorId, child) {
+            return Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    widget.wm.addArmor();
-                    setState(() {});
-                  },
-                  child: CustomPaint(
-                    painter: const FullBorderPainter(),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Add armor',
-                          style: AppStyles.commonPixel(),
+                ...armorWidgets(
+                  notifiersCount: value,
+                  checkedArmorId: checkedArmorId,
+                ),
+                const SizedBox(height: 12.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        widget.wm.addArmor();
+                        setState(() {});
+                      },
+                      child: CustomPaint(
+                        painter: const FullBorderPainter(),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Add armor',
+                              style: AppStyles.commonPixel(),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ],
-            ),
-          ],
+            );
+          },
         );
       },
     );
   }
 
-  List<Widget> armorWidgets({required int notifiersCount}) {
+  List<Widget> armorWidgets({
+    required int notifiersCount,
+    required int checkedArmorId,
+  }) {
     List<Widget> armorWidgetList = [];
     if (notifiersCount == 0) {
       armorWidgetList.add(const SizedBox());
@@ -80,6 +93,8 @@ class _ArmorsBlockkState extends State<ArmorsBlock> {
             armor: widget.armors.armors[i],
             deleteArmor: () => widget.wm.deleteArmor(i),
             controllers: widget.controllers[i],
+            checkedArmorIndexNotifier: widget.checkedArmorIndexNotifier,
+            index: i,
           ),
         );
       }
@@ -92,6 +107,8 @@ class _ArmorsBlockkState extends State<ArmorsBlock> {
               deleteArmor: () =>
                   widget.wm.deleteArmor(widget.armors.armors.length + i),
               controllers: widget.controllers[widget.armors.armors.length + i],
+              checkedArmorIndexNotifier: widget.checkedArmorIndexNotifier,
+              index: i,
             ),
           );
         }
@@ -107,12 +124,16 @@ class ExpansionBlock extends StatefulWidget {
   final Armor armor;
   final ArmorControllers controllers;
   final VoidCallback deleteArmor;
+  final ValueNotifier<int> checkedArmorIndexNotifier;
+  final int index;
 
   const ExpansionBlock({
     required this.wm,
     required this.armor,
     required this.controllers,
     required this.deleteArmor,
+    required this.checkedArmorIndexNotifier,
+    required this.index,
     super.key,
   });
 
@@ -167,7 +188,25 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ArmorCheckBox(wm: widget.wm),
+                  ValueListenableBuilder(
+                    valueListenable: widget.checkedArmorIndexNotifier,
+                    builder: (context, value, child) {
+                      return GestureDetector(
+                        onTap: () {
+                          if (value != widget.index) {
+                            widget.checkedArmorIndexNotifier.value =
+                                widget.index;
+                          } else {
+                            widget.checkedArmorIndexNotifier.value = -1;
+                          }
+                        },
+                        child: ArmorCheckBox(
+                          wm: widget.wm,
+                          isChecked: widget.index == value,
+                        ),
+                      );
+                    },
+                  ),
                   const SizedBox(width: 8.0),
                   Expanded(
                     child: getMainTextField(
@@ -186,8 +225,8 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
             children: [
               Expanded(
                 child: getTextField(
-                  title: 'KAC',
-                  controller: widget.controllers.kacController,
+                  title: 'EAC',
+                  controller: widget.controllers.eacController,
                   isCentered: true,
                   formatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
@@ -197,8 +236,8 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
               const SizedBox(width: 8.0),
               Expanded(
                 child: getTextField(
-                  title: 'EAC',
-                  controller: widget.controllers.eacController,
+                  title: 'KAC',
+                  controller: widget.controllers.kacController,
                   isCentered: true,
                   formatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
@@ -326,42 +365,24 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
 
 class ArmorCheckBox extends StatefulWidget {
   final ICharacterSheetWM wm;
-  const ArmorCheckBox({required this.wm, super.key});
+  final bool isChecked;
+  const ArmorCheckBox({required this.wm, required this.isChecked, super.key});
 
   @override
   State<ArmorCheckBox> createState() => _ArmorCheckBoxState();
 }
 
 class _ArmorCheckBoxState extends State<ArmorCheckBox> {
-  bool isChecked = true;
-
-  @override
-  void initState() {
-    isChecked = widget.wm.isMagic;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        isChecked = !isChecked;
-        //widget.wm.setIsMagic(isChecked);
-        setState(() {});
-      },
-      child: SizedBox(
-        height: 20.0,
-        width: 20.0,
-        child: CustomPaint(
-          painter: const CheckBoxPainter(),
-          child: isChecked
-              ? const Icon(
-                  size: 20.0,
-                  Icons.accessible_forward,
-                  color: AppColors.darkPink,
-                )
-              : const SizedBox(),
-        ),
+    return SizedBox(
+      height: 30.0,
+      width: 30.0,
+      child: CustomPaint(
+        painter: const CheckBoxPainter(),
+        child: widget.isChecked
+            ? const Icon(size: 30.0, Icons.check, color: AppColors.darkPink)
+            : const SizedBox(),
       ),
     );
   }
@@ -377,8 +398,8 @@ class CheckBoxPainter extends CustomPainter {
 
     Paint paintFrame = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0
-      ..color = AppColors.white;
+      ..strokeWidth = 3.0
+      ..color = AppColors.teal;
     Path pathFrame = Path();
 
     pathFrame.moveTo(0.0, 0.0);
@@ -406,7 +427,7 @@ class ArmorControllers {
   final TextEditingController upgradesController;
   final TextEditingController notesController;
 
-  const ArmorControllers({
+  ArmorControllers({
     required this.nameController,
     required this.typeController,
     required this.kacController,

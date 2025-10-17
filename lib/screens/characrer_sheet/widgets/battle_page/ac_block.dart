@@ -32,8 +32,8 @@ class _ACBlockState extends State<ACBlock> {
 
   @override
   void initState() {
-    update(isEac: true);
-    update(isEac: false);
+    update(isEac: true, armorBonus: widget.eacControllers.armorNotifier.value);
+    update(isEac: false, armorBonus: widget.kacControllers.armorNotifier.value);
     super.initState();
   }
 
@@ -47,30 +47,100 @@ class _ACBlockState extends State<ACBlock> {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                GestureDetector(
-                  onTap: () async {
-                    await showDialog(
-                      context: context,
-                      builder: (context) => CustomDialog(
-                        content: dialogContent(
-                          context,
-                          true,
-                          dexModificator,
-                          widget.eacControllers,
+                ValueListenableBuilder(
+                  valueListenable: widget.eacControllers.armorNotifier,
+                  builder: (context, eacArmorBonus, child) {
+                    return GestureDetector(
+                      onTap: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (context) => CustomDialog(
+                            content: dialogContent(
+                              context,
+                              true,
+                              dexModificator,
+                              widget.eacControllers,
+                            ),
+                          ),
+                        );
+                        update(isEac: true, armorBonus: eacArmorBonus);
+                      },
+                      child: SizedBox(
+                        height: 57.0,
+                        width: 75.0,
+                        child: Stack(
+                          children: [
+                            ValueListenableBuilder(
+                              valueListenable: eacNotifier,
+                              builder: (context, value, child) {
+                                return Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: SizedBox(
+                                    height: 50.0,
+                                    width: 70.0,
+                                    child: CustomPaint(
+                                      painter: ACBorderPainter(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 4.0,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            countAC(
+                                              controllers:
+                                                  widget.eacControllers,
+                                              armorBonus: eacArmorBonus,
+                                            ).toString(),
+                                            style: AppStyles.commonPixel()
+                                                .copyWith(fontSize: 14.0),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                'EAC',
+                                style: AppStyles.commonPixel().copyWith(
+                                  color: AppColors.darkPink,
+                                  fontSize: 6.0,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     );
-                    update(isEac: true);
                   },
-                  child: SizedBox(
-                    height: 57.0,
-                    width: 75.0,
-                    child: Stack(
-                      children: [
-                        ValueListenableBuilder(
-                          valueListenable: eacNotifier,
-                          builder: (context, value, child) {
-                            return Align(
+                ),
+                ValueListenableBuilder(
+                  valueListenable: widget.kacControllers.armorNotifier,
+                  builder: (context, kacArmorBonus, child) {
+                    return GestureDetector(
+                      onTap: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (context) => CustomDialog(
+                            content: dialogContent(
+                              context,
+                              false,
+                              dexModificator,
+                              widget.kacControllers,
+                            ),
+                          ),
+                        );
+                        update(isEac: false, armorBonus: kacArmorBonus);
+                      },
+                      child: SizedBox(
+                        height: 55.0,
+                        width: 75.0,
+                        child: Stack(
+                          children: [
+                            Align(
                               alignment: Alignment.bottomRight,
                               child: SizedBox(
                                 height: 50.0,
@@ -81,7 +151,10 @@ class _ACBlockState extends State<ACBlock> {
                                     padding: const EdgeInsets.only(top: 4.0),
                                     child: Center(
                                       child: Text(
-                                        value.toString(),
+                                        countAC(
+                                          controllers: widget.kacControllers,
+                                          armorBonus: kacArmorBonus,
+                                        ).toString(),
                                         style: AppStyles.commonPixel().copyWith(
                                           fontSize: 14.0,
                                         ),
@@ -90,81 +163,25 @@ class _ACBlockState extends State<ACBlock> {
                                   ),
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'EAC',
-                            style: AppStyles.commonPixel().copyWith(
-                              color: AppColors.darkPink,
-                              fontSize: 6.0,
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    await showDialog(
-                      context: context,
-                      builder: (context) => CustomDialog(
-                        content: dialogContent(
-                          context,
-                          false,
-                          dexModificator,
-                          widget.kacControllers,
-                        ),
-                      ),
-                    );
-                    update(isEac: false);
-                  },
-                  child: SizedBox(
-                    height: 55.0,
-                    width: 75.0,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: SizedBox(
-                            height: 50.0,
-                            width: 70.0,
-                            child: CustomPaint(
-                              painter: ACBorderPainter(),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 4.0),
-                                child: Center(
-                                  child: Text(
-                                    countAC(widget.kacControllers).toString(),
-                                    style: AppStyles.commonPixel().copyWith(
-                                      fontSize: 14.0,
-                                    ),
-                                  ),
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                'KAC',
+                                style: AppStyles.commonPixel().copyWith(
+                                  color: AppColors.darkPink,
+                                  fontSize: 6.0,
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'KAC',
-                            style: AppStyles.commonPixel().copyWith(
-                              color: AppColors.darkPink,
-                              fontSize: 6.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(
                   width: 75.0,
-
                   child: CustomTextField(
                     controller: widget.drSrControllers.srController,
                     title: 'SRs',
@@ -191,21 +208,27 @@ class _ACBlockState extends State<ACBlock> {
     );
   }
 
-  int countAC(AcControllers controllers) {
+  int countAC({required AcControllers controllers, required int armorBonus}) {
     return 10 +
         widget.dexModificatorNotifier.value +
-        parseIntFromString(controllers.armorController.text) +
+        armorBonus +
         parseIntFromString(controllers.dodgeController.text) +
         parseIntFromString(controllers.naturalController.text) +
         parseIntFromString(controllers.deflectController.text) +
         parseIntFromString(controllers.miscController.text);
   }
 
-  void update({required bool isEac}) {
+  void update({required bool isEac, required int armorBonus}) {
     if (isEac) {
-      eacNotifier.value = countAC(widget.eacControllers);
+      eacNotifier.value = countAC(
+        controllers: widget.eacControllers,
+        armorBonus: armorBonus,
+      );
     } else {
-      kacNotifier.value = countAC(widget.kacControllers);
+      kacNotifier.value = countAC(
+        controllers: widget.kacControllers,
+        armorBonus: armorBonus,
+      );
     }
   }
 
@@ -241,7 +264,7 @@ class _ACBlockState extends State<ACBlock> {
               plusSymbol(),
               DialogBox(
                 title: 'Armor',
-                controller: controllers.armorController,
+                value: controllers.armorNotifier.value,
                 widthCutCount: 4.2,
               ),
               plusSymbol(),
@@ -431,7 +454,7 @@ class DialogFramePainter extends CustomPainter {
 }
 
 class AcControllers {
-  final TextEditingController armorController;
+  final ValueNotifier<int> armorNotifier;
   final TextEditingController dexController;
   final TextEditingController dodgeController;
   final TextEditingController naturalController;
@@ -439,7 +462,7 @@ class AcControllers {
   final TextEditingController miscController;
 
   const AcControllers({
-    required this.armorController,
+    required this.armorNotifier,
     required this.dexController,
     required this.dodgeController,
     required this.naturalController,
