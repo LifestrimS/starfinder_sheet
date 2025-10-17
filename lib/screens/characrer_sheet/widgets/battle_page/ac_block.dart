@@ -11,13 +11,13 @@ class ACBlock extends StatefulWidget {
   final AcControllers eacControllers;
   final AcControllers kacControllers;
   final DrSrControllers drSrControllers;
-  final ValueNotifier<int> dexModificatorNotifier;
+  final ValueNotifier<int> armorDexBonusNotifier;
 
   const ACBlock({
     required this.eacControllers,
     required this.kacControllers,
     required this.drSrControllers,
-    required this.dexModificatorNotifier,
+    required this.armorDexBonusNotifier,
     super.key,
   });
 
@@ -42,7 +42,7 @@ class _ACBlockState extends State<ACBlock> {
     return Column(
       children: [
         ValueListenableBuilder(
-          valueListenable: widget.dexModificatorNotifier,
+          valueListenable: widget.armorDexBonusNotifier,
           builder: (context, dexModificator, child) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -210,7 +210,7 @@ class _ACBlockState extends State<ACBlock> {
 
   int countAC({required AcControllers controllers, required int armorBonus}) {
     return 10 +
-        widget.dexModificatorNotifier.value +
+        widget.armorDexBonusNotifier.value +
         armorBonus +
         parseIntFromString(controllers.dodgeController.text) +
         parseIntFromString(controllers.naturalController.text) +

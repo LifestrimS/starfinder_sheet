@@ -21,7 +21,7 @@ class BattlePage extends StatelessWidget {
         ACBlock(
           eacControllers: wm.eacControllers,
           kacControllers: wm.kacControllers,
-          dexModificatorNotifier: wm.dexModificatorNotifier(),
+          armorDexBonusNotifier: wm.armorDexBonusNotifier(),
           drSrControllers: wm.drSrControllers,
         ),
         const Devider(title: 'Vitals'),

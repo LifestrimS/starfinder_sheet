@@ -69,7 +69,8 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   ValueNotifier<bool> isMagicNotifier();
   ValueNotifier<int> weaponControllersNotifier();
   ValueNotifier<int> armorControllersNotifier();
-  ValueNotifier<int> checkedArmorId();
+  ValueNotifier<int> checkedArmorIndexNotifier();
+  ValueNotifier<int> armorDexBonusNotifier();
 
   TextEditingController get damageTextController;
   TextEditingController get nameTextController;
@@ -115,6 +116,7 @@ class CharacterSheetWM
   final ValueNotifier<int> _weaponControllersNotifier = ValueNotifier(0);
   final ValueNotifier<int> _armorControllersNotifier = ValueNotifier(0);
   final ValueNotifier<int> _checkedArmorIndexNotifier = ValueNotifier(-1);
+  final ValueNotifier<int> _armorDexBonusNotifier = ValueNotifier(0);
 
   final TextEditingController _damageTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
@@ -235,7 +237,9 @@ class CharacterSheetWM
   @override
   ValueNotifier<int> armorControllersNotifier() => _armorControllersNotifier;
   @override
-  ValueNotifier<int> checkedArmorId() => _checkedArmorIndexNotifier;
+  ValueNotifier<int> checkedArmorIndexNotifier() => _checkedArmorIndexNotifier;
+  @override
+  ValueNotifier<int> armorDexBonusNotifier() => _armorDexBonusNotifier;
 
   @override
   TextEditingController get damageTextController => _damageTextController;
@@ -314,16 +318,20 @@ class CharacterSheetWM
     _totalDamageNotifier.dispose();
     _currentResolveNotifier.dispose();
     _abilityTextControllers.dexController.removeListener(dexListener);
+    _abilityTextControllers.dexController.removeListener(countArmorDexBonus);
     _abilityTextControllers.strController.removeListener(strListener);
     _abilityTextControllers.conController.removeListener(conListener);
     _abilityTextControllers.wisController.removeListener(wisListener);
 
     _abilityTextControllers.dexTmpController.removeListener(dexListener);
+    _abilityTextControllers.dexTmpController.removeListener(countArmorDexBonus);
     _abilityTextControllers.strTmpController.removeListener(strListener);
     _abilityTextControllers.conTmpController.removeListener(conListener);
     _abilityTextControllers.wisTmpController.removeListener(wisListener);
 
     _checkedArmorIndexNotifier.removeListener(armorListener);
+
+    _armorDexBonusNotifier.dispose();
 
     _dexModificatorNotifier.dispose();
     _strModificatorNotifier.dispose();
@@ -451,6 +459,9 @@ class CharacterSheetWM
         armorBonusEacListener();
         _armorControllers[i].kacController.addListener(armorBonusKacListener);
         armorBonusKacListener();
+
+        armorControllers[i].maxDexController.addListener(countArmorDexBonus);
+        countArmorDexBonus();
       } else {
         _armorControllers[i].eacController.removeListener(
           armorBonusEacListener,
@@ -458,6 +469,7 @@ class CharacterSheetWM
         _armorControllers[i].kacController.removeListener(
           armorBonusKacListener,
         );
+        armorControllers[i].maxDexController.removeListener(countArmorDexBonus);
       }
     }
   }
@@ -687,6 +699,8 @@ class CharacterSheetWM
         _checkedArmorIndexNotifier.value = i;
         _checkedArmorIndexNotifier.addListener(armorListener);
 
+        countArmorDexBonus();
+
         _eacControllers.armorNotifier.value = parseIntFromString(
           _armorControllers[_checkedArmorIndexNotifier.value]
               .eacController
@@ -699,9 +713,24 @@ class CharacterSheetWM
         );
         _armorControllers[i].eacController.addListener(armorBonusEacListener);
         _armorControllers[i].kacController.addListener(armorBonusKacListener);
+        armorControllers[i].maxDexController.addListener(countArmorDexBonus);
 
         return;
       }
+    }
+  }
+
+  void countArmorDexBonus() {
+    int maxDexBonus = parseIntFromString(
+      _armorControllers[_checkedArmorIndexNotifier.value].maxDexController.text,
+    );
+
+    int dexAbilityBonus = _dexModificatorNotifier.value;
+
+    if (dexAbilityBonus > maxDexBonus) {
+      _armorDexBonusNotifier.value = maxDexBonus;
+    } else {
+      _armorDexBonusNotifier.value = dexAbilityBonus;
     }
   }
 
@@ -962,11 +991,13 @@ class CharacterSheetWM
     _lvlTextController.text = model.lvl.toString();
 
     _abilityTextControllers.dexController.addListener(dexListener);
+    _abilityTextControllers.dexController.addListener(countArmorDexBonus);
     _abilityTextControllers.strController.addListener(strListener);
     _abilityTextControllers.conController.addListener(conListener);
     _abilityTextControllers.wisController.addListener(wisListener);
 
     _abilityTextControllers.dexTmpController.addListener(dexListener);
+    _abilityTextControllers.dexTmpController.addListener(countArmorDexBonus);
     _abilityTextControllers.strTmpController.addListener(strListener);
     _abilityTextControllers.conTmpController.addListener(conListener);
     _abilityTextControllers.wisTmpController.addListener(wisListener);
