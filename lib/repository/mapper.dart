@@ -95,6 +95,7 @@ class Mapper {
       isMagic: element.isMagic,
       weaponList: element.weapons ?? const WeaponList.empty(),
       armorList: element.armors ?? const ArmorList.empty(),
+      skillList: element.skills ?? const SkillList.empty(),
     );
   }
 
@@ -164,6 +165,7 @@ class Mapper {
       isMagic: character.isMagic,
       weapons: character.weaponList,
       armors: character.armorList,
+      skills: character.skillList,
     );
   }
 
@@ -233,6 +235,7 @@ class Mapper {
       isMagic: Value(character.isMagic),
       weapons: Value(character.weaponList),
       armors: Value(character.armorList),
+      skills: Value(character.skillList),
     );
   }
 }

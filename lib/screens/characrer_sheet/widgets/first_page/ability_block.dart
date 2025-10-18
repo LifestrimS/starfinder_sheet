@@ -437,5 +437,3 @@ class AbilityTextControllers {
     required this.chaTmpController,
   });
 }
-
-enum AbilityEnum { str, dex, con, wis, charint, cha }

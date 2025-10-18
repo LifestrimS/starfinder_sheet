@@ -129,4 +129,6 @@ class TableCharacter extends Table {
   TextColumn get weapons => text().map(WeaponList.converter).nullable()();
 
   TextColumn get armors => text().map(ArmorList.converter).nullable()();
+
+  TextColumn get skills => text().map(SkillList.converter).nullable()();
 }

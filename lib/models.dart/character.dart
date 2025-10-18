@@ -26,6 +26,7 @@ class Character {
   final bool isMagic;
   final WeaponList weaponList;
   final ArmorList armorList;
+  final SkillList skillList;
 
   Character({
     required this.id,
@@ -50,6 +51,7 @@ class Character {
     required this.isMagic,
     required this.weaponList,
     required this.armorList,
+    required this.skillList,
   });
 
   Character.empty({
@@ -75,6 +77,7 @@ class Character {
     this.isMagic = true,
     this.weaponList = const WeaponList.empty(),
     this.armorList = const ArmorList.empty(),
+    this.skillList = const SkillList.empty(),
   });
 
   Character copyWith({
@@ -100,6 +103,7 @@ class Character {
     bool? isMagic,
     WeaponList? weaponList,
     ArmorList? armorList,
+    SkillList? skillList,
   }) {
     return Character(
       id: id ?? this.id,
@@ -124,6 +128,7 @@ class Character {
       isMagic: isMagic ?? this.isMagic,
       weaponList: weaponList ?? this.weaponList,
       armorList: armorList ?? this.armorList,
+      skillList: skillList ?? this.skillList,
     );
   }
 
@@ -219,6 +224,8 @@ class CharacterAbility {
     }
   }
 }
+
+enum AbilityEnum { str, dex, con, wis, charint, cha }
 
 class CharacterLiveBlock {
   final int maxHp;
@@ -529,5 +536,104 @@ class ArmorList {
       TypeConverter.json2(
         fromJson: (json) => ArmorList.fromJson(json as Map<String, Object?>),
         toJson: (armorList) => armorList.toJson(),
+      );
+}
+
+class Skill {
+  final String name;
+  final bool isClass;
+  final String ability;
+  final int ranks;
+  final int misc;
+  final String notes;
+
+  const Skill({
+    required this.name,
+    required this.isClass,
+    required this.ability,
+    required this.ranks,
+    required this.misc,
+    required this.notes,
+  });
+
+  const Skill.empty({
+    this.name = '',
+    this.isClass = false,
+    this.ability = '',
+    this.ranks = 0,
+    this.misc = 0,
+    this.notes = '',
+  });
+
+  Skill.fromJson(Map<String, dynamic> json)
+    : name = json['name'] as String,
+      isClass = json['isClass'] as bool,
+      ability = json['ability'] as String,
+      ranks = json['ranks'] as int,
+      misc = json['misc'] as int,
+      notes = json['notes'] as String;
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'isClass': isClass,
+    'ability': ability,
+    'ranks': ranks,
+    'misc': misc,
+    'notes': notes,
+  };
+
+  static List<Skill> createCommonSkills() {
+    List<Skill> skillList = [];
+    List<Map<String, AbilityEnum>> skillNames = [
+      {'Acrobatics': AbilityEnum.dex},
+      {'Athletics': AbilityEnum.str},
+      {'Bluff': AbilityEnum.cha},
+      {'Computers': AbilityEnum.charint},
+      {'Culture': AbilityEnum.charint},
+      {'Diplomacy': AbilityEnum.cha},
+      {'Disguise': AbilityEnum.cha},
+      {'Engineering': AbilityEnum.charint},
+      {'Intimidate': AbilityEnum.cha},
+      {'Life Science': AbilityEnum.charint},
+      {'Medicine': AbilityEnum.charint},
+      {'Mysticism': AbilityEnum.wis},
+      {'Perception': AbilityEnum.wis},
+      {'Physical Science': AbilityEnum.charint},
+      {'Piloting': AbilityEnum.dex},
+      {'Sence Motive': AbilityEnum.wis},
+      {'Sleight of Hand': AbilityEnum.dex},
+      {'Stealth': AbilityEnum.dex},
+      {'Survival': AbilityEnum.wis},
+    ];
+
+    for (int i = 0; i < skillNames.length; i++) {
+      Skill skill = Skill.empty(
+        name: skillNames[i].entries.first.key,
+        ability: skillNames[i].entries.first.value.name,
+      );
+      skillList.add(skill);
+    }
+
+    return skillList;
+  }
+}
+
+@JsonSerializable()
+class SkillList {
+  final List<Skill> skills;
+
+  const SkillList({required this.skills});
+
+  const SkillList.empty({this.skills = const []});
+
+  factory SkillList.fromJson(Map<String, dynamic> json) =>
+      _$SkillListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SkillListToJson(this);
+
+  static JsonTypeConverter2<SkillList, String, Object?> converter =
+      TypeConverter.json2(
+        fromJson: (json) => SkillList.fromJson(json as Map<String, Object?>),
+        toJson: (skillList) => skillList.toJson(),
       );
 }

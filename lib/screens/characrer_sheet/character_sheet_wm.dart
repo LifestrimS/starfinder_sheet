@@ -905,6 +905,7 @@ class CharacterSheetWM
         isMagic: model.isMagic,
         weaponList: saveWeapons(),
         armorList: saveArmors(),
+        skillList: const SkillList.empty(),
       );
 
       model.saveCharacter(newCharacter);

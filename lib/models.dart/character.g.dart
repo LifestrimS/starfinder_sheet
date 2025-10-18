@@ -24,3 +24,13 @@ ArmorList _$ArmorListFromJson(Map<String, dynamic> json) => ArmorList(
 Map<String, dynamic> _$ArmorListToJson(ArmorList instance) => <String, dynamic>{
   'armors': instance.armors,
 };
+
+SkillList _$SkillListFromJson(Map<String, dynamic> json) => SkillList(
+  skills: (json['skills'] as List<dynamic>)
+      .map((e) => Skill.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$SkillListToJson(SkillList instance) => <String, dynamic>{
+  'skills': instance.skills,
+};
