@@ -31,6 +31,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   bool get isMagic;
   WeaponList get weapons;
   ArmorList get armors;
+  SkillList get skillList;
 
   CharacterAbility getAbility();
   void onRefresh({int? pageIndex});
@@ -299,6 +300,8 @@ class CharacterSheetWM
   WeaponList get weapons => model.weapon;
   @override
   ArmorList get armors => model.armor;
+  @override
+  SkillList get skillList => model.skillList;
 
   CharacterSheetWM(super._model);
 
@@ -721,6 +724,7 @@ class CharacterSheetWM
   }
 
   void countArmorDexBonus() {
+    if (_checkedArmorIndexNotifier.value == -1) return;
     int maxDexBonus = parseIntFromString(
       _armorControllers[_checkedArmorIndexNotifier.value].maxDexController.text,
     );

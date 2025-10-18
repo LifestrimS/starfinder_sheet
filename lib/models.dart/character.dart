@@ -251,7 +251,7 @@ class CharacterLiveBlock {
     this.currentHp = -1,
     this.maxStam = 0,
     this.currentStam = -1,
-    this.maxResolve = 0,
+    this.maxResolve = 1,
     this.currentResolve = -1,
     this.damageLog = '',
   });
@@ -544,7 +544,7 @@ class Skill {
   final bool isClass;
   final String ability;
   final int ranks;
-  final int misc;
+  final List<SkillMisc> miscs;
   final String notes;
 
   const Skill({
@@ -552,7 +552,7 @@ class Skill {
     required this.isClass,
     required this.ability,
     required this.ranks,
-    required this.misc,
+    required this.miscs,
     required this.notes,
   });
 
@@ -561,7 +561,7 @@ class Skill {
     this.isClass = false,
     this.ability = '',
     this.ranks = 0,
-    this.misc = 0,
+    this.miscs = const [],
     this.notes = '',
   });
 
@@ -570,7 +570,7 @@ class Skill {
       isClass = json['isClass'] as bool,
       ability = json['ability'] as String,
       ranks = json['ranks'] as int,
-      misc = json['misc'] as int,
+      miscs = List<SkillMisc>.from(json['miscs']),
       notes = json['notes'] as String;
 
   Map<String, dynamic> toJson() => {
@@ -578,11 +578,38 @@ class Skill {
     'isClass': isClass,
     'ability': ability,
     'ranks': ranks,
-    'misc': misc,
+    'miscs': miscs,
     'notes': notes,
   };
+}
 
-  static List<Skill> createCommonSkills() {
+class SkillMisc {
+  final int miscValue;
+  final String miscNote;
+
+  const SkillMisc({required this.miscValue, required this.miscNote});
+
+  const SkillMisc.empty({this.miscValue = 0, this.miscNote = ''});
+
+  SkillMisc.fromJson(Map<String, dynamic> json)
+    : miscValue = json['miscValue'] as int,
+      miscNote = json['miscNote'] as String;
+
+  Map<String, dynamic> toJson() => {
+    'miscValue': miscValue,
+    'miscNote': miscNote,
+  };
+}
+
+@JsonSerializable()
+class SkillList {
+  final List<Skill> skills;
+
+  const SkillList({required this.skills});
+
+  const SkillList.empty({this.skills = const []});
+
+  static SkillList createCommonSkills() {
     List<Skill> skillList = [];
     List<Map<String, AbilityEnum>> skillNames = [
       {'Acrobatics': AbilityEnum.dex},
@@ -614,17 +641,8 @@ class Skill {
       skillList.add(skill);
     }
 
-    return skillList;
+    return SkillList(skills: skillList);
   }
-}
-
-@JsonSerializable()
-class SkillList {
-  final List<Skill> skills;
-
-  const SkillList({required this.skills});
-
-  const SkillList.empty({this.skills = const []});
 
   factory SkillList.fromJson(Map<String, dynamic> json) =>
       _$SkillListFromJson(json);

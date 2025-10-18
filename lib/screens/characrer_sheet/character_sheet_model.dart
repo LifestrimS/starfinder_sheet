@@ -78,6 +78,8 @@ class CharacterSheetModel extends ElementaryModel {
 
   ArmorList get armor => character.armorList;
 
+  SkillList get skillList => character.skillList;
+
   CharacterAbility getAbility() {
     return character.ability;
   }
@@ -160,7 +162,9 @@ class CharacterSheetModel extends ElementaryModel {
   }
 
   Future<int> createNewCharacter() async {
-    Character newCharacter = Character.empty();
+    Character newCharacter = Character.empty(
+      skillList: SkillList.createCommonSkills(),
+    );
     return await repository.addCharacter(newCharacter);
   }
 

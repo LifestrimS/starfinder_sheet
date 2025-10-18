@@ -11,7 +11,7 @@ class SkillsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Skill> skills = Skill.createCommonSkills();
+    List<Skill> skills = wm.skillList.skills;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -45,8 +45,6 @@ class SkillBlock extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          //getVerticalText(getAbilityName(skill.ability)),
-          //const SizedBox(width: 8.0),
           RotatedBox(
             quarterTurns: 1,
             child: Text(
@@ -85,7 +83,7 @@ class SkillBlock extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                skill.misc.toString(),
+                skill.miscs.toString(),
                 style: AppStyles.commonPixel(),
               ),
             ),
@@ -115,18 +113,6 @@ class SkillBlock extends StatelessWidget {
       case AbilityEnum.cha:
         return 'CHA';
     }
-  }
-
-  Widget getVerticalText(String text) {
-    List<Widget> listWidget = [];
-
-    for (int i = 0; i < text.length; i++) {
-      listWidget.add(
-        Text(text[i], style: AppStyles.commonPixel().copyWith(fontSize: 6.0)),
-      );
-    }
-
-    return Column(children: [...listWidget]);
   }
 
   int getValue() {
