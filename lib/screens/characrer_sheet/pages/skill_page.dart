@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +20,7 @@ class SkillsPage extends StatelessWidget {
   final ValueNotifier<int> wisModificatorNotifier;
   final ValueNotifier<int> chaModificatorNotifier;
   final List<SkillControllers> skillsControllers;
+  final ValueNotifier<int> chkPenaltyNotifier;
 
   const SkillsPage({
     required this.wm,
@@ -29,6 +30,7 @@ class SkillsPage extends StatelessWidget {
     required this.wisModificatorNotifier,
     required this.chaModificatorNotifier,
     required this.skillsControllers,
+    required this.chkPenaltyNotifier,
     super.key,
   });
 
@@ -54,6 +56,7 @@ class SkillsPage extends StatelessWidget {
                   skill: skills[index],
                   abilityNotifier: getNotifier(skills[index].ability),
                   controllers: getControllers(skills[index].name),
+                  chkPenaltyNotifier: chkPenaltyNotifier,
                 ),
                 Container(
                   height: 1.0,
@@ -99,12 +102,14 @@ class SkillBlock extends StatefulWidget {
   final Skill skill;
   final ValueNotifier<int> abilityNotifier;
   final SkillControllers controllers;
+  final ValueNotifier<int> chkPenaltyNotifier;
 
   const SkillBlock({
     required this.isFirst,
     required this.skill,
     required this.abilityNotifier,
     required this.controllers,
+    required this.chkPenaltyNotifier,
     super.key,
   });
 
@@ -172,7 +177,7 @@ class _SkillBlockState extends State<SkillBlock> {
 
                       style: AppStyles.commonPixel().copyWith(
                         fontSize: 9.0,
-                        color: Random().nextInt(100) > 50
+                        color: math.Random().nextInt(100) > 50
                             ? AppColors.white
                             : AppColors.darkPink,
                       ),
@@ -196,29 +201,42 @@ class _SkillBlockState extends State<SkillBlock> {
                   ),
                 ),
               ValueListenableBuilder(
-                valueListenable: rankNotifier,
-                builder: (context, rankValue, child) {
+                valueListenable: widget.chkPenaltyNotifier,
+                builder: (context, chkPenalty, child) {
                   return ValueListenableBuilder(
-                    valueListenable: widget.abilityNotifier,
-                    builder: (context, abilityModValue, child) {
-                      return SizedBox(
-                        height: 30.0,
-                        width: 42.0,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 4.0,
-                            vertical: 8.0,
-                          ),
-                          child: Text(
-                            countValue(
-                              abilityModValue: abilityModValue,
-                              rankValue: rankValue,
-                            ).toString(),
-                            style: AppStyles.commonPixel().copyWith(
-                              fontSize: 9.0,
+                    valueListenable: rankNotifier,
+                    builder: (context, rankValue, child) {
+                      return ValueListenableBuilder(
+                        valueListenable: widget.abilityNotifier,
+                        builder: (context, abilityModValue, child) {
+                          return SizedBox(
+                            height: 30.0,
+                            width: 42.0,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4.0,
+                                vertical: 8.0,
+                              ),
+                              child: Text(
+                                countValue(
+                                          abilityModValue: abilityModValue,
+                                          rankValue: rankValue,
+                                          chkPenalty: chkPenalty,
+                                        ) >=
+                                        0
+                                    ? '+${countValue(abilityModValue: abilityModValue, rankValue: rankValue, chkPenalty: chkPenalty)}'
+                                    : countValue(
+                                        abilityModValue: abilityModValue,
+                                        rankValue: rankValue,
+                                        chkPenalty: chkPenalty,
+                                      ).toString(),
+                                style: AppStyles.commonPixel().copyWith(
+                                  fontSize: 9.0,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       );
                     },
                   );
@@ -322,14 +340,25 @@ class _SkillBlockState extends State<SkillBlock> {
     }
   }
 
-  int countValue({required int abilityModValue, required int rankValue}) {
+  int countValue({
+    required int abilityModValue,
+    required int rankValue,
+    required int chkPenalty,
+  }) {
+    int penalty = 0;
+
+    if (widget.skill.ability == 'str' || widget.skill.ability == 'dex') {
+      penalty = chkPenalty;
+    }
     int isClassBonus = widget.skill.isClass ? 3 : 0;
-    int sum = rankValue + isClassBonus + abilityModValue + misckSum(); //+ acp
+    int sum =
+        rankValue + isClassBonus + abilityModValue + misckSum() - penalty.abs();
+
     return sum;
   }
 
   int misckSum() {
-    return -55;
+    return 0;
   }
 
   Widget dialogContent(BuildContext context) {

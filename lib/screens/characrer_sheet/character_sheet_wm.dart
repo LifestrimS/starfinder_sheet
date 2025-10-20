@@ -75,6 +75,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   ValueNotifier<int> armorControllersNotifier();
   ValueNotifier<int> checkedArmorIndexNotifier();
   ValueNotifier<int> armorDexBonusNotifier();
+  ValueNotifier<int> armorCheckPenaltiesNotifier();
 
   TextEditingController get damageTextController;
   TextEditingController get nameTextController;
@@ -124,6 +125,7 @@ class CharacterSheetWM
   final ValueNotifier<int> _armorControllersNotifier = ValueNotifier(0);
   final ValueNotifier<int> _checkedArmorIndexNotifier = ValueNotifier(-1);
   final ValueNotifier<int> _armorDexBonusNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _armorCheckPenaltiesNotifier = ValueNotifier(0);
 
   final TextEditingController _damageTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
@@ -252,6 +254,9 @@ class CharacterSheetWM
   ValueNotifier<int> checkedArmorIndexNotifier() => _checkedArmorIndexNotifier;
   @override
   ValueNotifier<int> armorDexBonusNotifier() => _armorDexBonusNotifier;
+  @override
+  ValueNotifier<int> armorCheckPenaltiesNotifier() =>
+      _armorCheckPenaltiesNotifier;
 
   @override
   TextEditingController get damageTextController => _damageTextController;
@@ -505,11 +510,17 @@ class CharacterSheetWM
       if (_checkedArmorIndexNotifier.value == i) {
         _armorControllers[i].eacController.addListener(armorBonusEacListener);
         armorBonusEacListener();
+
         _armorControllers[i].kacController.addListener(armorBonusKacListener);
         armorBonusKacListener();
 
         armorControllers[i].maxDexController.addListener(countArmorDexBonus);
         countArmorDexBonus();
+
+        armorControllers[i].chkPenaltyController.addListener(
+          armorCheckPenaltiesListener,
+        );
+        armorCheckPenaltiesListener();
       } else {
         _armorControllers[i].eacController.removeListener(
           armorBonusEacListener,
@@ -518,6 +529,9 @@ class CharacterSheetWM
           armorBonusKacListener,
         );
         armorControllers[i].maxDexController.removeListener(countArmorDexBonus);
+        armorControllers[i].chkPenaltyController.removeListener(
+          armorCheckPenaltiesListener,
+        );
       }
     }
   }
@@ -539,6 +553,18 @@ class CharacterSheetWM
     }
     _kacControllers.armorNotifier.value = parseIntFromString(
       _armorControllers[_checkedArmorIndexNotifier.value].kacController.text,
+    );
+  }
+
+  void armorCheckPenaltiesListener() {
+    if (_checkedArmorIndexNotifier.value == -1) {
+      _armorCheckPenaltiesNotifier.value = 0;
+      return;
+    }
+    _armorCheckPenaltiesNotifier.value = parseIntFromString(
+      _armorControllers[_checkedArmorIndexNotifier.value]
+          .chkPenaltyController
+          .text,
     );
   }
 
@@ -759,9 +785,16 @@ class CharacterSheetWM
               .kacController
               .text,
         );
+        armorBonusEacListener();
+        armorBonusKacListener();
+        countArmorDexBonus();
+        armorCheckPenaltiesListener();
         _armorControllers[i].eacController.addListener(armorBonusEacListener);
         _armorControllers[i].kacController.addListener(armorBonusKacListener);
-        armorControllers[i].maxDexController.addListener(countArmorDexBonus);
+        _armorControllers[i].maxDexController.addListener(countArmorDexBonus);
+        _armorControllers[i].chkPenaltyController.addListener(
+          armorCheckPenaltiesListener,
+        );
 
         return;
       }
@@ -965,7 +998,7 @@ class CharacterSheetWM
         isMagic: model.isMagic,
         weaponList: saveWeapons(),
         armorList: saveArmors(),
-        skillList: const SkillList.empty(),
+        skillList: model.skillList,
       );
 
       model.saveCharacter(newCharacter);

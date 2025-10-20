@@ -215,6 +215,7 @@ class _CarouselBodyState extends State<CarouselBody> {
                     wisModificatorNotifier: widget.wm.wisModificatorNotifier(),
                     chaModificatorNotifier: widget.wm.chaModificatorNotifier(),
                     skillsControllers: widget.wm.skillsControllers,
+                    chkPenaltyNotifier: widget.wm.armorCheckPenaltiesNotifier(),
                   ),
                   EquipmentPage(wm: widget.wm),
                   BioPage(wm: widget.wm),

@@ -99,7 +99,7 @@ class _ArmorsBlockkState extends State<ArmorsBlock> {
         );
       }
       if (notifiersCount > widget.armors.armors.length) {
-        for (int i = 0; i < notifiersCount - widget.armors.armors.length; i++) {
+        for (int i = 1; i < notifiersCount - widget.armors.armors.length; i++) {
           armorWidgetList.add(
             ExpansionBlock(
               wm: widget.wm,
@@ -108,7 +108,7 @@ class _ArmorsBlockkState extends State<ArmorsBlock> {
                   widget.wm.deleteArmor(widget.armors.armors.length + i),
               controllers: widget.controllers[widget.armors.armors.length + i],
               checkedArmorIndexNotifier: widget.checkedArmorIndexNotifier,
-              index: i,
+              index: i + max,
             ),
           );
         }
