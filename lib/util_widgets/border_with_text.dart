@@ -7,6 +7,7 @@ class BorderWithTextPainter extends CustomPainter {
   final double? customCut;
   final double? textWidth;
   final Color? customColor;
+  final double? borderWidth;
 
   const BorderWithTextPainter({
     this.borderColorAlpha,
@@ -14,6 +15,7 @@ class BorderWithTextPainter extends CustomPainter {
     this.customCut,
     this.textWidth,
     this.customColor,
+    this.borderWidth,
     Listenable? repaint,
   });
 
@@ -24,7 +26,7 @@ class BorderWithTextPainter extends CustomPainter {
 
     Paint paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.0
+      ..strokeWidth = borderWidth ?? 3.0
       ..color =
           customColor ?? AppColors.teal.withAlpha(borderColorAlpha ?? 150);
     Path path = Path();

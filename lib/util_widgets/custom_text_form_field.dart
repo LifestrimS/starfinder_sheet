@@ -20,6 +20,7 @@ class CustomTextField extends StatelessWidget {
   final Color? customColor;
   final int? minLines;
   final List<TextInputFormatter>? formatters;
+  final Function(String value)? onChange;
 
   const CustomTextField({
     required this.controller,
@@ -36,14 +37,15 @@ class CustomTextField extends StatelessWidget {
     this.customColor,
     this.minLines,
     this.formatters,
+    this.onChange,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height != null ? height! + 5 : null,
-      width: width != null ? width! + 5 : null,
+      height: height != null && title != null ? height! + 5 : null,
+      width: width != null && title != null ? width! + 5 : null,
       child: Stack(
         children: [
           if (title != null)
@@ -72,6 +74,7 @@ class CustomTextField extends StatelessWidget {
                         : null,
                     customCut: customCut,
                     customColor: customColor,
+                    borderWidth: borderWidth,
                   ),
                   child: TextFormField(
                     controller: controller,
@@ -92,6 +95,8 @@ class CustomTextField extends StatelessWidget {
                       contentPadding:
                           contentPadding ?? const EdgeInsets.all(8.0),
                     ),
+                    onChanged: (value) =>
+                        onChange != null ? onChange!(value) : null,
                   ),
                 ),
               ),

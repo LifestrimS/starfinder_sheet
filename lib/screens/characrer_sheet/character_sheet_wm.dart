@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_model.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_view.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/pages/skill_page.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/equipment_page/armor_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/equipment_page/weapons_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/first_page/ability_block.dart';
@@ -63,10 +64,12 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   ValueNotifier<String> damageLogNotifier();
   ValueNotifier<int> totalDamageNotifier();
   ValueNotifier<int> currentResolveNotifier();
-  ValueNotifier<int> dexModificatorNotifier();
   ValueNotifier<int> strModificatorNotifier();
+  ValueNotifier<int> dexModificatorNotifier();
   ValueNotifier<int> conModificatorNotifier();
+  ValueNotifier<int> intModificatorNotifier();
   ValueNotifier<int> wisModificatorNotifier();
+  ValueNotifier<int> chaModificatorNotifier();
   ValueNotifier<bool> isMagicNotifier();
   ValueNotifier<int> weaponControllersNotifier();
   ValueNotifier<int> armorControllersNotifier();
@@ -89,6 +92,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   DrSrControllers get drSrControllers;
   List<WeaponControllers> get weaponsControllers;
   List<ArmorControllers> get armorControllers;
+  List<SkillControllers> get skillsControllers;
 
   CarouselSliderController get carouselController;
 }
@@ -109,10 +113,12 @@ class CharacterSheetWM
   final ValueNotifier<String> _damageLogNotifier = ValueNotifier('');
   final ValueNotifier<int> _totalDamageNotifier = ValueNotifier(0);
   final ValueNotifier<int> _currentResolveNotifier = ValueNotifier(0);
-  final ValueNotifier<int> _dexModificatorNotifier = ValueNotifier(0);
   final ValueNotifier<int> _strModificatorNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _dexModificatorNotifier = ValueNotifier(0);
   final ValueNotifier<int> _conModificatorNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _intModificatorNotifier = ValueNotifier(0);
   final ValueNotifier<int> _wisModificatorNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _chaModificatorNotifier = ValueNotifier(0);
   final ValueNotifier<bool> _isMagicNotifier = ValueNotifier(true);
   final ValueNotifier<int> _weaponControllersNotifier = ValueNotifier(0);
   final ValueNotifier<int> _armorControllersNotifier = ValueNotifier(0);
@@ -194,6 +200,7 @@ class CharacterSheetWM
     drController: TextEditingController(),
     srController: TextEditingController(),
   );
+  final List<SkillControllers> _skillsControllers = [];
 
   final CarouselSliderController _carouselController =
       CarouselSliderController();
@@ -224,13 +231,17 @@ class CharacterSheetWM
   @override
   ValueNotifier<int> currentResolveNotifier() => _currentResolveNotifier;
   @override
-  ValueNotifier<int> dexModificatorNotifier() => _dexModificatorNotifier;
-  @override
   ValueNotifier<int> strModificatorNotifier() => _strModificatorNotifier;
+  @override
+  ValueNotifier<int> dexModificatorNotifier() => _dexModificatorNotifier;
   @override
   ValueNotifier<int> conModificatorNotifier() => _conModificatorNotifier;
   @override
+  ValueNotifier<int> intModificatorNotifier() => _intModificatorNotifier;
+  @override
   ValueNotifier<int> wisModificatorNotifier() => _wisModificatorNotifier;
+  @override
+  ValueNotifier<int> chaModificatorNotifier() => _chaModificatorNotifier;
   @override
   ValueNotifier<bool> isMagicNotifier() => _isMagicNotifier;
   @override
@@ -272,6 +283,8 @@ class CharacterSheetWM
       _sTHRTexEditingControllers;
   @override
   DrSrControllers get drSrControllers => _drSrControllers;
+  @override
+  List<SkillControllers> get skillsControllers => _skillsControllers;
 
   @override
   CarouselSliderController get carouselController => _carouselController;
@@ -320,26 +333,32 @@ class CharacterSheetWM
     _damageLogNotifier.dispose();
     _totalDamageNotifier.dispose();
     _currentResolveNotifier.dispose();
+    _abilityTextControllers.strController.removeListener(strListener);
     _abilityTextControllers.dexController.removeListener(dexListener);
     _abilityTextControllers.dexController.removeListener(countArmorDexBonus);
-    _abilityTextControllers.strController.removeListener(strListener);
     _abilityTextControllers.conController.removeListener(conListener);
+    _abilityTextControllers.intController.removeListener(intListener);
     _abilityTextControllers.wisController.removeListener(wisListener);
+    _abilityTextControllers.chaController.removeListener(chaListener);
 
+    _abilityTextControllers.strTmpController.removeListener(strListener);
     _abilityTextControllers.dexTmpController.removeListener(dexListener);
     _abilityTextControllers.dexTmpController.removeListener(countArmorDexBonus);
-    _abilityTextControllers.strTmpController.removeListener(strListener);
     _abilityTextControllers.conTmpController.removeListener(conListener);
+    _abilityTextControllers.intTmpController.removeListener(intListener);
     _abilityTextControllers.wisTmpController.removeListener(wisListener);
+    _abilityTextControllers.chaTmpController.removeListener(chaListener);
 
     _checkedArmorIndexNotifier.removeListener(armorListener);
 
     _armorDexBonusNotifier.dispose();
 
-    _dexModificatorNotifier.dispose();
     _strModificatorNotifier.dispose();
+    _dexModificatorNotifier.dispose();
     _conModificatorNotifier.dispose();
+    _intModificatorNotifier.dispose();
     _wisModificatorNotifier.dispose();
+    _chaModificatorNotifier.dispose();
     _isMagicNotifier.dispose();
     _weaponControllersNotifier.dispose();
     _armorControllersNotifier.dispose();
@@ -403,19 +422,6 @@ class CharacterSheetWM
     _currentPage = pageIndex;
   }
 
-  void dexListener() {
-    if (_abilityTextControllers.dexTmpController.text.isNotEmpty &&
-        _abilityTextControllers.dexTmpController.text != '0') {
-      _dexModificatorNotifier.value = CharacterAbility.getModifier(
-        parseIntFromString(_abilityTextControllers.dexTmpController.text),
-      );
-    } else {
-      _dexModificatorNotifier.value = CharacterAbility.getModifier(
-        parseIntFromString(_abilityTextControllers.dexController.text),
-      );
-    }
-  }
-
   void strListener() {
     if (_abilityTextControllers.strTmpController.text.isNotEmpty &&
         _abilityTextControllers.strTmpController.text != '0') {
@@ -425,6 +431,19 @@ class CharacterSheetWM
     } else {
       _strModificatorNotifier.value = CharacterAbility.getModifier(
         parseIntFromString(_abilityTextControllers.strController.text),
+      );
+    }
+  }
+
+  void dexListener() {
+    if (_abilityTextControllers.dexTmpController.text.isNotEmpty &&
+        _abilityTextControllers.dexTmpController.text != '0') {
+      _dexModificatorNotifier.value = CharacterAbility.getModifier(
+        parseIntFromString(_abilityTextControllers.dexTmpController.text),
+      );
+    } else {
+      _dexModificatorNotifier.value = CharacterAbility.getModifier(
+        parseIntFromString(_abilityTextControllers.dexController.text),
       );
     }
   }
@@ -442,6 +461,19 @@ class CharacterSheetWM
     }
   }
 
+  void intListener() {
+    if (_abilityTextControllers.intController.text.isNotEmpty &&
+        _abilityTextControllers.intTmpController.text != '0') {
+      _intModificatorNotifier.value = CharacterAbility.getModifier(
+        parseIntFromString(_abilityTextControllers.intTmpController.text),
+      );
+    } else {
+      _intModificatorNotifier.value = CharacterAbility.getModifier(
+        parseIntFromString(_abilityTextControllers.intController.text),
+      );
+    }
+  }
+
   void wisListener() {
     if (_abilityTextControllers.wisTmpController.text.isNotEmpty &&
         _abilityTextControllers.wisTmpController.text != '0') {
@@ -451,6 +483,19 @@ class CharacterSheetWM
     } else {
       _wisModificatorNotifier.value = CharacterAbility.getModifier(
         parseIntFromString(_abilityTextControllers.wisController.text),
+      );
+    }
+  }
+
+  void chaListener() {
+    if (_abilityTextControllers.chaTmpController.text.isNotEmpty &&
+        _abilityTextControllers.chaTmpController.text != '0') {
+      _chaModificatorNotifier.value = CharacterAbility.getModifier(
+        parseIntFromString(_abilityTextControllers.chaTmpController.text),
+      );
+    } else {
+      _chaModificatorNotifier.value = CharacterAbility.getModifier(
+        parseIntFromString(_abilityTextControllers.chaController.text),
       );
     }
   }
@@ -761,6 +806,17 @@ class CharacterSheetWM
     _armorControllersNotifier.value = _armorControllers.length;
   }
 
+  void initSkillsControllers() {
+    for (Skill skill in model.skillList.skills) {
+      SkillControllers controllers = SkillControllers(
+        name: skill.name,
+        rankController: TextEditingController(),
+        listMiscControllers: [],
+      );
+      _skillsControllers.add(controllers);
+    }
+  }
+
   @override
   void saveCharacter() async {
     try {
@@ -995,17 +1051,21 @@ class CharacterSheetWM
     _raceTextController.text = model.race;
     _lvlTextController.text = model.lvl.toString();
 
+    _abilityTextControllers.strController.addListener(strListener);
     _abilityTextControllers.dexController.addListener(dexListener);
     _abilityTextControllers.dexController.addListener(countArmorDexBonus);
-    _abilityTextControllers.strController.addListener(strListener);
     _abilityTextControllers.conController.addListener(conListener);
+    _abilityTextControllers.intController.addListener(intListener);
     _abilityTextControllers.wisController.addListener(wisListener);
+    _abilityTextControllers.chaController.addListener(chaListener);
 
+    _abilityTextControllers.strTmpController.addListener(strListener);
     _abilityTextControllers.dexTmpController.addListener(dexListener);
     _abilityTextControllers.dexTmpController.addListener(countArmorDexBonus);
-    _abilityTextControllers.strTmpController.addListener(strListener);
     _abilityTextControllers.conTmpController.addListener(conListener);
+    _abilityTextControllers.intTmpController.addListener(intListener);
     _abilityTextControllers.wisTmpController.addListener(wisListener);
+    _abilityTextControllers.chaTmpController.addListener(chaListener);
 
     _abilityTextControllers.strController.text = model
         .getAbility()
@@ -1178,6 +1238,7 @@ class CharacterSheetWM
     initWeaponControllers();
     initArmorControllers();
     initCheckedArmorNotifier();
+    initSkillsControllers();
   }
 
   @override
