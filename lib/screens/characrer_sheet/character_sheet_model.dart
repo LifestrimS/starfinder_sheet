@@ -201,4 +201,29 @@ class CharacterSheetModel extends ElementaryModel {
     _damageLog = '';
     _totalDamage = 0;
   }
+
+  void setClassSkill(String skillName, bool isClass) {
+    Skill skill = character.skillList.skills.firstWhere(
+      (e) => e.name == skillName,
+    );
+
+    int index = character.skillList.skills.indexOf(skill);
+
+    character.skillList.skills[index].isClass = isClass;
+  }
+
+  void deleteSkill(String skillName) {
+    character.skillList.skills.removeWhere((e) => e.name == skillName);
+  }
+
+  void addSkill(String name, String abilityName) {
+    Skill skill = Skill(
+      name: name,
+      isClass: false,
+      ability: abilityName,
+      ranks: 0,
+      miscs: [],
+    );
+    character.skillList.skills.add(skill);
+  }
 }

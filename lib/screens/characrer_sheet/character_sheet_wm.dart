@@ -55,6 +55,11 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   void deleteWeapon(int index);
   void addArmor();
   void deleteArmor(int index);
+  void addSkillMisc(String skillName);
+  void deleteSkillMisc(int index, String skillName);
+  void setSkillClassed(String skillName, bool isClass);
+  void deleteSkill(String skillName);
+  void addSkill(String skillName, String ability);
 
   EntityStateNotifier<Character?> characterLoadNotifier();
   EntityStateNotifier<List<Character?>> listCharactersNotifier();
@@ -76,6 +81,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   ValueNotifier<int> checkedArmorIndexNotifier();
   ValueNotifier<int> armorDexBonusNotifier();
   ValueNotifier<int> armorCheckPenaltiesNotifier();
+  ValueNotifier<int> skillsCountNotifier();
 
   TextEditingController get damageTextController;
   TextEditingController get nameTextController;
@@ -126,6 +132,7 @@ class CharacterSheetWM
   final ValueNotifier<int> _checkedArmorIndexNotifier = ValueNotifier(-1);
   final ValueNotifier<int> _armorDexBonusNotifier = ValueNotifier(0);
   final ValueNotifier<int> _armorCheckPenaltiesNotifier = ValueNotifier(0);
+  final ValueNotifier<int> _skillsCountNotifier = ValueNotifier(0);
 
   final TextEditingController _damageTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
@@ -257,6 +264,8 @@ class CharacterSheetWM
   @override
   ValueNotifier<int> armorCheckPenaltiesNotifier() =>
       _armorCheckPenaltiesNotifier;
+  @override
+  ValueNotifier<int> skillsCountNotifier() => _skillsCountNotifier;
 
   @override
   TextEditingController get damageTextController => _damageTextController;
@@ -368,6 +377,7 @@ class CharacterSheetWM
     _weaponControllersNotifier.dispose();
     _armorControllersNotifier.dispose();
     _checkedArmorIndexNotifier.dispose();
+    _skillsCountNotifier.dispose();
     super.dispose();
   }
 
@@ -851,6 +861,54 @@ class CharacterSheetWM
   }
 
   @override
+  void addSkillMisc(String skillName) {
+    SkillControllers skillControllers = _skillsControllers.firstWhere(
+      (e) => e.name == skillName,
+    );
+    skillControllers.listMiscControllers.add(
+      MiscContollers(
+        valueController: TextEditingController(),
+        noteController: TextEditingController(),
+      ),
+    );
+  }
+
+  @override
+  void deleteSkillMisc(int index, String skillName) {
+    SkillControllers skillControllers = _skillsControllers.firstWhere(
+      (e) => e.name == skillName,
+    );
+
+    skillControllers.listMiscControllers.removeAt(index);
+  }
+
+  @override
+  void setSkillClassed(String skillName, bool isClass) {
+    model.setClassSkill(skillName, isClass);
+    _skillsCountNotifier.value = model.skillList.skills.length;
+  }
+
+  @override
+  void deleteSkill(String skillName) {
+    model.deleteSkill(skillName);
+    _skillsCountNotifier.value = model.skillList.skills.length;
+  }
+
+  @override
+  void addSkill(String skillName, String ability) {
+    model.addSkill(skillName, ability);
+
+    SkillControllers controllers = SkillControllers(
+      name: skillName,
+      rankController: TextEditingController(),
+      listMiscControllers: [],
+    );
+    _skillsControllers.add(controllers);
+
+    _skillsCountNotifier.value = model.skillList.skills.length;
+  }
+
+  @override
   void saveCharacter() async {
     try {
       final Character newCharacter = Character(
@@ -1272,6 +1330,8 @@ class CharacterSheetWM
     initArmorControllers();
     initCheckedArmorNotifier();
     initSkillsControllers();
+
+    _skillsCountNotifier.value = model.skillList.skills.length;
   }
 
   @override

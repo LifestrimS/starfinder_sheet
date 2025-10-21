@@ -227,6 +227,25 @@ class CharacterAbility {
 
 enum AbilityEnum { str, dex, con, wis, charint, cha }
 
+extension AbilityEnumEx on AbilityEnum {
+  String stringName() {
+    switch (this) {
+      case AbilityEnum.str:
+        return 'STR';
+      case AbilityEnum.dex:
+        return 'DEX';
+      case AbilityEnum.con:
+        return 'CON';
+      case AbilityEnum.wis:
+        return 'WIS';
+      case AbilityEnum.charint:
+        return 'INT';
+      case AbilityEnum.cha:
+        return 'CHA';
+    }
+  }
+}
+
 class CharacterLiveBlock {
   final int maxHp;
   final int currentHp;
@@ -541,37 +560,49 @@ class ArmorList {
 
 class Skill {
   final String name;
-  final bool isClass;
+  bool isClass;
   final String ability;
   final int ranks;
   final List<SkillMisc> miscs;
-  final String notes;
 
-  const Skill({
+  Skill({
     required this.name,
     required this.isClass,
     required this.ability,
     required this.ranks,
     required this.miscs,
-    required this.notes,
   });
 
-  const Skill.empty({
+  Skill.empty({
     this.name = '',
     this.isClass = false,
     this.ability = '',
     this.ranks = 0,
     this.miscs = const [],
-    this.notes = '',
   });
+
+  Skill copyWith({
+    String? name,
+    bool? isClass,
+    String? ability,
+    int? ranks,
+    List<SkillMisc>? miscs,
+  }) {
+    return Skill(
+      name: name ?? this.name,
+      isClass: isClass ?? this.isClass,
+      ability: ability ?? this.ability,
+      ranks: ranks ?? this.ranks,
+      miscs: miscs ?? this.miscs,
+    );
+  }
 
   Skill.fromJson(Map<String, dynamic> json)
     : name = json['name'] as String,
       isClass = json['isClass'] as bool,
       ability = json['ability'] as String,
       ranks = json['ranks'] as int,
-      miscs = List<SkillMisc>.from(json['miscs']),
-      notes = json['notes'] as String;
+      miscs = List<SkillMisc>.from(json['miscs']);
 
   Map<String, dynamic> toJson() => {
     'name': name,
@@ -579,7 +610,6 @@ class Skill {
     'ability': ability,
     'ranks': ranks,
     'miscs': miscs,
-    'notes': notes,
   };
 }
 
