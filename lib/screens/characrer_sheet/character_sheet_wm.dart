@@ -60,6 +60,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   void setSkillClassed(String skillName, bool isClass);
   void deleteSkill(String skillName);
   void addSkill(String skillName, String ability);
+  void changeSkillName(String oldName, String newName);
 
   EntityStateNotifier<Character?> characterLoadNotifier();
   EntityStateNotifier<List<Character?>> listCharactersNotifier();
@@ -905,6 +906,24 @@ class CharacterSheetWM
     );
     _skillsControllers.add(controllers);
 
+    _skillsCountNotifier.value = model.skillList.skills.length;
+  }
+
+  @override
+  void changeSkillName(String oldName, String newName) {
+    model.changeSkillName(oldName, newName);
+
+    SkillControllers skillControllers = _skillsControllers.firstWhere(
+      (e) => e.name == oldName,
+    );
+
+    int index = _skillsControllers.indexOf(skillControllers);
+
+    SkillControllers newControllers = skillControllers.copyWith(name: newName);
+
+    _skillsControllers[index] = newControllers;
+
+    _skillsCountNotifier.value = 0;
     _skillsCountNotifier.value = model.skillList.skills.length;
   }
 

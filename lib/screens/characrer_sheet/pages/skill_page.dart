@@ -84,6 +84,16 @@ class SkillsPage extends StatelessWidget {
             );
           },
         ),
+        const SizedBox(height: 8.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              'Total ranks: ${countAllRanks()}',
+              style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+            ),
+          ],
+        ),
         const SizedBox(height: 16.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -113,6 +123,14 @@ class SkillsPage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  int countAllRanks() {
+    int sum = 0;
+    for (Skill skill in wm.skillList.skills) {
+      sum += skill.ranks;
+    }
+    return sum;
   }
 
   Widget deleteDialog(String skillName, BuildContext context) {
@@ -347,17 +365,31 @@ class _SkillBlockState extends State<SkillBlock> {
                                   ),
                                 ),
                               ),
-                            SizedBox(
-                              height: 30.0,
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Text(
-                                  widget.skill.name,
-                                  style: AppStyles.commonPixel().copyWith(
-                                    fontSize: 9.0,
-                                    color: widget.skill.isClass
-                                        ? AppColors.darkPink
-                                        : AppColors.white,
+                            GestureDetector(
+                              onTap: () async {
+                                await showDialog(
+                                  context: context,
+                                  builder: (context) => CustomDialog(
+                                    content: changeNameDialog(
+                                      context: context,
+                                      wm: widget.wm,
+                                      skillName: widget.skill.name,
+                                    ),
+                                  ),
+                                );
+                                setState(() {});
+                              },
+                              child: SizedBox(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    widget.skill.name,
+                                    style: AppStyles.commonPixel().copyWith(
+                                      fontSize: 9.0,
+                                      color: widget.skill.isClass
+                                          ? AppColors.darkPink
+                                          : AppColors.white,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -508,6 +540,41 @@ class _SkillBlockState extends State<SkillBlock> {
             },
           );
         },
+      ),
+    );
+  }
+
+  Widget changeNameDialog({
+    required ICharacterSheetWM wm,
+    required BuildContext context,
+    required String skillName,
+  }) {
+    TextEditingController controller = TextEditingController();
+    controller.text = skillName;
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CustomTextField(controller: controller, minLines: 1, fontSize: 10.0),
+          const SizedBox(height: 24.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  wm.changeSkillName(skillName, controller.text);
+                  Navigator.of(context).pop();
+                },
+                child: Text('Save', style: AppStyles.commonPixel()),
+              ),
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Text('Cancel', style: AppStyles.commonPixel()),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -815,6 +882,18 @@ class SkillControllers {
     required this.rankController,
     required this.listMiscControllers,
   });
+
+  SkillControllers copyWith({
+    String? name,
+    TextEditingController? rankController,
+    List<MiscContollers>? listMiscControllers,
+  }) {
+    return SkillControllers(
+      name: name ?? this.name,
+      rankController: rankController ?? this.rankController,
+      listMiscControllers: listMiscControllers ?? this.listMiscControllers,
+    );
+  }
 }
 
 class MiscContollers {

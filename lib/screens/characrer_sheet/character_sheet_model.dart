@@ -226,4 +226,15 @@ class CharacterSheetModel extends ElementaryModel {
     );
     character.skillList.skills.add(skill);
   }
+
+  void changeSkillName(String oldName, String newName) {
+    Skill skill = character.skillList.skills.firstWhere(
+      (e) => e.name == oldName,
+    );
+    int index = character.skillList.skills.indexOf(skill);
+
+    Skill newSkill = skill.copyWith(name: newName);
+
+    character.skillList.skills[index] = newSkill;
+  }
 }
