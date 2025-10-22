@@ -92,61 +92,73 @@ class ListCharacterBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-          wm.goToCharacter(character.id);
-        },
-        child: SizedBox(
-          height: 60.0,
-          child: CustomPaint(
-            painter: const FullBorderPainter(),
-            child: Row(
-              children: [
-                const SizedBox(width: 50.0, height: 60.0),
-                const SizedBox(width: 8.0),
-                Container(color: AppColors.teal, width: 2),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 8.0,
-                      right: 8.0,
-                      top: 6.0,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            character.charName,
-                            style: AppStyles.commonPixel(),
+      child: Row(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                wm.goToCharacter(character.id);
+              },
+              child: SizedBox(
+                height: 60.0,
+                child: CustomPaint(
+                  painter: const FullBorderPainter(),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 50.0, height: 60.0),
+                      const SizedBox(width: 8.0),
+                      Container(color: AppColors.teal, width: 2),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 8.0,
+                            right: 8.0,
+                            top: 6.0,
                           ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                character.charClass,
-                                style: AppStyles.commonPixel(),
+                              Expanded(
+                                child: Text(
+                                  character.charName,
+                                  style: AppStyles.commonPixel(),
+                                ),
                               ),
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      character.charClass,
+                                      style: AppStyles.commonPixel(),
+                                    ),
 
-                              Text(
-                                character.lvl.toString(),
-                                style: AppStyles.commonPixel(),
+                                    Text(
+                                      character.lvl.toString(),
+                                      style: AppStyles.commonPixel(),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+          const SizedBox(width: 8.0),
+          GestureDetector(
+            onTap: () => wm.deleteCharacterById(character.id),
+            child: const Icon(Icons.close, color: AppColors.hp),
+          ),
+        ],
       ),
     );
   }

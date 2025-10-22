@@ -161,6 +161,14 @@ class CharacterSheetModel extends ElementaryModel {
     }
   }
 
+  Future<void> deleteCharacterById(int id) async {
+    try {
+      await repository.deleteCharacterbyId(id);
+    } catch (e) {
+      log('Smth went wrong on deleteCharacterById: $e');
+    }
+  }
+
   Future<int> createNewCharacter() async {
     Character newCharacter = Character.empty(
       skillList: SkillList.createCommonSkills(),

@@ -61,6 +61,7 @@ abstract interface class ICharacterSheetWM implements IWidgetModel {
   void deleteSkill(String skillName);
   void addSkill(String skillName, String ability);
   void changeSkillName(String oldName, String newName);
+  void deleteCharacterById(int id);
 
   EntityStateNotifier<Character?> characterLoadNotifier();
   EntityStateNotifier<List<Character?>> listCharactersNotifier();
@@ -1103,6 +1104,17 @@ class CharacterSheetWM
       onRefresh(pageIndex: _currentPage);
     } catch (e) {
       log('Smth went wrong during save: $e');
+    }
+  }
+
+  @override
+  void deleteCharacterById(int id) async {
+    await model.deleteCharacterById(id);
+    List<Character?> listCharacters = await model.getCharacterList();
+    if (listCharacters.isNotEmpty) {
+      loadData(charId: listCharacters.first!.id, isGoToCharacter: true);
+    } else {
+      loadData();
     }
   }
 
