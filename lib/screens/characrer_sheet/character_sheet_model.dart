@@ -237,4 +237,8 @@ class CharacterSheetModel extends ElementaryModel {
 
     character.skillList.skills[index] = newSkill;
   }
+
+  Skill getSkillByName(String name) {
+    return character.skillList.skills.firstWhere((e) => e.name == name);
+  }
 }

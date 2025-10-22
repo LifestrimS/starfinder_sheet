@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/page_template.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/skill_page/dialogs.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/skill_page/skill_block.dart';
 import 'package:pathfinder_sheet/util_widgets/border.dart';
-import 'package:pathfinder_sheet/util_widgets/custom_text_form_field.dart';
 import 'package:pathfinder_sheet/util_widgets/devider.dart';
 import 'package:pathfinder_sheet/util_widgets/dialog.dart';
-import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/utils/utils.dart';
 
-class SkillsPage extends StatelessWidget {
+class SkillsPage extends StatefulWidget {
   final ICharacterSheetWM wm;
   final ValueNotifier<int> strModificatorNotifier;
   final ValueNotifier<int> dexModificatorNotifier;
@@ -36,18 +35,46 @@ class SkillsPage extends StatelessWidget {
   });
 
   @override
+  State<SkillsPage> createState() => _SkillsPageState();
+}
+
+class _SkillsPageState extends State<SkillsPage> {
+  List<Skill> skills = [];
+  bool isNameReversed = false;
+  bool isTotalValueReversed = false;
+  bool isRankReversed = false;
+
+  ValueNotifier<int> totalRanksNotifier = ValueNotifier(0);
+
+  @override
+  void initState() {
+    skills = widget.wm.skillList.skills;
+    totalRanksNotifier.value = countAllRanks();
+    for (SkillControllers controllers in widget.skillsControllers) {
+      controllers.rankController.addListener(updateTotalRanks);
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    totalRanksNotifier.dispose();
+    for (SkillControllers controllers in widget.skillsControllers) {
+      controllers.rankController.removeListener(updateTotalRanks);
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<Skill> skills = wm.skillList.skills;
-
-    return PageTemplate(
-      wm: wm,
-      content: [
-        const Devider(title: 'Skills', topPadding: 12.0),
-
-        ValueListenableBuilder(
-          valueListenable: skillsCountNotifier,
-          builder: (context, skillsLength, child) {
-            return ListView.builder(
+    return ValueListenableBuilder(
+      valueListenable: widget.skillsCountNotifier,
+      builder: (context, skillsLength, child) {
+        return PageTemplate(
+          wm: widget.wm,
+          content: [
+            const Devider(title: 'Skills', topPadding: 12.0),
+            ListView.builder(
               shrinkWrap: true,
               itemCount: skillsLength,
               physics: const NeverScrollableScrollPhysics(),
@@ -60,17 +87,24 @@ class SkillsPage extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (context) => CustomDialog(
-                            content: deleteDialog(skills[index].name, context),
+                            content: deleteDialog(
+                              skills[index].name,
+                              context,
+                              (skillName) => widget.wm.deleteSkill(skillName),
+                            ),
                           ),
                         );
                       },
                       child: SkillBlock(
-                        wm: wm,
+                        wm: widget.wm,
                         isFirst: index == 0 ? true : false,
                         skill: skills[index],
                         abilityNotifier: getNotifier(skills[index].ability),
                         controllers: getControllers(skills[index].name),
-                        chkPenaltyNotifier: chkPenaltyNotifier,
+                        chkPenaltyNotifier: widget.chkPenaltyNotifier,
+                        sortFunByRank: () => sortByRank(),
+                        sortFunByName: () => sortByName(),
+                        sortFunByTotalValue: () => sortByTotalValue(),
                       ),
                     ),
                     Container(
@@ -81,93 +115,160 @@ class SkillsPage extends StatelessWidget {
                   ],
                 );
               },
-            );
-          },
-        ),
-        const SizedBox(height: 8.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              'Total ranks: ${countAllRanks()}',
-              style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
             ),
-          ],
-        ),
-        const SizedBox(height: 16.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) =>
-                      CustomDialog(content: AddSkillDialog(wm: wm)),
+            const SizedBox(height: 8.0),
+            ValueListenableBuilder(
+              valueListenable: totalRanksNotifier,
+              builder: (context, totalRanks, child) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Total ranks: $totalRanks',
+                      //'Total ranks: ${countAllRanks()}',
+                      style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+                    ),
+                  ],
                 );
               },
-              child: CustomPaint(
-                painter: const FullBorderPainter(),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Add skill',
-                      style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+            ),
+            const SizedBox(height: 16.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          CustomDialog(content: AddSkillDialog(wm: widget.wm)),
+                    );
+                  },
+                  child: CustomPaint(
+                    painter: const FullBorderPainter(),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Add skill',
+                          style: AppStyles.commonPixel().copyWith(
+                            fontSize: 8.0,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
+  }
+
+  void updateTotalRanks() {
+    totalRanksNotifier.value = countAllRanks();
+  }
+
+  void sortByRank() {
+    skills.sort(compareByRank);
+    isRankReversed = !isRankReversed;
+    if (isRankReversed) {
+      skills = skills.reversed.toList();
+    }
+
+    setState(() {});
+  }
+
+  int compareByRank(Skill a, Skill b) {
+    SkillControllers aSkillControllers = widget.skillsControllers.firstWhere(
+      (e) => e.name == a.name,
+    );
+
+    SkillControllers bSkillControllers = widget.skillsControllers.firstWhere(
+      (e) => e.name == b.name,
+    );
+
+    final aRank = parseIntFromString(aSkillControllers.rankController.text);
+    final bRank = parseIntFromString(bSkillControllers.rankController.text);
+    if (aRank < bRank) {
+      return -1;
+    } else if (aRank > bRank) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  void sortByName() {
+    skills.sort((a, b) => b.name.compareTo(a.name));
+    isNameReversed = !isNameReversed;
+    if (isNameReversed) {
+      skills = skills.reversed.toList();
+    }
+
+    setState(() {});
+  }
+
+  void sortByTotalValue() {
+    skills.sort(compareByTotalValue);
+
+    isNameReversed = !isNameReversed;
+    if (isNameReversed) {
+      skills = skills.reversed.toList();
+    }
+
+    setState(() {});
+  }
+
+  int compareByTotalValue(Skill a, Skill b) {
+    final aTotal = skillTotal(a);
+    final bTotal = skillTotal(b);
+    if (aTotal < bTotal) {
+      return -1;
+    } else if (aTotal > bTotal) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  int skillTotal(Skill skill) {
+    int isClass = skill.isClass ? 3 : 0;
+    int miskTotal = 0;
+
+    SkillControllers skillControllers = widget.skillsControllers.firstWhere(
+      (e) => e.name == skill.name,
+    );
+    for (MiscContollers miscController
+        in skillControllers.listMiscControllers) {
+      miskTotal += parseIntFromString(miscController.valueController.text);
+    }
+
+    int acp = skill.ability == '' || skill.ability == ''
+        ? widget.chkPenaltyNotifier.value
+        : 0;
+
+    return isClass +
+        miskTotal +
+        acp +
+        parseIntFromString(skillControllers.rankController.text);
   }
 
   int countAllRanks() {
     int sum = 0;
-    for (Skill skill in wm.skillList.skills) {
-      sum += skill.ranks;
+    for (SkillControllers controllers in widget.skillsControllers) {
+      sum += parseIntFromString(controllers.rankController.text);
     }
     return sum;
   }
 
-  Widget deleteDialog(String skillName, BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Delete $skillName?',
-            style: AppStyles.commonPixel().copyWith(color: AppColors.darkPink),
-          ),
-          const SizedBox(height: 20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  wm.deleteSkill(skillName);
-                  Navigator.of(context).pop();
-                },
-                child: Text('Yes', style: AppStyles.commonPixel()),
-              ),
-
-              GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
-                child: Text('No', style: AppStyles.commonPixel()),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   SkillControllers getControllers(String skillName) {
-    return skillsControllers.firstWhere((element) => element.name == skillName);
+    SkillControllers controllers = widget.skillsControllers.firstWhere(
+      (element) => element.name == skillName,
+    );
+    return controllers;
   }
 
   getNotifier(String ability) {
@@ -176,700 +277,19 @@ class SkillsPage extends StatelessWidget {
     );
     switch (abilityEnum) {
       case AbilityEnum.str:
-        return strModificatorNotifier;
+        return widget.strModificatorNotifier;
       case AbilityEnum.dex:
-        return dexModificatorNotifier;
+        return widget.dexModificatorNotifier;
       case AbilityEnum.charint:
-        return intModificatorNotifier;
+        return widget.intModificatorNotifier;
       case AbilityEnum.wis:
-        return wisModificatorNotifier;
+        return widget.wisModificatorNotifier;
       case AbilityEnum.cha:
-        return chaModificatorNotifier;
+        return widget.chaModificatorNotifier;
       default:
-        return dexModificatorNotifier;
+        return widget.dexModificatorNotifier;
     }
   }
-}
-
-class AddSkillDialog extends StatefulWidget {
-  final ICharacterSheetWM wm;
-  const AddSkillDialog({required this.wm, super.key});
-
-  @override
-  State<AddSkillDialog> createState() => _AddSkillDialogState();
-}
-
-class _AddSkillDialogState extends State<AddSkillDialog> {
-  final TextEditingController nameController = TextEditingController();
-  String ability = 'STR';
-  String initialValue = 'STR';
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CustomTextField(
-            controller: nameController,
-            title: 'Name',
-
-            minLines: 1,
-          ),
-          const SizedBox(height: 8.0),
-          Row(
-            children: [
-              PopupMenuButton(
-                padding: EdgeInsets.zero,
-                menuPadding: EdgeInsets.zero,
-                position: PopupMenuPosition.under,
-                style: const ButtonStyle(alignment: Alignment.centerRight),
-                color: AppColors.darkBlue,
-                icon: Text(
-                  ability == '' ? initialValue : ability,
-                  textAlign: TextAlign.end,
-                  style: AppStyles.commonPixel(),
-                ),
-                initialValue: initialValue,
-                itemBuilder: (BuildContext context) => AbilityEnum.values
-                    .map<PopupMenuItem<String>>(
-                      (AbilityEnum ability) => PopupMenuItem<String>(
-                        value: ability.stringName(),
-                        child: Text(
-                          ability.stringName(),
-                          textAlign: TextAlign.end,
-                          style: AppStyles.commonPixel(),
-                        ),
-                      ),
-                    )
-                    .toList(),
-                onSelected: (value) => setState(() {
-                  ability = value;
-                }),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  widget.wm.addSkill(nameController.text, innerAbilityName());
-                  Navigator.of(context).pop();
-                },
-                child: Text('Save', style: AppStyles.commonPixel()),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  String innerAbilityName() {
-    if (ability == 'STR') return AbilityEnum.str.name;
-    if (ability == 'DEX') return AbilityEnum.dex.name;
-    if (ability == 'CON') return AbilityEnum.con.name;
-    if (ability == 'INT') return AbilityEnum.charint.name;
-    if (ability == 'WIS') return AbilityEnum.wis.name;
-    if (ability == 'CHA') return AbilityEnum.cha.name;
-    return AbilityEnum.str.name;
-  }
-}
-
-class SkillBlock extends StatefulWidget {
-  final ICharacterSheetWM wm;
-  final bool isFirst;
-  final Skill skill;
-  final ValueNotifier<int> abilityNotifier;
-  final SkillControllers controllers;
-  final ValueNotifier<int> chkPenaltyNotifier;
-
-  const SkillBlock({
-    required this.wm,
-    required this.isFirst,
-    required this.skill,
-    required this.abilityNotifier,
-    required this.controllers,
-    required this.chkPenaltyNotifier,
-    super.key,
-  });
-
-  @override
-  State<SkillBlock> createState() => _SkillBlockState();
-}
-
-class _SkillBlockState extends State<SkillBlock> {
-  final ValueNotifier<int> rankNotifier = ValueNotifier(0);
-
-  @override
-  void initState() {
-    if (widget.controllers.rankController.text.isEmpty) {
-      widget.controllers.rankController.text = '0';
-    }
-
-    rankNotifier.value = parseIntFromString(
-      widget.controllers.rankController.text,
-    );
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 1.0),
-      child: ValueListenableBuilder(
-        valueListenable: widget.chkPenaltyNotifier,
-        builder: (context, chkPenalty, child) {
-          return ValueListenableBuilder(
-            valueListenable: rankNotifier,
-            builder: (context, rankValue, child) {
-              return ValueListenableBuilder(
-                valueListenable: widget.abilityNotifier,
-                builder: (context, abilityModValue, child) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          if (widget.isFirst) const SizedBox(height: 19.0),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 6.0),
-                            child: RotatedBox(
-                              quarterTurns: 1,
-                              child: Text(
-                                getAbilityName(widget.skill.ability),
-                                style: AppStyles.commonPixel().copyWith(
-                                  fontSize: 6.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 8.0),
-
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (widget.isFirst)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Text(
-                                  'Name',
-                                  style: AppStyles.commonPixel().copyWith(
-                                    fontSize: 6.0,
-                                  ),
-                                ),
-                              ),
-                            GestureDetector(
-                              onTap: () async {
-                                await showDialog(
-                                  context: context,
-                                  builder: (context) => CustomDialog(
-                                    content: changeNameDialog(
-                                      context: context,
-                                      wm: widget.wm,
-                                      skillName: widget.skill.name,
-                                    ),
-                                  ),
-                                );
-                                setState(() {});
-                              },
-                              child: SizedBox(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    widget.skill.name,
-                                    style: AppStyles.commonPixel().copyWith(
-                                      fontSize: 9.0,
-                                      color: widget.skill.isClass
-                                          ? AppColors.darkPink
-                                          : AppColors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 4.0),
-
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (widget.isFirst)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Text(
-                                'Skill',
-                                style: AppStyles.commonPixel().copyWith(
-                                  fontSize: 6.0,
-                                ),
-                              ),
-                            ),
-                          SizedBox(
-                            height: 30.0,
-                            width: 42.0,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 4.0,
-                                vertical: 8.0,
-                              ),
-                              child: Text(
-                                countValue(
-                                          abilityModValue: abilityModValue,
-                                          rankValue: rankValue,
-                                          chkPenalty: chkPenalty,
-                                        ) >=
-                                        0
-                                    ? '+${countValue(abilityModValue: abilityModValue, rankValue: rankValue, chkPenalty: chkPenalty)}'
-                                    : countValue(
-                                        abilityModValue: abilityModValue,
-                                        rankValue: rankValue,
-                                        chkPenalty: chkPenalty,
-                                      ).toString(),
-                                style: AppStyles.commonPixel().copyWith(
-                                  fontSize: 9.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 4.0),
-
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (widget.isFirst)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Text(
-                                'Rank',
-                                style: AppStyles.commonPixel().copyWith(
-                                  fontSize: 6.0,
-                                ),
-                              ),
-                            ),
-                          CustomTextField(
-                            controller: widget.controllers.rankController,
-                            height: 30.0,
-                            width: 35.0,
-                            borderColorAlpha: 255,
-                            fontSize: 9.0,
-                            borderWidth: 1.0,
-                            formatters: [LengthLimitingTextInputFormatter(2)],
-                            contentPadding: const EdgeInsets.only(
-                              top: 8.0,
-                              left: 6.0,
-                            ),
-                            onChange: (value) {
-                              rankNotifier.value = parseIntFromString(value);
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 4.0),
-
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (widget.isFirst)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Text(
-                                'Misc',
-                                style: AppStyles.commonPixel().copyWith(
-                                  fontSize: 6.0,
-                                ),
-                              ),
-                            ),
-                          GestureDetector(
-                            onTap: () async {
-                              await showDialog(
-                                context: context,
-                                builder: (context) => CustomDialog(
-                                  content: MiscDialogContent(
-                                    context: context,
-                                    wm: widget.wm,
-                                    skill: widget.skill,
-                                    listMiscControllers:
-                                        widget.controllers.listMiscControllers,
-                                    abilityMod: abilityModValue,
-                                    chkPenalty: chkPenalty,
-                                  ),
-                                ),
-                              );
-                              countValue(
-                                abilityModValue: abilityModValue,
-                                rankValue: rankValue,
-                                chkPenalty: chkPenalty,
-                              );
-                              setState(() {});
-                            },
-                            child: SizedBox(
-                              height: 30.0,
-                              width: 42.0,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4.0,
-                                  vertical: 8.0,
-                                ),
-                                child: Text(
-                                  miscSum().toString(),
-                                  style: AppStyles.commonPixel().copyWith(
-                                    fontSize: 9.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 1.0),
-                    ],
-                  );
-                },
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
-
-  Widget changeNameDialog({
-    required ICharacterSheetWM wm,
-    required BuildContext context,
-    required String skillName,
-  }) {
-    TextEditingController controller = TextEditingController();
-    controller.text = skillName;
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CustomTextField(controller: controller, minLines: 1, fontSize: 10.0),
-          const SizedBox(height: 24.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  wm.changeSkillName(skillName, controller.text);
-                  Navigator.of(context).pop();
-                },
-                child: Text('Save', style: AppStyles.commonPixel()),
-              ),
-              GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
-                child: Text('Cancel', style: AppStyles.commonPixel()),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  String getAbilityName(String ability) {
-    AbilityEnum abilityEnum = AbilityEnum.values.firstWhere(
-      (element) => element.name == ability,
-    );
-
-    switch (abilityEnum) {
-      case AbilityEnum.str:
-        return 'STR';
-      case AbilityEnum.dex:
-        return 'DEX';
-      case AbilityEnum.con:
-        return 'CON';
-      case AbilityEnum.charint:
-        return 'INT';
-      case AbilityEnum.wis:
-        return 'WIS';
-      case AbilityEnum.cha:
-        return 'CHA';
-    }
-  }
-
-  int countValue({
-    required int abilityModValue,
-    required int rankValue,
-    required int chkPenalty,
-  }) {
-    int penalty = 0;
-
-    if (widget.skill.ability == 'str' || widget.skill.ability == 'dex') {
-      penalty = chkPenalty;
-    }
-    int isClassBonus = widget.skill.isClass ? 3 : 0;
-
-    int sum =
-        rankValue + isClassBonus + abilityModValue + miscSum() - penalty.abs();
-
-    return sum;
-  }
-
-  int miscSum() {
-    int miscSum = 0;
-
-    for (int i = 0; i < widget.controllers.listMiscControllers.length; i++) {
-      miscSum += parseIntFromString(
-        widget.controllers.listMiscControllers[i].valueController.text,
-      );
-    }
-
-    return miscSum;
-  }
-}
-
-class MiscDialogContent extends StatefulWidget {
-  final BuildContext context;
-  final ICharacterSheetWM wm;
-  final Skill skill;
-  final List<MiscContollers> listMiscControllers;
-  final int abilityMod;
-  final int chkPenalty;
-
-  const MiscDialogContent({
-    required this.context,
-    required this.wm,
-    required this.skill,
-    required this.listMiscControllers,
-    required this.abilityMod,
-    required this.chkPenalty,
-    super.key,
-  });
-
-  @override
-  State<MiscDialogContent> createState() => _MiscDialogContentState();
-}
-
-class _MiscDialogContentState extends State<MiscDialogContent> {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 500.0,
-      width: 100.0,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomCheckBox(
-                    wm: widget.wm,
-                    skillName: widget.skill.name,
-                    isClass: widget.skill.isClass,
-                  ),
-
-                  const SizedBox(width: 8.0),
-
-                  Text(
-                    'Ability: ${widget.abilityMod}',
-                    style: AppStyles.commonPixel().copyWith(
-                      fontSize: 8.0,
-                      color: AppColors.darkPink,
-                    ),
-                  ),
-
-                  const SizedBox(width: 8.0),
-                  if (widget.skill.ability == AbilityEnum.str.name ||
-                      widget.skill.ability == AbilityEnum.dex.name)
-                    Text(
-                      'ACP: ${widget.chkPenalty}',
-                      style: AppStyles.commonPixel().copyWith(
-                        fontSize: 8.0,
-                        color: AppColors.darkPink,
-                      ),
-                    ),
-                ],
-              ),
-
-              const SizedBox(height: 12.0),
-
-              ...miscsList(),
-
-              const SizedBox(height: 16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      widget.wm.addSkillMisc(widget.skill.name);
-                      setState(() {});
-                    },
-                    child: CustomPaint(
-                      painter: const FullBorderPainter(),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Add misc',
-                            style: AppStyles.commonPixel().copyWith(
-                              fontSize: 8.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  List<Widget> miscsList() {
-    final List<Widget> miscsWidgets = [];
-    for (int i = 0; i < widget.listMiscControllers.length; i++) {
-      miscsWidgets.add(
-        miscRow(
-          index: i,
-          skillName: widget.skill.name,
-          valueController: widget.listMiscControllers[i].valueController,
-          noteController: widget.listMiscControllers[i].noteController,
-        ),
-      );
-    }
-    return miscsWidgets;
-  }
-
-  Widget miscRow({
-    required int index,
-    required String skillName,
-    required TextEditingController valueController,
-    required TextEditingController noteController,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          CustomTextField(
-            controller: valueController,
-            fontSize: 10.0,
-            borderColorAlpha: 255,
-            minLines: 1,
-            height: 30,
-            width: 60,
-            formatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
-            ],
-          ),
-
-          const SizedBox(width: 8.0),
-
-          Expanded(
-            child: CustomTextField(
-              controller: noteController,
-              fontSize: 8.0,
-              borderColorAlpha: 255,
-              minLines: 1,
-              borderWidth: 1.0,
-            ),
-          ),
-
-          const SizedBox(width: 8.0),
-
-          GestureDetector(
-            onTap: () {
-              widget.wm.deleteSkillMisc(index, skillName);
-              setState(() {});
-            },
-            child: const Icon(Icons.close, color: AppColors.hp),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomCheckBox extends StatefulWidget {
-  final ICharacterSheetWM wm;
-  final bool isClass;
-  final String skillName;
-  const CustomCheckBox({
-    required this.wm,
-    required this.isClass,
-    required this.skillName,
-    super.key,
-  });
-
-  @override
-  State<CustomCheckBox> createState() => _CustomCheckBoxState();
-}
-
-class _CustomCheckBoxState extends State<CustomCheckBox> {
-  bool isChecked = true;
-
-  @override
-  void initState() {
-    isChecked = widget.isClass;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        isChecked = !isChecked;
-        widget.wm.setSkillClassed(widget.skillName, isChecked);
-        setState(() {});
-      },
-      child: SizedBox(
-        height: 20.0,
-        width: 20.0,
-        child: CustomPaint(
-          painter: const CheckBoxPainter(),
-          child: isChecked
-              ? const Icon(size: 20.0, Icons.check, color: AppColors.darkPink)
-              : const SizedBox(),
-        ),
-      ),
-    );
-  }
-}
-
-class CheckBoxPainter extends CustomPainter {
-  const CheckBoxPainter({Listenable? repaint});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    const cut = 0.2;
-    final widthCut = size.width * cut;
-
-    Paint paintFrame = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0
-      ..color = AppColors.white;
-    Path pathFrame = Path();
-
-    pathFrame.moveTo(0.0, 0.0);
-    pathFrame.lineTo(size.width - widthCut, 0.0);
-    pathFrame.lineTo(size.width, 0.0 + widthCut);
-    pathFrame.lineTo(size.width, size.height);
-    pathFrame.lineTo(0.0 + widthCut, size.height);
-    pathFrame.lineTo(0.0, size.height - widthCut);
-    pathFrame.close();
-    canvas.drawPath(pathFrame, paintFrame);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
 class SkillControllers {

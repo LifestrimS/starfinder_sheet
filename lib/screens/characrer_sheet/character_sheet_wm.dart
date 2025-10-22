@@ -852,10 +852,29 @@ class CharacterSheetWM
 
   void initSkillsControllers() {
     for (Skill skill in model.skillList.skills) {
+      TextEditingController rankController = TextEditingController();
+      rankController.text = skill.ranks.toString();
+
+      List<MiscContollers> miscControllers = [];
+
+      for (SkillMisc misc in skill.miscs) {
+        TextEditingController miscValueController = TextEditingController();
+        TextEditingController miscNoteController = TextEditingController();
+
+        miscValueController.text = misc.miscValue.toString();
+        miscNoteController.text = misc.miscNote;
+
+        MiscContollers miscController = MiscContollers(
+          valueController: miscValueController,
+          noteController: miscNoteController,
+        );
+        miscControllers.add(miscController);
+      }
+
       SkillControllers controllers = SkillControllers(
         name: skill.name,
-        rankController: TextEditingController(),
-        listMiscControllers: [],
+        rankController: rankController,
+        listMiscControllers: miscControllers,
       );
       _skillsControllers.add(controllers);
     }
@@ -1075,7 +1094,7 @@ class CharacterSheetWM
         isMagic: model.isMagic,
         weaponList: saveWeapons(),
         armorList: saveArmors(),
-        skillList: model.skillList,
+        skillList: saveSkills(),
       );
 
       model.saveCharacter(newCharacter);
@@ -1146,6 +1165,41 @@ class CharacterSheetWM
     }
 
     return ArmorList(armors: armorList);
+  }
+
+  SkillList saveSkills() {
+    List<Skill> skills = [];
+
+    for (var i = 0; i < _skillsControllers.length; i++) {
+      Skill tmpSkill = model.getSkillByName(_skillsControllers[i].name);
+
+      List<SkillMisc> listMiscs = [];
+
+      for (
+        int j = 0;
+        j < _skillsControllers[i].listMiscControllers.length;
+        j++
+      ) {
+        final SkillMisc skillMisc = SkillMisc(
+          miscValue: parseIntFromString(
+            _skillsControllers[i].listMiscControllers[j].valueController.text,
+          ),
+          miscNote:
+              _skillsControllers[i].listMiscControllers[j].noteController.text,
+        );
+        listMiscs.add(skillMisc);
+      }
+
+      final Skill skill = Skill(
+        name: _skillsControllers[i].name,
+        isClass: tmpSkill.isClass,
+        ability: tmpSkill.ability,
+        ranks: parseIntFromString(_skillsControllers[i].rankController.text),
+        miscs: listMiscs,
+      );
+      skills.add(skill);
+    }
+    return SkillList(skills: skills);
   }
 
   void initNotifiersAndControllers() {
