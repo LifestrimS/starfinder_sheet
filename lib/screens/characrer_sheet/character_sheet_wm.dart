@@ -849,9 +849,12 @@ class CharacterSheetWM
   void deleteArmor(int index) {
     _armorControllers.removeAt(index);
     _armorControllersNotifier.value = _armorControllers.length;
+    _eacControllers.armorNotifier.value = 0;
+    _kacControllers.armorNotifier.value = 0;
   }
 
   void initSkillsControllers() {
+    _skillsControllers.clear();
     for (Skill skill in model.skillList.skills) {
       TextEditingController rankController = TextEditingController();
       rankController.text = skill.ranks.toString();
