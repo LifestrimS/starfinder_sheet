@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/di_container.dart';
 import 'package:pathfinder_sheet/screens/splash_screen.dart';
 
@@ -6,7 +7,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DIContainer.init();
 
-  runApp(const MaterialApp(home: MyApp()));
+  runApp(
+    MaterialApp(
+      home: const MyApp(),
+      themeMode: ThemeMode.dark,
+      theme: ThemeData.dark().copyWith(
+        colorScheme: const ColorScheme.dark().copyWith(
+          primary: AppColors.darkPink,
+        ),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
