@@ -55,12 +55,16 @@ class _ResolveBlockState extends State<ResolveBlock> {
                     textAlign: TextAlign.left,
                     textAlignVertical: TextAlignVertical.center,
                     keyboardType: TextInputType.number,
+                    cursorColor: AppColors.darkPink,
                     decoration: const InputDecoration(
-                      border: InputBorder.none,
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.darkPink),
+                      ),
                       contentPadding: EdgeInsets.zero,
                     ),
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                      LengthLimitingTextInputFormatter(3),
                     ],
                     onChanged: (value) {
                       maxResolveNotifier.value = parseIntFromString(value);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/bab_block.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/live_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/vitals_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/resolve_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/saving_throws_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/page_template.dart';
@@ -30,7 +30,7 @@ class BattlePage extends StatelessWidget {
           controller: wm.liveBlockTextControllers.maxResolveController,
         ),
         const SizedBox(height: 12.0),
-        LiveBlock(wm: wm, controllers: wm.liveBlockTextControllers),
+        VitalsBlock(wm: wm, controllers: wm.liveBlockTextControllers),
 
         const Devider(title: 'BAB'),
         BabBlock(

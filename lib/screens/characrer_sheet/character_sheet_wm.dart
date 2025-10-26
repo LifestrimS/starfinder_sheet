@@ -15,7 +15,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/first_page/abil
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/ac_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/bab_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/dr_block.dart';
-import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/live_block.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/vitals_block.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/first_page/move.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/saving_throws_block.dart';
 import 'package:pathfinder_sheet/utils/debug_screen.dart';
