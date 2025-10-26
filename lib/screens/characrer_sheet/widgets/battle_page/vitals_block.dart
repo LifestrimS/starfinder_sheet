@@ -57,11 +57,12 @@ class VitalsBlock extends StatelessWidget {
                           textAlignVertical: TextAlignVertical.center,
                           keyboardType: TextInputType.number,
                           cursorColor: AppColors.darkPink,
+                          onTapOutside: (event) =>
+                              FocusManager.instance.primaryFocus?.unfocus(),
                           decoration: const InputDecoration(
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: AppColors.darkPink),
                             ),
-
                             contentPadding: EdgeInsets.zero,
                           ),
                           inputFormatters: [
@@ -144,6 +145,8 @@ class VitalsBlock extends StatelessWidget {
                           textAlignVertical: TextAlignVertical.center,
                           keyboardType: TextInputType.number,
                           cursorColor: AppColors.darkPink,
+                          onTapOutside: (event) =>
+                              FocusManager.instance.primaryFocus?.unfocus(),
                           decoration: const InputDecoration(
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: AppColors.darkPink),
@@ -213,6 +216,9 @@ class VitalsBlock extends StatelessWidget {
                       maxLines: null,
                       style: AppStyles.commonPixel(),
                       textAlign: TextAlign.center,
+                      onTapOutside: (event) =>
+                          FocusManager.instance.primaryFocus?.unfocus(),
+                      cursorColor: AppColors.darkPink,
                       textAlignVertical: TextAlignVertical.center,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
@@ -320,6 +326,8 @@ class VitalsBlock extends StatelessWidget {
                     maxLines: null,
                     style: AppStyles.commonPixel(),
                     textAlign: TextAlign.left,
+                    onTapOutside: (event) =>
+                        FocusManager.instance.primaryFocus?.unfocus(),
                     cursorColor: AppColors.darkPink,
                     textAlignVertical: TextAlignVertical.center,
                     keyboardType: TextInputType.number,

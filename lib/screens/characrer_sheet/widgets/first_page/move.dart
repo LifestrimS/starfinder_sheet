@@ -53,6 +53,9 @@ class Move extends StatelessWidget {
                   maxLines: null,
                   style: AppStyles.commonPixel(),
                   textAlign: TextAlign.center,
+                  onTapOutside: (event) =>
+                      FocusManager.instance.primaryFocus?.unfocus(),
+                  cursorColor: AppColors.darkPink,
                   textAlignVertical: TextAlignVertical.center,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(

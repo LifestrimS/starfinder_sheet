@@ -11,14 +11,15 @@ class ShortBioBlock extends StatefulWidget {
   final void Function(String alignment) setAlignment;
   final void Function(String alignment) setSize;
 
-  const ShortBioBlock(
-      {required this.character,
-      required this.nameController,
-      required this.classController,
-      required this.raceController,
-      required this.setAlignment,
-      required this.setSize,
-      super.key});
+  const ShortBioBlock({
+    required this.character,
+    required this.nameController,
+    required this.classController,
+    required this.raceController,
+    required this.setAlignment,
+    required this.setSize,
+    super.key,
+  });
 
   @override
   State<ShortBioBlock> createState() => _ShortBioBlockState();
@@ -30,56 +31,54 @@ class _ShortBioBlockState extends State<ShortBioBlock> {
     return SizedBox(
       height: 130.0,
       child: CustomPaint(
-          painter: ShortBioBlockPainter(),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 14.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                    child: ShortBioRow(
+        painter: ShortBioBlockPainter(),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 14.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: ShortBioRow(
                   name: 'Name:',
                   content: widget.character.charName,
                   controller: widget.nameController,
-                )),
-                const SizedBox(
-                  height: 4.0,
                 ),
-                Expanded(
-                    child: ShortBioRow(
+              ),
+              const SizedBox(height: 4.0),
+              Expanded(
+                child: ShortBioRow(
                   name: 'Class:',
                   content: widget.character.charClass,
                   controller: widget.classController,
-                )),
-                const SizedBox(
-                  height: 4.0,
                 ),
-                Expanded(
-                    child: ShortBioRow(
+              ),
+              const SizedBox(height: 4.0),
+              Expanded(
+                child: ShortBioRow(
                   name: 'Race:',
                   content: widget.character.race,
                   controller: widget.raceController,
-                )),
-                const SizedBox(
-                  height: 4.0,
                 ),
-                Expanded(
-                    child: ShortBioAlignment(
+              ),
+              const SizedBox(height: 4.0),
+              Expanded(
+                child: ShortBioAlignment(
                   initialValue: widget.character.alignment.alignName,
                   setAlignment: widget.setAlignment,
-                )),
-                const SizedBox(
-                  height: 4.0,
                 ),
-                Expanded(
-                    child: ShortBioSize(
+              ),
+              const SizedBox(height: 4.0),
+              Expanded(
+                child: ShortBioSize(
                   initialValue: widget.character.size.sizeName,
                   setSize: widget.setSize,
-                )),
-              ],
-            ),
-          )),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -113,11 +112,12 @@ class ShortBioRow extends StatelessWidget {
   final String content;
   final TextEditingController controller;
 
-  const ShortBioRow(
-      {required this.name,
-      required this.content,
-      required this.controller,
-      super.key});
+  const ShortBioRow({
+    required this.name,
+    required this.content,
+    required this.controller,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +135,9 @@ class ShortBioRow extends StatelessWidget {
             maxLines: null,
             style: AppStyles.commonPixel(),
             textAlign: TextAlign.right,
+            onTapOutside: (event) =>
+                FocusManager.instance.primaryFocus?.unfocus(),
+            cursorColor: AppColors.darkPink,
             decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.zero,
@@ -150,8 +153,11 @@ class ShortBioAlignment extends StatefulWidget {
   final String initialValue;
   final void Function(String alignment) setAlignment;
 
-  const ShortBioAlignment(
-      {required this.initialValue, required this.setAlignment, super.key});
+  const ShortBioAlignment({
+    required this.initialValue,
+    required this.setAlignment,
+    super.key,
+  });
 
   @override
   State<ShortBioAlignment> createState() => _ShortBioAlignmentState();
@@ -166,8 +172,10 @@ class _ShortBioAlignmentState extends State<ShortBioAlignment> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Alignment',
-            style: AppStyles.commonPixel().copyWith(fontSize: 8.0)),
+        Text(
+          'Alignment',
+          style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+        ),
         const Spacer(),
         Expanded(
           child: PopupMenuButton(
@@ -199,7 +207,7 @@ class _ShortBioAlignmentState extends State<ShortBioAlignment> {
               widget.setAlignment(value);
             }),
           ),
-        )
+        ),
       ],
     );
   }
@@ -209,8 +217,11 @@ class ShortBioSize extends StatefulWidget {
   final String initialValue;
   final void Function(String size) setSize;
 
-  const ShortBioSize(
-      {required this.initialValue, required this.setSize, super.key});
+  const ShortBioSize({
+    required this.initialValue,
+    required this.setSize,
+    super.key,
+  });
 
   @override
   State<ShortBioSize> createState() => _ShortBioSizeState();
@@ -256,7 +267,7 @@ class _ShortBioSizeState extends State<ShortBioSize> {
               widget.setSize(value);
             }),
           ),
-        )
+        ),
       ],
     );
   }

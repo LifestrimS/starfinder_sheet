@@ -81,6 +81,8 @@ class CustomTextField extends StatelessWidget {
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
                     cursorColor: AppColors.darkPink,
+                    onTapOutside: (event) =>
+                        FocusManager.instance.primaryFocus?.unfocus(),
                     style: AppStyles.commonPixel().copyWith(
                       fontSize: fontSize ?? 14.0,
                     ),

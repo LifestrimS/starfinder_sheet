@@ -196,6 +196,9 @@ class _AbilityCellState extends State<AbilityCell> {
                   textAlign: TextAlign.left,
                   textAlignVertical: TextAlignVertical.center,
                   keyboardType: TextInputType.number,
+                  onTapOutside: (event) =>
+                      FocusManager.instance.primaryFocus?.unfocus(),
+                  cursorColor: AppColors.darkPink,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.only(left: 0.0),
@@ -336,6 +339,8 @@ class _AbilityCellState extends State<AbilityCell> {
                     maxLines: null,
                     style: AppStyles.commonPixel(),
                     textAlign: TextAlign.left,
+                    onTapOutside: (event) =>
+                        FocusManager.instance.primaryFocus?.unfocus(),
                     cursorColor: AppColors.darkPink,
                     textAlignVertical: TextAlignVertical.center,
                     keyboardType: TextInputType.number,

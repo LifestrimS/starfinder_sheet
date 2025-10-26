@@ -56,6 +56,8 @@ class _ResolveBlockState extends State<ResolveBlock> {
                     textAlignVertical: TextAlignVertical.center,
                     keyboardType: TextInputType.number,
                     cursorColor: AppColors.darkPink,
+                    onTapOutside: (event) =>
+                        FocusManager.instance.primaryFocus?.unfocus(),
                     decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: AppColors.darkPink),

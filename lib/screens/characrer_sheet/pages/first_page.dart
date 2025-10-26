@@ -35,6 +35,9 @@ class FirstPage extends StatelessWidget {
                     expands: true,
                     maxLines: null,
                     keyboardType: TextInputType.number,
+                    onTapOutside: (event) =>
+                        FocusManager.instance.primaryFocus?.unfocus(),
+                    cursorColor: AppColors.darkPink,
                     style: AppStyles.commonPixel().copyWith(
                       color: AppColors.darkPink,
                     ),

@@ -60,6 +60,9 @@ class _BabBlockState extends State<BabBlock> {
                           textAlign: TextAlign.center,
                           textAlignVertical: TextAlignVertical.center,
                           keyboardType: TextInputType.number,
+                          onTapOutside: (event) =>
+                              FocusManager.instance.primaryFocus?.unfocus(),
+                          cursorColor: AppColors.darkPink,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.only(left: 4.0),
@@ -466,6 +469,9 @@ class DialogBox extends StatelessWidget {
                         textAlign: TextAlign.center,
                         textAlignVertical: TextAlignVertical.center,
                         keyboardType: TextInputType.number,
+                        onTapOutside: (event) =>
+                            FocusManager.instance.primaryFocus?.unfocus(),
+                        cursorColor: AppColors.darkPink,
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
                           border: InputBorder.none,

@@ -9,29 +9,33 @@ class Initiative extends StatelessWidget {
 
   final ValueNotifier dexModificatorNotifier;
 
-  const Initiative(
-      {required this.controller,
-      required this.dexModificatorNotifier,
-      super.key});
+  const Initiative({
+    required this.controller,
+    required this.dexModificatorNotifier,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: dexModificatorNotifier,
-        builder: (context, value, child) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                height: 45.0,
-                width: 75.0,
-                child: Stack(children: [
+      valueListenable: dexModificatorNotifier,
+      builder: (context, value, child) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(
+              height: 45.0,
+              width: 75.0,
+              child: Stack(
+                children: [
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       'Init',
-                      style: AppStyles.commonPixel()
-                          .copyWith(fontSize: 6.0, color: AppColors.darkPink),
+                      style: AppStyles.commonPixel().copyWith(
+                        fontSize: 6.0,
+                        color: AppColors.darkPink,
+                      ),
                     ),
                   ),
                   Align(
@@ -50,28 +54,27 @@ class Initiative extends StatelessWidget {
                       ),
                     ),
                   ),
-                ]),
+                ],
               ),
-              const SizedBox(
-                height: 22.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  '=',
-                  style: AppStyles.commonPixel(),
-                ),
-              ),
-              SizedBox(
-                height: 45.0,
-                width: 75.0,
-                child: Stack(children: [
+            ),
+            const SizedBox(height: 22.0),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text('=', style: AppStyles.commonPixel()),
+            ),
+            SizedBox(
+              height: 45.0,
+              width: 75.0,
+              child: Stack(
+                children: [
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       'Dex',
-                      style: AppStyles.commonPixel()
-                          .copyWith(fontSize: 6.0, color: AppColors.darkPink),
+                      style: AppStyles.commonPixel().copyWith(
+                        fontSize: 6.0,
+                        color: AppColors.darkPink,
+                      ),
                     ),
                   ),
                   Align(
@@ -90,28 +93,27 @@ class Initiative extends StatelessWidget {
                       ),
                     ),
                   ),
-                ]),
+                ],
               ),
-              const SizedBox(
-                height: 22.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  '+',
-                  style: AppStyles.commonPixel(),
-                ),
-              ),
-              SizedBox(
-                height: 45.0,
-                width: 75.0,
-                child: Stack(children: [
+            ),
+            const SizedBox(height: 22.0),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text('+', style: AppStyles.commonPixel()),
+            ),
+            SizedBox(
+              height: 45.0,
+              width: 75.0,
+              child: Stack(
+                children: [
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       'Misc',
-                      style: AppStyles.commonPixel()
-                          .copyWith(fontSize: 6.0, color: AppColors.darkPink),
+                      style: AppStyles.commonPixel().copyWith(
+                        fontSize: 6.0,
+                        color: AppColors.darkPink,
+                      ),
                     ),
                   ),
                   Align(
@@ -127,29 +129,35 @@ class Initiative extends StatelessWidget {
                           maxLines: null,
                           style: AppStyles.commonPixel(),
                           textAlign: TextAlign.center,
+                          onTapOutside: (event) =>
+                              FocusManager.instance.primaryFocus?.unfocus(),
+                          cursorColor: AppColors.darkPink,
                           textAlignVertical: TextAlignVertical.center,
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
-                            contentPadding:
-                                EdgeInsets.only(left: 4.0, top: 4.0),
+                            contentPadding: EdgeInsets.only(
+                              left: 4.0,
+                              top: 4.0,
+                            ),
                           ),
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
-                                RegExp(r'^-?[0-9]*')),
+                              RegExp(r'^-?[0-9]*'),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                ]),
+                ],
               ),
-              const SizedBox(
-                height: 22.0,
-              )
-            ],
-          );
-        });
+            ),
+            const SizedBox(height: 22.0),
+          ],
+        );
+      },
+    );
   }
 
   String countInit(int modificator) {
@@ -188,8 +196,9 @@ class MoveControllers {
   final TextEditingController flyController;
   final TextEditingController swimController;
 
-  const MoveControllers(
-      {required this.moveController,
-      required this.flyController,
-      required this.swimController});
+  const MoveControllers({
+    required this.moveController,
+    required this.flyController,
+    required this.swimController,
+  });
 }
