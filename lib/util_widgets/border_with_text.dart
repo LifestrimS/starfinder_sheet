@@ -1,5 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
+import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/utils/utils.dart';
+
+class ContainerBorderWithText extends StatelessWidget {
+  final String? title;
+  final double? height;
+  final double? width;
+  final int? borderColorAlpha;
+  final double? borderWidth;
+  final double? customCut;
+  final Color? customColor;
+  final Widget? child;
+
+  const ContainerBorderWithText({
+    required this.child,
+    this.title,
+    this.height,
+    this.width,
+    this.borderColorAlpha,
+    this.borderWidth,
+    this.customCut,
+    this.customColor,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height != null && title != null ? height! + 5 : null,
+      width: width != null && title != null ? width! + 5 : null,
+      child: Stack(
+        children: [
+          if (title != null)
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                title!,
+                style: AppStyles.commonPixel().copyWith(
+                  color: AppColors.darkPink,
+                  fontSize: 6.0,
+                ),
+              ),
+            ),
+          Padding(
+            padding: EdgeInsets.only(top: height == null ? 5.0 : 0.0),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: SizedBox(
+                height: height,
+                width: width,
+                child: CustomPaint(
+                  painter: BorderWithTextPainter(
+                    borderColorAlpha: borderColorAlpha,
+                    textWidth: title != null
+                        ? getTextSize(title ?? '', context)
+                        : null,
+                    customCut: customCut,
+                    customColor: customColor,
+                    borderWidth: borderWidth,
+                  ),
+                  child: child,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class BorderWithTextPainter extends CustomPainter {
   final int? borderColorAlpha;

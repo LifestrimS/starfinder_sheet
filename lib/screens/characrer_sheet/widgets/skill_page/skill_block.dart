@@ -218,7 +218,7 @@ class _SkillBlockState extends State<SkillBlock> {
                                 ),
                               ),
                             ),
-                          CustomTextField(
+                          CustomTextFieldWithBorder(
                             controller: widget.controllers.rankController,
                             height: 30.0,
                             width: 35.0,

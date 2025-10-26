@@ -5,7 +5,7 @@ import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/utils/utils.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextFieldWithBorder extends StatelessWidget {
   final TextEditingController controller;
   final String? title;
   final double? height;
@@ -22,7 +22,7 @@ class CustomTextField extends StatelessWidget {
   final List<TextInputFormatter>? formatters;
   final Function(String value)? onChange;
 
-  const CustomTextField({
+  const CustomTextFieldWithBorder({
     required this.controller,
     this.title,
     this.height,
@@ -106,6 +106,44 @@ class CustomTextField extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class VitalsTextFormField extends StatelessWidget {
+  final TextEditingController controller;
+
+  final Function(String value)? onChange;
+
+  const VitalsTextFormField({
+    required this.controller,
+    this.onChange,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      expands: true,
+      maxLines: null,
+      style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+      textAlign: TextAlign.left,
+      textAlignVertical: TextAlignVertical.center,
+      keyboardType: TextInputType.number,
+      cursorColor: AppColors.darkPink,
+      onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
+      decoration: const InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.darkPink),
+        ),
+        contentPadding: EdgeInsets.zero,
+      ),
+      onChanged: (value) => onChange != null ? onChange!(value) : null,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+        LengthLimitingTextInputFormatter(3),
+      ],
     );
   }
 }

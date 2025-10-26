@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
+import 'package:pathfinder_sheet/util_widgets/custom_text_form_field.dart';
 import 'package:pathfinder_sheet/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
@@ -46,31 +47,8 @@ class VitalsBlock extends StatelessWidget {
                       SizedBox(
                         width: 35.0,
                         height: 15.0,
-                        child: TextFormField(
+                        child: VitalsTextFormField(
                           controller: controllers.maxHpController,
-                          expands: true,
-                          maxLines: null,
-                          style: AppStyles.commonPixel().copyWith(
-                            fontSize: 8.0,
-                          ),
-                          textAlign: TextAlign.left,
-                          textAlignVertical: TextAlignVertical.center,
-                          keyboardType: TextInputType.number,
-                          cursorColor: AppColors.darkPink,
-                          onTapOutside: (event) =>
-                              FocusManager.instance.primaryFocus?.unfocus(),
-                          decoration: const InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.darkPink),
-                            ),
-                            contentPadding: EdgeInsets.zero,
-                          ),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                              RegExp(r'[0-9]*'),
-                            ),
-                            LengthLimitingTextInputFormatter(3),
-                          ],
                         ),
                       ),
                     ],
@@ -134,31 +112,8 @@ class VitalsBlock extends StatelessWidget {
                       SizedBox(
                         width: 35.0,
                         height: 15.0,
-                        child: TextFormField(
+                        child: VitalsTextFormField(
                           controller: controllers.maxStamController,
-                          expands: true,
-                          maxLines: null,
-                          style: AppStyles.commonPixel().copyWith(
-                            fontSize: 8.0,
-                          ),
-                          textAlign: TextAlign.left,
-                          textAlignVertical: TextAlignVertical.center,
-                          keyboardType: TextInputType.number,
-                          cursorColor: AppColors.darkPink,
-                          onTapOutside: (event) =>
-                              FocusManager.instance.primaryFocus?.unfocus(),
-                          decoration: const InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.darkPink),
-                            ),
-                            contentPadding: EdgeInsets.zero,
-                          ),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                              RegExp(r'[0-9]*'),
-                            ),
-                            LengthLimitingTextInputFormatter(3),
-                          ],
                         ),
                       ),
                     ],

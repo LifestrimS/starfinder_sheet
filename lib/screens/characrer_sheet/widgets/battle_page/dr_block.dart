@@ -12,7 +12,7 @@ class DrBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomTextField(
+        CustomTextFieldWithBorder(
           controller: controllers.drController,
           title: 'DRs',
           fontSize: 10.0,

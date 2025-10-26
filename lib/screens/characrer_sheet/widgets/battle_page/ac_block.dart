@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/dr_block.dart';
+import 'package:pathfinder_sheet/util_widgets/border_with_text.dart';
 import 'package:pathfinder_sheet/util_widgets/custom_text_form_field.dart';
 import 'package:pathfinder_sheet/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
@@ -65,54 +65,31 @@ class _ACBlockState extends State<ACBlock> {
                         );
                         update(isEac: true, armorBonus: eacArmorBonus);
                       },
-                      child: SizedBox(
-                        height: 57.0,
-                        width: 75.0,
-                        child: Stack(
-                          children: [
-                            ValueListenableBuilder(
-                              valueListenable: eacNotifier,
-                              builder: (context, value, child) {
-                                return Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: SizedBox(
-                                    height: 50.0,
-                                    width: 70.0,
-                                    child: CustomPaint(
-                                      painter: ACBorderPainter(),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 4.0,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            countAC(
-                                              controllers:
-                                                  widget.eacControllers,
-                                              armorBonus: eacArmorBonus,
-                                            ).toString(),
-                                            style: AppStyles.commonPixel()
-                                                .copyWith(fontSize: 14.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                      child: ValueListenableBuilder(
+                        valueListenable: eacNotifier,
+                        builder: (context, value, child) {
+                          return ContainerBorderWithText(
+                            height: 50.0,
+                            width: 70.0,
+                            title: 'EAC',
+                            borderColorAlpha: 255,
+                            customCut: 0.15,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 4.0),
+                              child: Center(
+                                child: Text(
+                                  countAC(
+                                    controllers: widget.eacControllers,
+                                    armorBonus: eacArmorBonus,
+                                  ).toString(),
+                                  style: AppStyles.commonPixel().copyWith(
+                                    fontSize: 14.0,
                                   ),
-                                );
-                              },
-                            ),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'EAC',
-                                style: AppStyles.commonPixel().copyWith(
-                                  color: AppColors.darkPink,
-                                  fontSize: 6.0,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
                     );
                   },
@@ -135,54 +112,38 @@ class _ACBlockState extends State<ACBlock> {
                         );
                         update(isEac: false, armorBonus: kacArmorBonus);
                       },
-                      child: SizedBox(
-                        height: 55.0,
-                        width: 75.0,
-                        child: Stack(
-                          children: [
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: SizedBox(
-                                height: 50.0,
-                                width: 70.0,
-                                child: CustomPaint(
-                                  painter: ACBorderPainter(),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 4.0),
-                                    child: Center(
-                                      child: Text(
-                                        countAC(
-                                          controllers: widget.kacControllers,
-                                          armorBonus: kacArmorBonus,
-                                        ).toString(),
-                                        style: AppStyles.commonPixel().copyWith(
-                                          fontSize: 14.0,
-                                        ),
-                                      ),
-                                    ),
+                      child: ValueListenableBuilder(
+                        valueListenable: eacNotifier,
+                        builder: (context, value, child) {
+                          return ContainerBorderWithText(
+                            height: 50.0,
+                            width: 70.0,
+                            title: 'EAC',
+                            borderColorAlpha: 255,
+                            customCut: 0.15,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 4.0),
+                              child: Center(
+                                child: Text(
+                                  countAC(
+                                    controllers: widget.kacControllers,
+                                    armorBonus: kacArmorBonus,
+                                  ).toString(),
+                                  style: AppStyles.commonPixel().copyWith(
+                                    fontSize: 14.0,
                                   ),
                                 ),
                               ),
                             ),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'KAC',
-                                style: AppStyles.commonPixel().copyWith(
-                                  color: AppColors.darkPink,
-                                  fontSize: 6.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
                     );
                   },
                 ),
                 SizedBox(
                   width: 75.0,
-                  child: CustomTextField(
+                  child: CustomTextFieldWithBorder(
                     controller: widget.drSrControllers.srController,
                     title: 'SRs',
                     textAlign: TextAlign.center,
@@ -198,7 +159,7 @@ class _ACBlockState extends State<ACBlock> {
           },
         ),
         const SizedBox(height: 12.0),
-        CustomTextField(
+        CustomTextFieldWithBorder(
           controller: widget.drSrControllers.drController,
           title: 'Resistances/Immunities',
           fontSize: 10.0,
@@ -289,7 +250,7 @@ class _ACBlockState extends State<ACBlock> {
               ),
               plusSymbol(),
               DialogBox(
-                title: 'Deflect',
+                title: 'Def',
                 controller: controllers.deflectController,
                 widthCutCount: 5,
               ),
@@ -338,122 +299,32 @@ class DialogBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 45.0,
-      width: 55.0,
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.bottomRight,
-            child: SizedBox(
-              height: 40.0,
-              width: 50.0,
-              child: CustomPaint(
-                painter: DialogFramePainter(widthCutCount: widthCutCount),
-                child: controller != null
-                    ? TextFormField(
-                        controller: controller,
-                        //initialValue: '13',
-                        expands: true,
-                        maxLines: null,
-                        style: AppStyles.commonPixel(),
-                        textAlign: TextAlign.center,
-                        textAlignVertical: TextAlignVertical.center,
-                        keyboardType: TextInputType.number,
-                        onTapOutside: (event) =>
-                            FocusManager.instance.primaryFocus?.unfocus(),
-                        cursorColor: AppColors.darkPink,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 4.0, top: 4.0),
-                          border: InputBorder.none,
-                        ),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp(r'^-?[0-9]*'),
-                          ),
-                        ],
-                      )
-                    : Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Text(
-                            value.toString(),
-                            style: AppStyles.commonPixel(),
-                          ),
-                        ),
-                      ),
+    return controller != null
+        ? CustomTextFieldWithBorder(
+            controller: controller!,
+            title: title,
+            height: 40.0,
+            width: 50.0,
+            borderColorAlpha: 255,
+            customCut: 0.17,
+            fontSize: 10.0,
+            textAlign: TextAlign.center,
+            contentPadding: const EdgeInsets.only(top: 12.0, left: 4.0),
+          )
+        : ContainerBorderWithText(
+            height: 40.0,
+            width: 50.0,
+            borderColorAlpha: 255,
+            title: title,
+            customCut: 0.17,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 4.0),
+                child: Text(value.toString(), style: AppStyles.commonPixel()),
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              title,
-              style: AppStyles.commonPixel().copyWith(
-                color: AppColors.darkPink,
-                fontSize: 6.0,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+          );
   }
-}
-
-class ACBorderPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    const cut = 0.15;
-
-    Paint paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.0
-      ..color = AppColors.teal;
-    Path path = Path();
-
-    path.moveTo(size.width * (cut * 2), 0.0);
-
-    path.lineTo(size.width * (1 - cut), 0.0);
-    path.lineTo(size.width, size.height * cut);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width * cut, size.height);
-    path.lineTo(0.0, size.height * (1 - cut));
-    path.lineTo(0.0, size.height * cut * 1.2);
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
-}
-
-class DialogFramePainter extends CustomPainter {
-  final double widthCutCount;
-
-  const DialogFramePainter({required this.widthCutCount, Listenable? repaint});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    const cut = 0.17;
-
-    Paint paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.0
-      ..color = AppColors.teal;
-    Path path = Path();
-
-    path.moveTo(size.width * (cut * widthCutCount), 0.0);
-    path.lineTo(size.width * (1 - cut), 0.0);
-    path.lineTo(size.width, size.height * cut);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width * cut, size.height);
-    path.lineTo(0.0, size.height * (1 - cut));
-    path.lineTo(0.0, size.height * cut * 1.2);
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
 class AcControllers {

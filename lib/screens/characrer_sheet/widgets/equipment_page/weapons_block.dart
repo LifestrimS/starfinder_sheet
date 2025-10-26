@@ -334,7 +334,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
     required String title,
     required TextEditingController controller,
   }) {
-    return CustomTextField(
+    return CustomTextFieldWithBorder(
       title: title,
       controller: controller,
       height: null,
@@ -352,7 +352,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
     required TextEditingController controller,
     bool isCentered = false,
   }) {
-    return CustomTextField(
+    return CustomTextFieldWithBorder(
       title: title,
       controller: controller,
       height: null,

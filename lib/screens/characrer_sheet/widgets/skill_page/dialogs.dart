@@ -66,7 +66,7 @@ class _AddSkillDialogState extends State<AddSkillDialog> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CustomTextField(
+          CustomTextFieldWithBorder(
             controller: nameController,
             title: 'Name',
 
@@ -146,7 +146,11 @@ Widget changeNameDialog({
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        CustomTextField(controller: controller, minLines: 1, fontSize: 10.0),
+        CustomTextFieldWithBorder(
+          controller: controller,
+          minLines: 1,
+          fontSize: 10.0,
+        ),
         const SizedBox(height: 24.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -297,7 +301,7 @@ class _MiscDialogContentState extends State<MiscDialogContent> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          CustomTextField(
+          CustomTextFieldWithBorder(
             controller: valueController,
             fontSize: 10.0,
             borderColorAlpha: 255,
@@ -312,7 +316,7 @@ class _MiscDialogContentState extends State<MiscDialogContent> {
           const SizedBox(width: 8.0),
 
           Expanded(
-            child: CustomTextField(
+            child: CustomTextFieldWithBorder(
               controller: noteController,
               fontSize: 8.0,
               borderColorAlpha: 255,
