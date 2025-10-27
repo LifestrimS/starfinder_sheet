@@ -285,19 +285,6 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
               title: 'Notes',
               controller: widget.controllers.notesController,
             ),
-            // CustomTextField(
-            //   title: 'Notes',
-            //   controller: widget.controllers.notesController,
-            //   fontSize: 10.0,
-            //   textAlign: TextAlign.left,
-            //   textAlignVertical: TextAlignVertical.center,
-            //   contentPadding: const EdgeInsets.only(
-            //     left: 8.0,
-            //     right: 8.0,
-            //     top: 14.0,
-            //     bottom: 4.0,
-            //   ),
-            // ),
             const SizedBox(height: 12.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

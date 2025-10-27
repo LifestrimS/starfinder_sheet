@@ -130,10 +130,6 @@ class _AbilityCellState extends State<AbilityCell> {
                         isTmp: isHaveTmpValue(),
                         nameWidth: getTextSize(getName(), context),
                         numbersCount: widget.controller.text.length,
-                        // valueWidth: getTextSize(
-                        //   widget.controller.text,
-                        //   context,
-                        // ),
                       ),
                       child: Stack(
                         children: [

@@ -18,13 +18,6 @@ class DrBlock extends StatelessWidget {
           fontSize: 10.0,
           borderColorAlpha: 255,
         ),
-        // const SizedBox(height: 12.0),
-        // CustomTextField(
-        //   controller: controllers.srController,
-        //   title: 'SRs',
-        //   fontSize: 10.0,
-        //   borderColorAlpha: 255,
-        // ),
       ],
     );
   }

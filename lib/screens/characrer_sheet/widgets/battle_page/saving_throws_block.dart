@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
+import 'package:pathfinder_sheet/util_widgets/border_with_text.dart';
 import 'package:pathfinder_sheet/util_widgets/dialog.dart';
 import 'package:pathfinder_sheet/util_widgets/dialog_box.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
@@ -104,49 +104,26 @@ class _STHRBlockState extends State<STHRBlock> {
         );
         setState(() {});
       },
-      child: SizedBox(
-        height: 55.0,
-        width: 75.0,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.bottomRight,
-              child: SizedBox(
-                height: 50.0,
-                width: 70.0,
-                child: CustomPaint(
-                  painter: STHRBorderPainter(),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
-                    child: Center(
-                      child: ValueListenableBuilder(
-                        valueListenable: widget.modificatorNotifier,
-                        builder: (context, modValue, child) {
-                          return Text(
-                            countTHR(modValue),
-                            style: AppStyles.commonPixel().copyWith(
-                              fontSize: 14.0,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
+      child: ValueListenableBuilder(
+        valueListenable: widget.modificatorNotifier,
+        builder: (context, modValue, child) {
+          return ContainerBorderWithText(
+            height: 50.0,
+            width: 70.0,
+            title: widget.title,
+            borderColorAlpha: 255,
+            customCut: 0.17,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Center(
+                child: Text(
+                  countTHR(modValue),
+                  style: AppStyles.commonPixel().copyWith(fontSize: 14.0),
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                widget.title,
-                style: AppStyles.commonPixel().copyWith(
-                  color: AppColors.darkPink,
-                  fontSize: 6.0,
-                ),
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -227,31 +204,6 @@ class _STHRBlockState extends State<STHRBlock> {
       ),
     );
   }
-}
-
-class STHRBorderPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    const cut = 0.19;
-
-    Paint paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.0
-      ..color = AppColors.teal;
-    Path path = Path();
-
-    path.moveTo(size.width * (cut * 2), 0.0);
-    path.lineTo(size.width * (1 - cut), 0.0);
-    path.lineTo(size.width, size.height * cut);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width * cut, size.height);
-    path.lineTo(0.0, size.height * (1 - cut));
-    path.lineTo(0.0, size.height * cut * 1.2);
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
 class STHRTexEditingControllers {

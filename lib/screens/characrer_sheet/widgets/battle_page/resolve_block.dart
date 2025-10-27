@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/util_widgets/custom_text_form_field.dart';
@@ -70,9 +68,6 @@ class _ResolveBlockState extends State<ResolveBlock> {
                         maxResolve: maxResolve,
                       ),
                     ),
-                    widget.wm.maxResolve > 8
-                        ? Column(children: buttons(context))
-                        : Row(children: buttons(context, isVertical: false)),
                   ],
                 );
               },
@@ -81,48 +76,6 @@ class _ResolveBlockState extends State<ResolveBlock> {
         );
       },
     );
-  }
-
-  List<Widget> buttons(BuildContext context, {bool isVertical = true}) {
-    return [
-      GestureDetector(
-        onTap: widget.wm.addResolve,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0, top: 4.0),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.teal, width: 2.0),
-              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-            ),
-            child: const Icon(
-              size: 16.0,
-              Icons.add_sharp,
-              color: AppColors.teal,
-            ),
-          ),
-        ),
-      ),
-      GestureDetector(
-        onTap: widget.wm.removeResolve,
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: isVertical ? 8.0 : 4.0,
-            top: isVertical ? 8.0 : 4.0,
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.teal, width: 2.0),
-              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-            ),
-            child: const Icon(
-              size: 16.0,
-              Icons.remove_sharp,
-              color: AppColors.teal,
-            ),
-          ),
-        ),
-      ),
-    ];
   }
 
   Widget resolveGrid({required int currentResolve, required int maxResolve}) {
@@ -150,16 +103,12 @@ class _ResolveBlockState extends State<ResolveBlock> {
 
   void addResolveByTap(int tapedIndex, int currentResolve, int maxResolve) {
     if (tapedIndex + 1 > currentResolve && tapedIndex + 1 <= maxResolve) {
-      log(
-        'add current: $currentResolve index: ${tapedIndex + 1} maxResolve: $maxResolve',
-      );
       for (int i = 0; i <= tapedIndex - currentResolve; i++) {
         widget.wm.addResolve();
       }
     }
 
     if (tapedIndex + 1 <= currentResolve && tapedIndex + 1 >= 0) {
-      log('remove current: $currentResolve index: ${tapedIndex + 1}');
       for (int i = 1; i <= currentResolve - tapedIndex; i++) {
         widget.wm.removeResolve();
       }
