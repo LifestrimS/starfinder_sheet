@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
 import 'package:pathfinder_sheet/util_widgets/dialog.dart';
+import 'package:pathfinder_sheet/util_widgets/dialog_box.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/utils/utils.dart';
@@ -189,7 +190,7 @@ class _STHRBlockState extends State<STHRBlock> {
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text('+', style: AppStyles.commonPixel()),
               ),
-              DialogBox(title: 'Abil', value: modValue),
+              DialogBox(title: 'Abil', value: modValue.toString()),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text('+', style: AppStyles.commonPixel()),
@@ -221,76 +222,6 @@ class _STHRBlockState extends State<STHRBlock> {
                 child: Text("Done", style: AppStyles.commonPixel()),
               ),
             ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class DialogBox extends StatelessWidget {
-  final String title;
-  final TextEditingController? controller;
-  final int? value;
-  const DialogBox({
-    required this.title,
-    this.controller,
-    this.value,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 55.0,
-      width: 75.0,
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.bottomRight,
-            child: SizedBox(
-              height: 50.0,
-              width: 70.0,
-              child: CustomPaint(
-                painter: STHRBorderPainter(),
-                child: controller != null
-                    ? TextFormField(
-                        controller: controller,
-                        expands: true,
-                        maxLines: null,
-                        style: AppStyles.commonPixel(),
-                        textAlign: TextAlign.center,
-                        onTapOutside: (event) =>
-                            FocusManager.instance.primaryFocus?.unfocus(),
-                        cursorColor: AppColors.darkPink,
-                        textAlignVertical: TextAlignVertical.center,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(left: 4.0),
-                        ),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
-                        ],
-                      )
-                    : Center(
-                        child: Text(
-                          value.toString(),
-                          style: AppStyles.commonPixel(),
-                        ),
-                      ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              title,
-              style: AppStyles.commonPixel().copyWith(
-                color: AppColors.darkPink,
-                fontSize: 6.0,
-              ),
-            ),
           ),
         ],
       ),

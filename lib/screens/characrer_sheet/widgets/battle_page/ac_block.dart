@@ -3,6 +3,7 @@ import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/battle_page/dr_
 import 'package:pathfinder_sheet/util_widgets/border_with_text.dart';
 import 'package:pathfinder_sheet/util_widgets/custom_text_form_field.dart';
 import 'package:pathfinder_sheet/util_widgets/dialog.dart';
+import 'package:pathfinder_sheet/util_widgets/dialog_box.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 import 'package:pathfinder_sheet/utils/utils.dart';
@@ -215,24 +216,18 @@ class _ACBlockState extends State<ACBlock> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const DialogBox(title: 'Base', value: 10),
+              const DialogBox(title: 'Base', value: '10'),
               plusSymbol(),
-              DialogBox(
-                title: 'Dex',
-                value: dexModificator,
-                widthCutCount: 2.5,
-              ),
+              DialogBox(title: 'Dex', value: dexModificator.toString()),
               plusSymbol(),
               DialogBox(
                 title: 'Armor',
-                value: controllers.armorNotifier.value,
-                widthCutCount: 4.2,
+                value: controllers.armorNotifier.value.toString(),
               ),
               plusSymbol(),
               DialogBox(
                 title: 'Dodge',
                 controller: controllers.dodgeController,
-                widthCutCount: 4.2,
               ),
               plusSymbol(),
             ],
@@ -246,13 +241,11 @@ class _ACBlockState extends State<ACBlock> {
               DialogBox(
                 title: 'Natur',
                 controller: controllers.naturalController,
-                widthCutCount: 4.2,
               ),
               plusSymbol(),
               DialogBox(
                 title: 'Def',
                 controller: controllers.deflectController,
-                widthCutCount: 5,
               ),
               plusSymbol(),
               DialogBox(title: 'Misc', controller: controllers.miscController),
@@ -273,57 +266,6 @@ class _ACBlockState extends State<ACBlock> {
         ],
       ),
     );
-  }
-
-  Widget plusSymbol() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 18.0, left: 6.0),
-      child: Text('+', style: AppStyles.commonPixel()),
-    );
-  }
-}
-
-class DialogBox extends StatelessWidget {
-  final String title;
-  final TextEditingController? controller;
-  final int? value;
-  final double widthCutCount;
-
-  const DialogBox({
-    required this.title,
-    this.controller,
-    this.value,
-    this.widthCutCount = 3,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return controller != null
-        ? CustomTextFieldWithBorder(
-            controller: controller!,
-            title: title,
-            height: 40.0,
-            width: 50.0,
-            borderColorAlpha: 255,
-            customCut: 0.17,
-            fontSize: 10.0,
-            textAlign: TextAlign.center,
-            contentPadding: const EdgeInsets.only(top: 12.0, left: 4.0),
-          )
-        : ContainerBorderWithText(
-            height: 40.0,
-            width: 50.0,
-            borderColorAlpha: 255,
-            title: title,
-            customCut: 0.17,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Text(value.toString(), style: AppStyles.commonPixel()),
-              ),
-            ),
-          );
   }
 }
 
