@@ -43,7 +43,6 @@ class _BabBlockState extends State<BabBlock> {
         CustomTextFieldWithBorder(
           height: 40.0,
           width: 60.0,
-          borderColorAlpha: 255,
           controller: widget.controllers.babController,
           title: 'BAB',
           fontSize: 10.0,
@@ -89,7 +88,6 @@ class _BabBlockState extends State<BabBlock> {
                         child: ContainerBorderWithText(
                           height: 40.0,
                           width: 60.0,
-                          borderColorAlpha: 255,
                           title: 'MAB',
                           customCut: 0.17,
                           child: Center(
@@ -126,7 +124,6 @@ class _BabBlockState extends State<BabBlock> {
                         child: ContainerBorderWithText(
                           height: 40.0,
                           width: 60.0,
-                          borderColorAlpha: 255,
                           title: 'TAB',
                           customCut: 0.17,
                           child: Center(
@@ -165,7 +162,6 @@ class _BabBlockState extends State<BabBlock> {
                             child: ContainerBorderWithText(
                               height: 40.0,
                               width: 60.0,
-                              borderColorAlpha: 255,
                               title: 'RAB',
                               customCut: 0.17,
                               child: Center(

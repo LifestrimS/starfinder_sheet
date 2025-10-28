@@ -98,7 +98,7 @@ class BorderWithTextPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth ?? 3.0
       ..color =
-          customColor ?? AppColors.teal.withAlpha(borderColorAlpha ?? 150);
+          customColor ?? AppColors.teal.withAlpha(borderColorAlpha ?? 255);
     Path path = Path();
 
     path.moveTo(textWidth != null ? textWidth! + 6.0 : 0.0, 0.0);

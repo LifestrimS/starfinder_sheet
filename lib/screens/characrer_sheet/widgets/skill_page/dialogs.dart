@@ -304,7 +304,6 @@ class _MiscDialogContentState extends State<MiscDialogContent> {
           CustomTextFieldWithBorder(
             controller: valueController,
             fontSize: 10.0,
-            borderColorAlpha: 255,
             minLines: 1,
             height: 30,
             width: 60,
@@ -319,7 +318,6 @@ class _MiscDialogContentState extends State<MiscDialogContent> {
             child: CustomTextFieldWithBorder(
               controller: noteController,
               fontSize: 8.0,
-              borderColorAlpha: 255,
               minLines: 1,
               borderWidth: 1.0,
             ),

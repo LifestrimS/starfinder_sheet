@@ -16,7 +16,6 @@ class DrBlock extends StatelessWidget {
           controller: controllers.drController,
           title: 'DRs',
           fontSize: 10.0,
-          borderColorAlpha: 255,
         ),
       ],
     );

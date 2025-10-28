@@ -24,7 +24,6 @@ class DialogBox extends StatelessWidget {
             title: title,
             height: 40.0,
             width: 50.0,
-            borderColorAlpha: 255,
             customCut: 0.17,
             fontSize: 10.0,
             textAlign: TextAlign.center,
@@ -36,7 +35,6 @@ class DialogBox extends StatelessWidget {
         : ContainerBorderWithText(
             height: 40.0,
             width: 50.0,
-            borderColorAlpha: 255,
             title: title,
             customCut: 0.17,
             child: Center(

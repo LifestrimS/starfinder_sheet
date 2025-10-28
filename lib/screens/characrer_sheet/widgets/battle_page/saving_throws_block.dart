@@ -111,7 +111,6 @@ class _STHRBlockState extends State<STHRBlock> {
             height: 50.0,
             width: 70.0,
             title: widget.title,
-            borderColorAlpha: 255,
             customCut: 0.17,
             child: Padding(
               padding: const EdgeInsets.only(top: 4.0),

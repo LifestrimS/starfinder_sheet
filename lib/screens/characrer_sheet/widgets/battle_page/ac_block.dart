@@ -73,7 +73,6 @@ class _ACBlockState extends State<ACBlock> {
                             height: 50.0,
                             width: 70.0,
                             title: 'EAC',
-                            borderColorAlpha: 255,
                             customCut: 0.15,
                             child: Padding(
                               padding: const EdgeInsets.only(top: 4.0),
@@ -120,7 +119,6 @@ class _ACBlockState extends State<ACBlock> {
                             height: 50.0,
                             width: 70.0,
                             title: 'EAC',
-                            borderColorAlpha: 255,
                             customCut: 0.15,
                             child: Padding(
                               padding: const EdgeInsets.only(top: 4.0),
@@ -150,7 +148,6 @@ class _ACBlockState extends State<ACBlock> {
                     textAlign: TextAlign.center,
                     contentPadding: const EdgeInsets.only(top: 14.0),
                     minLines: 1,
-                    borderColorAlpha: 255,
                     customCut: 0.15,
                     height: 55.0,
                   ),
@@ -164,7 +161,6 @@ class _ACBlockState extends State<ACBlock> {
           controller: widget.drSrControllers.drController,
           title: 'Resistances/Immunities',
           fontSize: 10.0,
-          borderColorAlpha: 255,
         ),
       ],
     );

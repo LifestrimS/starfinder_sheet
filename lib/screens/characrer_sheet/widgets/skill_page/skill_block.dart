@@ -222,7 +222,6 @@ class _SkillBlockState extends State<SkillBlock> {
                             controller: widget.controllers.rankController,
                             height: 30.0,
                             width: 35.0,
-                            borderColorAlpha: 255,
                             fontSize: 9.0,
                             borderWidth: 1.0,
                             formatters: [
