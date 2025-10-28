@@ -328,9 +328,9 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
     return CustomTextFieldWithBorder(
       title: title,
       controller: controller,
+      context: context,
       height: null,
       minLines: 1,
-      customCut: 0.03,
       fontSize: 10.0,
       textAlign: TextAlign.center,
       textAlignVertical: TextAlignVertical.center,
@@ -348,6 +348,7 @@ class _ExpansionBlockState extends State<ExpansionBlock> {
       controller: controller,
       height: null,
       borderColorAlpha: 150,
+      context: context,
       fontSize: isCentered ? 14.0 : 10.0,
       textAlign: isCentered ? TextAlign.center : TextAlign.left,
       textAlignVertical: TextAlignVertical.center,

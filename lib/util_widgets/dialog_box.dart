@@ -21,10 +21,10 @@ class DialogBox extends StatelessWidget {
     return controller != null
         ? CustomTextFieldWithBorder(
             controller: controller!,
+            context: context,
             title: title,
             height: 40.0,
             width: 50.0,
-            customCut: 0.17,
             fontSize: 10.0,
             textAlign: TextAlign.center,
             contentPadding: const EdgeInsets.only(top: 12.0, left: 4.0),
@@ -36,7 +36,6 @@ class DialogBox extends StatelessWidget {
             height: 40.0,
             width: 50.0,
             title: title,
-            customCut: 0.17,
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.only(top: 4.0),

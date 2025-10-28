@@ -43,12 +43,12 @@ class _BabBlockState extends State<BabBlock> {
         CustomTextFieldWithBorder(
           height: 40.0,
           width: 60.0,
+          context: context,
           controller: widget.controllers.babController,
           title: 'BAB',
           fontSize: 10.0,
           textAlign: TextAlign.center,
           contentPadding: const EdgeInsets.only(top: 12.0),
-          customCut: 0.17,
           formatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]*'))],
         ),
 
@@ -89,7 +89,6 @@ class _BabBlockState extends State<BabBlock> {
                           height: 40.0,
                           width: 60.0,
                           title: 'MAB',
-                          customCut: 0.1,
                           child: Center(
                             child: Text(
                               getValue(BabType.mab, strMod),
@@ -125,7 +124,6 @@ class _BabBlockState extends State<BabBlock> {
                           height: 40.0,
                           width: 60.0,
                           title: 'TAB',
-                          customCut: 0.1,
                           child: Center(
                             child: Text(
                               getValue(BabType.tab, strMod),
@@ -163,7 +161,6 @@ class _BabBlockState extends State<BabBlock> {
                               height: 40.0,
                               width: 60.0,
                               title: 'RAB',
-                              customCut: 0.1,
                               child: Center(
                                 child: Text(
                                   getValue(BabType.rab, dexMod),

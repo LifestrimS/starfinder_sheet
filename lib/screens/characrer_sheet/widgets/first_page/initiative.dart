@@ -28,7 +28,6 @@ class Initiative extends StatelessWidget {
               height: 40.0,
               width: 70.0,
               title: 'Init',
-              customCut: 0.1,
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 4.0),
@@ -45,7 +44,6 @@ class Initiative extends StatelessWidget {
               height: 40.0,
               width: 70.0,
               title: 'Dex',
-              customCut: 0.1,
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 4.0),
@@ -63,8 +61,8 @@ class Initiative extends StatelessWidget {
               height: 40.0,
               width: 70.0,
               title: 'Misc',
-              customCut: 0.1,
               controller: controller,
+              context: context,
               fontSize: 10.0,
               textAlign: TextAlign.center,
               contentPadding: const EdgeInsets.only(top: 12.0, left: 4.0),

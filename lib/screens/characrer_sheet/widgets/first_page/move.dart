@@ -12,9 +12,9 @@ class Move extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        speedBlock(controllers.moveController, 'Move', 4),
-        speedBlock(controllers.flyController, 'Fly', 2.5),
-        speedBlock(controllers.swimController, 'Swim', 3.5),
+        speedBlock(controllers.moveController, 'Move', 4, context),
+        speedBlock(controllers.flyController, 'Fly', 2.5, context),
+        speedBlock(controllers.swimController, 'Swim', 3.5, context),
       ],
     );
   }
@@ -23,12 +23,13 @@ class Move extends StatelessWidget {
     TextEditingController controller,
     String title,
     double cutModificator,
+    BuildContext context,
   ) {
     return CustomTextFieldWithBorder(
       height: 40.0,
       width: 70.0,
       title: title,
-      customCut: 0.1,
+      context: context,
       controller: controller,
       fontSize: 10.0,
       textAlign: TextAlign.center,

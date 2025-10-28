@@ -73,7 +73,6 @@ class _ACBlockState extends State<ACBlock> {
                             height: 50.0,
                             width: 70.0,
                             title: 'EAC',
-                            customCut: 0.15,
                             child: Padding(
                               padding: const EdgeInsets.only(top: 4.0),
                               child: Center(
@@ -119,7 +118,6 @@ class _ACBlockState extends State<ACBlock> {
                             height: 50.0,
                             width: 70.0,
                             title: 'EAC',
-                            customCut: 0.15,
                             child: Padding(
                               padding: const EdgeInsets.only(top: 4.0),
                               child: Center(
@@ -144,11 +142,11 @@ class _ACBlockState extends State<ACBlock> {
                   width: 75.0,
                   child: CustomTextFieldWithBorder(
                     controller: widget.drSrControllers.srController,
+                    context: context,
                     title: 'SRs',
                     textAlign: TextAlign.center,
                     contentPadding: const EdgeInsets.only(top: 14.0),
                     minLines: 1,
-                    customCut: 0.15,
                     height: 55.0,
                   ),
                 ),
@@ -158,6 +156,7 @@ class _ACBlockState extends State<ACBlock> {
         ),
         const SizedBox(height: 12.0),
         CustomTextFieldWithBorder(
+          context: context,
           controller: widget.drSrControllers.drController,
           title: 'Resistances/Immunities',
           fontSize: 10.0,

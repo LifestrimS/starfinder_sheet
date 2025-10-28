@@ -53,6 +53,7 @@ class ContainerBorderWithText extends StatelessWidget {
                 child: CustomPaint(
                   painter: BorderWithTextPainter(
                     borderColorAlpha: borderColorAlpha,
+                    context: context,
                     textWidth: title != null
                         ? getTextSize(title ?? '', context)
                         : null,
@@ -78,6 +79,7 @@ class BorderWithTextPainter extends CustomPainter {
   final double? textWidth;
   final Color? customColor;
   final double? borderWidth;
+  final BuildContext context;
 
   const BorderWithTextPainter({
     this.borderColorAlpha,
@@ -86,13 +88,13 @@ class BorderWithTextPainter extends CustomPainter {
     this.textWidth,
     this.customColor,
     this.borderWidth,
+    required this.context,
     Listenable? repaint,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final cut = customCut ?? 0.05;
-    final widthCut = size.width * cut;
+    final cut = customCut ?? MediaQuery.of(context).size.width * 0.02;
 
     Paint paint = Paint()
       ..style = PaintingStyle.stroke
@@ -103,11 +105,11 @@ class BorderWithTextPainter extends CustomPainter {
 
     path.moveTo(textWidth != null ? textWidth! + 4.0 : 0.0, 0.0);
 
-    path.lineTo(size.width - widthCut, 0.0);
-    path.lineTo(size.width, 0.0 + widthCut);
+    path.lineTo(size.width - cut, 0.0);
+    path.lineTo(size.width, 0.0 + cut);
     path.lineTo(size.width, size.height);
-    path.lineTo(0.0 + widthCut, size.height);
-    path.lineTo(0.0, size.height - widthCut);
+    path.lineTo(0.0 + cut, size.height);
+    path.lineTo(0.0, size.height - cut);
     path.lineTo(0.0, textWidth != null ? 8.0 : 0.0);
     if (textWidth == null) {
       path.close();

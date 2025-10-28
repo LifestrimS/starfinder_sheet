@@ -69,7 +69,7 @@ class _AddSkillDialogState extends State<AddSkillDialog> {
           CustomTextFieldWithBorder(
             controller: nameController,
             title: 'Name',
-
+            context: context,
             minLines: 1,
           ),
           const SizedBox(height: 8.0),
@@ -150,6 +150,7 @@ Widget changeNameDialog({
           controller: controller,
           minLines: 1,
           fontSize: 10.0,
+          context: context,
         ),
         const SizedBox(height: 24.0),
         Row(
@@ -307,6 +308,7 @@ class _MiscDialogContentState extends State<MiscDialogContent> {
             minLines: 1,
             height: 30,
             width: 60,
+            context: context,
             formatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^-?[0-9]*')),
             ],
@@ -320,6 +322,7 @@ class _MiscDialogContentState extends State<MiscDialogContent> {
               fontSize: 8.0,
               minLines: 1,
               borderWidth: 1.0,
+              context: context,
             ),
           ),
 

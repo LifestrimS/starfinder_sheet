@@ -14,6 +14,7 @@ class DrBlock extends StatelessWidget {
       children: [
         CustomTextFieldWithBorder(
           controller: controllers.drController,
+          context: context,
           title: 'DRs',
           fontSize: 10.0,
         ),

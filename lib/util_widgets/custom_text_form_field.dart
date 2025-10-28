@@ -21,6 +21,7 @@ class CustomTextFieldWithBorder extends StatelessWidget {
   final int? minLines;
   final List<TextInputFormatter>? formatters;
   final Function(String value)? onChange;
+  final BuildContext context;
 
   const CustomTextFieldWithBorder({
     required this.controller,
@@ -38,6 +39,7 @@ class CustomTextFieldWithBorder extends StatelessWidget {
     this.minLines,
     this.formatters,
     this.onChange,
+    required this.context,
     super.key,
   });
 
@@ -68,6 +70,7 @@ class CustomTextFieldWithBorder extends StatelessWidget {
                 width: width,
                 child: CustomPaint(
                   painter: BorderWithTextPainter(
+                    context: context,
                     borderColorAlpha: borderColorAlpha,
                     textWidth: title != null
                         ? getTextSize(title ?? '', context)
