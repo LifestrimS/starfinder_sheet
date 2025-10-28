@@ -101,7 +101,7 @@ class BorderWithTextPainter extends CustomPainter {
           customColor ?? AppColors.teal.withAlpha(borderColorAlpha ?? 255);
     Path path = Path();
 
-    path.moveTo(textWidth != null ? textWidth! + 6.0 : 0.0, 0.0);
+    path.moveTo(textWidth != null ? textWidth! + 4.0 : 0.0, 0.0);
 
     path.lineTo(size.width - widthCut, 0.0);
     path.lineTo(size.width, 0.0 + widthCut);
