@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
-import 'package:pathfinder_sheet/utils/styles.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/magic_page/title_row.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/page_template.dart';
 
 class MagicPage extends StatelessWidget {
   final ICharacterSheetWM wm;
@@ -8,12 +9,18 @@ class MagicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Magic',
-        textAlign: TextAlign.center,
-        style: AppStyles.commonPixel(),
-      ),
+    return PageTemplate(
+      wm: wm,
+      content: [
+        TitleRow(
+          strModNotifier: wm.strModificatorNotifier(),
+          dexModNotifier: wm.dexModificatorNotifier(),
+          conModNotifier: wm.conModificatorNotifier(),
+          intModNotifier: wm.intModificatorNotifier(),
+          wisModNotifier: wm.wisModificatorNotifier(),
+          chaModNotifier: wm.chaModificatorNotifier(),
+        ),
+      ],
     );
   }
 }

@@ -219,8 +219,8 @@ class CharacterSheetWM
   Character? _character;
   List<Character?> characterList = [];
   int? _currentPage;
-  List<WeaponControllers> _weaponControllers = [];
-  List<ArmorControllers> _armorControllers = [];
+  final List<WeaponControllers> _weaponControllers = [];
+  final List<ArmorControllers> _armorControllers = [];
 
   @override
   int get currentPage => _currentPage ?? 0;

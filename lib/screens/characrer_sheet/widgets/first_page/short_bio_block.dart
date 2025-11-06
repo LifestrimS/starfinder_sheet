@@ -189,7 +189,7 @@ class _ShortBioAlignmentState extends State<ShortBioAlignment> {
               textAlign: TextAlign.end,
               style: AppStyles.commonPixel(),
             ),
-            initialValue: widget.initialValue,
+            initialValue: alignment,
             itemBuilder: (BuildContext context) => CharAlignment.values
                 .map<PopupMenuItem<String>>(
                   (CharAlignment alignment) => PopupMenuItem<String>(
@@ -249,7 +249,7 @@ class _ShortBioSizeState extends State<ShortBioSize> {
               textAlign: TextAlign.end,
               style: AppStyles.commonPixel(),
             ),
-            initialValue: widget.initialValue,
+            initialValue: size,
             itemBuilder: (BuildContext context) => CharSize.values
                 .map<PopupMenuItem<String>>(
                   (CharSize size) => PopupMenuItem<String>(

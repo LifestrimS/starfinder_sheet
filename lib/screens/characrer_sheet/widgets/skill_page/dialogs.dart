@@ -86,7 +86,7 @@ class _AddSkillDialogState extends State<AddSkillDialog> {
                   textAlign: TextAlign.end,
                   style: AppStyles.commonPixel(),
                 ),
-                initialValue: initialValue,
+                initialValue: ability,
                 itemBuilder: (BuildContext context) => AbilityEnum.values
                     .map<PopupMenuItem<String>>(
                       (AbilityEnum ability) => PopupMenuItem<String>(
