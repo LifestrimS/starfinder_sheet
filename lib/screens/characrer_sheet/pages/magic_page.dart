@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pathfinder_sheet/models.dart/character.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/character_sheet_wm.dart';
+import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/magic_page/magic_lvl_bloc.dart';
 import 'package:pathfinder_sheet/screens/characrer_sheet/widgets/page_template.dart';
 import 'package:pathfinder_sheet/utils/colors.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
@@ -26,15 +27,15 @@ class _MagicPageState extends State<MagicPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PageTemplate(
-      wm: widget.wm,
-      content: [
-        Padding(
-          padding: const EdgeInsets.only(top: 12.0),
-          child: ValueListenableBuilder<int>(
-            valueListenable: getNotifier(innerAbilityName(ability)),
-            builder: (context, abilityMod, child) {
-              return Row(
+    return ValueListenableBuilder<int>(
+      valueListenable: getNotifier(innerAbilityName(ability)),
+      builder: (context, abilityMod, child) {
+        return PageTemplate(
+          wm: widget.wm,
+          content: [
+            Padding(
+              padding: const EdgeInsets.only(top: 12.0),
+              child: Row(
                 children: [
                   PopupMenuButton(
                     padding: EdgeInsets.zero,
@@ -80,11 +81,16 @@ class _MagicPageState extends State<MagicPage> {
                     ),
                   ),
                 ],
-              );
-            },
-          ),
-        ),
-      ],
+              ),
+            ),
+            const SizedBox(height: 12.0),
+            const MagicLvl(lvl: 0),
+            const MagicLvl(lvl: 1),
+            const MagicLvl(lvl: 2),
+            const MagicLvl(lvl: 3),
+          ],
+        );
+      },
     );
   }
 
