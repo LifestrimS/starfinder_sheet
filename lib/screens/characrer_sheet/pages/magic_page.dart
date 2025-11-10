@@ -30,6 +30,7 @@ class _MagicPageState extends State<MagicPage> {
     return ValueListenableBuilder<int>(
       valueListenable: getNotifier(innerAbilityName(ability)),
       builder: (context, abilityMod, child) {
+        final baseDC = 10 + abilityMod;
         return PageTemplate(
           wm: widget.wm,
           content: [
@@ -75,7 +76,7 @@ class _MagicPageState extends State<MagicPage> {
                   ),
                   const Spacer(),
                   Text(
-                    'Base DC: ${10 + abilityMod}',
+                    'Base DC: $baseDC',
                     style: AppStyles.commonPixel().copyWith(
                       color: AppColors.darkPink,
                     ),
@@ -84,10 +85,10 @@ class _MagicPageState extends State<MagicPage> {
               ),
             ),
             const SizedBox(height: 12.0),
-            const MagicLvl(lvl: 0),
-            const MagicLvl(lvl: 1),
-            const MagicLvl(lvl: 2),
-            const MagicLvl(lvl: 3),
+            MagicLvl(lvl: 0, baseDC: baseDC),
+            MagicLvl(lvl: 1, baseDC: baseDC),
+            MagicLvl(lvl: 2, baseDC: baseDC),
+            MagicLvl(lvl: 3, baseDC: baseDC),
           ],
         );
       },

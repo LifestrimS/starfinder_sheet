@@ -5,9 +5,20 @@ import 'package:pathfinder_sheet/util_widgets/custom_text_form_field.dart';
 import 'package:pathfinder_sheet/util_widgets/devider.dart';
 import 'package:pathfinder_sheet/utils/styles.dart';
 
-class MagicLvl extends StatelessWidget {
+class MagicLvl extends StatefulWidget {
   final int lvl;
-  const MagicLvl({required this.lvl, super.key});
+  final int baseDC;
+  const MagicLvl({required this.lvl, required this.baseDC, super.key});
+
+  @override
+  State<MagicLvl> createState() => _MagicLvlState();
+}
+
+class _MagicLvlState extends State<MagicLvl> {
+  final ValueNotifier<int> totalBonusNotifier = ValueNotifier(5);
+  final ValueNotifier<int> currentBonusNotifier = ValueNotifier(2);
+  final ValueNotifier<int> totalPerDayNotifier = ValueNotifier(8);
+  final ValueNotifier<int> currentPerDayNotifier = ValueNotifier(6);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +37,10 @@ class MagicLvl extends StatelessWidget {
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: Text('$lvl-lvl', style: AppStyles.commonPixel()),
+                child: Text(
+                  '${widget.lvl}-lvl',
+                  style: AppStyles.commonPixel(),
+                ),
               ),
               const Spacer(),
               Padding(
@@ -36,67 +50,114 @@ class MagicLvl extends StatelessWidget {
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0, right: 24.0),
-                child: Text('DC: 15', style: AppStyles.commonPixel()),
+                child: Text(
+                  'DC: ${widget.baseDC + widget.lvl}',
+                  style: AppStyles.commonPixel(),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 8.0),
-          Padding(
-            padding: const EdgeInsets.only(left: 24.0, right: 24.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Bonus spell',
-                  style: AppStyles.commonPixel().copyWith(fontSize: 6.0),
-                ),
-                Text(
-                  '2/5',
-                  style: AppStyles.commonPixel().copyWith(fontSize: 6.0),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 4.0),
-          Padding(
-            padding: const EdgeInsets.only(left: 24.0, right: 24.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: bonusSpellGrid(currentResolve: 2, maxResolve: 5),
-                ),
-              ],
-            ),
+          ValueListenableBuilder<int>(
+            valueListenable: totalBonusNotifier,
+            builder: (context, totalBonus, child) {
+              return ValueListenableBuilder<int>(
+                valueListenable: currentBonusNotifier,
+                builder: (context, currentBonus, child) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Bonus spell',
+                              style: AppStyles.commonPixel().copyWith(
+                                fontSize: 6.0,
+                              ),
+                            ),
+                            Text(
+                              '$currentBonus/$totalBonus',
+                              style: AppStyles.commonPixel().copyWith(
+                                fontSize: 6.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 4.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: bonusSpellGrid(
+                                currentSpell: currentBonus,
+                                maxSpell: totalBonus,
+                                currentBonus: currentBonusNotifier,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
           const SizedBox(height: 8.0),
-          Padding(
-            padding: const EdgeInsets.only(left: 24.0, right: 24.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Spell / day',
-                  style: AppStyles.commonPixel().copyWith(fontSize: 6.0),
-                ),
-                Text(
-                  '1/8',
-                  style: AppStyles.commonPixel().copyWith(fontSize: 6.0),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 4.0),
-          Padding(
-            padding: const EdgeInsets.only(left: 24.0, right: 24.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: bonusSpellGrid(currentResolve: 1, maxResolve: 8),
-                ),
-              ],
-            ),
+          ValueListenableBuilder(
+            valueListenable: totalPerDayNotifier,
+            builder: (context, totalPerDay, child) {
+              return ValueListenableBuilder(
+                valueListenable: currentPerDayNotifier,
+                builder: (context, currentPerDay, child) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Spell / day',
+                              style: AppStyles.commonPixel().copyWith(
+                                fontSize: 6.0,
+                              ),
+                            ),
+                            Text(
+                              '$currentPerDay/$totalPerDay',
+                              style: AppStyles.commonPixel().copyWith(
+                                fontSize: 6.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 4.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: bonusSpellGrid(
+                                currentSpell: currentPerDay,
+                                maxSpell: totalPerDay,
+                                currentBonus: currentPerDayNotifier,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
           const SizedBox(height: 8.0),
           Padding(
@@ -113,11 +174,12 @@ class MagicLvl extends StatelessWidget {
   }
 
   Widget bonusSpellGrid({
-    required int currentResolve,
-    required int maxResolve,
+    required int currentSpell,
+    required int maxSpell,
+    required ValueNotifier currentBonus,
   }) {
     return GridView.builder(
-      itemCount: maxResolve,
+      itemCount: maxSpell,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -128,10 +190,11 @@ class MagicLvl extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            //addResolveByTap(index, currentResolve, maxResolve);
+            //addResolveByTap(index, currentSpell, maxSpell);
+            currentBonus.value = index + 1;
           },
           child: CustomPaint(
-            painter: ResolveCounterPainer(isFilled: index < currentResolve),
+            painter: ResolveCounterPainer(isFilled: index < currentSpell),
           ),
         );
       },
