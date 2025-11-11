@@ -37,22 +37,59 @@ class _MagicLvlState extends State<MagicLvl> {
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '${widget.lvl}-lvl',
-                  style: AppStyles.commonPixel(),
+                child: SizedBox(
+                  width: 95.0,
+                  height: 15.0,
+                  child: VitalsTextFormField(
+                    controller: TextEditingController(
+                      text: '${widget.lvl}-lvl',
+                    ),
+                    formatters: const [],
+                    textInputTupe: TextInputType.text,
+                  ),
                 ),
               ),
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: Text('known: 6', style: AppStyles.commonPixel()),
+                child: Text(
+                  'known:',
+                  style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+                ),
+              ),
+              SizedBox(
+                width: 25.0,
+                height: 15.0,
+                child: VitalsTextFormField(
+                  controller: TextEditingController(),
+                  formatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                    LengthLimitingTextInputFormatter(2),
+                  ],
+                ),
               ),
               const Spacer(),
               Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 24.0),
+                padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
-                  'DC: ${widget.baseDC + widget.lvl}',
-                  style: AppStyles.commonPixel(),
+                  'DC:',
+                  style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 24.0),
+                child: SizedBox(
+                  width: 25.0,
+                  height: 15.0,
+                  child: VitalsTextFormField(
+                    controller: TextEditingController(
+                      text: '${widget.baseDC + widget.lvl}',
+                    ),
+                    formatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+                      LengthLimitingTextInputFormatter(2),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -77,10 +114,43 @@ class _MagicLvlState extends State<MagicLvl> {
                                 fontSize: 6.0,
                               ),
                             ),
+                            const Spacer(),
+                            SizedBox(
+                              width: 20.0,
+                              height: 15.0,
+                              child: VitalsTextFormField(
+                                controller: TextEditingController(
+                                  text: currentBonus.toString(),
+                                ),
+                                fontSize: 6.0,
+                                formatters: [
+                                  FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9]*'),
+                                  ),
+                                  LengthLimitingTextInputFormatter(2),
+                                ],
+                              ),
+                            ),
                             Text(
-                              '$currentBonus/$totalBonus',
+                              '/',
                               style: AppStyles.commonPixel().copyWith(
                                 fontSize: 6.0,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20.0,
+                              height: 15.0,
+                              child: VitalsTextFormField(
+                                controller: TextEditingController(
+                                  text: totalBonus.toString(),
+                                ),
+                                fontSize: 6.0,
+                                formatters: [
+                                  FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9]*'),
+                                  ),
+                                  LengthLimitingTextInputFormatter(2),
+                                ],
                               ),
                             ),
                           ],
@@ -97,6 +167,7 @@ class _MagicLvlState extends State<MagicLvl> {
                                 currentSpell: currentBonus,
                                 maxSpell: totalBonus,
                                 currentBonus: currentBonusNotifier,
+                                totalBonus: totalPerDayNotifier,
                               ),
                             ),
                           ],
@@ -128,10 +199,43 @@ class _MagicLvlState extends State<MagicLvl> {
                                 fontSize: 6.0,
                               ),
                             ),
+                            const Spacer(),
+                            SizedBox(
+                              width: 20.0,
+                              height: 15.0,
+                              child: VitalsTextFormField(
+                                controller: TextEditingController(
+                                  text: currentPerDay.toString(),
+                                ),
+                                fontSize: 6.0,
+                                formatters: [
+                                  FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9]*'),
+                                  ),
+                                  LengthLimitingTextInputFormatter(2),
+                                ],
+                              ),
+                            ),
                             Text(
-                              '$currentPerDay/$totalPerDay',
+                              '/',
                               style: AppStyles.commonPixel().copyWith(
                                 fontSize: 6.0,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20.0,
+                              height: 15.0,
+                              child: VitalsTextFormField(
+                                controller: TextEditingController(
+                                  text: totalPerDay.toString(),
+                                ),
+                                fontSize: 6.0,
+                                formatters: [
+                                  FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9]*'),
+                                  ),
+                                  LengthLimitingTextInputFormatter(2),
+                                ],
                               ),
                             ),
                           ],
@@ -148,6 +252,7 @@ class _MagicLvlState extends State<MagicLvl> {
                                 currentSpell: currentPerDay,
                                 maxSpell: totalPerDay,
                                 currentBonus: currentPerDayNotifier,
+                                totalBonus: totalPerDayNotifier,
                               ),
                             ),
                           ],
@@ -177,6 +282,7 @@ class _MagicLvlState extends State<MagicLvl> {
     required int currentSpell,
     required int maxSpell,
     required ValueNotifier currentBonus,
+    required ValueNotifier totalBonus,
   }) {
     return GridView.builder(
       itemCount: maxSpell,
@@ -190,7 +296,7 @@ class _MagicLvlState extends State<MagicLvl> {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            //addResolveByTap(index, currentSpell, maxSpell);
+            addSpellByTap(index, currentBonus, totalBonus);
             currentBonus.value = index + 1;
           },
           child: CustomPaint(
@@ -199,6 +305,39 @@ class _MagicLvlState extends State<MagicLvl> {
         );
       },
     );
+  }
+
+  void addSpellByTap(
+    int tapedIndex,
+    ValueNotifier currentBonus,
+    ValueNotifier totalBonus,
+  ) {
+    if (tapedIndex + 1 > currentBonus.value &&
+        tapedIndex + 1 <= totalBonus.value) {
+      for (int i = 0; i <= tapedIndex - currentBonus.value; i++) {
+        addSpell(currentBonus, totalBonus);
+      }
+    }
+
+    if (tapedIndex + 1 <= currentBonus.value && tapedIndex + 1 >= 0) {
+      for (int i = 1; i <= currentBonus.value - tapedIndex; i++) {
+        removeSpell(currentBonus, totalBonus);
+      }
+    }
+  }
+
+  void addSpell(ValueNotifier currentBonus, ValueNotifier totalBonus) {
+    if (totalBonus.value - currentBonus.value > 1) {
+      currentBonus.value += 1;
+    } else {
+      currentBonus = totalBonus;
+    }
+  }
+
+  void removeSpell(ValueNotifier currentBonus, ValueNotifier totalBonus) {
+    if (currentBonus.value != 0) {
+      currentBonus.value -= 1;
+    }
   }
 
   Widget getTextField({

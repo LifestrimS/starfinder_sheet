@@ -115,12 +115,18 @@ class CustomTextFieldWithBorder extends StatelessWidget {
 
 class VitalsTextFormField extends StatelessWidget {
   final TextEditingController controller;
+  final List<TextInputFormatter>? formatters;
+  final double? fontSize;
+  final TextInputType? textInputTupe;
 
   final Function(String value)? onChange;
 
   const VitalsTextFormField({
     required this.controller,
+    this.formatters,
+    this.fontSize,
     this.onChange,
+    this.textInputTupe,
     super.key,
   });
 
@@ -130,10 +136,10 @@ class VitalsTextFormField extends StatelessWidget {
       controller: controller,
       expands: true,
       maxLines: null,
-      style: AppStyles.commonPixel().copyWith(fontSize: 8.0),
+      style: AppStyles.commonPixel().copyWith(fontSize: fontSize ?? 8.0),
       textAlign: TextAlign.left,
       textAlignVertical: TextAlignVertical.center,
-      keyboardType: TextInputType.number,
+      keyboardType: textInputTupe ?? TextInputType.number,
       cursorColor: AppColors.darkPink,
       onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
       decoration: const InputDecoration(
@@ -143,10 +149,12 @@ class VitalsTextFormField extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
       ),
       onChanged: (value) => onChange != null ? onChange!(value) : null,
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
-        LengthLimitingTextInputFormatter(3),
-      ],
+      inputFormatters:
+          formatters ??
+          [
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9]*')),
+            LengthLimitingTextInputFormatter(3),
+          ],
     );
   }
 }
